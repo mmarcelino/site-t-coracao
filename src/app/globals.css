@@ -245,8 +245,9 @@
   }
 }
 
-/* Calendar (react-day-picker) themed with our tokens */
-.tc-calendar {
+/* Calendar (react-day-picker) themed with our tokens. `.rdp-root.tc-calendar` outranks the
+   library's own stylesheet, which loads after ours. */
+.rdp-root.tc-calendar {
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-limestone);
   --rdp-day-height: 2.75rem;
@@ -264,14 +265,14 @@
   font-size: 0.9375rem;
 }
 
-.tc-calendar .rdp-month_caption {
+.rdp-root.tc-calendar .rdp-month_caption {
   font-weight: 500;
   font-size: 0.9375rem;
   letter-spacing: 0.01em;
   text-transform: capitalize;
 }
 
-.tc-calendar .rdp-weekday {
+.rdp-root.tc-calendar .rdp-weekday {
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -280,32 +281,38 @@
   opacity: 1;
 }
 
-.tc-calendar .rdp-chevron {
+.rdp-root.tc-calendar .rdp-chevron {
   fill: var(--color-ink);
   width: 1rem;
   height: 1rem;
 }
 
-.tc-calendar .rdp-day_button:hover:not([disabled]) {
+.rdp-root.tc-calendar .rdp-day_button:hover:not([disabled]) {
   background: var(--color-sand);
 }
 
-.tc-calendar .rdp-selected .rdp-day_button:hover {
-  background: inherit;
+/* Range ends stay filled (also on hover/focus); days in between keep the tint. */
+.rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button,
+.rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.rdp-root.tc-calendar .rdp-range_middle .rdp-day_button:hover {
+  background: transparent;
 }
 
 /* Unavailable nights: struck through, clearly not selectable, still legible */
-.tc-calendar .tc-day-unavailable {
+.rdp-root.tc-calendar .tc-day-unavailable {
   color: var(--color-granite);
   opacity: 1;
 }
 
-.tc-calendar .tc-day-unavailable .rdp-day_button {
+.rdp-root.tc-calendar .tc-day-unavailable .rdp-day_button {
   text-decoration: line-through;
   text-decoration-color: var(--color-stone);
 }
 
-.tc-calendar .rdp-day_button:focus-visible {
+.rdp-root.tc-calendar .rdp-day_button:focus-visible {
   outline: 2px solid var(--color-azulejo);
   outline-offset: 1px;
 }

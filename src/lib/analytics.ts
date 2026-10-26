@@ -8,7 +8,7 @@
  */
 
 export type AnalyticsEvents = {
-  search_submitted: { checkIn?: string; checkOut?: string; guests: number; cot: boolean };
+  search_submitted: { checkIn?: string; checkOut?: string; guests: number };
   listing_viewed: { listingId: string; buildingId: string };
   booking_widget_opened: { listingId: string };
   dates_selected: { listingId: string; checkIn: string; checkOut: string; nights: number };

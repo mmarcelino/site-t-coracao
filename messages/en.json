@@ -85,10 +85,7 @@
     "calendarLabel": "Choose your arrival and departure dates",
     "arrive": "Arrival",
     "choose": "Choose",
-    "depart": "Departure",
-    "cot": "Cot",
-    "cotYes": "Yes",
-    "cotNo": "No"
+    "depart": "Departure"
   },
   "booking": {
     "title": "Book direct",
@@ -263,8 +260,7 @@
     "available": "available from {checkIn} to {checkOut}",
     "forGuests": "for {guests}",
     "none": "No homes match this search. Try other dates or another filter.",
-    "clear": "Clear search",
-    "withCot": "with a cot"
+    "clear": "Clear search"
   },
   "notFound": {
     "title": "This page doesn't exist yet.",

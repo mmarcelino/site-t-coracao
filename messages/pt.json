@@ -85,10 +85,7 @@
     "calendarLabel": "Escolha as datas de chegada e partida",
     "arrive": "Chegada",
     "choose": "Escolher",
-    "depart": "Partida",
-    "cot": "Berço",
-    "cotYes": "Sim",
-    "cotNo": "Não"
+    "depart": "Partida"
   },
   "booking": {
     "title": "Reserve diretamente",
@@ -263,8 +260,7 @@
     "available": "disponíveis de {checkIn} a {checkOut}",
     "forGuests": "para {guests}",
     "none": "Nenhuma casa corresponde a esta pesquisa. Experimente outras datas ou outro filtro.",
-    "clear": "Limpar pesquisa",
-    "withCot": "com berço"
+    "clear": "Limpar pesquisa"
   },
   "notFound": {
     "title": "Esta página ainda não existe.",

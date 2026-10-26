@@ -27,7 +27,6 @@ export function SearchBar({
   const router = useRouter();
   const [range, setRange] = useState<DateRange | undefined>();
   const [guests, setGuests] = useState(2);
-  const [cot, setCot] = useState(false);
   const [open, setOpen] = useState(false);
   const [months, setMonths] = useState<1 | 2>(1);
   const wrapper = useRef<HTMLDivElement>(null);
@@ -54,19 +53,18 @@ export function SearchBar({
     };
   }, [open]);
 
-  const dateLabel = (d?: Date) => (d ? format.dateTime(d, { day: "numeric", month: "short" }) : t("choose"));
+  const dateLabel = (d?: Date) => (d ? format.dayMonth(d) : t("choose"));
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const checkIn = range?.from ? localDateToISO(range.from) : undefined;
     const checkOut = range?.to ? localDateToISO(range.to) : undefined;
-    track("search_submitted", { checkIn, checkOut, guests, cot });
+    track("search_submitted", { checkIn, checkOut, guests });
     router.push({
       pathname: "/apartments",
       query: {
         ...(checkIn && checkOut ? { checkIn, checkOut } : {}),
         guests: String(guests),
-        ...(cot ? { cot: "1" } : {}),
       },
     });
   }
@@ -89,7 +87,7 @@ export function SearchBar({
           once the hero shrinks, over the light wash behind it. */}
       <div
         ref={wrapper}
-        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[auto_auto_auto_auto_auto] md:items-stretch md:rounded-full md:pl-2"
+        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[8.5rem_8.5rem_12.5rem_auto] md:items-stretch md:rounded-full md:pl-2"
       >
         <button
           type="button"
@@ -117,33 +115,6 @@ export function SearchBar({
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone="light" compact />
           </div>
         </div>
-        {/* Cot on request: a switch, so it's one tap and obviously on/off. */}
-        <button
-          type="button"
-          role="switch"
-          aria-checked={cot}
-          onClick={() => setCot((v) => !v)}
-          className={clsx(field, "border-t border-white/20 md:w-auto md:border-t-0 md:border-l")}
-        >
-          <span className={fieldLabel}>{t("cot")}</span>
-          <span className={clsx(fieldValue, "flex items-center gap-2")}>
-            <span
-              aria-hidden
-              className={clsx(
-                "relative h-5 w-9 rounded-full border transition-colors duration-[var(--duration-fast)]",
-                cot ? "border-paper bg-paper" : "border-white/50 bg-transparent",
-              )}
-            >
-              <span
-                className={clsx(
-                  "absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full transition-[left,background-color] duration-[var(--duration-fast)]",
-                  cot ? "left-[1.1rem] bg-ink" : "left-[0.15rem] bg-paper",
-                )}
-              />
-            </span>
-            {cot ? t("cotYes") : t("cotNo")}
-          </span>
-        </button>
         <button
           type="submit"
           aria-label={t("submit")}
@@ -160,7 +131,8 @@ export function SearchBar({
             role="group"
             aria-label={t("calendarLabel")}
             className={clsx(
-              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:p-6",
+              // Sized to its content (two months side by side), anchored to the box's right edge.
+              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:right-0 md:left-auto md:w-max md:p-6",
               calendarPlacement === "top" ? "bottom-full mb-3" : "top-full mt-3",
             )}
           >

@@ -55,7 +55,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   const checkIn = range?.from ? localDateToISO(range.from) : undefined;
   const checkOut = range?.to ? localDateToISO(range.to) : undefined;
   const money = (amount: number) => format.money(amount, listing.currency);
-  const shortDate = (iso: string) => format.dateTime(isoToLocalDate(iso), { day: "numeric", month: "short" });
+  const shortDate = (iso: string) => format.dayMonth(isoToLocalDate(iso));
 
   const ensureOpened = useCallback(() => {
     if (!opened.current) {
