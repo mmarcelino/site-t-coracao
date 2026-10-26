@@ -23,7 +23,7 @@ const collage: Array<{ src: string; style: CSSProperties }> = [
     src: "/images/placeholder/sao-bento-duplex-06.jpg",
     style: {
       right: "calc(50% + var(--card-w) / 2 + 8vw)",
-      top: "52%",
+      top: "calc(52% - 3rem)",
       width: "min(13vw, 14rem)",
       aspectRatio: "3 / 2",
       "--from-x": "-34vw",
@@ -45,7 +45,7 @@ const collage: Array<{ src: string; style: CSSProperties }> = [
     src: "/images/placeholder/breiner-skylight-01.jpg",
     style: {
       left: "calc(50% + var(--card-w) / 2 + 2vw)",
-      top: "58%",
+      top: "calc(58% - 3.5rem)",
       width: "min(20vw, 21rem)",
       aspectRatio: "3 / 2",
       "--from-x": "38vw",
@@ -90,14 +90,21 @@ export async function Hero({ maxGuests }: { maxGuests: number }) {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.5)_0%,rgba(27,26,24,0)_25%,rgba(27,26,24,0.1)_50%,rgba(27,26,24,0.8)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_70%)]" />
 
+          {/* Headline fades as the photo shrinks; the search below never does. */}
           <div className="hero-pin__content absolute inset-0 flex flex-col justify-end">
-            <div className="container-page pb-[clamp(1.25rem,4vh,3rem)]">
+            <div className="container-page pb-[calc(clamp(1.25rem,4vh,3rem)+var(--search-h)+clamp(1.5rem,4vh,3rem))]">
               <h1 id="hero-title" className="text-display animate-fade-in max-w-[13ch]">
                 {t("heroTitle")}
               </h1>
-              <div className="mt-[clamp(1.5rem,4vh,3rem)] max-w-5xl">
-                <SearchBar maxGuests={maxGuests} />
-              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Booking stays in place for the whole pinned scroll (outside the shrinking frame). */}
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <div className="container-page pb-[clamp(1.25rem,4vh,3rem)]">
+            <div className="max-w-5xl">
+              <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
             </div>
           </div>
         </div>

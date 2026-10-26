@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import type { DateRange } from "react-day-picker";
@@ -13,7 +14,14 @@ import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
 /** Hero search: dates + guests → apartments list. The one primary action on the home page. */
-export function SearchBar({ maxGuests }: { maxGuests: number }) {
+export function SearchBar({
+  maxGuests,
+  calendarPlacement = "bottom",
+}: {
+  maxGuests: number;
+  /** "top" when the bar sits at the bottom of a clipped area (the hero). */
+  calendarPlacement?: "top" | "bottom";
+}) {
   const t = useTranslations("search");
   const format = useFormat();
   const router = useRouter();
@@ -94,7 +102,10 @@ export function SearchBar({ maxGuests }: { maxGuests: number }) {
               id="search-calendar"
               role="group"
               aria-label={t("calendarLabel")}
-              className="animate-fade-in-fast absolute top-full left-0 z-30 mt-3 rounded-[var(--radius-card)] bg-white p-4 shadow-2xl md:p-6"
+              className={clsx(
+                "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 shadow-2xl md:p-6",
+                calendarPlacement === "top" ? "bottom-full mb-3" : "top-full mt-3",
+              )}
             >
               <DateRangeCalendar selected={range} onSelect={setRange} months={months} />
               <div className="mt-2 flex items-center justify-between border-t border-ink/10 pt-4">
