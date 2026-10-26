@@ -40,7 +40,7 @@ export async function Hero({
               <span className="block sm:whitespace-nowrap">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
             </h1>
-            <div className="mt-[clamp(1.25rem,3vh,2rem)]">
+            <div className="mt-[clamp(1.25rem,3vh,2rem)] max-w-[52rem]">
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
             </div>
           </div>

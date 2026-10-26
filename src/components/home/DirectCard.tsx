@@ -16,27 +16,26 @@ export async function DirectStrip({ locale }: { locale: Locale }) {
   return (
     <aside
       aria-labelledby="direct-strip-title"
-      className="on-dark relative z-50 flex h-[var(--strip-h)] items-center bg-ink text-paper"
+      className="relative z-50 flex h-[var(--strip-h)] items-center bg-wash text-ink"
     >
       <div className="container-page flex items-center justify-center gap-x-3 overflow-hidden text-[0.8125rem] whitespace-nowrap">
         <h2 id="direct-strip-title" className="label text-[0.6875rem]">
           {t("home.directCardTitle")}
         </h2>
-        <span aria-hidden className="h-3 w-px bg-paper/40" />
-        <ul className="flex items-center gap-x-3">
+        <span className="flex items-center gap-1">
+          <Icon name="star" size={11} fill="currentColor" strokeWidth={0} />
+          {format.number(overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+          {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
+        </span>
+        <span aria-hidden className="h-3 w-px bg-ink/30" />
+        <ul className="flex items-center gap-x-3 text-ink-soft-text">
           {perks.map((perk, i) => (
             <li key={perk} className={`items-center gap-3 ${i === 0 ? "flex" : "hidden sm:flex"}`}>
-              {i > 0 ? <span aria-hidden className="size-[3px] rounded-full bg-paper/60" /> : null}
+              {i > 0 ? <span aria-hidden className="size-[3px] rounded-full bg-ink/40" /> : null}
               {perk}
             </li>
           ))}
         </ul>
-        <span aria-hidden className="hidden h-3 w-px bg-paper/40 md:block" />
-        <span className="hidden items-center gap-1 text-paper/85 md:flex">
-          <Icon name="star" size={11} fill="currentColor" strokeWidth={0} className="text-paper" />
-          {format.number(overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
-          {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
-        </span>
       </div>
     </aside>
   );

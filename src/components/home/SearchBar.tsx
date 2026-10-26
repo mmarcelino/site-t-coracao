@@ -86,7 +86,7 @@ export function SearchBar({
       {/* Solid white pill spanning the content width; the hero's one interactive object. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 gap-y-1 rounded-[1.75rem] bg-white p-2 text-ink shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] md:grid-cols-[1fr_1fr_1fr_auto] md:items-center md:gap-x-4 md:rounded-full md:pl-4"
+        className="grid grid-cols-1 gap-y-1 rounded-[1.75rem] bg-white p-2 text-ink shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] md:grid-cols-[1fr_1fr_1.2fr_auto] md:items-center md:gap-x-2 md:rounded-full md:pl-2"
       >
         <button
           type="button"
@@ -120,10 +120,12 @@ export function SearchBar({
         </div>
         <button
           type="submit"
-          className="mt-1 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-ink px-8 text-[1rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-azulejo md:mt-0 md:h-16 md:px-10"
+          aria-label={t("submit")}
+          className="mt-1 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-ink px-8 text-[1rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-azulejo md:mt-0 md:size-16 md:px-0"
         >
-          <Icon name="search" size={20} strokeWidth={1.75} />
-          {t("submit")}
+          <Icon name="search" size={22} strokeWidth={1.75} />
+          {/* Label on phones (full-width button); magnifying glass only from md up. */}
+          <span className="md:hidden">{t("submit")}</span>
         </button>
 
         {open ? (
