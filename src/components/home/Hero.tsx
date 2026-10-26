@@ -1,11 +1,12 @@
 import { getTranslations } from "next-intl/server";
 import { HeroSlideshow, HeroSlideshowBackground, HeroSlideshowPause, type HeroSlide } from "./HeroSlideshow";
-import { DirectLine, type HeroRating } from "./DirectCard";
+import { DirectBlock, type HeroRating } from "./DirectCard";
 import { SearchBar } from "./SearchBar";
 
 /**
  * Hero (branch hero-lunevar): a slideshow of homes; all text at the bottom, Lunevar-style: a large
- * headline, then the intro on the left and booking box + book-direct line on the right. The whole hero fits
+ * headline, the intro and a labelled "book direct" block, then a wide booking box centred at the
+ * very bottom. The whole hero fits
  * the first screen.
  */
 export async function Hero({
@@ -31,8 +32,7 @@ export async function Hero({
         <div className="absolute inset-0 bg-ink/20" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_25%,rgba(27,26,24,0)_45%,rgba(27,26,24,0.75)_100%)]" />
 
-        {/* Bottom block (Lunevar-style): a large headline on its own row, then the intro on the
-            left and booking + book-direct line on the right. */}
+        {/* Bottom block (Lunevar-style): headline, intro + book direct, then the wide booking box. */}
         <div className="absolute inset-x-0 bottom-0 z-10">
           <div className="container-page pb-[clamp(1.5rem,5vh,3rem)]">
             {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
@@ -43,15 +43,17 @@ export async function Hero({
               <span className="block sm:whitespace-nowrap">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
             </h1>
-            <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            {/* Intro on the left, book direct (labelled) on the right. */}
+            <div className="mt-6 flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
               <p className="animate-fade-in max-w-md text-[1.0625rem] leading-relaxed text-paper/90">{t("heroSub")}</p>
-              <div className="w-full md:ml-auto md:w-auto lg:ml-0">
-                <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
-                <div className="mt-3 flex items-center justify-between gap-4 md:justify-end">
-                  <DirectLine rating={rating} />
-                  <HeroSlideshowPause />
-                </div>
+              <div className="flex items-end justify-between gap-4 xl:justify-end">
+                <DirectBlock rating={rating} className="xl:text-right" />
+                <HeroSlideshowPause className="mb-0.5" />
               </div>
+            </div>
+            {/* The booking box: wide and centred at the very bottom of the hero. */}
+            <div className="mx-auto mt-[clamp(1.5rem,4vh,2.5rem)] w-full max-w-5xl">
+              <SearchBar maxGuests={maxGuests} calendarPlacement="top" wide />
             </div>
           </div>
         </div>

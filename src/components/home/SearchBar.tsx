@@ -17,10 +17,13 @@ import { Icon } from "@/components/ui/Icon";
 export function SearchBar({
   maxGuests,
   calendarPlacement = "bottom",
+  wide = false,
 }: {
   maxGuests: number;
   /** "top" when the bar sits at the bottom of a clipped area (the hero). */
   calendarPlacement?: "top" | "bottom";
+  /** Stretch to the container: fields share the width and the button shows its label. */
+  wide?: boolean;
 }) {
   const t = useTranslations("search");
   const format = useFormat();
@@ -84,11 +87,13 @@ export function SearchBar({
       className="relative w-full"
       data-testid="hero-search"
     >
-      {/* Glass pill. The tint is dark enough that white text stays legible over the photo and,
-          once the hero shrinks, over the light wash behind it. */}
+      {/* Glass pill over the photo. */}
       <div
         ref={wrapper}
-        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[8.5rem_8.5rem_12.5rem_auto] md:items-stretch md:rounded-full md:pl-2"
+        className={clsx(
+          "on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:items-stretch md:rounded-full md:pl-2",
+          wide ? "md:grid-cols-[1fr_1fr_1.3fr_auto]" : "md:grid-cols-[8.5rem_8.5rem_12.5rem_auto]",
+        )}
       >
         <button
           type="button"
@@ -123,11 +128,14 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-1 md:w-14 md:px-0"
+          className={clsx(
+            "mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-1",
+            wide ? "md:px-8" : "md:w-14 md:px-0",
+          )}
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
-          {/* Label visible on phones (full-width button); icon only from md up. */}
-          <span className="md:hidden">{t("submit")}</span>
+          {/* Label on phones (full-width button) and in the wide box; icon only in the compact one. */}
+          <span className={wide ? undefined : "md:hidden"}>{t("submit")}</span>
         </button>
 
         {open ? (
