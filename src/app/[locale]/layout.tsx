@@ -48,8 +48,10 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   const t = await getTranslations("common");
 
   return (
-    <html lang={locale === "pt" ? "pt-PT" : "en"} className={hanken.variable}>
-      <body className="min-h-dvh">
+    // suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, password managers…)
+    // inject attributes on <html>/<body>. It only ignores attribute diffs on these two elements.
+    <html lang={locale === "pt" ? "pt-PT" : "en"} className={hanken.variable} suppressHydrationWarning>
+      <body className="min-h-dvh" suppressHydrationWarning>
         <NextIntlClientProvider>
           <ConsentProvider>
             <a
