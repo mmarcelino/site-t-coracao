@@ -56,7 +56,7 @@ export function Header() {
 
   return (
     <>
-      {/* Bar: wordmark, key links, WhatsApp and language
+      {/* Bar with a hairline rule below: wordmark, key links, WhatsApp and language
           on desktop; WhatsApp + hamburger on smaller screens. Transparent over the home hero,
           white once the page scrolls. */}
       <header
@@ -113,6 +113,7 @@ export function Header() {
               </button>
             </div>
           </div>
+          <div aria-hidden className={clsx("h-px", light ? "bg-paper/70" : "bg-ink/15")} />
         </div>
       </header>
 
@@ -138,6 +139,7 @@ export function Header() {
                 <span className="sr-only">{t("nav.closeMenu")}</span>
               </button>
             </div>
+            <div aria-hidden className="h-px bg-paper/30" />
           </div>
 
           <div className="container-page grid flex-1 gap-12 py-10 lg:grid-cols-12 lg:py-16">
