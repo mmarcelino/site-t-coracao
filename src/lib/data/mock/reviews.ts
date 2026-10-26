@@ -70,7 +70,7 @@ export const mockReviews: Review[] = [
     date: "2026-04-02",
     language: "pt",
     text: "Ficámos no Breiner com dois miúdos e tínhamos berço e cadeira à nossa espera. Uma casa com alma, e uma equipa sempre disponível.",
-    listingId: "60f827e3b82a7e002f852152",
+    listingId: "60f827e57aba91002d2bdc3c",
     mock: true,
   },
   {
@@ -81,7 +81,7 @@ export const mockReviews: Review[] = [
     date: "2026-03-11",
     language: "en",
     text: "A proper home, not a rental. Timber floors, good linen, a desk by the window. I worked from here for two weeks and didn't want to leave.",
-    listingId: "60f827e57aba91002d2bdc3c",
+    listingId: "60f827e3b82a7e002f852152",
     mock: true,
   },
   {

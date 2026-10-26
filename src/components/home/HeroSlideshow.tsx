@@ -4,12 +4,13 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
 import { ReviewCard, type HeroReview } from "./ReviewCard";
 
 export interface HeroSlide {
   key: string;
-  label: string; // short name under the line, e.g. "Casa do Farol"
+  label: string; // collection name above the line, e.g. "Junto ao mar"
   image: { src: string; alt: string };
   review: HeroReview;
 }
@@ -152,6 +153,13 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
       >
         <Icon name={paused ? "play" : "pause"} size={12} strokeWidth={1.75} />
       </button>
+      <Link
+        href="/apartments"
+        className="mb-1.5 hidden shrink-0 items-center gap-1.5 text-[0.75rem] font-medium text-paper hover:underline sm:inline-flex"
+      >
+        {t("seeAllShort")}
+        <Icon name="arrowRight" size={14} />
+      </Link>
     </div>
   );
 }

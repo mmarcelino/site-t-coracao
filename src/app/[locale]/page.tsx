@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { heroSlides } from "@/content/featured";
-import { getBuildings, getListings, getReviewSummary, getReviews } from "@/lib/data";
+import { getListings, getReviewSummary, getReviews } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
@@ -45,26 +45,25 @@ export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const [listings, buildings, summary, reviews] = await Promise.all([
+  const tTags = await getTranslations("tags");
+  const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
-    getBuildings(locale),
     getReviewSummary(locale),
     getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
-  // One slide per home: background photo + that home's guest review (visitor's language first).
+  // One slide per collection: a home from it (photo) + that home's guest review.
   const reviewSources = { google: "Google", airbnb: "Airbnb", booking: "Booking.com" } as const;
   const slides = (
     await Promise.all(
-      heroSlides.map(async ({ slug, image }) => {
-        const l = listings.find((x) => x.slug === slug);
+      heroSlides.map(async ({ tag, slug, image }) => {
+        const l = listings.find((x) => x.slug === slug && x.tags.includes(tag));
         const [review] = l ? await getReviews(locale, { listingId: l.id, limit: 1 }) : [];
         if (!l || !review) return null;
-        const building = buildings.find((b) => b.id === l.buildingId);
         return {
-          key: slug,
-          label: building?.name ?? l.title,
+          key: tag,
+          label: tTags(tag),
           image: { src: image, alt: l.pictures.find((p) => p.src === image)?.alt ?? l.title },
           review: {
             quote: review.text,

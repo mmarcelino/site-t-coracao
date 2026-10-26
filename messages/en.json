@@ -183,7 +183,8 @@
     "slidesLabel": "Featured homes",
     "slideShow": "Show {n} of {total}: {name}",
     "heroTitleLead": "Homes with Porto",
-    "heroTitleAccent": "at heart."
+    "heroTitleAccent": "at heart.",
+    "seeAllShort": "See all"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

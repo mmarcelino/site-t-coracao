@@ -183,7 +183,8 @@
     "slidesLabel": "Casas em destaque",
     "slideShow": "Mostrar {n} de {total}: {name}",
     "heroTitleLead": "Casas com o Porto",
-    "heroTitleAccent": "no coração."
+    "heroTitleAccent": "no coração.",
+    "seeAllShort": "Ver todos"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

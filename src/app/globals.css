@@ -454,7 +454,7 @@
  * the boxes end up over the light wash, so their white text keeps its contrast.
  */
 .hero-glass {
-  background-color: rgb(27 26 24 / 0.4);
+  background-color: rgb(27 26 24 / 0.28);
 }
 @supports (animation-timeline: scroll()) {
   @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
