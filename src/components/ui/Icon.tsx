@@ -17,6 +17,12 @@ const paths = {
   minus: <path d="M5 12h14" />,
   check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
   pause: <path d="M9 6v12M15 6v12" />,
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m15.5 15.5 5 5" />
+    </>
+  ),
   play: <path d="M8 5.5v13l10.5-6.5L8 5.5Z" />,
   calendar: (
     <>

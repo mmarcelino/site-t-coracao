@@ -96,7 +96,7 @@ export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: H
                 <div className="hidden xl:block">
                   <HeroSlideshowReview />
                 </div>
-                <div className="w-full max-w-5xl xl:max-w-none xl:min-w-0 xl:flex-1">
+                <div className="w-full md:ml-auto md:w-auto">
                   <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
                 </div>
               </div>

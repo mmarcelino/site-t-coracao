@@ -54,7 +54,7 @@ export function SearchBar({
     };
   }, [open]);
 
-  const dateLabel = (d?: Date) => (d ? format.dateTime(d, { weekday: "short", day: "numeric", month: "short" }) : t("choose"));
+  const dateLabel = (d?: Date) => (d ? format.dateTime(d, { day: "numeric", month: "short" }) : t("choose"));
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -73,7 +73,7 @@ export function SearchBar({
 
   // Fields are exactly the button's height on desktop, so the pill's 8px padding reads as an
   // even inset all the way round the button.
-  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:py-0";
+  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:w-auto md:px-4 md:py-0";
   const fieldLabel = "block text-[0.75rem] leading-tight text-paper/80";
   const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-paper";
 
@@ -89,7 +89,7 @@ export function SearchBar({
           once the hero shrinks, over the light wash behind it. */}
       <div
         ref={wrapper}
-        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.25fr_auto_auto] md:items-stretch md:rounded-full md:pl-2"
+        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[auto_auto_auto_auto_auto] md:items-stretch md:rounded-full md:pl-2"
       >
         <button
           type="button"
@@ -146,10 +146,12 @@ export function SearchBar({
         </button>
         <button
           type="submit"
-          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-2"
+          aria-label={t("submit")}
+          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-1 md:w-14 md:px-0"
         >
-          {t("submit")}
-          <Icon name="arrowRight" size={18} />
+          <Icon name="search" size={20} strokeWidth={1.75} />
+          {/* Label visible on phones (full-width button); icon only from md up. */}
+          <span className="md:hidden">{t("submit")}</span>
         </button>
 
         {open ? (
