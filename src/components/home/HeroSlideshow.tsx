@@ -132,11 +132,13 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
   );
   return (
     <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
-      <ol className="grid flex-1 grid-cols-6 gap-2 sm:gap-3">
+      {/* No gaps: the six lines join into one continuous rule (like the header's); the active
+          stretch fills in white. Labels keep their spacing with padding instead. */}
+      <ol className="grid flex-1 grid-cols-6">
         {slides.map((slide, i) => {
           const active = i === index;
           const line = (
-            <span className="relative block h-px overflow-hidden bg-white/35">
+            <span className="relative block h-px overflow-hidden bg-white/45">
               <span
                 key={active ? `on-${index}` : `off-${i}`}
                 className={clsx("absolute inset-0 origin-left bg-white", i < index ? "scale-x-100" : i > index ? "scale-x-0" : "")}
@@ -157,7 +159,7 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
                 <>
                   <Link
                     href={{ pathname: "/apartments", query: { tag: slide.key } }}
-                    className="hidden items-center gap-1 truncate pb-2 text-[0.8125rem] text-paper hover:underline md:flex"
+                    className="hidden items-center gap-1 truncate pr-3 pb-2 text-[0.8125rem] text-paper hover:underline md:flex"
                   >
                     {label(i, slide.label)}
                     <Icon name="arrowRight" size={13} className="shrink-0" />
@@ -179,7 +181,7 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
                   aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
                   className="block w-full pb-2 text-left opacity-70 transition-opacity hover:opacity-100 md:pt-0"
                 >
-                  <span className="hidden truncate pb-2 text-[0.8125rem] text-paper md:block">{label(i, slide.label)}</span>
+                  <span className="hidden truncate pr-3 pb-2 text-[0.8125rem] text-paper md:block">{label(i, slide.label)}</span>
                   <span className="block pt-2 md:pt-0">{line}</span>
                 </button>
               )}
