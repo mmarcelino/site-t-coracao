@@ -17,13 +17,10 @@ import { Icon } from "@/components/ui/Icon";
 export function SearchBar({
   maxGuests,
   calendarPlacement = "bottom",
-  wide = false,
 }: {
   maxGuests: number;
   /** "top" when the bar sits at the bottom of a clipped area (the hero). */
   calendarPlacement?: "top" | "bottom";
-  /** Stretch to the container: fields share the width and the button shows its label. */
-  wide?: boolean;
 }) {
   const t = useTranslations("search");
   const format = useFormat();
@@ -56,8 +53,8 @@ export function SearchBar({
     };
   }, [open]);
 
-  // One prompt only: "Quando?" under arrival, a quiet dash under departure until dates are set.
-  const placeholder = "text-paper/60";
+  // One prompt only: "Quando?" under arrival; departure stays an empty underline until set.
+  const placeholder = "text-granite";
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -73,11 +70,10 @@ export function SearchBar({
     });
   }
 
-  // Fields are exactly the button's height on desktop, so the pill's 8px padding reads as an
-  // even inset all the way round the button.
-  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:w-auto md:px-4 md:py-0";
-  const fieldLabel = "block text-[0.75rem] leading-tight text-paper/80";
-  const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-paper";
+  // Numa-style fields: small bold label over an underlined value.
+  const field = "flex w-full flex-col items-stretch justify-center px-5 py-2 text-left md:px-6 md:py-3";
+  const fieldLabel = "block text-[0.8125rem] leading-tight font-semibold text-ink";
+  const fieldValue = "mt-1.5 block w-full border-b border-ink/70 pb-1.5 text-[1rem] leading-tight text-ink";
 
   return (
     <form
@@ -87,13 +83,10 @@ export function SearchBar({
       className="relative w-full"
       data-testid="hero-search"
     >
-      {/* Glass pill over the photo. */}
+      {/* Solid white pill spanning the content width; the hero's one interactive object. */}
       <div
         ref={wrapper}
-        className={clsx(
-          "on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:items-stretch md:rounded-full md:pl-2",
-          wide ? "md:grid-cols-[1fr_1fr_1.3fr_auto]" : "md:grid-cols-[8.5rem_8.5rem_12.5rem_auto]",
-        )}
+        className="grid grid-cols-1 gap-y-1 rounded-[1.75rem] bg-white p-2 text-ink shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] md:grid-cols-[1fr_1fr_1fr_auto] md:items-center md:gap-x-4 md:rounded-full md:pl-4"
       >
         <button
           type="button"
@@ -112,30 +105,25 @@ export function SearchBar({
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="search-calendar"
-          className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}
+          className={field}
         >
           <span className={fieldLabel}>{t("depart")}</span>
           <span className={clsx(fieldValue, !range?.to && placeholder)}>
-            {range?.to ? format.dayMonth(range.to) : "—"}
+            {range?.to ? format.dayMonth(range.to) : "\u00a0"}
           </span>
         </button>
-        <div className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}>
+        <div className={field}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className="mt-0.5 text-[0.9375rem] font-medium text-paper">
-            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone="light" compact />
+          <div className="mt-1 border-b border-ink/70 pb-0.5 text-[1rem] text-ink">
+            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
         <button
           type="submit"
-          aria-label={t("submit")}
-          className={clsx(
-            "mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-1",
-            wide ? "md:px-8" : "md:w-14 md:px-0",
-          )}
+          className="mt-1 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-ink px-8 text-[1rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-azulejo md:mt-0 md:h-16 md:px-10"
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
-          {/* Label on phones (full-width button) and in the wide box; icon only in the compact one. */}
-          <span className={wide ? undefined : "md:hidden"}>{t("submit")}</span>
+          {t("submit")}
         </button>
 
         {open ? (

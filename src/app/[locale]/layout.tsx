@@ -10,6 +10,7 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { DirectStrip } from "@/components/home/DirectCard";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
 import "../globals.css";
@@ -69,6 +70,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
             >
               {t("skipToContent")}
             </a>
+            <DirectStrip locale={locale} />
             <Header />
             <main id="main" tabIndex={-1} className="outline-none">
               {children}

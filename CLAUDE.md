@@ -196,6 +196,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - [ ] Keep the luggage storage page/service?
 - [ ] Allow or block AI crawlers?
 - [ ] High-res photography and building history material from the client
+- [ ] **Accessibility gap (hero slideshow):** the visible pause button was removed at the client's request; it pauses on hover/focus/hidden tab and for reduced motion, but WCAG 2.2.2 expects an explicit pause control. Resolve before launch.
 - [ ] AL licence numbers per property (10 known from Guesty, see `src/content/site.ts`)
 - [ ] **Copy/facts flagged TO CONFIRM in the code** (search for `TO CONFIRM`, `INVENTED`, `toConfirm: true`, `mock: true`):
   - Cancellation terms used in copy: "free cancellation up to 14 days before arrival" (perks, FAQ, reassurance)

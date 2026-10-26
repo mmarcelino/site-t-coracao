@@ -1,10 +1,7 @@
 "use client";
 
-import clsx from "clsx";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Icon } from "@/components/ui/Icon";
 
 export interface HeroSlide {
   key: string;
@@ -34,7 +31,9 @@ function useSlideshow() {
 /**
  * One controller for the hero: background photo and progress lines always show the same
  * collection. A line filling up = time until the next photo (Delta Cafés-style).
- * Pausable (WCAG 2.2.2); starts paused for reduced motion.
+ * No visible control (client decision): it pauses while the hero is hovered or has keyboard focus,
+ * while the tab is hidden, and starts paused for reduced motion. Known WCAG 2.2.2 gap: an explicit
+ * pause control is still recommended before launch (see CLAUDE.md §15).
  */
 export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; children: ReactNode }) {
   const [index, setIndex] = useState(0);
@@ -46,7 +45,14 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true);
   }, []);
 
-  const running = !paused && slides.length > 1;
+  const [engaged, setEngaged] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    const onVisibility = () => setHidden(document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+  const running = !paused && !engaged && !hidden && slides.length > 1;
 
   // The timer drives the slides (lines are only visual); pausing mid-way resumes where it left off.
   const elapsed = useRef(0);
@@ -71,7 +77,19 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     go: setIndex,
     togglePause: () => setPaused((p) => !p),
   };
-  return <SlideshowContext.Provider value={value}>{children}</SlideshowContext.Provider>;
+  return (
+    <SlideshowContext.Provider value={value}>
+      <div
+        className="contents"
+        onMouseEnter={() => setEngaged(true)}
+        onMouseLeave={() => setEngaged(false)}
+        onFocus={() => setEngaged(true)}
+        onBlur={() => setEngaged(false)}
+      >
+        {children}
+      </div>
+    </SlideshowContext.Provider>
+  );
 }
 
 /**
@@ -113,25 +131,5 @@ export function HeroSlideshowBackground() {
         );
       })}
     </>
-  );
-}
-
-/** Small pause/play control for the slideshow (required for auto-advancing content, WCAG 2.2.2). */
-export function HeroSlideshowPause({ className }: { className?: string }) {
-  const t = useTranslations("home");
-  const { paused, togglePause } = useSlideshow();
-  return (
-    <button
-      type="button"
-      onClick={togglePause}
-      aria-label={paused ? t("featuredPlay") : t("featuredPause")}
-      aria-pressed={paused}
-      className={clsx(
-        "grid size-7 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15",
-        className,
-      )}
-    >
-      <Icon name={paused ? "play" : "pause"} size={11} strokeWidth={1.75} />
-    </button>
   );
 }

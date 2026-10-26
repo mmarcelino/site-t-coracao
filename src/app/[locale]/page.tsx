@@ -7,7 +7,6 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { heroSlides } from "@/content/featured";
 import { getListings, getReviewSummary, getReviews } from "@/lib/data";
-import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
@@ -51,22 +50,16 @@ export default async function HomePage() {
     getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
-  const format = createFormatter(locale);
   // One slide per collection: a home that really carries the tag, shown with a fitting photo.
   const slides = heroSlides.flatMap(({ tag, slug, image, alt }) =>
     listings.some((l) => l.slug === slug && l.tags.includes(tag))
       ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
       : [],
   );
-  const rating = {
-    score: format.number(summary.overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
-    count: format.number(summary.overall.count),
-    mock: summary.overall.mock,
-  };
 
   return (
     <>
-      <Hero maxGuests={maxGuests} slides={slides} rating={rating} />
+      <Hero maxGuests={maxGuests} slides={slides} />
 
       <Collections listings={listings} />
 
