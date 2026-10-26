@@ -84,8 +84,8 @@
     "moreGuests": "More guests",
     "calendarLabel": "Choose your arrival and departure dates",
     "arrive": "Arrival",
-    "choose": "Choose",
-    "depart": "Departure"
+    "depart": "Departure",
+    "when": "When?"
   },
   "booking": {
     "title": "Book direct",

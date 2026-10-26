@@ -53,7 +53,8 @@ export function SearchBar({
     };
   }, [open]);
 
-  const dateLabel = (d?: Date) => (d ? format.dayMonth(d) : t("choose"));
+  // One prompt only: "Quando?" under arrival, a quiet dash under departure until dates are set.
+  const placeholder = "text-paper/60";
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -97,7 +98,9 @@ export function SearchBar({
           className={field}
         >
           <span className={fieldLabel}>{t("arrive")}</span>
-          <span className={fieldValue}>{dateLabel(range?.from)}</span>
+          <span className={clsx(fieldValue, !range?.from && placeholder)}>
+            {range?.from ? format.dayMonth(range.from) : t("when")}
+          </span>
         </button>
         <button
           type="button"
@@ -107,7 +110,9 @@ export function SearchBar({
           className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}
         >
           <span className={fieldLabel}>{t("depart")}</span>
-          <span className={fieldValue}>{dateLabel(range?.to)}</span>
+          <span className={clsx(fieldValue, !range?.to && placeholder)}>
+            {range?.to ? format.dayMonth(range.to) : "—"}
+          </span>
         </button>
         <div className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>

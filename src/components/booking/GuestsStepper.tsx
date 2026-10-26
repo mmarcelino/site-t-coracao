@@ -36,7 +36,7 @@ export function GuestsStepper({
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
         aria-label={t("search.fewerGuests")}
-        className={`grid ${compact ? "size-7" : "size-9"} place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
+        className={`grid ${compact ? "size-7" : "size-9"} aspect-square shrink-0 place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
       >
         <Icon name="minus" size={compact ? 14 : 16} />
       </button>
@@ -48,7 +48,7 @@ export function GuestsStepper({
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
         aria-label={t("search.moreGuests")}
-        className={`grid ${compact ? "size-7" : "size-9"} place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
+        className={`grid ${compact ? "size-7" : "size-9"} aspect-square shrink-0 place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
       >
         <Icon name="plus" size={compact ? 14 : 16} />
       </button>

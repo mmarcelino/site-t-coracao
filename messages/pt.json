@@ -84,8 +84,8 @@
     "moreGuests": "Mais hóspedes",
     "calendarLabel": "Escolha as datas de chegada e partida",
     "arrive": "Chegada",
-    "choose": "Escolher",
-    "depart": "Partida"
+    "depart": "Partida",
+    "when": "Quando?"
   },
   "booking": {
     "title": "Reserve diretamente",
