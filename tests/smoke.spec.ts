@@ -43,7 +43,7 @@ for (const size of [
     await dismissConsent(context);
     await page.setViewportSize(size);
     await page.goto("/pt");
-    const heroBottom = await page.locator("section[aria-labelledby=hero-title]").evaluate((el) => el.getBoundingClientRect().bottom);
+    const heroBottom = await page.locator("[data-hero-stage]").evaluate((el) => el.getBoundingClientRect().bottom);
     const searchBottom = await page.getByTestId("hero-search").evaluate((el) => el.getBoundingClientRect().bottom);
     expect(heroBottom).toBeLessThanOrEqual(size.height + 1);
     expect(searchBottom).toBeLessThanOrEqual(size.height);
