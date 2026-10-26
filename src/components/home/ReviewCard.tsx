@@ -23,7 +23,7 @@ export interface HeroReview {
 export function ReviewCard({ review }: { review: HeroReview }) {
   const t = useTranslations();
   return (
-    <figure className="on-dark w-[28rem] rounded-[1.75rem] border border-white/30 bg-ink/55 p-4 pr-5 text-paper shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+    <figure className="on-dark w-[28rem] rounded-[1.75rem] border border-white/30 hero-glass p-4 pr-5 text-paper shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
       <div key={review.home.slug} className="animate-fade-in-fast flex gap-4" aria-live="polite">
         <Link
           href={{ pathname: "/apartments/[slug]", params: { slug: review.home.slug } }}

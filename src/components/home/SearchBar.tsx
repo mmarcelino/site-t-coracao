@@ -88,7 +88,7 @@ export function SearchBar({
           once the hero shrinks, over the light wash behind it. */}
       <div
         ref={wrapper}
-        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 bg-ink/55 p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.3fr_auto] md:items-stretch md:rounded-full md:pl-2"
+        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.3fr_auto] md:items-stretch md:rounded-full md:pl-2"
       >
         <button
           type="button"

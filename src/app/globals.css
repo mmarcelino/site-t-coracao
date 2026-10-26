@@ -448,3 +448,25 @@
   transform: scale(1);
   transition: transform 9000ms cubic-bezier(0.25, 0.6, 0.3, 1);
 }
+
+/*
+ * Hero glass (booking box, review card): lighter over the photo; darkens as the hero pins and
+ * the boxes end up over the light wash, so their white text keeps its contrast.
+ */
+.hero-glass {
+  background-color: rgb(27 26 24 / 0.4);
+}
+@supports (animation-timeline: scroll()) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    .hero-glass {
+      animation: hero-glass-darken linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 60svh;
+    }
+  }
+}
+@keyframes hero-glass-darken {
+  to {
+    background-color: rgb(27 26 24 / 0.62);
+  }
+}
