@@ -77,7 +77,6 @@ export function Header() {
               aria-controls="site-menu"
               className="group -mr-2 flex h-11 items-center gap-3 px-2"
             >
-              <span className="label hidden sm:inline">{t("nav.menu")}</span>
               <Hamburger />
               <span className="sr-only">{t("nav.openMenu")}</span>
             </button>
@@ -148,20 +147,20 @@ export function Header() {
   );
 }
 
-/** Two long hairlines (elvara-style) instead of the usual three-bar icon. */
+/** Two hairlines, the top one shorter; it extends to full width on hover. */
 function Hamburger() {
   return (
-    <svg width="40" height="14" viewBox="0 0 40 14" aria-hidden focusable="false" className="overflow-visible">
-      <line x1="0" y1="1" x2="40" y2="1" stroke="currentColor" strokeWidth="1.5" />
+    <svg width="36" height="14" viewBox="0 0 36 14" aria-hidden focusable="false" className="overflow-visible">
       <line
         x1="0"
-        y1="13"
-        x2="40"
-        y2="13"
+        y1="1"
+        x2="36"
+        y2="1"
         stroke="currentColor"
         strokeWidth="1.5"
-        className="origin-right transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:scale-x-75"
+        className="origin-right scale-x-[0.55] transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:scale-x-100"
       />
+      <line x1="0" y1="13" x2="36" y2="13" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
 }
