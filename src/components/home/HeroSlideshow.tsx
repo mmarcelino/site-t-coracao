@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
 
@@ -130,12 +130,11 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
       <div className="min-w-0 flex-1">
         {/* Only the current collection is named, linking to its homes; it fades with the photo. */}
         {current ? (
-          // On md+ it glides to sit above the white stretch; on phones it stays at the left.
+          // Fixed at the left end of the line; only the word changes (fade), it never moves.
           <div className="relative h-5">
             <Link
               href={{ pathname: "/apartments", query: { tag: current.key } }}
-              className="absolute top-0 left-0 text-[0.8125rem] whitespace-nowrap text-paper transition-[left] duration-[var(--duration-base)] ease-[var(--ease-soft)] hover:underline md:left-[var(--at)]"
-              style={{ "--at": `${(index / slides.length) * 100}%` } as CSSProperties}
+              className="absolute top-0 left-0 text-[0.8125rem] whitespace-nowrap text-paper hover:underline"
             >
               <span key={current.key} className="animate-fade-in-fast inline-flex items-center gap-1.5">
                 {current.label}
