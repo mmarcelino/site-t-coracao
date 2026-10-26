@@ -15,7 +15,6 @@ import { Collections } from "@/components/home/Collections";
 import { ExperiencesStrip } from "@/components/home/ExperiencesStrip";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
-import { Intro } from "@/components/home/Intro";
 import { ReviewsBlock } from "@/components/ReviewsBlock";
 import { Icon } from "@/components/ui/Icon";
 
@@ -38,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Home, in order: hero + search · intro line · collections · why book direct · reviews ·
+ * Home, in order: hero (headline, intro line, search) · collections · why book direct · reviews ·
  * how it works · experiences · FAQ excerpt (footer comes from the layout).
  */
 export default async function HomePage() {
@@ -68,8 +67,6 @@ export default async function HomePage() {
   return (
     <>
       <Hero maxGuests={maxGuests} slides={slides} rating={rating} />
-
-      <Intro />
 
       <Collections listings={listings} />
 

@@ -15,10 +15,10 @@ export async function DirectLine({ rating, className }: { rating: HeroRating; cl
   const t = await getTranslations();
   const perks = [t("home.directCardPerk1"), t("home.directCardPerk2"), t("home.directCardPerk3")];
   return (
-    <p className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8125rem] text-paper ${className ?? ""}`}>
+    <p className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.9375rem] text-paper ${className ?? ""}`}>
       <span className="sr-only">{t("home.directCardTitle")}: </span>
       {perks.map((perk, i) => (
-        <span key={perk} className="flex items-center gap-3">
+        <span key={perk} className={`flex items-center gap-3 ${i === 0 ? "font-medium" : ""}`}>
           {i > 0 ? <span aria-hidden className="size-[3px] rounded-full bg-paper/60" /> : null}
           {perk}
         </span>

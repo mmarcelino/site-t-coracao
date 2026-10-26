@@ -84,7 +84,7 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
 
 1. **Home** (revised 2026-10-26, in this order):
    1. Hero: full-bleed photo (or slow video) of one of the buildings, one short headline, search (dates, guests) on it. No other CTAs. The whole hero stays above the fold.
-   2. Intro line: one or two sentences on who they are (restored historic buildings, local team since 2015), before anything is for sale.
+   2. Intro line: one or two sentences on who they are (restored historic buildings, local team since 2015), before anything is for sale. *(Branch hero-lunevar: this line is the hero's subheader; no separate section.)*
    3. Collections: 4 featured (for two, for families, by the sea, with outdoor space) + "See all" → apartments page with tag pills and filters.
    4. Why book direct: four perks with small icons (best rate, flexible cancellation, welcome gift, local concierge). Early, because it's the main business goal.
    5. Reviews: aggregate scores (Google now; Airbnb and Booking.com later) + 3–4 short excerpts.

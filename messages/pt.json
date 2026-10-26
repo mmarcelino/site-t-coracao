@@ -159,8 +159,6 @@
     "experiencesPerGroup": "privado",
     "faqTitle": "Antes de reservar.",
     "faqCta": "Todas as perguntas",
-    "intro1": "Apartamentos em edifícios históricos restaurados, do centro do Porto à Foz.",
-    "intro2": "Uma equipa local cuida de cada um desde 2015.",
     "collectionsTitle": "Encontre a sua casa.",
     "collectionCount": "{count, plural, one {# casa} other {# casas}}",
     "seeAll": "Ver todos os apartamentos",
@@ -189,7 +187,7 @@
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
     "directCardRating": "{score} · {count} avaliações",
-    "heroSub": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    "heroSub": "Apartamentos em edifícios históricos restaurados, no centro do Porto e na Foz. Cuidados por uma equipa local desde 2015."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
