@@ -57,14 +57,14 @@ export default async function HomePage() {
   const reviewSources = { google: "Google", airbnb: "Airbnb", booking: "Booking.com" } as const;
   const slides = (
     await Promise.all(
-      heroSlides.map(async ({ tag, slug, image }) => {
+      heroSlides.map(async ({ tag, slug, image, alt, reviewId }) => {
         const l = listings.find((x) => x.slug === slug && x.tags.includes(tag));
-        const [review] = l ? await getReviews(locale, { listingId: l.id, limit: 1 }) : [];
+        const review = l ? (await getReviews(locale, { listingId: l.id })).find((r) => r.id === reviewId) : undefined;
         if (!l || !review) return null;
         return {
           key: tag,
           label: tTags(tag),
-          image: { src: image, alt: l.pictures.find((p) => p.src === image)?.alt ?? l.title },
+          image: { src: image, alt: alt[locale] },
           review: {
             quote: review.text,
             lang: review.language,
@@ -72,7 +72,7 @@ export default async function HomePage() {
             source: reviewSources[review.source],
             score: `${format.number(review.rating)}/${review.source === "booking" ? 10 : 5}`,
             mock: review.mock,
-            home: { slug: l.slug, title: l.title, image: l.pictures[0]?.src ?? image },
+            home: { slug: l.slug, title: l.title, image },
           },
         };
       }),

@@ -128,6 +128,17 @@ export const mockReviews: Review[] = [
     listingId: "60f82cd97aba91002d2cfe72",
     mock: true,
   },
+  {
+    id: "mock-12",
+    source: "airbnb",
+    rating: 5,
+    author: "Lukas",
+    date: "2026-06-21",
+    language: "en",
+    text: "A proper study with a real desk, a good lamp and fast Wi-Fi. I took calls all week, then walked to the sea at six.",
+    listingId: "683036ac17f8820013f84e69",
+    mock: true,
+  },
 ];
 
 /** MOCK platform-wide aggregates. Replace with Google Business + Guesty channel data. */
