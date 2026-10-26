@@ -3,7 +3,8 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
 
 export interface HeroSlide {
@@ -123,41 +124,60 @@ export function HeroSlideshowBackground() {
 export function HeroSlideshowLines({ className }: { className?: string }) {
   const t = useTranslations("home");
   const { slides, index, running, paused, go, togglePause } = useSlideshow();
+  const current = slides[index];
   return (
-    <div className={clsx("flex items-center gap-4", className)} role="group" aria-label={t("slidesLabel")}>
-      <ol className="grid flex-1" style={{ gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))` }}>
-        {slides.map((slide, i) => (
-          <li key={slide.key}>
-            <button
-              type="button"
-              onClick={() => go(i)}
-              aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
-              aria-current={i === index ? "true" : undefined}
-              className="block w-full py-3"
+    <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
+      <div className="min-w-0 flex-1">
+        {/* Only the current collection is named, linking to its homes; it fades with the photo. */}
+        {current ? (
+          // On md+ it glides to sit above the white stretch; on phones it stays at the left.
+          <div className="relative h-5">
+            <Link
+              href={{ pathname: "/apartments", query: { tag: current.key } }}
+              className="absolute top-0 left-0 text-[0.8125rem] whitespace-nowrap text-paper transition-[left] duration-[var(--duration-base)] ease-[var(--ease-soft)] hover:underline md:left-[var(--at)]"
+              style={{ "--at": `${(index / slides.length) * 100}%` } as CSSProperties}
             >
-              <span className="relative block h-px overflow-hidden bg-white/45">
-                <span
-                  key={i === index ? `on-${index}` : `off-${i}`}
-                  className={clsx("absolute inset-0 origin-left bg-white", i === index ? "" : "scale-x-0")}
-                  style={
-                    i === index
-                      ? {
-                          animation: `featured-progress ${SLIDE_MS}ms linear forwards`,
-                          animationPlayState: running ? "running" : "paused",
-                        }
-                      : undefined
-                  }
-                />
+              <span key={current.key} className="animate-fade-in-fast inline-flex items-center gap-1.5">
+                {current.label}
+                <Icon name="arrowRight" size={13} />
               </span>
-            </button>
-          </li>
-        ))}
-      </ol>
+            </Link>
+          </div>
+        ) : null}
+        <ol className="grid" style={{ gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))` }}>
+          {slides.map((slide, i) => (
+            <li key={slide.key}>
+              <button
+                type="button"
+                onClick={() => go(i)}
+                aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
+                aria-current={i === index ? "true" : undefined}
+                className="block w-full py-3"
+              >
+                <span className="relative block h-px overflow-hidden bg-white/45">
+                  <span
+                    key={i === index ? `on-${index}` : `off-${i}`}
+                    className={clsx("absolute inset-0 origin-left bg-white", i === index ? "" : "scale-x-0")}
+                    style={
+                      i === index
+                        ? {
+                            animation: `featured-progress ${SLIDE_MS}ms linear forwards`,
+                            animationPlayState: running ? "running" : "paused",
+                          }
+                        : undefined
+                    }
+                  />
+                </span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </div>
       {/* Required for auto-advancing content (WCAG 2.2.2). */}
       <button
         type="button"
         onClick={togglePause}
-        className="grid size-8 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15"
+        className="mb-1 grid size-8 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15"
         aria-label={paused ? t("featuredPlay") : t("featuredPause")}
       >
         <Icon name={paused ? "play" : "pause"} size={12} strokeWidth={1.75} />
