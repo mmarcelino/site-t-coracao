@@ -174,7 +174,12 @@
     "experiencesAll": "Ver todas as experiências",
     "experiencesLabel": "Experiências recomendadas",
     "experienceInPorto": "No Porto",
-    "experienceBeyond": "Fora do Porto"
+    "experienceBeyond": "Fora do Porto",
+    "featuredLabel": "Em destaque",
+    "featuredShow": "Mostrar destaque {n} de {total}",
+    "featuredPause": "Pausar destaques",
+    "featuredPlay": "Retomar destaques",
+    "featuredRating": "{score} em 10"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

@@ -16,6 +16,8 @@ const paths = {
   plus: <path d="M12 5v14M5 12h14" />,
   minus: <path d="M5 12h14" />,
   check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
+  pause: <path d="M9 6v12M15 6v12" />,
+  play: <path d="M8 5.5v13l10.5-6.5L8 5.5Z" />,
   calendar: (
     <>
       <rect x="3.5" y="5" width="17" height="15.5" rx="1.5" />

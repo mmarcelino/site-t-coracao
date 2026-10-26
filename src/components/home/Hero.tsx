@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { getTranslations } from "next-intl/server";
+import { FeaturedCard, type FeaturedItem } from "./FeaturedCard";
 import { SearchBar } from "./SearchBar";
 
 /**
@@ -59,7 +60,7 @@ const collage: Array<{ src: string; style: CSSProperties }> = [
  * the first screen. On scroll (desktop, supporting browsers) it pins while the photo shrinks into
  * a card and a collage gathers around it (CSS in globals.css, "Pinned hero").
  */
-export async function Hero({ maxGuests }: { maxGuests: number }) {
+export async function Hero({ maxGuests, featured }: { maxGuests: number; featured: FeaturedItem[] }) {
   const t = await getTranslations("home");
   return (
     <section aria-labelledby="hero-title" className="hero-pin relative -mt-[var(--header-h)] bg-wash">
@@ -100,10 +101,14 @@ export async function Hero({ maxGuests }: { maxGuests: number }) {
           </div>
         </div>
 
-        {/* Booking stays in place for the whole pinned scroll (outside the shrinking frame). */}
+        {/* Bottom row, outside the shrinking frame so it stays for the whole pinned scroll:
+            featured homes on the left (wide screens), booking on the right. */}
         <div className="absolute inset-x-0 bottom-0 z-10">
-          <div className="container-page pb-[clamp(1.25rem,4vh,3rem)]">
-            <div className="max-w-5xl">
+          <div className="container-page flex items-end justify-between gap-6 pb-[clamp(1.25rem,4vh,3rem)]">
+            <div className="hidden xl:block">
+              <FeaturedCard items={featured} />
+            </div>
+            <div className="w-full max-w-5xl xl:max-w-[46rem]">
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
             </div>
           </div>

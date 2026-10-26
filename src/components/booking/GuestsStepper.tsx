@@ -10,12 +10,14 @@ export function GuestsStepper({
   min = 1,
   max,
   tone = "dark",
+  compact = false,
 }: {
   value: number;
   onChange: (value: number) => void;
   min?: number;
   max: number;
   tone?: "dark" | "light";
+  compact?: boolean;
 }) {
   const t = useTranslations();
   const id = useId();
@@ -34,11 +36,11 @@ export function GuestsStepper({
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
         aria-label={t("search.fewerGuests")}
-        className={`grid size-9 place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
+        className={`grid ${compact ? "size-7" : "size-9"} place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
       >
-        <Icon name="minus" size={16} />
+        <Icon name="minus" size={compact ? 14 : 16} />
       </button>
-      <output aria-labelledby={id} aria-live="polite" className="min-w-[6.5rem] text-center tabular-nums">
+      <output aria-labelledby={id} aria-live="polite" className={`${compact ? "min-w-[5.5rem]" : "min-w-[6.5rem]"} text-center tabular-nums`}>
         {t("common.guests", { count: value })}
       </output>
       <button
@@ -46,9 +48,9 @@ export function GuestsStepper({
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
         aria-label={t("search.moreGuests")}
-        className={`grid size-9 place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
+        className={`grid ${compact ? "size-7" : "size-9"} place-items-center rounded-full border transition-colors disabled:opacity-30 ${btn}`}
       >
-        <Icon name="plus" size={16} />
+        <Icon name="plus" size={compact ? 14 : 16} />
       </button>
     </div>
   );

@@ -70,9 +70,11 @@ export function SearchBar({
     });
   }
 
-  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-3 text-left md:px-6";
-  const fieldLabel = "block text-[0.8125rem] text-paper/85";
-  const fieldValue = "mt-0.5 block text-lg font-medium text-paper";
+  // Fields are exactly the button's height on desktop, so the pill's 8px padding reads as an
+  // even inset all the way round the button.
+  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:py-0";
+  const fieldLabel = "block text-[0.8125rem] leading-tight text-paper/85";
+  const fieldValue = "mt-1 block text-[1.0625rem] leading-tight font-medium text-paper";
 
   return (
     <form
@@ -86,7 +88,7 @@ export function SearchBar({
           once the hero shrinks, over the light wash behind it. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 rounded-[1.75rem] border border-white/30 bg-ink/55 p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.25fr_auto] md:items-center md:rounded-full md:pl-3"
+        className="grid grid-cols-1 rounded-[1.75rem] border border-white/30 bg-ink/55 p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.3fr_auto] md:items-stretch md:rounded-full md:pl-2"
       >
         <button
           type="button"
@@ -110,13 +112,13 @@ export function SearchBar({
         </button>
         <div className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className="mt-0.5 text-lg font-medium text-paper">
-            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone="light" />
+          <div className="mt-0.5 text-[1.0625rem] font-medium text-paper">
+            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone="light" compact />
           </div>
         </div>
         <button
           type="submit"
-          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-wash px-8 text-[1.0625rem] font-semibold text-ink transition-colors hover:bg-white md:mt-0"
+          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-wash px-7 text-base font-semibold whitespace-nowrap text-ink transition-colors hover:bg-white md:mt-0 md:ml-2"
         >
           {t("submit")}
           <Icon name="arrowRight" size={18} />

@@ -5,7 +5,9 @@ import { faqFor } from "@/content/faq";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getListings, getReviewSummary, getReviews } from "@/lib/data";
+import { featuredSlugs } from "@/content/featured";
+import { getBuildings, getListings, getNeighbourhoods, getReviewSummary, getReviews } from "@/lib/data";
+import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
@@ -43,16 +45,33 @@ export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const [listings, summary, reviews] = await Promise.all([
+  const [listings, buildings, neighbourhoods, summary, reviews] = await Promise.all([
     getListings(locale),
+    getBuildings(locale),
+    getNeighbourhoods(locale),
     getReviewSummary(locale),
     getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
+  const format = createFormatter(locale);
+  const featured = featuredSlugs
+    .map((slug) => listings.find((l) => l.slug === slug))
+    .filter((l): l is (typeof listings)[number] => Boolean(l))
+    .map((l) => ({
+      slug: l.slug,
+      title: l.title,
+      // Building · neighbourhood (building omitted when it's the home's own name, e.g. a house).
+      place: [buildings.find((b) => b.id === l.buildingId)?.name, neighbourhoods.find((n) => n.slug === l.neighbourhoodSlug)?.name]
+        .filter((part) => part && part !== l.title)
+        .join(" · "),
+      image: { src: l.pictures[0]?.src ?? "", alt: l.pictures[0]?.alt ?? "" },
+      price: format.money(l.price.base.amount, l.price.base.currency),
+      rating: l.reviews ? format.number(l.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : null,
+    }));
 
   return (
     <>
-      <Hero maxGuests={maxGuests} />
+      <Hero maxGuests={maxGuests} featured={featured} />
 
       <Intro />
 

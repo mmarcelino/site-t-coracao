@@ -174,7 +174,12 @@
     "experiencesAll": "See all experiences",
     "experiencesLabel": "Recommended experiences",
     "experienceInPorto": "In Porto",
-    "experienceBeyond": "Beyond Porto"
+    "experienceBeyond": "Beyond Porto",
+    "featuredLabel": "Featured",
+    "featuredShow": "Show featured home {n} of {total}",
+    "featuredPause": "Pause featured homes",
+    "featuredPlay": "Play featured homes",
+    "featuredRating": "{score} out of 10"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

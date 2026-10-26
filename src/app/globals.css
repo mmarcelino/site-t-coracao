@@ -364,6 +364,11 @@
     --search-h: 4.5rem;
   }
 }
+@media (min-width: 1280px) {
+  .hero-pin {
+    --search-h: 14rem; /* featured card sets the row height */
+  }
+}
 
 @supports (animation-timeline: view()) {
   @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
@@ -422,5 +427,15 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Featured card: story-style progress for the active item (paused via play-state). */
+@keyframes featured-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
