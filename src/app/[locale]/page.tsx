@@ -53,35 +53,21 @@ export default async function HomePage() {
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
-  // One slide per collection: a home from it (photo) + that home's guest review.
-  const reviewSources = { google: "Google", airbnb: "Airbnb", booking: "Booking.com" } as const;
-  const slides = (
-    await Promise.all(
-      heroSlides.map(async ({ tag, slug, image, alt, reviewId }) => {
-        const l = listings.find((x) => x.slug === slug && x.tags.includes(tag));
-        const review = l ? (await getReviews(locale, { listingId: l.id })).find((r) => r.id === reviewId) : undefined;
-        if (!l || !review) return null;
-        return {
-          key: tag,
-          label: tTags(tag),
-          image: { src: image, alt: alt[locale] },
-          review: {
-            quote: review.text,
-            lang: review.language,
-            author: review.author,
-            source: reviewSources[review.source],
-            score: `${format.number(review.rating)}/${review.source === "booking" ? 10 : 5}`,
-            mock: review.mock,
-            home: { slug: l.slug, title: l.title },
-          },
-        };
-      }),
-    )
-  ).filter((s): s is NonNullable<typeof s> => s !== null);
+  // One slide per collection: a home that really carries the tag, shown with a fitting photo.
+  const slides = heroSlides.flatMap(({ tag, slug, image, alt }) =>
+    listings.some((l) => l.slug === slug && l.tags.includes(tag))
+      ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
+      : [],
+  );
+  const rating = {
+    score: format.number(summary.overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+    count: format.number(summary.overall.count),
+    mock: summary.overall.mock,
+  };
 
   return (
     <>
-      <Hero maxGuests={maxGuests} slides={slides} />
+      <Hero maxGuests={maxGuests} slides={slides} rating={rating} />
 
       <Intro />
 

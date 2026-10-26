@@ -3,17 +3,25 @@ import {
   HeroSlideshow,
   HeroSlideshowBackground,
   HeroSlideshowLines,
-  HeroSlideshowReview,
   type HeroSlide,
 } from "./HeroSlideshow";
+import { DirectCard, type HeroRating } from "./DirectCard";
 import { SearchBar } from "./SearchBar";
 
 /**
  * Editorial hero: a slideshow of homes (one per collection) behind a large headline, with the
- * collection lines, a guest review and the booking box along the bottom. One moving idea only:
+ * collection lines, a "book direct" card and the booking box along the bottom. One moving idea only:
  * the slideshow. The whole hero fits the first screen.
  */
-export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: HeroSlide[] }) {
+export async function Hero({
+  maxGuests,
+  slides,
+  rating,
+}: {
+  maxGuests: number;
+  slides: HeroSlide[];
+  rating: HeroRating;
+}) {
   const t = await getTranslations("home");
   return (
     <section
@@ -41,13 +49,13 @@ export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: H
           </div>
         </div>
 
-        {/* Collection lines, then one row in one material: review (wide screens) + booking. */}
+        {/* Collection lines, then one row in one material: why book direct (wide screens) + booking. */}
         <div className="absolute inset-x-0 bottom-0 z-10">
           <div className="container-page pb-[clamp(1.25rem,4vh,2.5rem)]">
             <HeroSlideshowLines className="mb-[clamp(0.75rem,2vh,1.25rem)]" />
             <div className="flex items-end justify-between gap-4">
               <div className="hidden xl:block">
-                <HeroSlideshowReview />
+                <DirectCard rating={rating} />
               </div>
               <div className="w-full md:ml-auto md:w-auto">
                 <SearchBar maxGuests={maxGuests} calendarPlacement="top" />

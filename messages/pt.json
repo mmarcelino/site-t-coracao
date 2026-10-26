@@ -184,7 +184,12 @@
     "slideShow": "Mostrar {n} de {total}: {name}",
     "heroTitleLead": "Casas com o Porto",
     "heroTitleAccent": "no coração.",
-    "seeAllShort": "Ver todos"
+    "seeAllShort": "Ver todos",
+    "directCardTitle": "Reserve diretamente",
+    "directCardPerk1": "Melhor preço",
+    "directCardPerk2": "Cancelamento grátis",
+    "directCardPerk3": "Oferta de boas-vindas",
+    "directCardRating": "{score} · {count} avaliações"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

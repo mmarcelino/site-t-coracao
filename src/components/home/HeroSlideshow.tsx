@@ -6,13 +6,11 @@ import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
-import { ReviewCard, type HeroReview } from "./ReviewCard";
 
 export interface HeroSlide {
   key: string;
   label: string; // collection name above the line, e.g. "Junto ao mar"
   image: { src: string; alt: string };
-  review: HeroReview;
 }
 
 const SLIDE_MS = 7000;
@@ -35,8 +33,8 @@ function useSlideshow() {
 }
 
 /**
- * One controller for the hero: background photo, progress lines and guest review always show
- * the same home. A line filling up = time until the next photo (Delta Cafés-style).
+ * One controller for the hero: background photo and progress lines always show the same
+ * collection. A line filling up = time until the next photo (Delta Cafés-style).
  * Pausable (WCAG 2.2.2); starts paused for reduced motion.
  */
 export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; children: ReactNode }) {
@@ -180,11 +178,4 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
       </Link>
     </div>
   );
-}
-
-/** Guest review of the home currently in the background. */
-export function HeroSlideshowReview() {
-  const { slides, index } = useSlideshow();
-  const slide = slides[index];
-  return slide ? <ReviewCard review={slide.review} /> : null;
 }

@@ -184,7 +184,12 @@
     "slideShow": "Show {n} of {total}: {name}",
     "heroTitleLead": "Homes with Porto",
     "heroTitleAccent": "at heart.",
-    "seeAllShort": "See all"
+    "seeAllShort": "See all",
+    "directCardTitle": "Book direct",
+    "directCardPerk1": "Best rate",
+    "directCardPerk2": "Free cancellation",
+    "directCardPerk3": "Welcome gift",
+    "directCardRating": "{score} · {count} reviews"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",
