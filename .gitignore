@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# playwright
+/screenshots/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# env: keep the example committed
+!.env.example

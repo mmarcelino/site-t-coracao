@@ -1,26 +1,293 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens — CLAUDE.md §5.
+ * Neutrals drawn from the buildings (granite, limestone, warm off-white, near-black)
+ * plus one accent (muted azulejo blue) used sparingly: links, focus, selected dates.
+ * Contrast (WCAG): ink/paper 15.7:1 · granite/paper 5.3:1 · granite/sand 4.9:1
+ * · azulejo/paper 8.1:1 · granite-light/ink 6.5:1. Granite on limestone is only 4.3:1:
+ * use ink for small text on limestone. Stone is for borders/rules only (1.6:1).
+ */
+@theme {
+  /* Colour */
+  --color-paper: #f6f3ee;
+  --color-sand: #efe9e0;
+  --color-limestone: #e4dccf;
+  --color-stone: #cbc2b4;
+  --color-granite: #67645f;
+  --color-granite-light: #a39e96;
+  --color-ink: #1b1a18;
+  --color-ink-soft: #262422;
+  --color-azulejo: #2e4a72;
+  --color-azulejo-tint: #dfe5ee;
+  --color-white: #ffffff;
+
+  /* Type */
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display: clamp(2.75rem, 1.55rem + 5.4vw, 7rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.04em;
+  --text-h1: clamp(2.375rem, 1.6rem + 3.4vw, 4.75rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.035em;
+  --text-h2: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.03em;
+  --text-statement: clamp(1.625rem, 1.2rem + 1.6vw, 2.625rem);
+  --text-statement--line-height: 1.2;
+  --text-statement--letter-spacing: -0.025em;
+  --text-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --text-h3--line-height: 1.15;
+  --text-h3--letter-spacing: -0.02em;
+  --text-lead: clamp(1.125rem, 1.02rem + 0.45vw, 1.4rem);
+  --text-lead--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.16em;
+
+  /* Motion: slow fades and subtle reveals only */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 200ms;
+  --duration-base: 600ms;
+  --duration-slow: 1000ms;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Spacing rhythm */
+  --gutter: clamp(1.25rem, 0.6rem + 2.8vw, 3rem);
+  --section: clamp(5rem, 3rem + 8vw, 10rem);
+  --section-tight: clamp(3.5rem, 2.4rem + 4.5vw, 6.5rem);
+  --page-max: 96rem;
+  --header-h: 4.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 300;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-azulejo);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-azulejo);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-dark :focus-visible,
+  :is([data-theme="dark"]) :focus-visible {
+    outline-color: var(--color-paper);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Layout */
+@utility container-page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section);
+}
+
+@utility section-y-tight {
+  padding-block: var(--section-tight);
+}
+
+/* Tracked uppercase label (eyebrows, meta) */
+@utility label {
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Underlined text link with a calm hover */
+@utility link-quiet {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  transition: text-decoration-color var(--duration-fast) ease;
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/*
+ * Scroll reveal: pure CSS (scroll-driven animations). Browsers without support,
+ * and visitors who prefer reduced motion, simply see the content.
+ */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@utility reveal {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in var(--duration-slow) var(--ease-soft) both;
+}
+
+/* Overlays (dialogs, menus, banners, popovers): quick, so they never look see-through. */
+@utility animate-fade-in-fast {
+  animation: fade-in var(--duration-fast) ease-out both;
+}
+
+@utility animate-hero-image {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: slow-zoom 2400ms var(--ease-soft) both;
+  }
+}
+
+/* Hide scrollbars on horizontal scrollers (still scrollable / keyboard accessible) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Calendar (react-day-picker) themed with our tokens */
+.tc-calendar {
+  --rdp-accent-color: var(--color-ink);
+  --rdp-accent-background-color: var(--color-limestone);
+  --rdp-day-height: 2.75rem;
+  --rdp-day-width: 2.75rem;
+  --rdp-day_button-height: 2.625rem;
+  --rdp-day_button-width: 2.625rem;
+  --rdp-day_button-border-radius: 0;
+  --rdp-selected-border: 1px solid var(--color-ink);
+  --rdp-today-color: var(--color-azulejo);
+  --rdp-range_start-color: var(--color-paper);
+  --rdp-range_end-color: var(--color-paper);
+  --rdp-range_middle-color: var(--color-ink);
+  --rdp-nav-height: 2.75rem;
+  --rdp-months-gap: 2.5rem;
+  font-size: 0.9375rem;
+}
+
+.tc-calendar .rdp-month_caption {
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+}
+
+.tc-calendar .rdp-weekday {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-granite);
+  opacity: 1;
+}
+
+.tc-calendar .rdp-chevron {
+  fill: var(--color-ink);
+  width: 1rem;
+  height: 1rem;
+}
+
+.tc-calendar .rdp-day_button:hover:not([disabled]) {
+  background: var(--color-sand);
+}
+
+.tc-calendar .rdp-selected .rdp-day_button:hover {
+  background: inherit;
+}
+
+/* Unavailable nights: struck through, clearly not selectable, still legible */
+.tc-calendar .tc-day-unavailable {
+  color: var(--color-granite);
+  opacity: 1;
+}
+
+.tc-calendar .tc-day-unavailable .rdp-day_button {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-stone);
+}
+
+.tc-calendar .rdp-day_button:focus-visible {
+  outline: 2px solid var(--color-azulejo);
+  outline-offset: 1px;
 }

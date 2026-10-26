@@ -1,0 +1,105 @@
+import type { Review, ReviewAggregate, ReviewSource } from "../types";
+
+/**
+ * MOCK REVIEWS — every entry is invented for layout purposes and flagged `mock: true`.
+ * Never ship these to production (CLAUDE.md §5). Real reviews will come from Guesty
+ * (Airbnb/Booking.com) and the client's Google Business profile.
+ *
+ * Per-listing aggregates are NOT here: those are real figures from the Guesty snapshot.
+ */
+export const mockReviews: Review[] = [
+  {
+    id: "mock-1",
+    source: "airbnb",
+    rating: 5,
+    author: "Claire",
+    date: "2026-09-14",
+    language: "en",
+    text: "We spent most evenings at the window watching the light change over the square. Spotless, calm, and the team answered every message within minutes.",
+    listingId: "64de2984ec3b510037fc32b6",
+    mock: true,
+  },
+  {
+    id: "mock-2",
+    source: "booking",
+    rating: 10,
+    author: "Miguel",
+    date: "2026-08-30",
+    language: "pt",
+    text: "Casa lindíssima, com pormenores pensados ao detalhe. A localização é imbatível e a receção foi impecável.",
+    listingId: "64de2984ec3b510037fc32c1",
+    mock: true,
+  },
+  {
+    id: "mock-3",
+    source: "google",
+    rating: 5,
+    author: "Jonas",
+    date: "2026-07-22",
+    language: "en",
+    text: "Third stay with Tripas-Coração. They remember you, they recommend places locals actually go to, and the flats are better than most hotels in town.",
+    mock: true,
+  },
+  {
+    id: "mock-4",
+    source: "airbnb",
+    rating: 5,
+    author: "Ana",
+    date: "2026-06-10",
+    language: "pt",
+    text: "A varanda sobre o rio vale a viagem. Estúdio pequeno mas muito bem resolvido, com peças portuguesas lindas.",
+    listingId: "60f82c3d7aba91002d2ccd0f",
+    mock: true,
+  },
+  {
+    id: "mock-5",
+    source: "booking",
+    rating: 9,
+    author: "Hélène",
+    date: "2026-05-18",
+    language: "en",
+    text: "Waking up to São Bento station from bed was unforgettable. Three flights of stairs, as they warn you, but worth every step.",
+    listingId: "60f82c06c8730e002dc84744",
+    mock: true,
+  },
+  {
+    id: "mock-6",
+    source: "google",
+    rating: 5,
+    author: "Rita",
+    date: "2026-04-02",
+    language: "pt",
+    text: "Ficámos no Breiner com dois miúdos e tínhamos berço e cadeira à nossa espera. Uma casa com alma, e uma equipa sempre disponível.",
+    listingId: "60f827e3b82a7e002f852152",
+    mock: true,
+  },
+  {
+    id: "mock-7",
+    source: "airbnb",
+    rating: 5,
+    author: "Tom",
+    date: "2026-03-11",
+    language: "en",
+    text: "A proper home, not a rental. Timber floors, good linen, a desk by the window. I worked from here for two weeks and didn't want to leave.",
+    listingId: "60f827e57aba91002d2bdc3c",
+    mock: true,
+  },
+  {
+    id: "mock-8",
+    source: "booking",
+    rating: 10,
+    author: "Inês",
+    date: "2026-02-20",
+    language: "pt",
+    text: "O pátio de azulejo é um sonho. Silencioso, apesar de estar mesmo no centro.",
+    listingId: "60f828533b29f7002f8ee8dc",
+    mock: true,
+  },
+];
+
+/** MOCK platform-wide aggregates. Replace with Google Business + Guesty channel data. */
+export const mockSourceAggregates: Record<ReviewSource, ReviewAggregate> = {
+  google: { source: "google", score: 9.6, count: 412, mock: true },
+  airbnb: { source: "airbnb", score: 9.6, count: 3180, mock: true },
+  booking: { source: "booking", score: 9.2, count: 2650, mock: true },
+};

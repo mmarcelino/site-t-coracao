@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tripas-Coração · direct booking site
 
-## Getting Started
+Premium direct-booking website for Tripas-Coração (Porto short-term rentals). The project brief,
+decisions and open questions live in [CLAUDE.md](CLAUDE.md). Read it first.
 
-First, run the development server:
+**Phase 1: visuals only.** All listing, availability and price data is local mock data shaped like
+Guesty's. No external APIs are called and nothing is booked or charged.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+corepack enable          # provides pnpm (version pinned in package.json)
+pnpm install
+cp .env.example .env.local
+pnpm dev                 # http://localhost:3000 → redirects to /pt or /en
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Dev server |
+| `pnpm build` / `pnpm start` | Production build / serve |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | Route type generation + `tsc --noEmit` |
+| `pnpm test` | Playwright smoke + accessibility (axe) tests |
+| `pnpm screenshots` | Full-page captures of key pages, PT + EN, at 375/768/1280/1600 → `screenshots/` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Playwright starts the dev server, or reuses one already on port 3000. On macOS it drives the
+installed Google Chrome (Playwright's bundled Chromium no longer supports macOS 13).
 
-## Learn More
+## Where things are
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/app/[locale]/        pages (internal paths; public localized slugs in src/i18n/routing.ts)
+src/components/          layout, booking, listing, home, consent, ui
+src/content/             editorial content, PT + EN (buildings, neighbourhoods, FAQ, perks, experiences)
+src/lib/data/            the only data entry point for pages (mock now, Guesty later)
+src/lib/actions/         server actions used by the booking widget (future Guesty seam)
+src/lib/analytics.ts     track() wrapper → Microsoft Clarity (only after consent + project ID)
+messages/                UI strings (pt.json, en.json)
+public/images/placeholder/  placeholder photos + SOURCES.md
+tests/                   Playwright smoke, a11y and screenshot specs
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `.env.example`. With `NEXT_PUBLIC_CLARITY_PROJECT_ID` empty, analytics is fully off (no script
+is loaded). Events log to the console in development.
