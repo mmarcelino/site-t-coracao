@@ -5,7 +5,7 @@ import {
   HeroSlideshowLines,
   type HeroSlide,
 } from "./HeroSlideshow";
-import { DirectCard, type HeroRating } from "./DirectCard";
+import { DirectCard, DirectPerksLine, type HeroRating } from "./DirectCard";
 import { SearchBar } from "./SearchBar";
 
 /**
@@ -60,6 +60,8 @@ export async function Hero({
               </div>
               <div className="w-full md:ml-auto md:w-auto">
                 <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
+                {/* Book-direct promise for phones/tablets (wide screens get the caption). */}
+                <DirectPerksLine className="mt-3 xl:hidden" />
               </div>
             </div>
           </div>

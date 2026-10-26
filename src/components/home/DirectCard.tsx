@@ -38,3 +38,15 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
     </section>
   );
 }
+
+/** The same promise as one small line, for screens where the caption doesn't fit. */
+export async function DirectPerksLine({ className }: { className?: string }) {
+  const t = await getTranslations("home");
+  const perks = [t("directCardPerk1"), t("directCardPerk2"), t("directCardPerk3")];
+  return (
+    <p className={`text-center text-[0.8125rem] text-paper md:text-right ${className ?? ""}`}>
+      <span className="sr-only">{t("directCardTitle")}: </span>
+      {perks.join(" · ")}
+    </p>
+  );
+}

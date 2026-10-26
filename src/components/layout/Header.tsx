@@ -9,7 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
-import { primaryNav } from "./navItems";
+import { headerNav, primaryNav } from "./navItems";
 
 /**
  * Sticky header. Over the home hero it starts transparent with light text and turns solid
@@ -56,8 +56,9 @@ export function Header() {
 
   return (
     <>
-      {/* Minimal bar: wordmark, hamburger, and a hairline rule below (elvara-style). Transparent
-          over the home hero, white once the page scrolls. Everything else lives in the menu. */}
+      {/* Bar with a hairline rule below (elvara-style): wordmark, key links, WhatsApp and language
+          on desktop; WhatsApp + hamburger on smaller screens. Transparent over the home hero,
+          white once the page scrolls. */}
       <header
         className={clsx(
           "sticky top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
@@ -69,27 +70,43 @@ export function Header() {
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
             </Link>
+            {/* Desktop: the key links, always visible. */}
+            <nav aria-label={t("nav.label")} className="hidden lg:block">
+              <ul className="flex items-center gap-8">
+                {headerNav.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className="py-2 text-[0.9375rem] transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-8"
+                    >
+                      {t(`nav.${item.key}`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
             <div className="flex items-center gap-3 sm:gap-5">
-              {/* WhatsApp concierge: a quiet line icon; the label slides out on hover (desktop). */}
+              {/* WhatsApp concierge: icon + label on desktop, icon only on smaller screens. */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
                 icon={false}
-                className="group/wa flex h-11 items-center gap-2 px-1"
+                className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
-                <span className="hidden max-w-0 overflow-hidden text-[0.875rem] whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover/wa:max-w-40 group-hover/wa:opacity-100 group-focus-visible/wa:max-w-40 group-focus-visible/wa:opacity-100 lg:block">
-                  {t("whatsapp.short")}
-                </span>
                 <Icon name="whatsapp" size={26} strokeWidth={0.9} />
-                <span className="sr-only">{t("whatsapp.cta")}</span>
+                <span className="hidden text-[0.9375rem] whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
+                <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
+              <LanguageSwitcher className="hidden lg:flex" tone={light ? "light" : "dark"} />
               <button
                 ref={menuButton}
                 type="button"
                 onClick={() => setMenuOpen(true)}
                 aria-expanded={menuOpen}
                 aria-controls="site-menu"
-                className="group -mr-2 flex h-11 items-center gap-3 px-2"
+                className="group -mr-2 flex h-11 items-center gap-3 px-2 lg:hidden"
               >
                 <Hamburger />
                 <span className="sr-only">{t("nav.openMenu")}</span>
@@ -106,7 +123,7 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label={t("nav.label")}
-          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper"
+          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper lg:hidden"
         >
           <div className="container-page flex h-[var(--header-h)] shrink-0 flex-col">
             <div className="flex flex-1 items-center justify-between">
