@@ -167,7 +167,7 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
                     onClick={() => go(i)}
                     aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
                     aria-current="true"
-                    className="block w-full py-2"
+                    className="block w-full pt-2 pb-2 md:pt-0"
                   >
                     {line}
                   </button>
