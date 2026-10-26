@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -19,9 +18,9 @@ export interface FeaturedItem {
 const DURATION_MS = 6000;
 
 /**
- * Hero "featured homes" card: rotates through a few top-rated homes with story-style progress
- * bars. Pauses on hover/focus, has an explicit pause button (WCAG 2.2.2), and doesn't
- * auto-rotate for visitors who prefer reduced motion.
+ * Hero "featured homes": a slim glass pill in the same material and height as the booking box.
+ * Rotates through a few top-rated homes with a hairline progress bar. Pauses on hover/focus, has
+ * an explicit pause button (WCAG 2.2.2), and starts paused for reduced motion.
  */
 export function FeaturedCard({ items }: { items: FeaturedItem[] }) {
   const t = useTranslations();
@@ -57,7 +56,7 @@ export function FeaturedCard({ items }: { items: FeaturedItem[] }) {
 
   return (
     <div
-      className="w-full max-w-[27rem] rounded-[1.5rem] bg-white/95 p-3 text-ink shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+      className="on-dark relative flex h-[4.5rem] w-[24rem] items-center gap-3 overflow-hidden rounded-full border border-white/30 bg-ink/55 p-2 pr-3 text-paper shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
@@ -66,59 +65,44 @@ export function FeaturedCard({ items }: { items: FeaturedItem[] }) {
       aria-roledescription="carousel"
       aria-label={t("home.featuredLabel")}
     >
-      <div className="flex gap-4">
-        <Link
-          href={{ pathname: "/apartments/[slug]", params: { slug: item.slug } }}
-          className="relative aspect-square w-28 shrink-0 overflow-hidden rounded-[1rem] bg-limestone"
-          tabIndex={-1}
-          aria-hidden
-        >
-          <Image key={item.image.src} src={item.image.src} alt="" fill sizes="112px" className="animate-fade-in-fast object-cover" />
-        </Link>
+      <span className="relative size-14 shrink-0 overflow-hidden rounded-full bg-limestone">
+        <Image key={item.image.src} src={item.image.src} alt="" fill sizes="56px" className="animate-fade-in-fast object-cover" />
+      </span>
 
-        <div className="flex min-w-0 flex-1 flex-col py-1 pr-1">
-          <div className="flex items-center justify-between gap-3">
-            <p className="label text-granite">
-              {t("home.featuredLabel")} · {String(index + 1).padStart(2, "0")}/{String(items.length).padStart(2, "0")}
-            </p>
-            <button
-              type="button"
-              onClick={() => setPaused((p) => !p)}
-              className="-m-1 grid size-7 place-items-center rounded-full text-granite transition-colors hover:bg-ink/[0.06] hover:text-ink"
-              aria-label={paused ? t("home.featuredPlay") : t("home.featuredPause")}
-            >
-              <Icon name={paused ? "play" : "pause"} size={14} strokeWidth={1.75} />
-            </button>
-          </div>
-
-          <div key={item.slug} className="animate-fade-in-fast mt-1.5 min-w-0" aria-live={running ? "off" : "polite"}>
-            <h3 className="truncate text-[1.1875rem] leading-tight font-semibold tracking-[-0.02em]">
-              <Link href={{ pathname: "/apartments/[slug]", params: { slug: item.slug } }} className="hover:text-azulejo-bright">
-                {item.title}
-              </Link>
-            </h3>
-            <p className="text-small mt-0.5 truncate text-granite">{item.place}</p>
-          </div>
-
-          <div className="mt-auto flex items-end justify-between gap-3 pt-2">
-            <p className="text-small">
-              <span className="text-granite">{t("common.from")} </span>
-              <span className="font-semibold">{item.price}</span>
-              <span className="text-granite"> {t("common.perNight")}</span>
-            </p>
-            {item.rating ? (
-              <p className="flex items-center gap-1 rounded-full bg-sand px-2.5 py-1 text-[0.8125rem] font-semibold">
-                <Icon name="star" size={13} fill="currentColor" strokeWidth={0} />
-                <span aria-hidden>{item.rating}</span>
-                <span className="sr-only">{t("home.featuredRating", { score: item.rating })}</span>
-              </p>
-            ) : null}
-          </div>
-        </div>
+      <div key={item.slug} className="animate-fade-in-fast min-w-0 flex-1">
+        <p className="text-[0.75rem] leading-tight text-paper/80">
+          {t("home.featuredLabel")} · {item.place}
+        </p>
+        <p className="mt-1 truncate text-[0.9375rem] leading-tight font-medium">
+          <Link href={{ pathname: "/apartments/[slug]", params: { slug: item.slug } }} className="hover:underline">
+            {item.title}
+          </Link>
+          <span className="font-normal text-paper/80">
+            {" "}
+            · {item.price} {t("common.perNight")}
+          </span>
+        </p>
       </div>
 
-      {/* Story-style progress: one segment per home; each is also a button to jump to it. */}
-      <div className="mt-3 flex gap-1.5 px-1">
+      {item.rating ? (
+        <p className="flex shrink-0 items-center gap-1 text-[0.8125rem] font-medium">
+          <Icon name="star" size={12} fill="currentColor" strokeWidth={0} />
+          <span aria-hidden>{item.rating}</span>
+          <span className="sr-only">{t("home.featuredRating", { score: item.rating })}</span>
+        </p>
+      ) : null}
+
+      <button
+        type="button"
+        onClick={() => setPaused((p) => !p)}
+        className="grid size-8 shrink-0 place-items-center rounded-full border border-white/30 transition-colors hover:bg-white/15"
+        aria-label={paused ? t("home.featuredPlay") : t("home.featuredPause")}
+      >
+        <Icon name={paused ? "play" : "pause"} size={12} strokeWidth={1.75} />
+      </button>
+
+      {/* Hairline progress along the bottom edge; segments are buttons to jump to a home. */}
+      <div className="absolute inset-x-8 bottom-1.5 flex gap-1">
         {items.map((it, i) => (
           <button
             key={it.slug}
@@ -126,15 +110,12 @@ export function FeaturedCard({ items }: { items: FeaturedItem[] }) {
             onClick={() => setIndex(i)}
             aria-label={t("home.featuredShow", { n: i + 1, total: items.length })}
             aria-current={i === index ? "true" : undefined}
-            className="group relative h-4 flex-1"
+            className="relative h-2 flex-1"
           >
-            <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-ink/10">
+            <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 overflow-hidden bg-white/25">
               <span
                 key={i === index ? `active-${index}` : `idle-${i}`}
-                className={clsx(
-                  "block h-full origin-left rounded-full bg-ink",
-                  i < index ? "scale-x-100" : i > index ? "scale-x-0" : "",
-                )}
+                className={`block h-full origin-left bg-white ${i < index ? "scale-x-100" : i > index ? "scale-x-0" : ""}`}
                 style={
                   i === index
                     ? {

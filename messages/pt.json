@@ -148,7 +148,7 @@
     "metaDescription": "Apartamentos de autor em edifícios históricos do centro do Porto. Reserve diretamente para o melhor preço, cancelamento flexível e a nossa equipa local sempre por perto.",
     "heroEyebrow": "Porto · desde 2015",
     "heroTitle": "Casas com o Porto no coração.",
-    "heroImageAlt": "O elétrico histórico passa em frente à Casa do Farol, uma casa de azulejo verde na Foz",
+    "heroImageAlt": "Janelas altas de sacada sobre as árvores do Jardim da Cordoaria, num apartamento restaurado",
     "directTitle": "Porquê reservar aqui.",
     "directBody": "Os nossos apartamentos também estão no Airbnb e no Booking.com. Aqui, fica com o melhor preço e com algo que as plataformas não dão: a nossa equipa.",
     "experiencesTitle": "O Porto e o Douro, com quem os conhece.",
@@ -179,7 +179,8 @@
     "featuredShow": "Mostrar destaque {n} de {total}",
     "featuredPause": "Pausar destaques",
     "featuredPlay": "Retomar destaques",
-    "featuredRating": "{score} em 10"
+    "featuredRating": "{score} em 10",
+    "heroLine": "Casas de autor em edifícios históricos, com uma equipa local à distância de uma mensagem."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

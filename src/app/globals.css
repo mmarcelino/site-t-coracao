@@ -342,8 +342,6 @@
   /* Card leaves room for the pinned search below it (≈17rem of vertical chrome). */
   --card-w: max(14rem, min(30vw, 28rem, calc((100svh - 17rem) / 1.32)));
   --card-h: calc(var(--card-w) * 1.32);
-  /* Height of the search pill: one row on desktop, stacked on phones. */
-  --search-h: 19rem;
   height: 100svh;
   min-height: 36rem;
 }
@@ -359,16 +357,6 @@
   display: none;
 }
 
-@media (min-width: 768px) {
-  .hero-pin {
-    --search-h: 4.5rem;
-  }
-}
-@media (min-width: 1280px) {
-  .hero-pin {
-    --search-h: 14rem; /* featured card sets the row height */
-  }
-}
 
 @supports (animation-timeline: view()) {
   @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {

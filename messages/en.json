@@ -148,7 +148,7 @@
     "metaDescription": "Design-led apartments in historic buildings in central Porto. Book direct for our best rate, flexible cancellation and a local team always close by.",
     "heroEyebrow": "Porto · since 2015",
     "heroTitle": "Homes with Porto at heart.",
-    "heroImageAlt": "The vintage tram passing Casa do Farol, a green-tiled house in Foz",
+    "heroImageAlt": "Tall French windows over the trees of the Cordoaria gardens, in a restored apartment",
     "directTitle": "Why book direct.",
     "directBody": "Our apartments are on Airbnb and Booking.com too. Here you get our best rate and something the platforms can't give you: us.",
     "experiencesTitle": "Porto and the Douro, with people who know them.",
@@ -179,7 +179,8 @@
     "featuredShow": "Show featured home {n} of {total}",
     "featuredPause": "Pause featured homes",
     "featuredPlay": "Play featured homes",
-    "featuredRating": "{score} out of 10"
+    "featuredRating": "{score} out of 10",
+    "heroLine": "Design-led homes in historic buildings, with a local team one message away."
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

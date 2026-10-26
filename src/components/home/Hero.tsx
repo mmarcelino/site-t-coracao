@@ -5,60 +5,39 @@ import { FeaturedCard, type FeaturedItem } from "./FeaturedCard";
 import { SearchBar } from "./SearchBar";
 
 /**
- * Collage photos that glide in around the shrinking hero card (positions relative to the card;
- * `from` is where each starts, off to the side). Decorative: the hero photo carries the meaning.
+ * Two larger collage photos that glide in beside the shrinking hero card (positions relative to
+ * the card; `from` is where each starts). Decorative: the hero photo carries the meaning.
  */
 const collage: Array<{ src: string; style: CSSProperties }> = [
   {
-    src: "/images/placeholder/mouzinho-rooftop-e-01.jpg",
+    src: "/images/placeholder/casa-do-farol-02.jpg",
     style: {
-      right: "calc(50% + var(--card-w) / 2 + 2vw)",
-      top: "11%",
-      width: "min(21vw, 22rem)",
-      aspectRatio: "16 / 10",
-      "--from-x": "-38vw",
-      "--from-y": "-6vh",
+      right: "calc(50% + var(--card-w) / 2 + 2.5vw)",
+      top: "20%",
+      width: "min(24vw, 26rem)",
+      aspectRatio: "4 / 3",
+      "--from-x": "-36vw",
+      "--from-y": "0vh",
     } as CSSProperties,
   },
   {
-    src: "/images/placeholder/sao-bento-duplex-06.jpg",
+    src: "/images/placeholder/sao-bento-ii-01.jpg",
     style: {
-      right: "calc(50% + var(--card-w) / 2 + 8vw)",
-      top: "calc(52% - 3rem)",
-      width: "min(13vw, 14rem)",
-      aspectRatio: "3 / 2",
-      "--from-x": "-34vw",
-      "--from-y": "5vh",
-    } as CSSProperties,
-  },
-  {
-    src: "/images/placeholder/cordoaria-garden-06.jpg",
-    style: {
-      left: "calc(50% + var(--card-w) / 2 + 2vw)",
-      top: "15%",
-      width: "min(14vw, 15rem)",
+      left: "calc(50% + var(--card-w) / 2 + 2.5vw)",
+      top: "12%",
+      width: "min(17vw, 18rem)",
       aspectRatio: "3 / 4",
       "--from-x": "36vw",
-      "--from-y": "-7vh",
-    } as CSSProperties,
-  },
-  {
-    src: "/images/placeholder/breiner-skylight-01.jpg",
-    style: {
-      left: "calc(50% + var(--card-w) / 2 + 2vw)",
-      top: "calc(58% - 3.5rem)",
-      width: "min(20vw, 21rem)",
-      aspectRatio: "3 / 2",
-      "--from-x": "38vw",
-      "--from-y": "9vh",
+      "--from-y": "4vh",
     } as CSSProperties,
   },
 ];
 
 /**
- * Hero: one building, one headline, the search on the photo, nothing else; the whole hero fits
- * the first screen. On scroll (desktop, supporting browsers) it pins while the photo shrinks into
- * a card and a collage gathers around it (CSS in globals.css, "Pinned hero").
+ * Editorial hero: a calm photo, a large light uppercase headline high on the left, one short line
+ * top right, and a single bottom row in one material (glass): featured homes + booking.
+ * On scroll (desktop, supporting browsers) it pins while the photo shrinks into a card
+ * (CSS in globals.css, "Pinned hero"); the bottom row stays put.
  */
 export async function Hero({ maxGuests, featured }: { maxGuests: number; featured: FeaturedItem[] }) {
   const t = await getTranslations("home");
@@ -69,46 +48,51 @@ export async function Hero({ maxGuests, featured }: { maxGuests: number; feature
           {collage.map((photo) => (
             <div
               key={photo.src}
-              className="hero-pin__photo absolute overflow-hidden rounded-[var(--radius-tile)] bg-limestone shadow-[0_20px_50px_-25px_rgba(27,26,24,0.5)]"
+              className="hero-pin__photo absolute overflow-hidden rounded-[var(--radius-card)] bg-limestone shadow-[0_24px_60px_-30px_rgba(27,26,24,0.5)]"
               style={photo.style}
             >
-              <Image src={photo.src} alt="" fill sizes="22vw" className="object-cover" />
+              <Image src={photo.src} alt="" fill sizes="26vw" className="object-cover" />
             </div>
           ))}
         </div>
 
         <div className="hero-pin__frame on-dark absolute inset-0 overflow-hidden bg-ink text-paper">
           <Image
-            src="/images/placeholder/casa-do-farol-09.jpg"
+            src="/images/placeholder/cordoaria-garden-01.jpg"
             alt={t("heroImageAlt")}
             fill
             priority
             sizes="100vw"
             quality={75}
-            className="animate-hero-image object-cover object-[60%_50%]"
+            className="animate-hero-image object-cover object-[50%_45%]"
           />
-          {/* Scrim: keeps type legible on any photo without flattening it */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.5)_0%,rgba(27,26,24,0)_25%,rgba(27,26,24,0.1)_50%,rgba(27,26,24,0.8)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_70%)]" />
+          {/* Even, calm darkening + a little extra at the top where the headline sits. */}
+          <div className="absolute inset-0 bg-ink/35" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_45%,rgba(27,26,24,0)_70%,rgba(27,26,24,0.45)_100%)]" />
 
-          {/* Headline fades as the photo shrinks; the search below never does. */}
-          <div className="hero-pin__content absolute inset-0 flex flex-col justify-end">
-            <div className="container-page pb-[calc(clamp(1.25rem,4vh,3rem)+var(--search-h)+clamp(1.5rem,4vh,3rem))]">
-              <h1 id="hero-title" className="text-display animate-fade-in max-w-[13ch]">
+          {/* Headline + line fade as the photo shrinks; the bottom row never does. */}
+          <div className="hero-pin__content absolute inset-x-0 top-0">
+            <div className="container-page grid gap-6 pt-[calc(var(--header-h)+clamp(2rem,7vh,5rem))] lg:grid-cols-12">
+              <h1
+                id="hero-title"
+                className="animate-fade-in text-[clamp(2.75rem,1.2rem+6.4vw,8.25rem)] leading-[0.92] font-light tracking-[-0.03em] uppercase lg:col-span-9"
+              >
                 {t("heroTitle")}
               </h1>
+              <p className="animate-fade-in hidden max-w-[22rem] text-[1.0625rem] leading-snug text-paper/90 lg:col-span-3 lg:block lg:justify-self-end">
+                {t("heroLine")}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Bottom row, outside the shrinking frame so it stays for the whole pinned scroll:
-            featured homes on the left (wide screens), booking on the right. */}
+        {/* One row, one material: featured homes (wide screens) + booking, aligned on a baseline. */}
         <div className="absolute inset-x-0 bottom-0 z-10">
-          <div className="container-page flex items-end justify-between gap-6 pb-[clamp(1.25rem,4vh,3rem)]">
+          <div className="container-page flex items-end justify-between gap-4 pb-[clamp(1.25rem,4vh,2.5rem)]">
             <div className="hidden xl:block">
               <FeaturedCard items={featured} />
             </div>
-            <div className="w-full max-w-5xl xl:max-w-[46rem]">
+            <div className="w-full max-w-5xl xl:max-w-[44rem]">
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
             </div>
           </div>
