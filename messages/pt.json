@@ -180,7 +180,9 @@
     "featuredPause": "Pausar destaques",
     "featuredPlay": "Retomar destaques",
     "featuredRating": "{score} em 10",
-    "heroLine": "Casas de autor em edifícios históricos, com uma equipa local à distância de uma mensagem."
+    "heroLine": "Casas de autor em edifícios históricos, com uma equipa local à distância de uma mensagem.",
+    "slidesLabel": "Casas em destaque",
+    "slideShow": "Mostrar {n} de {total}: {name}"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

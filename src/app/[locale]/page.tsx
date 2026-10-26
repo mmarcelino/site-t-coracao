@@ -5,7 +5,7 @@ import { faqFor } from "@/content/faq";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { featuredSlugs } from "@/content/featured";
+import { heroSlides } from "@/content/featured";
 import { getBuildings, getListings, getNeighbourhoods, getReviewSummary, getReviews } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
@@ -54,24 +54,25 @@ export default async function HomePage() {
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
-  const featured = featuredSlugs
-    .map((slug) => listings.find((l) => l.slug === slug))
-    .filter((l): l is (typeof listings)[number] => Boolean(l))
-    .map((l) => ({
+  const slides = heroSlides.flatMap(({ slug, image }) => {
+    const l = listings.find((x) => x.slug === slug);
+    if (!l) return [];
+    const building = buildings.find((b) => b.id === l.buildingId);
+    const home = {
       slug: l.slug,
       title: l.title,
-      // Building · neighbourhood (building omitted when it's the home's own name, e.g. a house).
-      place: [buildings.find((b) => b.id === l.buildingId)?.name, neighbourhoods.find((n) => n.slug === l.neighbourhoodSlug)?.name]
-        .filter((part) => part && part !== l.title)
-        .join(" · "),
+      place: neighbourhoods.find((n) => n.slug === l.neighbourhoodSlug)?.name ?? "",
       image: { src: l.pictures[0]?.src ?? "", alt: l.pictures[0]?.alt ?? "" },
       price: format.money(l.price.base.amount, l.price.base.currency),
       rating: l.reviews ? format.number(l.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : null,
-    }));
+    };
+    const alt = l.pictures.find((p) => p.src === image)?.alt ?? l.title;
+    return [{ key: slug, label: building?.name === l.title ? l.title : (building?.name ?? l.title), image: { src: image, alt }, home }];
+  });
 
   return (
     <>
-      <Hero maxGuests={maxGuests} featured={featured} />
+      <Hero maxGuests={maxGuests} slides={slides} />
 
       <Intro />
 
