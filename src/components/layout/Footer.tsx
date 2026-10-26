@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { CookiePreferencesButton } from "@/components/consent/ConsentBanner";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
 import { primaryNav } from "./navItems";
 
@@ -29,6 +30,10 @@ export async function Footer() {
               {t("whatsapp.cta")}
             </WhatsAppLink>
             <p className="text-small mt-2 text-ink-soft-text">{t("whatsapp.hours")}</p>
+            <div className="mt-8 flex items-center gap-4">
+              <span className="label text-ink-soft-text">{t("language.label")}</span>
+              <LanguageSwitcher />
+            </div>
           </div>
 
           <div className="md:col-span-3">

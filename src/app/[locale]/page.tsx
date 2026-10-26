@@ -5,18 +5,15 @@ import { faqFor } from "@/content/faq";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getBuildings, getListings, getNeighbourhoods, getReviewSummary, getReviews } from "@/lib/data";
-import { createFormatter } from "@/lib/format";
+import { getListings, getReviewSummary, getReviews } from "@/lib/data";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
-import { BuildingsSection } from "@/components/home/BuildingsSection";
-import { ExperiencesTeaser } from "@/components/home/ExperiencesTeaser";
+import { Collections } from "@/components/home/Collections";
+import { ExperiencesStrip } from "@/components/home/ExperiencesStrip";
 import { Hero } from "@/components/home/Hero";
-import { SearchBar } from "@/components/home/SearchBar";
-import { StatementSection } from "@/components/home/StatementSection";
-import { NeighbourhoodsTeaser } from "@/components/home/NeighbourhoodsTeaser";
-import { OwnersTeaser } from "@/components/home/OwnersTeaser";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { Intro } from "@/components/home/Intro";
 import { ReviewsBlock } from "@/components/ReviewsBlock";
 import { Icon } from "@/components/ui/Icon";
 
@@ -33,67 +30,40 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: ogLocale[locale],
       siteName: site.name,
-      images: [{ url: "/images/placeholder/cordoaria-garden-01.jpg", width: 2400, height: 1599 }],
+      images: [{ url: "/images/placeholder/casa-do-farol-09.jpg", width: 2400, height: 1602 }],
     },
   };
 }
 
+/**
+ * Home, in order: hero + search · intro line · collections · why book direct · reviews ·
+ * how it works · experiences · FAQ excerpt (footer comes from the layout).
+ */
 export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const format = createFormatter(locale);
-  const [listings, buildings, neighbourhoods, summary, reviews] = await Promise.all([
+  const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
-    getBuildings(locale),
-    getNeighbourhoods(locale),
     getReviewSummary(locale),
-    getReviews(locale, { limit: 3 }),
+    getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
 
-  const facts = [
-    { value: String(site.foundedYear), label: t("factSince") },
-    { value: "40+", label: t("factApartments") },
-    { value: format.number(summary.overall.score, { minimumFractionDigits: 1 }), label: t("factRating") },
-  ];
-
   return (
     <>
-      <Hero />
+      <Hero maxGuests={maxGuests} />
 
-      {/* Search pill: overlaps the hero, then stays pinned under the header on desktop (Numa). */}
-      <div className="container-page relative z-30 -mt-[4.5rem] md:sticky md:top-[calc(var(--header-h)+0.75rem)] md:-mt-11">
-        <div className="max-w-5xl">
-          <SearchBar maxGuests={maxGuests} />
-        </div>
-      </div>
+      <Intro />
 
-      <div className="mt-[var(--section-tight)]">
-        <StatementSection />
-      </div>
-
-      <section aria-label={t("introEyebrow")} className="container-page pt-[var(--section-tight)]">
-        <dl className="grid gap-10 sm:grid-cols-3">
-          {facts.map((fact) => (
-            <div key={fact.value} className="reveal flex flex-col-reverse border-t-2 border-ink pt-6">
-              <dt className="mt-2 text-granite">{fact.label}</dt>
-              <dd className="text-h1 font-semibold tabular-nums">{fact.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <BuildingsSection buildings={buildings} listings={listings} neighbourhoods={neighbourhoods} />
+      <Collections listings={listings} />
 
       <BookDirect />
 
-      <NeighbourhoodsTeaser neighbourhoods={neighbourhoods} />
-
       <section aria-labelledby="reviews-title" className="container-page section-y">
+        {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
         <ReviewsBlock
-          overall={summary.overall}
-          bySource={summary.bySource}
+          overall={summary.bySource.google}
           reviews={reviews}
           eyebrow={tr("eyebrow")}
           heading={tr("title")}
@@ -101,14 +71,14 @@ export default async function HomePage() {
         />
       </section>
 
-      <OwnersTeaser />
+      <HowItWorks />
 
-      <ExperiencesTeaser />
+      <ExperiencesStrip />
 
-      <section aria-labelledby="faq-title" className="border-t border-ink/10">
+      <section aria-labelledby="faq-title" className="bg-sand">
         <div className="container-page section-y grid gap-12 lg:grid-cols-12">
           <div className="reveal lg:col-span-4">
-            <h2 id="faq-title" className="text-h1">
+            <h2 id="faq-title" className="text-h2">
               {t("faqTitle")}
             </h2>
             <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-2 font-semibold hover:text-azulejo-bright">

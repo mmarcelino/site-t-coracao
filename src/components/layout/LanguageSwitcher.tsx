@@ -49,7 +49,11 @@ export function LanguageSwitcher({ className, tone = "dark" }: { className?: str
             data-testid={`lang-${l}`}
             className={clsx(
               "label py-2 transition-colors",
-              l === locale ? "" : tone === "light" ? "text-paper/80 hover:text-paper" : "text-granite hover:text-ink",
+              l === locale
+                ? "underline decoration-[1.5px] underline-offset-[6px]"
+                : tone === "light"
+                  ? "text-paper/80 hover:text-paper"
+                  : "text-ink-soft-text hover:text-ink",
             )}
           >
             {/* Visible code + full language name for assistive tech (name must contain the visible text). */}

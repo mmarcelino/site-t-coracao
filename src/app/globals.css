@@ -6,15 +6,17 @@
  * type (600), an azulejo-wash colour block as the signature colour, pill buttons, rounded cards.
  * Neutrals drawn from the buildings (granite, limestone, warm off-white, near-black)
  * plus one accent (muted azulejo blue) used sparingly: links, focus, selected dates.
- * Contrast (WCAG): ink/paper 15.7:1 · granite/paper 5.3:1 · granite/sand 4.9:1
- * · azulejo/paper 8.1:1 · granite-light/ink 6.5:1. Granite on limestone is only 4.3:1:
+ * Contrast (WCAG): ink/paper(white) 17.4:1 · granite/paper 5.9:1 · granite/sand(mist) 5.4:1
+ * · azulejo/paper 9:1 · granite-light/ink 6.5:1. Granite on limestone is only 4.3:1:
  * use ink for small text on limestone. Stone is for borders/rules only (1.6:1).
  * Wash: ink 12.5:1 · azulejo 6.5:1 · ink-soft-text 8.1:1 · granite 4.2:1 (don't).
+ * azulejo-bright on white 6.3:1.
  */
 @theme {
   /* Colour */
-  --color-paper: #f6f3ee;
-  --color-sand: #efe9e0;
+  /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
+  --color-paper: #ffffff;
+  --color-sand: #f3f4f5;
   --color-limestone: #e4dccf;
   --color-stone: #cbc2b4;
   --color-granite: #67645f;
@@ -330,28 +332,16 @@
   }
 }
 
-/* Building list: hovering/focusing a name reveals its photo; the first shows by default. */
-.building-list .building-preview {
+/* Hover list (collections): hovering/focusing an item reveals its photo; the first by default. */
+.hover-list .hover-preview {
   opacity: 0;
   transform: scale(0.97);
   transition:
     opacity var(--duration-base) var(--ease-soft),
     transform var(--duration-base) var(--ease-soft);
 }
-.building-list li:is(:hover, :focus-within) .building-preview,
-.building-list:not(:has(li:is(:hover, :focus-within))) li:first-child .building-preview {
+.hover-list li:is(:hover, :focus-within) .hover-preview,
+.hover-list:not(:has(li:is(:hover, :focus-within))) li:first-child .hover-preview {
   opacity: 1;
   transform: none;
-}
-
-/* Stacked cards: each card sticks a little lower than the previous one. On desktop the home
-   search pill is pinned under the header too, so cards stop below it. */
-.stack-card {
-  position: sticky;
-  top: calc(var(--header-h) + 1rem + var(--stack-i, 0) * 1rem);
-}
-@media (min-width: 768px) {
-  .stack-card {
-    top: calc(var(--header-h) + 6.75rem + var(--stack-i, 0) * 1.25rem);
-  }
 }

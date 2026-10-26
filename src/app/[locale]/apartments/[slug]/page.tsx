@@ -336,7 +336,9 @@ async function ApartmentContent({ params }: { params: Params }) {
               {!listing.hasLift ? (
                 <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-sand p-4 text-small">
                   <Icon name="stairs" size={20} className="shrink-0" />
-                  {t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
+                  {listing.category === "house"
+                    ? t("listing.stairsNoteHouse", { building: building.name })
+                    : t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
                 </p>
               ) : null}
               <ul className="mt-6 grid gap-x-8 sm:grid-cols-2">

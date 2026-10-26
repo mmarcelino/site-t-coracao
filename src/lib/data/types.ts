@@ -112,6 +112,10 @@ export interface GuestyQuote {
 
 export type ListingCategory = "studio" | "one-bed" | "two-bed" | "house";
 
+/** Tags behind collections and apartment filters. */
+export type ListingTag = "couples" | "families" | "sea" | "outdoor" | "views" | "remote-work";
+export const listingTags: ListingTag[] = ["couples", "families", "sea", "outdoor", "views", "remote-work"];
+
 export interface Picture {
   src: string;
   alt: string;
@@ -140,6 +144,7 @@ export interface Listing {
   guestyTitle: string;
   nickname: string | null;
   category: ListingCategory;
+  tags: ListingTag[];
   propertyType: string;
   accommodates: number;
   bedrooms: number;

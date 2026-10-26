@@ -4,7 +4,7 @@ All images are **placeholders** taken from the client's own public pages on 2026
 Final high-resolution originals will come from Tripas-Coração (see CLAUDE.md §8).
 
 - Listing photos: the public Guesty booking site, https://tripasapartments.guestybookings.com/en/properties/<listingId>
-  (first 8 photos of each listing, in Guesty order). Large originals capped at 2400px and re-encoded at JPEG q72.
+  (first 8 photos of each listing, in Guesty order; Casa do Farol: 10 hand-picked of 94, incl. exteriors). Large originals capped at 2400px and re-encoded at JPEG q72.
 - Site images: https://www.tripas-coracao.pt
 
 "Used in" names the listing (via `src/lib/data/mock/guesty-listings.snapshot.json`) or the page/component.
@@ -39,7 +39,7 @@ Low-res originals: all Mouzinho 32 photos (1200px) and most of `cordoaria-river-
 | `mouzinho-2e-08.jpg` | 1200×802 | https://assets.guesty.com/image/upload/v1709308395/ddwlasvuz9otaocsrq5m.jpg | Listing `64de2984ec3b510037fc32a0` gallery |
 | `cordoaria-river-balcony-01.jpg` | 1024×683 | https://guesty-listing-images.s3.amazonaws.com/production/original_37474258_826282941.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery |
 | `cordoaria-river-balcony-02.jpg` | 1024×683 | https://guesty-listing-images.s3.amazonaws.com/production/original_37474258_826282299.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery |
-| `cordoaria-river-balcony-03.jpg` | 1024×683 | https://guesty-listing-images.s3.amazonaws.com/production/original_37474258_1096038393.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery |
+| `cordoaria-river-balcony-03.jpg` | 1024×683 | https://guesty-listing-images.s3.amazonaws.com/production/original_37474258_1096038393.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery; also: 'With outdoor space' collection |
 | `cordoaria-river-balcony-04.jpg` | 1024×683 | https://guesty-listing-images.s3.amazonaws.com/production/original_37474258_826282689.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery |
 | `cordoaria-river-balcony-05.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1760712026/production/60f6b27fde6465002d1eae2b/avz0io7jd4ydlwnoobw4.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery |
 | `cordoaria-river-balcony-06.jpg` | 1023×683 | https://guesty-listing-images.s3.amazonaws.com/production/original_37474258_826282876.jpg | Listing `60f82c3d7aba91002d2ccd0f` gallery |
@@ -68,8 +68,8 @@ Low-res originals: all Mouzinho 32 photos (1200px) and most of `cordoaria-river-
 | `breiner-heritage-05.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630849945/production/60f6b27fde6465002d1eae2b/kcunqrbaturvmknqjxbx.jpg | Listing `60f827e3b82a7e002f852152` gallery |
 | `breiner-heritage-06.jpg` | 2400×1605 | https://assets.guesty.com/image/upload/v1630849950/production/60f6b27fde6465002d1eae2b/dipgdsnptpeudlutpa5g.jpg | Listing `60f827e3b82a7e002f852152` gallery |
 | `breiner-heritage-07.jpg` | 2400×1596 | https://assets.guesty.com/image/upload/v1630849950/production/60f6b27fde6465002d1eae2b/mhoqs57rhxq7dagr9xvo.jpg | Listing `60f827e3b82a7e002f852152` gallery |
-| `breiner-heritage-08.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630849957/production/60f6b27fde6465002d1eae2b/ranlcplvnro4zicymn1g.jpg | Listing `60f827e3b82a7e002f852152` gallery; also: Breiner 210 story image (apartment pages) |
-| `breiner-skylight-01.jpg` | 2400×1606 | https://assets.guesty.com/image/upload/v1630427559/production/60f6b27fde6465002d1eae2b/etwjgoz9daqerypclvs9.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
+| `breiner-heritage-08.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630849957/production/60f6b27fde6465002d1eae2b/ranlcplvnro4zicymn1g.jpg | Listing `60f827e3b82a7e002f852152` gallery; also: Breiner 210 story image (apartment pages); also: 'For remote work' collection |
+| `breiner-skylight-01.jpg` | 2400×1606 | https://assets.guesty.com/image/upload/v1630427559/production/60f6b27fde6465002d1eae2b/etwjgoz9daqerypclvs9.jpg | Listing `60f827e57aba91002d2bdc3c` gallery; also: 'For families' collection |
 | `breiner-skylight-02.jpg` | 2400×1598 | https://assets.guesty.com/image/upload/v1630427559/production/60f6b27fde6465002d1eae2b/zkkuwyocyymwvesvuxde.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
 | `breiner-skylight-03.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630427559/production/60f6b27fde6465002d1eae2b/tgzffadowtivrz9gohxf.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
 | `breiner-skylight-04.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630427561/production/60f6b27fde6465002d1eae2b/ungfhbeo9bu3mcgxcwse.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
@@ -77,7 +77,7 @@ Low-res originals: all Mouzinho 32 photos (1200px) and most of `cordoaria-river-
 | `breiner-skylight-06.jpg` | 2400×1598 | https://assets.guesty.com/image/upload/v1630427561/production/60f6b27fde6465002d1eae2b/p8q5jwmuamlnq8njveki.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
 | `breiner-skylight-07.jpg` | 2400×1610 | https://assets.guesty.com/image/upload/v1630427562/production/60f6b27fde6465002d1eae2b/z51kuiwtcddikxozdj85.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
 | `breiner-skylight-08.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630427562/production/60f6b27fde6465002d1eae2b/dsrrquysm8wit8tppxfj.jpg | Listing `60f827e57aba91002d2bdc3c` gallery |
-| `sao-bento-ii-01.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630852703/production/60f6b27fde6465002d1eae2b/yzuxrhcgux6kzlc5atpy.jpg | Listing `60f82c06c8730e002dc84744` gallery; also: São Bento building card |
+| `sao-bento-ii-01.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630852703/production/60f6b27fde6465002d1eae2b/yzuxrhcgux6kzlc5atpy.jpg | Listing `60f82c06c8730e002dc84744` gallery; also: São Bento building card; also: 'For two' collection |
 | `sao-bento-ii-02.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1630852705/production/60f6b27fde6465002d1eae2b/zmtzt483wxhi7wf7inpb.jpg | Listing `60f82c06c8730e002dc84744` gallery |
 | `sao-bento-ii-03.jpg` | 2400×1614 | https://assets.guesty.com/image/upload/v1630852707/production/60f6b27fde6465002d1eae2b/pl6efvgandw0uiohrtu0.jpg | Listing `60f82c06c8730e002dc84744` gallery |
 | `sao-bento-ii-04.jpg` | 2400×1610 | https://assets.guesty.com/image/upload/v1630852702/production/60f6b27fde6465002d1eae2b/v211kbf5ejpxe3qi1xco.jpg | Listing `60f82c06c8730e002dc84744` gallery |
@@ -97,3 +97,13 @@ Low-res originals: all Mouzinho 32 photos (1200px) and most of `cordoaria-river-
 | `site-guest-portal.webp` | 1400×788 | https://le-de.cdn-website.com/42f5d6d4ad514f7cb7f7d932fe16cb8d/dms3rep/multi/opt/5-Digital-Guidebooks-1400x788-1920w.webp | Not used yet (experiences page, milestone 3) |
 | `site-experiences.jpg` | 1920×1280 | https://le-de.cdn-website.com/42f5d6d4ad514f7cb7f7d932fe16cb8d/dms3rep/multi/opt/IMG_9827-1920w.JPG | Home: experiences teaser |
 | `site-livro-reclamacoes.png` | 255×105 | https://le-de.cdn-website.com/42f5d6d4ad514f7cb7f7d932fe16cb8d/dms3rep/multi/opt/livro-de-reclama-C3-A7-C3-B5es-online-1920w.png | Not used (footer uses a text link to livroreclamacoes.pt) |
+| `casa-do-farol-01.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723485/production/60f6b27fde6465002d1eae2b/dhyxcjteblookhzwc6ip.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "The front of the house"); also: Casa do Farol building card |
+| `casa-do-farol-02.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723476/production/60f6b27fde6465002d1eae2b/lumnvcwtwz3xti7ily17.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Balcony with river, sea and garden view"); also: 'By the sea' collection |
+| `casa-do-farol-03.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723431/production/60f6b27fde6465002d1eae2b/of8ch4azqraiygar4xbw.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Living room area") |
+| `casa-do-farol-04.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723417/production/60f6b27fde6465002d1eae2b/vpcplbunxnynvwii5ci4.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Dining area and Kitchen") |
+| `casa-do-farol-05.jpg` | 2400×1584 | https://assets.guesty.com/image/upload/v1749723467/production/60f6b27fde6465002d1eae2b/ltmvgpmocsve0xt8kqyc.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Master Suite (sea and river view and kind size bed)") |
+| `casa-do-farol-06.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723457/production/60f6b27fde6465002d1eae2b/b1lh6ox55wsworrxrj4u.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Suite views"); also: 'With a view' collection |
+| `casa-do-farol-07.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723476/production/60f6b27fde6465002d1eae2b/duuz2tnytbox6vyifpmx.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Balcony with river and sea view") |
+| `casa-do-farol-08.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723460/production/60f6b27fde6465002d1eae2b/dqe5j6wridim1vjce73g.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "Reading nook - wall art by Maria Souto de Moura") |
+| `casa-do-farol-09.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723488/production/60f6b27fde6465002d1eae2b/qbfmixbf6zgesxu5fhws.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "The surrounding area and the local tram"); also: Home hero (LCP) + Open Graph image; Casa do Farol story image |
+| `casa-do-farol-10.jpg` | 2400×1602 | https://assets.guesty.com/image/upload/v1749723490/production/60f6b27fde6465002d1eae2b/c3npadwey1sgr7ntf1zi.jpg | Listing `683036ac17f8820013f84e69` gallery (Guesty caption: "The surroundings - Passeio Alegre garden"); also: Foz neighbourhood image |

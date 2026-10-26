@@ -34,12 +34,46 @@ for (const p of pages) {
   });
 }
 
+for (const size of [
+  { width: 375, height: 667 },
+  { width: 1280, height: 720 },
+  { width: 1600, height: 900 },
+]) {
+  test(`home hero (with search) fits above the fold at ${size.width}×${size.height}`, async ({ page, context }) => {
+    await dismissConsent(context);
+    await page.setViewportSize(size);
+    await page.goto("/pt");
+    const heroBottom = await page.locator("section[aria-labelledby=hero-title]").evaluate((el) => el.getBoundingClientRect().bottom);
+    const searchBottom = await page.getByTestId("hero-search").evaluate((el) => el.getBoundingClientRect().bottom);
+    expect(heroBottom).toBeLessThanOrEqual(size.height + 1);
+    expect(searchBottom).toBeLessThanOrEqual(size.height);
+  });
+}
+
+test("collection filter shows only matching homes", async ({ page, context }) => {
+  await dismissConsent(context);
+  await page.goto("/en/apartments?tag=sea");
+  await expect(page.getByRole("heading", { level: 3 })).toHaveCount(1);
+  await expect(page.getByRole("heading", { level: 3 })).toContainText("Casa do Farol");
+  await expect(page.getByRole("link", { name: /By the sea/ })).toHaveAttribute("aria-current", "page");
+});
+
+test("date search carries through to the apartment's booking widget", async ({ page, context }) => {
+  await dismissConsent(context);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/en/apartments?guests=2");
+  await page.getByRole("heading", { level: 3 }).first().getByRole("link").click();
+  await expect(page).toHaveURL(/guests=2/);
+});
+
 test("language switch keeps the equivalent page", async ({ page, context }) => {
   await dismissConsent(context);
   await page.goto("/pt/apartamentos/sao-bento-duplex");
   await page.getByTestId("lang-en").first().click();
   await expect(page).toHaveURL(/\/en\/apartments\/sao-bento-duplex$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  // Wait until the switcher itself knows the new locale before switching back.
+  await expect(page.getByTestId("lang-en").first()).toHaveAttribute("aria-current", "true");
   await page.getByTestId("lang-pt").first().click();
   await expect(page).toHaveURL(/\/pt\/apartamentos\/sao-bento-duplex$/);
 });

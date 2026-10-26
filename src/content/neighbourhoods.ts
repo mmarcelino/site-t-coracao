@@ -98,4 +98,30 @@ export const neighbourhoods: NeighbourhoodContent[] = [
       alt: { pt: "Janela de sacada aberta sobre as árvores do Jardim da Cordoaria", en: "French windows open onto the trees of the Cordoaria gardens" },
     },
   },
+  {
+    slug: "foz",
+    name: { pt: "Foz do Douro", en: "Foz do Douro" },
+    tagline: {
+      pt: "Onde o rio encontra o mar: jardins, farol e o elétrico à porta.",
+      en: "Where the river meets the sea: gardens, a lighthouse and the tram at the door.",
+    },
+    intro: {
+      pt: "A Foz é o Porto à beira-mar: ruas tranquilas de moradias antigas, o Jardim do Passeio Alegre e o paredão até ao farol. O centro histórico fica a dez minutos pela marginal ou no elétrico 1, que segue o rio.",
+      en: "Foz is Porto by the sea: quiet streets of old villas, the Passeio Alegre garden and the seawall out to the lighthouse. The historic centre is ten minutes away along the riverside road, or on tram 1, which follows the river.",
+    },
+    nearby: {
+      pt: ["Jardim do Passeio Alegre · 1 min", "Farol de Felgueiras · 8 min", "Praias da Foz · 10 min", "Elétrico 1 · à porta"],
+      en: ["Passeio Alegre garden · 1 min", "Felgueiras lighthouse · 8 min", "Foz beaches · 10 min", "Tram 1 · at the door"],
+    },
+    guide: [
+      { category: "see", name: "Jardim do Passeio Alegre", note: { pt: "Palmeiras, coreto e um minigolfe de família, mesmo em frente.", en: "Palm trees, a bandstand and a family mini-golf, right opposite." } },
+      { category: "see", name: "Farol de Felgueiras", note: { pt: "Caminhe pelo paredão até ao farol ao pôr do sol.", en: "Walk the seawall out to the lighthouse at sunset." } },
+      { category: "practical", name: "Elétrico 1", note: { pt: "O elétrico histórico liga a Foz ao centro ao longo do rio.", en: "The vintage tram links Foz to the centre along the river." } },
+    ],
+    coordinates: { lat: 41.1476, lng: -8.6707 },
+    image: {
+      src: "/images/placeholder/casa-do-farol-10.jpg",
+      alt: { pt: "O rio e o Jardim do Passeio Alegre, na Foz", en: "The river and the Passeio Alegre garden in Foz" },
+    },
+  },
 ];

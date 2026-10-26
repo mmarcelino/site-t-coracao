@@ -1,7 +1,7 @@
 import { listingContent, type ListingContent, type RoomKey } from "@/content/listings";
 import { buildings } from "@/content/buildings";
 import snapshot from "./mock/guesty-listings.snapshot.json";
-import type { AmenityKey, GuestyListing, Listing, Locale, Localized } from "./types";
+import type { AmenityKey, GuestyListing, Listing, ListingTag, Locale, Localized } from "./types";
 
 /**
  * MOCK SOURCE: a trimmed snapshot of the client's public Guesty listings (2026-10-26),
@@ -13,6 +13,8 @@ async function loadGuestyListings(): Promise<GuestyListing[]> {
 }
 
 const roomLabels: Record<RoomKey, Localized> = {
+  exterior: { pt: "Exterior do edifício", en: "Outside the building" },
+  terrace: { pt: "Terraço com vista", en: "Terrace with a view" },
   living: { pt: "Sala de estar", en: "Living room" },
   dining: { pt: "Zona de refeições", en: "Dining area" },
   kitchen: { pt: "Cozinha", en: "Kitchen" },
@@ -49,6 +51,9 @@ const amenityMap: Record<string, AmenityKey> = {
   "Pack ’n Play/travel crib": "crib",
   "High chair": "high-chair",
   "Patio or balcony": "balcony",
+  "Outdoor seating (furniture)": "balcony",
+  Desk: "workspace",
+  "Sea view": "view",
   "Water View": "view",
   "Long term stays allowed": "long-stays",
   "Smoke detector": "smoke-detector",
@@ -71,6 +76,15 @@ function floorLabel(raw: string | null | undefined, locale: Locale): string {
   return `${n}${suffix} floor`;
 }
 
+/** Editorial features from the content overlay + tags derived from Guesty data. */
+function deriveTags(raw: GuestyListing, content: ListingContent, amenities: AmenityKey[]): ListingTag[] {
+  const tags = new Set<ListingTag>(content.features);
+  if (raw.accommodates <= 2) tags.add("couples");
+  if (raw.bedrooms >= 2 || raw.accommodates >= 4) tags.add("families");
+  if (amenities.includes("workspace")) tags.add("remote-work");
+  return [...tags];
+}
+
 function toListing(raw: GuestyListing, content: ListingContent, locale: Locale): Listing {
   const building = buildings.find((b) => b.id === content.buildingId);
   const title = content.title[locale];
@@ -82,6 +96,7 @@ function toListing(raw: GuestyListing, content: ListingContent, locale: Locale):
     })
     .filter((p): p is Listing["pictures"][number] => p !== null);
   const currency = raw.prices.currency;
+  const amenities = mapAmenities(raw.amenities);
 
   return {
     id: raw._id,
@@ -90,13 +105,14 @@ function toListing(raw: GuestyListing, content: ListingContent, locale: Locale):
     guestyTitle: raw.title,
     nickname: raw.nickname,
     category: content.category,
+    tags: deriveTags(raw, content, amenities),
     propertyType: raw.propertyType,
     accommodates: raw.accommodates,
     bedrooms: raw.bedrooms,
     bathrooms: raw.bathrooms,
     beds: raw.beds,
     areaSqm: content.areaSqm,
-    floor: floorLabel(raw.address.floor, locale),
+    floor: content.floor?.[locale] ?? floorLabel(raw.address.floor, locale),
     hasLift: building?.hasLift ?? false,
     address: {
       street: raw.address.street,
@@ -117,7 +133,7 @@ function toListing(raw: GuestyListing, content: ListingContent, locale: Locale):
       notes: "",
     },
     highlights: content.highlights[locale],
-    amenities: mapAmenities(raw.amenities),
+    amenities,
     price: {
       base: { amount: raw.prices.basePrice, currency },
       cleaningFee: { amount: raw.prices.cleaningFee ?? 0, currency },
@@ -149,13 +165,15 @@ async function resolveAll(locale: Locale): Promise<Listing[]> {
 
 export async function getListings(
   locale: Locale,
-  filter: { buildingId?: string; neighbourhoodSlug?: string } = {},
+  filter: { buildingId?: string; neighbourhoodSlug?: string; tag?: ListingTag; guests?: number } = {},
 ): Promise<Listing[]> {
   const all = await resolveAll(locale);
   return all.filter(
     (l) =>
       (!filter.buildingId || l.buildingId === filter.buildingId) &&
-      (!filter.neighbourhoodSlug || l.neighbourhoodSlug === filter.neighbourhoodSlug),
+      (!filter.neighbourhoodSlug || l.neighbourhoodSlug === filter.neighbourhoodSlug) &&
+      (!filter.tag || l.tags.includes(filter.tag)) &&
+      (!filter.guests || l.accommodates >= filter.guests),
   );
 }
 

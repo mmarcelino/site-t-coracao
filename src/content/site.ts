@@ -28,7 +28,7 @@ export const site = {
    * AL (Alojamento Local) registration numbers. These come from Guesty for the 10 mock listings;
    * the client must supply the full list for all properties. TO CONFIRM
    */
-  licencesNote: "53495/AL · 53497/AL · 79651/AL · 79658/AL · 100873/AL · 100882/AL · 100908/AL · 150447/AL · 150452/AL · 150455/AL",
+  licencesNote: "53495/AL · 53497/AL · 79651/AL · 79658/AL · 100873/AL · 100882/AL · 100908/AL · 150447/AL · 150452/AL · 150455/AL · 167338/AL",
   /** Team availability, from Guesty listing copy ("10am to 10pm"). */
   teamHours: "10:00–22:00",
 } as const;

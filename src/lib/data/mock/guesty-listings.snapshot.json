@@ -1310,5 +1310,183 @@
       "avg": 9.1,
       "total": 405
     }
+  },
+  {
+    "_id": "683036ac17f8820013f84e69",
+    "title": "Oceanfront Villa, Near Porto Historical Centre",
+    "nickname": "Casa do Farol",
+    "propertyType": "Villa",
+    "roomType": "Entire home/apt",
+    "accommodates": 6,
+    "bedrooms": 3,
+    "bathrooms": 3.5,
+    "beds": 3,
+    "address": {
+      "full": "Rua do Passeio Alegre 516, 4150-570 Porto, Portugal",
+      "street": "Rua do Passeio Alegre 516",
+      "city": "Porto",
+      "zipcode": "4150-570",
+      "country": "Portugal",
+      "lat": 41.1475841,
+      "lng": -8.667130199999999,
+      "floor": null,
+      "neighborhood": ""
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/casa-do-farol-01.jpg",
+        "caption": "The front of the house"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-02.jpg",
+        "caption": "Balcony with river, sea and garden view"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-03.jpg",
+        "caption": "Living room area"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-04.jpg",
+        "caption": "Dining area and Kitchen"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-05.jpg",
+        "caption": "Master Suite (sea and river view and kind size bed)"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-06.jpg",
+        "caption": "Suite views"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-07.jpg",
+        "caption": "Balcony with river and sea view"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-08.jpg",
+        "caption": "Reading nook - wall art by Maria Souto de Moura"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-09.jpg",
+        "caption": "The surrounding area and the local tram"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-10.jpg",
+        "caption": "The surroundings - Passeio Alegre garden"
+      }
+    ],
+    "publicDescription": {
+      "houseRules": "We'll send a link to a Guest Portal for guests to complete your personal information for Customs and Border Protection Authorities (SEF). \nIf you lose the keys or get locked out, please inform us promptly, and we'll arrange for a locksmith to assist and an extra fee may apply.\nAdditionally, for early check-in or late check-out requests, we're happy to accommodate, with an extra fee communicated upon request.",
+      "summary": "Casa do Farol is a newly rebuilt 4-BR villa on Porto’s seafront in elite Foz, 10 min to the historic centre by riverside drive or vintage tram. Wake to Atlantic views, sip sunset cocktails on the rooftop, then sleep in climate-controlled suites with hotel-quality beds and ensuites. Oak floors, artful lighting, chef’s kitchen, 500 Mb/s Wi-Fi, beach towels, weekly clean, easy free parking at the door. Quiet, safe, authentic, city buzz without the crowds.",
+      "space": "Step inside this stunning villa and discover an open-plan entertaining space on the ground floor. Here, the living room, dining area, and kitchen flow seamlessly, complemented by a convenient powder room. Enjoy your evenings with a selection of board games, books, TV, and a dedicated wine bar.\nThe first floor features a comfortable office, a bedroom with a shared bathroom, and a lovely, cozy waterfront suite complete with a walk-in closet and private bathroom.\nAscend to the second floor where a tranquil reading nook awaits. The exquisite master suite on this level offers direct access to a patio, perfect for lounging or savoring sunset drinks and nibbles with breathtaking waterfront views. The master suite also includes exercise equipment and yoga mats for a private retreat.\nIn addition, on the ground level, there's a laundry space equipped with machines, here it's also where you can store any bike that you may have rented.",
+      "access": "Guests have a private entrance to the property.",
+      "neighborhood": "This villa is located in a tranquil residencial area of Foz Velha and it's an ideal retreat. This charming location invites for leisure strolls along the River Douro all the way to Foz. In front of the house there's the Jardim do Passeio Alegre which is a public garden with lush greenery and a mini-golf course for family fun.\nA few steps away to the right, there's a local grocery with fresh fruits and vegetables. In this area there's many high end restaurants as well as the river front ones that are relaxed, casual and still offering a great selection (we reccommend the casa de Pasto da Palmeira around the corner mwith a food sharing concept and delicious wine).\nFor convenient access to Porto's vibrant downtown, the iconic tram (Elétrico 1) stops next to the villa and provides a picturesque journey along the riverside. \nThis quiet, charming area truly offers the best of both worlds: peaceful living with urban amenities just a short ride away.",
+      "transit": "In this location there's liottle public transportation and you have the tram stop in front of the property. There's also the bus nr 500 with a stop in front of the Paparoca bakery as well as in front of the mini-golf.\nIt' easy to call a taxi or an Uber.",
+      "notes": "You will find a house guide with instructions on how to operate all the appliances as well as information about the neighborhood."
+    },
+    "amenities": [
+      "Air conditioning",
+      "Baby bath",
+      "Babysitter recommendations",
+      "Beach essentials",
+      "Bed linens",
+      "Blender",
+      "Board games",
+      "Body soap",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Casinos",
+      "Changing table",
+      "Children’s books and toys",
+      "Children’s dinnerware",
+      "Cleaning Disinfection",
+      "Cleaning before checkout",
+      "Cleaning products",
+      "Clothing storage",
+      "Coffee",
+      "Coffee maker",
+      "Conditioner",
+      "Cookware",
+      "Desk",
+      "Dining table",
+      "Dishes and silverware",
+      "Dishwasher",
+      "Dryer",
+      "Dryer in common space",
+      "Enhanced cleaning practices",
+      "Essentials",
+      "Extra pillows and blankets",
+      "Family/kid friendly",
+      "Fire extinguisher",
+      "First aid kit",
+      "Freezer",
+      "Garden View",
+      "Golf - Optional",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "High chair",
+      "High touch surfaces disinfected",
+      "Hot water",
+      "Internet",
+      "Iron",
+      "Kettle",
+      "Kitchen",
+      "Laptop friendly workspace",
+      "Long term stays allowed",
+      "Microwave",
+      "Museums",
+      "Near Ocean",
+      "Ocean Front",
+      "Outdoor seating (furniture)",
+      "Oven",
+      "Pack ’n Play/travel crib",
+      "Paid parking off premises",
+      "Patio or balcony",
+      "Private entrance",
+      "Refrigerator",
+      "River",
+      "Room-darkening shades",
+      "Safe",
+      "Sea view",
+      "Shampoo",
+      "Shopping",
+      "Shower gel",
+      "Sound system",
+      "Stair gates",
+      "Stereo system",
+      "Stove",
+      "Suitable for children (2-12 years)",
+      "Suitable for infants (under 2 years)",
+      "TV",
+      "Toaster",
+      "Towels provided",
+      "Town",
+      "Washer",
+      "Washer in common space",
+      "Water View",
+      "Waterfront",
+      "Wine glasses",
+      "Wireless Internet"
+    ],
+    "prices": {
+      "basePrice": 600,
+      "currency": "EUR",
+      "cleaningFee": 150,
+      "extraPersonFee": 70,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "16:00",
+    "defaultCheckOutTime": "11:00",
+    "license": "167338/AL",
+    "reviews": {
+      "avg": 10,
+      "total": 32
+    }
   }
 ]
