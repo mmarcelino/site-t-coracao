@@ -80,7 +80,7 @@ export function Header() {
                 <span className="hidden max-w-0 overflow-hidden text-[0.875rem] whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover/wa:max-w-40 group-hover/wa:opacity-100 group-focus-visible/wa:max-w-40 group-focus-visible/wa:opacity-100 lg:block">
                   {t("whatsapp.short")}
                 </span>
-                <Icon name="whatsapp" size={22} strokeWidth={1.25} />
+                <Icon name="whatsapp" size={26} strokeWidth={0.9} />
                 <span className="sr-only">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
               <button
