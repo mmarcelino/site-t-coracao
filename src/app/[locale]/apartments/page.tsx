@@ -30,6 +30,7 @@ interface Search {
   checkIn?: string;
   checkOut?: string;
   guests?: number;
+  cot?: boolean;
 }
 
 function parseSearch(sp: Awaited<SearchParams>): Search {
@@ -43,6 +44,7 @@ function parseSearch(sp: Awaited<SearchParams>): Search {
     tag: listingTags.includes(tag as ListingTag) ? (tag as ListingTag) : undefined,
     ...(datesOk ? { checkIn, checkOut } : {}),
     guests: Number.isInteger(guests) && guests > 0 ? guests : undefined,
+    cot: sp.cot === "1",
   };
 }
 
@@ -51,6 +53,7 @@ function toQuery(search: Search, tag: ListingTag | undefined) {
     ...(tag ? { tag } : {}),
     ...(search.checkIn && search.checkOut ? { checkIn: search.checkIn, checkOut: search.checkOut } : {}),
     ...(search.guests ? { guests: String(search.guests) } : {}),
+    ...(search.cot ? { cot: "1" } : {}),
   };
 }
 
@@ -65,11 +68,12 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
   const bookable: Listing[] = [];
   for (const l of all) {
     if (search.guests && l.accommodates < search.guests) continue;
+    if (search.cot && !l.amenities.includes("crib")) continue;
     if (search.checkIn && search.checkOut && !(await isRangeAvailable(l.id, search.checkIn, search.checkOut))) continue;
     bookable.push(l);
   }
   const shown = search.tag ? bookable.filter((l) => l.tags.includes(search.tag!)) : bookable;
-  const hasSearch = Boolean(search.checkIn || search.guests);
+  const hasSearch = Boolean(search.checkIn || search.guests || search.cot);
   const d = (iso: string) => format.dateTime(isoToLocalDate(iso), { day: "numeric", month: "long" });
 
   const chip = (active: boolean) =>
@@ -114,6 +118,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
             ? ` ${t("apartments.available", { checkIn: d(search.checkIn), checkOut: d(search.checkOut) })}`
             : null}
           {search.guests ? ` ${t("apartments.forGuests", { guests: t("common.guests", { count: search.guests }) })}` : null}
+          {search.cot ? `, ${t("apartments.withCot")}` : null}
         </p>
         {hasSearch || search.tag ? (
           <Link href="/apartments" className="link-quiet text-small">

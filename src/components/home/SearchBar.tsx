@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { useRouter } from "@/i18n/navigation";
 import { track } from "@/lib/analytics";
-import { localDateToISO, nightsBetween } from "@/lib/dates";
+import { localDateToISO } from "@/lib/dates";
 import { useFormat } from "@/lib/format";
 import { DateRangeCalendar } from "@/components/booking/DateRangeCalendar";
 import { GuestsStepper } from "@/components/booking/GuestsStepper";
@@ -23,11 +23,11 @@ export function SearchBar({
   calendarPlacement?: "top" | "bottom";
 }) {
   const t = useTranslations("search");
-  const tc = useTranslations("common");
   const format = useFormat();
   const router = useRouter();
   const [range, setRange] = useState<DateRange | undefined>();
   const [guests, setGuests] = useState(2);
+  const [cot, setCot] = useState(false);
   const [open, setOpen] = useState(false);
   const [months, setMonths] = useState<1 | 2>(1);
   const wrapper = useRef<HTMLDivElement>(null);
@@ -54,19 +54,20 @@ export function SearchBar({
     };
   }, [open]);
 
-  const arriveLabel = range?.from
-    ? format.dateTime(range.from, { weekday: "short", day: "numeric", month: "short" })
-    : t("choose");
-  const nights = range?.from && range.to ? nightsBetween(localDateToISO(range.from), localDateToISO(range.to)) : 0;
+  const dateLabel = (d?: Date) => (d ? format.dateTime(d, { weekday: "short", day: "numeric", month: "short" }) : t("choose"));
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const checkIn = range?.from ? localDateToISO(range.from) : undefined;
     const checkOut = range?.to ? localDateToISO(range.to) : undefined;
-    track("search_submitted", { checkIn, checkOut, guests });
+    track("search_submitted", { checkIn, checkOut, guests, cot });
     router.push({
       pathname: "/apartments",
-      query: { ...(checkIn && checkOut ? { checkIn, checkOut } : {}), guests: String(guests) },
+      query: {
+        ...(checkIn && checkOut ? { checkIn, checkOut } : {}),
+        guests: String(guests),
+        ...(cot ? { cot: "1" } : {}),
+      },
     });
   }
 
@@ -88,7 +89,7 @@ export function SearchBar({
           once the hero shrinks, over the light wash behind it. */}
       <div
         ref={wrapper}
-        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.3fr_auto] md:items-stretch md:rounded-full md:pl-2"
+        className="on-dark grid grid-cols-1 rounded-[1.75rem] border border-white/30 hero-glass p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.25fr_auto_auto] md:items-stretch md:rounded-full md:pl-2"
       >
         <button
           type="button"
@@ -98,7 +99,7 @@ export function SearchBar({
           className={field}
         >
           <span className={fieldLabel}>{t("arrive")}</span>
-          <span className={fieldValue}>{arriveLabel}</span>
+          <span className={fieldValue}>{dateLabel(range?.from)}</span>
         </button>
         <button
           type="button"
@@ -107,8 +108,8 @@ export function SearchBar({
           aria-controls="search-calendar"
           className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}
         >
-          <span className={fieldLabel}>{t("nightsLabel")}</span>
-          <span className={fieldValue}>{nights ? tc("nights", { count: nights }) : "—"}</span>
+          <span className={fieldLabel}>{t("depart")}</span>
+          <span className={fieldValue}>{dateLabel(range?.to)}</span>
         </button>
         <div className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
@@ -116,6 +117,33 @@ export function SearchBar({
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone="light" compact />
           </div>
         </div>
+        {/* Cot on request: a switch, so it's one tap and obviously on/off. */}
+        <button
+          type="button"
+          role="switch"
+          aria-checked={cot}
+          onClick={() => setCot((v) => !v)}
+          className={clsx(field, "border-t border-white/20 md:w-auto md:border-t-0 md:border-l")}
+        >
+          <span className={fieldLabel}>{t("cot")}</span>
+          <span className={clsx(fieldValue, "flex items-center gap-2")}>
+            <span
+              aria-hidden
+              className={clsx(
+                "relative h-5 w-9 rounded-full border transition-colors duration-[var(--duration-fast)]",
+                cot ? "border-paper bg-paper" : "border-white/50 bg-transparent",
+              )}
+            >
+              <span
+                className={clsx(
+                  "absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full transition-[left,background-color] duration-[var(--duration-fast)]",
+                  cot ? "left-[1.1rem] bg-ink" : "left-[0.15rem] bg-paper",
+                )}
+              />
+            </span>
+            {cot ? t("cotYes") : t("cotNo")}
+          </span>
+        </button>
         <button
           type="submit"
           className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-2"
