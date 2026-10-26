@@ -69,17 +69,32 @@ export function Header() {
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
             </Link>
-            <button
-              ref={menuButton}
-              type="button"
-              onClick={() => setMenuOpen(true)}
-              aria-expanded={menuOpen}
-              aria-controls="site-menu"
-              className="group -mr-2 flex h-11 items-center gap-3 px-2"
-            >
-              <Hamburger />
-              <span className="sr-only">{t("nav.openMenu")}</span>
-            </button>
+            <div className="flex items-center gap-3 sm:gap-5">
+              {/* WhatsApp concierge: a quiet line icon; the label slides out on hover (desktop). */}
+              <WhatsAppLink
+                message={t("whatsapp.messageGeneric")}
+                page={pathname}
+                icon={false}
+                className="group/wa flex h-11 items-center gap-2 px-1"
+              >
+                <span className="hidden max-w-0 overflow-hidden text-[0.875rem] whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover/wa:max-w-40 group-hover/wa:opacity-100 group-focus-visible/wa:max-w-40 group-focus-visible/wa:opacity-100 lg:block">
+                  {t("whatsapp.short")}
+                </span>
+                <Icon name="whatsapp" size={22} strokeWidth={1.25} />
+                <span className="sr-only">{t("whatsapp.cta")}</span>
+              </WhatsAppLink>
+              <button
+                ref={menuButton}
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                aria-expanded={menuOpen}
+                aria-controls="site-menu"
+                className="group -mr-2 flex h-11 items-center gap-3 px-2"
+              >
+                <Hamburger />
+                <span className="sr-only">{t("nav.openMenu")}</span>
+              </button>
+            </div>
           </div>
           <div aria-hidden className={clsx("h-px", light ? "bg-paper/70" : "bg-ink/15")} />
         </div>

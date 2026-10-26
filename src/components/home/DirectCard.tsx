@@ -17,9 +17,10 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
   return (
     <section
       aria-labelledby="direct-card-title"
-      className="on-dark hero-glass w-[30rem] shrink-0 rounded-[1.75rem] border border-white/30 px-6 py-3.5 text-paper shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+      className="on-dark hero-glass w-max shrink-0 rounded-[1.75rem] border border-white/30 px-6 py-[1.0625rem] text-paper shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl"
     >
-      <div className="flex items-baseline justify-between gap-4 text-[0.75rem] text-paper/80">
+      {/* Card is as wide as the perk line, so the rating's right edge meets the last perk's. */}
+      <div className="flex items-center justify-between gap-6 text-[0.75rem] leading-none text-paper/80">
         <h2 id="direct-card-title">{t("home.directCardTitle")}</h2>
         <p className="flex items-center gap-1.5">
           <Icon name="star" size={11} fill="currentColor" strokeWidth={0} className="text-paper" />
@@ -27,14 +28,10 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
           {rating.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
         </p>
       </div>
-      <ul className="mt-1.5 flex items-center gap-x-2.5 text-[0.9375rem] leading-snug font-medium whitespace-nowrap">
+      <ul className="mt-2.5 flex items-center text-[0.9375rem] leading-none font-medium whitespace-nowrap">
         {perks.map((perk, i) => (
-          <li key={perk} className="flex items-center gap-2.5">
-            {i > 0 ? (
-              <span aria-hidden className="text-paper/50">
-                ·
-              </span>
-            ) : null}
+          <li key={perk} className="flex items-center">
+            {i > 0 ? <span aria-hidden className="mx-3 size-[3px] rounded-full bg-paper/50" /> : null}
             {perk}
           </li>
         ))}
