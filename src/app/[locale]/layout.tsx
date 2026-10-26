@@ -22,11 +22,11 @@ const hanken = Hanken_Grotesk({
   display: "swap",
 });
 
-// Editorial serif (OFL): italic accents in display type, upright for the wordmark.
+// Editorial serif (OFL): italic accents in display type only.
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin", "latin-ext"],
   weight: "400",
-  style: ["normal", "italic"],
+  style: "italic",
   variable: "--font-instrument",
   display: "swap",
 });
