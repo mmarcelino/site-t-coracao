@@ -118,8 +118,8 @@ export function HeroSlideshowBackground() {
 }
 
 /**
- * One continuous hairline (like the header's): a white stretch moves along it as the slideshow
- * advances. Each stretch is a button to jump to that slide (named for screen readers).
+ * One continuous hairline (like the header's) under the current collection's name. It brightens
+ * as a loader while each photo is shown; clicking it pauses/resumes the slideshow.
  */
 export function HeroSlideshowLines({ className }: { className?: string }) {
   const t = useTranslations("home");
@@ -152,27 +152,17 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
           aria-pressed={paused}
           className="group/line flex w-full items-center gap-3 py-3"
         >
-          <span
-            aria-hidden
-            className="grid flex-1"
-            style={{ gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))` }}
-          >
-            {slides.map((slide, i) => (
-              <span key={slide.key} className="relative block h-px overflow-hidden bg-white/45">
-                <span
-                  key={i === index ? `on-${index}` : `off-${i}`}
-                  className={clsx("absolute inset-0 origin-left bg-white", i === index ? "" : "scale-x-0")}
-                  style={
-                    i === index
-                      ? {
-                          animation: `featured-progress ${SLIDE_MS}ms linear forwards`,
-                          animationPlayState: running ? "running" : "paused",
-                        }
-                      : undefined
-                  }
-                />
-              </span>
-            ))}
+          {/* Loader: the whole line brightens from faint to full white over each photo, then
+              resets when the next one arrives. It never moves. */}
+          <span aria-hidden className="relative block h-px flex-1 bg-white/30">
+            <span
+              key={index}
+              className="absolute inset-0 bg-white"
+              style={{
+                animation: `line-brighten ${SLIDE_MS}ms linear forwards`,
+                animationPlayState: running ? "running" : "paused",
+              }}
+            />
           </span>
           <Icon
             name={paused ? "play" : "pause"}
