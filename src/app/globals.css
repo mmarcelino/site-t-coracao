@@ -375,13 +375,3 @@
 .hero-glass {
   background-color: rgb(27 26 24 / 0.28);
 }
-
-/* Hero line loader: brightens over each slide, never moves. */
-@keyframes line-brighten {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}

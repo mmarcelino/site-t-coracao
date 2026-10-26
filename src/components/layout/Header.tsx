@@ -113,8 +113,9 @@ export function Header() {
               </button>
             </div>
           </div>
-          <div aria-hidden className={clsx("h-px", light ? "bg-paper/70" : "bg-ink/15")} />
         </div>
+        {/* Full-bleed hairline, edge to edge of the screen. */}
+        <div aria-hidden className={clsx("absolute inset-x-0 bottom-0 h-px", light ? "bg-paper/70" : "bg-ink/15")} />
       </header>
 
       {menuOpen ? (
@@ -139,8 +140,8 @@ export function Header() {
                 <span className="sr-only">{t("nav.closeMenu")}</span>
               </button>
             </div>
-            <div aria-hidden className="h-px bg-paper/30" />
           </div>
+          <div aria-hidden className="h-px bg-paper/30" />
 
           <div className="container-page grid flex-1 gap-12 py-10 lg:grid-cols-12 lg:py-16">
             <nav aria-label={t("nav.label")} className="lg:col-span-8">

@@ -118,12 +118,12 @@ export function HeroSlideshowBackground() {
 }
 
 /**
- * One continuous hairline (like the header's) under the current collection's name. It brightens
- * as a loader while each photo is shown; clicking it pauses/resumes the slideshow.
+ * The current collection's name over one static, full-bleed hairline (like the header's).
+ * Clicking the line pauses/resumes the slideshow.
  */
 export function HeroSlideshowLines({ className }: { className?: string }) {
   const t = useTranslations("home");
-  const { slides, index, running, paused, togglePause } = useSlideshow();
+  const { slides, index, paused, togglePause } = useSlideshow();
   const current = slides[index];
   return (
     <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
@@ -143,33 +143,22 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
             </Link>
           </div>
         ) : null}
-        {/* The line itself is the pause control (WCAG 2.2.2): click/tap to pause or resume; a small
-            mark appears at its end on hover or keyboard focus. */}
+        {/* Static full-bleed hairline (like the header's). It doubles as the pause control
+            (WCAG 2.2.2): click/tap to pause or resume; a small mark shows on hover/focus. */}
         <button
           type="button"
           onClick={togglePause}
           aria-label={paused ? t("featuredPlay") : t("featuredPause")}
           aria-pressed={paused}
-          className="group/line flex w-full items-center gap-3 py-3"
+          className="group/line relative flex h-6 w-full items-center justify-end"
         >
-          {/* Loader: the whole line brightens from faint to full white over each photo, then
-              resets when the next one arrives. It never moves. */}
-          <span aria-hidden className="relative block h-px flex-1 bg-white/30">
-            <span
-              key={index}
-              className="absolute inset-0 bg-white"
-              style={{
-                animation: `line-brighten ${SLIDE_MS}ms linear forwards`,
-                animationPlayState: running ? "running" : "paused",
-              }}
-            />
-          </span>
+          <span aria-hidden className="pointer-events-none absolute top-1/2 left-[calc(50%-50vw)] h-px w-screen bg-paper/70" />
           <Icon
             name={paused ? "play" : "pause"}
             size={12}
             strokeWidth={1.75}
             className={clsx(
-              "shrink-0 text-paper transition-opacity",
+              "relative -translate-y-3 text-paper transition-opacity",
               paused ? "opacity-100" : "opacity-0 group-hover/line:opacity-100 group-focus-visible/line:opacity-100",
             )}
           />
