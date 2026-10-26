@@ -1,0 +1,1314 @@
+[
+  {
+    "_id": "64de2984ec3b510037fc32b6",
+    "title": "Tripas-Coração: Mouzinho32 Rooftop E",
+    "nickname": "Mouzinho32 3E",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 4,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "beds": 3,
+    "address": {
+      "full": "Rua de Mouzinho da Silveira 32, 4050-553 Porto, Portugal",
+      "street": "Rua de Mouzinho da Silveira 32",
+      "city": "Porto",
+      "zipcode": "4050-553",
+      "country": "Portugal",
+      "lat": 41.1416875,
+      "lng": -8.614411500000001,
+      "floor": "3",
+      "neighborhood": "Mouzinho"
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-01.jpg",
+        "caption": "Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-02.jpg",
+        "caption": "Dining & Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-03.jpg",
+        "caption": "Entrance Door"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-04.jpg",
+        "caption": "Entrance Hall"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-05.jpg",
+        "caption": "Entrance Hall"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-06.jpg",
+        "caption": "Suite"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-07.jpg",
+        "caption": "Suite"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-rooftop-e-08.jpg",
+        "caption": "Suite"
+      }
+    ],
+    "publicDescription": {
+      "houseRules": "We'll send you a link to complete your personal information for Customs and Border Protection Authorities (SEF). \nIf you lose the keys or get locked out, please inform us promptly, and we'll arrange for a locksmith to assist. \nAdditionally, for early check-in or late check-out requests, we're happy to accommodate, with an extra fee communicated upon request.",
+      "summary": "Our amazing apartment it's located in a recently fully renovated preserving its original stone facade.\nThe apartment it's modern, stylished with Portuguese made furniture and supplies and it offers views to the historical Square Infante D. Henrique that houses the Palácio da Bolsa, the  Ferreira Borges Market and the streets leading to Ribeira.",
+      "space": "The apartment accommodates up to 2 people, it has all amenities needed for you to feel at home and we can provide a baby cot upon request.",
+      "access": "We will arrange a meeting time with you to welcome you in the building or, at times, we may give you self check-in instructions.",
+      "neighborhood": "You will be in the heart fo the medieval historical center where you will find a mix of historical buildings and streets as well as many landmarks like the Palácio da Bolsa, the Ferreira Borges Market, São Francisco Church, the street Rua das Flores and just a few minutes away from the river. Visit the many shops, cafes and restaurants where you can try local delicacies or indulge in fine cuisine.",
+      "transit": "The best way to visit and live this area is walking. Although it's a difficult area to park or for persons with walking difficulties, in another way it's an amazing location near everyhwere.",
+      "notes": "Check-in is from 3:00 PM and check-out is by 12:00 PM. The apartment is located on the third floor of a building with no elevator. By law, we require the details of all guests for registration purposes. Smoking and pets are not permitted. Quiet hours are from 10:00 PM to 8:00 AM. There are paid parking facilities nearby."
+    },
+    "amenities": [
+      "Air conditioning",
+      "Baby bath",
+      "Babysitter recommendations",
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Cleaning Disinfection",
+      "Coffee maker",
+      "Cookware",
+      "Crib",
+      "Dishes and silverware",
+      "Dishwasher",
+      "Downtown",
+      "Dryer",
+      "Enhanced cleaning practices",
+      "Essentials",
+      "Family/kid friendly",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "High chair",
+      "High touch surfaces disinfected",
+      "Hot water",
+      "Internet",
+      "Iron",
+      "Kettle",
+      "Kitchen",
+      "Laptop friendly workspace",
+      "Long term stays allowed",
+      "Microwave",
+      "Oven",
+      "Pack ’n Play/travel crib",
+      "Paid parking off premises",
+      "Patio or balcony",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Toaster",
+      "Towels provided",
+      "Town",
+      "Washer",
+      "Water View",
+      "Wireless Internet",
+      "Suitable for children (2-12 years)",
+      "Suitable for infants (under 2 years)"
+    ],
+    "prices": {
+      "basePrice": 300,
+      "currency": "EUR",
+      "cleaningFee": 70,
+      "extraPersonFee": 50,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "150452/AL",
+    "reviews": {
+      "avg": 9.7,
+      "total": 110
+    }
+  },
+  {
+    "_id": "64de2984ec3b510037fc32c1",
+    "title": "Tripas-Coração: Mouzinho32 3rd Floor Apt D",
+    "nickname": "Mouzinho32 3D",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 4,
+    "bedrooms": 2,
+    "bathrooms": 2.5,
+    "beds": 3,
+    "address": {
+      "full": "Rua de Mouzinho da Silveira 32, 4050-553 Porto, Portugal",
+      "street": "Rua de Mouzinho da Silveira 32",
+      "city": "Porto",
+      "zipcode": "4050-553",
+      "country": "Portugal",
+      "lat": 41.1416875,
+      "lng": -8.614411500000001,
+      "floor": "3",
+      "neighborhood": "Mouzinho"
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/mouzinho-3d-01.jpg",
+        "caption": "Open Space"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-02.jpg",
+        "caption": "Entrance Door"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-03.jpg",
+        "caption": "Entrance hall"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-04.jpg",
+        "caption": "Service Bathroom"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-05.jpg",
+        "caption": "Entrance Hall"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-06.jpg",
+        "caption": "Suite 1"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-07.jpg",
+        "caption": "Bathroom 1"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-3d-08.jpg",
+        "caption": "Bathroom 1"
+      }
+    ],
+    "publicDescription": {
+      "houseRules": "We'll send you a link to complete your personal information for Customs and Border Protection Authorities (SEF). \nIf you lose the keys or get locked out, please inform us promptly, and we'll arrange for a locksmith to assist. \nAdditionally, for early check-in or late check-out requests, we're happy to accommodate, with an extra fee communicated upon request.",
+      "summary": "Our amazing apartment it's located in a recently fully renovated preserving its original stone facade.\nThe apartment it's modern, stylished with Portuguese made furniture and supplies and it offers views to the historical Square Infante D. Henrique that houses the Palácio da Bolsa, the  Ferreira Borges Market and the streets leading to Ribeira.",
+      "space": "The apartment accommodates up to 2 people and has all amenities needed for you to feel at home.  \nWe can provide a baby cot upon request.",
+      "access": "We will arrange a meeting time with you to welcome you in the building or, at times, we may give you self check-in instructions.",
+      "neighborhood": "You will be in the heart fo the medieval historical center where you will find a mix of historical buildings and streets as well as many landmarks like the Palácio da Bolsa, the Ferreira Borges Market, São Francisco Church, the street Rua das Flores and just a few minutes away from the river. Visit the many shops, cafes and restaurants where you can try local delicacies or indulge in fine cuisine.",
+      "transit": "The best way to visit and live this area is walking. Although it's a difficult area to park or for persons with walking difficulties, in another way it's an amazing location near everyhwere.",
+      "notes": "Check-in is from 3:00 PM and check-out is by 12:00 PM. The apartment is located on the 3rd floor of a building with no elevator. By law, we require the details of all guests for registration purposes. Smoking and pets are not permitted. Quiet hours are from 10:00 PM to 8:00 AM. There are paid parking facilities nearby."
+    },
+    "amenities": [
+      "Air conditioning",
+      "Baby bath",
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Cleaning Disinfection",
+      "Coffee maker",
+      "Cookware",
+      "Crib",
+      "Desk",
+      "Dishes and silverware",
+      "Dishwasher",
+      "Downtown",
+      "Dryer",
+      "Enhanced cleaning practices",
+      "Essentials",
+      "Family/kid friendly",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "High chair",
+      "High touch surfaces disinfected",
+      "Hot water",
+      "Internet",
+      "Iron",
+      "Kettle",
+      "Kitchen",
+      "Laptop friendly workspace",
+      "Long term stays allowed",
+      "Microwave",
+      "Oven",
+      "Pack ’n Play/travel crib",
+      "Paid parking off premises",
+      "Patio or balcony",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Toaster",
+      "Towels provided",
+      "Town",
+      "Washer",
+      "Water View",
+      "Wireless Internet",
+      "Suitable for children (2-12 years)",
+      "Suitable for infants (under 2 years)"
+    ],
+    "prices": {
+      "basePrice": 300,
+      "currency": "EUR",
+      "cleaningFee": 70,
+      "extraPersonFee": 50,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "150447/AL",
+    "reviews": {
+      "avg": 9.9,
+      "total": 152
+    }
+  },
+  {
+    "_id": "64de2984ec3b510037fc32a0",
+    "title": "Tripas-Coração: Mouzinho32 2nd Floor Apt E",
+    "nickname": "Mouzinho32 2E",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 2,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "beds": 1,
+    "address": {
+      "full": "Rua de Mouzinho da Silveira 32, 4050-553 Porto, Portugal",
+      "street": "Rua de Mouzinho da Silveira 32",
+      "city": "Porto",
+      "zipcode": "4050-553",
+      "country": "Portugal",
+      "lat": 41.1416875,
+      "lng": -8.614411500000001,
+      "floor": "2",
+      "neighborhood": "Mouzinho"
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/mouzinho-2e-01.jpg",
+        "caption": "Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-02.jpg",
+        "caption": "Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-03.jpg",
+        "caption": "Entrance Door"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-04.jpg",
+        "caption": "Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-05.jpg",
+        "caption": "Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-06.jpg",
+        "caption": "Open Space"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-07.jpg",
+        "caption": "Seating Area"
+      },
+      {
+        "original": "/images/placeholder/mouzinho-2e-08.jpg",
+        "caption": "Seating Area"
+      }
+    ],
+    "publicDescription": {
+      "summary": "Our amazing apartment it's located in a recently fully renovated preserving its original stone facade.\nThe apartment it's modern, stylished with Portuguese made furniture and supplies and it offers views to the historical Square Infante D. Henrique that houses the Palácio da Bolsa, the  Ferreira Borges Market and the streets leading to Ribeira.",
+      "space": "The apartment accommodates up to 2 people and has all amenities needed for you to feel at home.  \nWe can provide a baby cot upon request.",
+      "access": "We will arrange a meeting time with you to welcome you in the building or, at times, we may give you self check-in instructions.",
+      "neighborhood": "You will be in the heart fo the medieval historical center where you will find a mix of historical buildings and streets as well as many landmarks like the Palácio da Bolsa, the Ferreira Borges Market, São Francisco Church, the street Rua das Flores and just a few minutes away from the river. Visit the many shops, cafes and restaurants where you can try local delicacies or indulge in fine cuisine.",
+      "transit": "The best way to visit and live this area is walking. Although it's a difficult area to park or for persons with walking difficulties, in another way it's an amazing location near everyhwere.",
+      "notes": "Check-in is from 3:00 PM and check-out is by 12:00 PM. The apartment is located on the2nd floor of a building with no elevator. By law, we require the details of all guests for registration purposes. Smoking and pets are not permitted. Quiet hours are from 10:00 PM to 8:00 AM. There are paid parking facilities nearby.",
+      "houseRules": "We'll send you a link to complete your personal information for Customs and Border Protection Authorities (SEF). \nIf you lose the keys or get locked out, please inform us promptly, and we'll arrange for a locksmith to assist. \nAdditionally, for early check-in or late check-out requests, we're happy to accommodate, with an extra fee communicated upon request."
+    },
+    "amenities": [
+      "Air conditioning",
+      "Baby bath",
+      "Babysitter recommendations",
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Cleaning Disinfection",
+      "Coffee maker",
+      "Cookware",
+      "Crib",
+      "Dishes and silverware",
+      "Dishwasher",
+      "Downtown",
+      "Dryer",
+      "Enhanced cleaning practices",
+      "Essentials",
+      "Family/kid friendly",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "High chair",
+      "High touch surfaces disinfected",
+      "Hot water",
+      "Internet",
+      "Iron",
+      "Kettle",
+      "Kitchen",
+      "Laptop friendly workspace",
+      "Long term stays allowed",
+      "Oven",
+      "Pack ’n Play/travel crib",
+      "Paid parking off premises",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Toaster",
+      "Towels provided",
+      "Town",
+      "Washer",
+      "Wireless Internet",
+      "Suitable for children (2-12 years)",
+      "Suitable for infants (under 2 years)"
+    ],
+    "prices": {
+      "basePrice": 200,
+      "currency": "EUR",
+      "cleaningFee": 50,
+      "extraPersonFee": null,
+      "guestsIncludedInRegularFee": null,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "150455/AL",
+    "reviews": {
+      "avg": 9.7,
+      "total": 143
+    }
+  },
+  {
+    "_id": "60f82c3d7aba91002d2ccd0f",
+    "title": "Cordoaria River View Studio with Balcony (2nd Floor)",
+    "nickname": "Cord 2nd Back  River",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 2,
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "beds": 1,
+    "address": {
+      "full": "Rua Campo Mártires da Pátria, 27 , Porto, Porto 4050-365, Portugal",
+      "street": "Rua Campo Mártires da Pátria, 27",
+      "city": "Porto",
+      "zipcode": "4050-365",
+      "country": "Portugal",
+      "lat": 41.144531,
+      "lng": -8.616696,
+      "floor": "2nd Back",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-01.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-02.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-03.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-04.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-05.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-06.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-07.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-river-balcony-08.jpg",
+        "caption": ""
+      }
+    ],
+    "publicDescription": {
+      "summary": "Stay in a stylish one-bedroom apartment in a historic Porto building, just steps from Clérigos Tower and Cordoaria and Virtudes Gardens. Enjoy a balcony with sweeping views over the Douro River - perfect for relaxing after a day of exploring. Like many heritage buildings, there’s no lift and a unique 0.5 bathroom design (private toilet + open sink & shower), adding to its charm. Surrounded by cafés, shops and landmarks it’s the perfect setting for friends and couples to fall in love with Porto.",
+      "space": "The Cordoaria homes are owned by our good friend Francisco that has embraced the mission to renovate classical old buildings in Porto’s downtown. Francisco is a modern romantic – you can find him driving an electric scooter around the city or starring at a facade detail in one of Porto’s historical buildings.\nWe furnished, decorated and stocked the apartment with products made by young Portuguese designers, artists and producers, so you can feel Porto’s heart without leaving home, while supporting small scale entrepreneurs.",
+      "access": "The apartment is located on the 2nd floor and accommodates up to 2 people and has all amenities needed for you to feel at home.  \n",
+      "neighborhood": "Staying by Cordoaria means being surrounded by some of Porto’s most iconic sights. Just around the corner rises the Clérigos Tower, whose bells mark the rhythm of the city, while the lush Cordoaria Gardens offer a peaceful green escape where students, artists, and locals gather.\nThe neighborhood is full of character: cobbled streets lined with traditional cafés, wine bars, and restaurants, historic churches and museums, and the famous Lello Bookstore - all within minutes on foot. From here, the city’s main landmarks are easily reached: the Ribeira by the Douro River, São Bento Station, and Avenida dos Aliados are just a short stroll away.\nIt’s a lively, central area that blends history, culture, and daily life, making it the perfect place to experience Porto’s charm up close.",
+      "transit": "Right in front of the building you'll find the hop on hop off bus for you to explore the city in case you have lazy feet :)",
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways. Tell us what you are looking for and we’ll make sure you get the best recommendations.\n Send us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to contact the number: +351 964 347 211. The cost if your responsibility.\nIn case early check-in or late check-out it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\n"
+    },
+    "amenities": [
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Coffee maker",
+      "Cookware",
+      "Dishes and silverware",
+      "Essentials",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "Hot water",
+      "Kitchen",
+      "Long term stays allowed",
+      "Microwave",
+      "Paid parking off premises",
+      "Patio or balcony",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Washer",
+      "Wireless Internet",
+      "Accessible-height bed",
+      "Accessible-height toilet",
+      "Downtown",
+      "Enhanced cleaning practices",
+      "Extra pillows and blankets",
+      "Internet",
+      "Kettle",
+      "Private entrance",
+      "Toaster",
+      "Town",
+      "Iron"
+    ],
+    "prices": {
+      "basePrice": 100,
+      "currency": "EUR",
+      "cleaningFee": 40,
+      "extraPersonFee": null,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "100882/AL",
+    "reviews": {
+      "avg": 9.7,
+      "total": 358
+    }
+  },
+  {
+    "_id": "60f82c3cb82a7e002f865672",
+    "title": "Cordoaria Garden View Studio (1st floor)",
+    "nickname": "Cord 1st Front Gard",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 2,
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "beds": 1,
+    "address": {
+      "full": "Rua Campo Mártires da Pátria, 27 , Porto, Porto 4050-365, Portugal",
+      "street": "Rua Campo Mártires da Pátria, 27",
+      "city": "Porto",
+      "zipcode": "4050-365",
+      "country": "Portugal",
+      "lat": 41.144531,
+      "lng": -8.616696,
+      "floor": "1st Front",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/cordoaria-garden-01.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-02.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-03.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-04.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-05.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-06.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-07.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-garden-08.jpg",
+        "caption": ""
+      }
+    ],
+    "publicDescription": {
+      "summary": "Stay in a stylish one-bedroom apartment in a historic Porto building, steps from Clérigos Tower and Cordoaria and Virtudes Gardens. Full of character, it features a unique layout with a private toilet plus open sink & shower, and no lift - just like many heritage buildings. Surrounded by cafés, shops, and landmarks, it’s an ideal base for couples or friends to enjoy Porto’s history, culture, and vibrant atmosphere right at their doorstep.",
+      "space": "The Cordoaria homes are owned by our good friend Francisco that has embraced the mission to renovate classical old buildings in Porto’s downtown. Francisco is a modern romantic – you can find him driving an electric scooter around the city or starring at a facade detail in one of Porto’s historical buildings.\nWe furnished, decorated and stocked the apartment with products made by young Portuguese designers, artists and producers, so you can feel Porto’s heart without leaving home, while supporting small scale entrepreneurs.",
+      "access": "The apartment is located on the 1st floor and accommodates up to 2 people and has all amenities needed for you to feel at home.",
+      "neighborhood": "Staying by Cordoaria means being surrounded by some of Porto’s most iconic sights. Just around the corner rises the Clérigos Tower, whose bells mark the rhythm of the city, while the lush Cordoaria Gardens offer a peaceful green escape where students, artists, and locals gather.\nThe neighborhood is full of character: cobbled streets lined with traditional cafés, wine bars, and restaurants, historic churches and museums, and the famous Lello Bookstore - all within minutes on foot. From here, the city’s main landmarks are easily reached: the Ribeira by the Douro River, São Bento Station, and Avenida dos Aliados are just a short stroll away.\nIt’s a lively, central area that blends history, culture, and daily life, making it the perfect place to experience Porto’s charm up close.",
+      "transit": "Right in front of the building you'll find the hop on hop off bus for you to explore the city in case you have lazy feet :)",
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways. Tell us what you are looking for and we’ll make sure you get the best recommendations.\n Send us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to contact the number: +351 964 347 211. The cost if your responsibility.\nIn case early check-in or late check-out it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\n"
+    },
+    "amenities": [
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Coffee maker",
+      "Cookware",
+      "Dishes and silverware",
+      "Essentials",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "Hot water",
+      "Kitchen",
+      "Long term stays allowed",
+      "Microwave",
+      "Paid parking off premises",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Wireless Internet",
+      "Accessible-height bed",
+      "Accessible-height toilet",
+      "Downtown",
+      "Enhanced cleaning practices",
+      "Extra pillows and blankets",
+      "Internet",
+      "Kettle",
+      "Private entrance",
+      "Toaster",
+      "Town",
+      "Towels provided",
+      "Iron"
+    ],
+    "prices": {
+      "basePrice": 90,
+      "currency": "EUR",
+      "cleaningFee": 40,
+      "extraPersonFee": null,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "100873/AL",
+    "reviews": {
+      "avg": 9.1,
+      "total": 171
+    }
+  },
+  {
+    "_id": "60f82cd97aba91002d2cfe72",
+    "title": "Cordoaria Mezzanine Studio with Street View",
+    "nickname": "Cord Mezzanine",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 2,
+    "bedrooms": 0,
+    "bathrooms": 1.5,
+    "beds": 1,
+    "address": {
+      "full": "Rua Campo Mártires da Pátria, 27 , Porto, Porto 4050-365, Portugal",
+      "street": "Rua Campo Mártires da Pátria, 27",
+      "city": "Porto",
+      "zipcode": "4050-365",
+      "country": "Portugal",
+      "lat": 41.144531,
+      "lng": -8.616696,
+      "floor": "Mezzanine",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-01.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-02.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-03.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-04.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-05.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-06.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-07.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/cordoaria-mezzanine-08.jpg",
+        "caption": ""
+      }
+    ],
+    "publicDescription": {
+      "summary": "Stay in a stylish mezzanine one-bedroom apartment on the minus floor of a historic Porto building, steps from Clérigos Tower and Cordoaria Gardens. It offers a cozy small balcony to enjoy fresh air, plus the comfort of two bathrooms: one complete with shower and another with toilet and sink. Like many heritage gems, there’s no lift - adding to its authentic charm. With cafés, shops, and landmarks all around, it’s the perfect base for couples or friends to discover Porto.",
+      "space": "The Cordoaria homes are owned by our good friend Francisco that has embraced the mission to renovate classical old buildings in Porto’s downtown. Francisco is a modern romantic – you can find him driving an electric scooter around the city or starring at a facade detail in one of Porto’s historical buildings.\nWe furnished, decorated and stocked the apartment with products made by young Portuguese designers, artists and producers, so you can feel Porto’s heart without leaving home, while supporting small scale entrepreneurs.",
+      "access": "The apartment is located on the minus floor and accommodates up to 2 people and has all amenities needed for you to feel at home.",
+      "neighborhood": "Staying by Cordoaria means being surrounded by some of Porto’s most iconic sights. Just around the corner rises the Clérigos Tower, whose bells mark the rhythm of the city, while the lush Cordoaria Gardens offer a peaceful green escape where students, artists, and locals gather.\nThe neighborhood is full of character: cobbled streets lined with traditional cafés, wine bars, and restaurants, historic churches and museums, and the famous Lello Bookstore - all within minutes on foot. From here, the city’s main landmarks are easily reached: the Ribeira by the Douro River, São Bento Station, and Avenida dos Aliados are just a short stroll away.\nIt’s a lively, central area that blends history, culture, and daily life, making it the perfect place to experience Porto’s charm up close.",
+      "transit": "Right in front of the building you'll find the hop on hop off bus for you to explore the city in case you have lazy feet :)\n",
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways. Tell us what you are looking for and we’ll make sure you get the best recommendations.\nSend us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to contact the number: +351 964 347 211. The cost if your responsibility.\nIn case early check-in or late check-out it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\n"
+    },
+    "amenities": [
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Coffee maker",
+      "Cookware",
+      "Dishes and silverware",
+      "Essentials",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "Hot water",
+      "Kitchen",
+      "Long term stays allowed",
+      "Microwave",
+      "Pack ’n play/travel crib",
+      "Paid parking off premises",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Washer",
+      "Wireless Internet",
+      "Accessible-height bed",
+      "Accessible-height toilet",
+      "Downtown",
+      "Enhanced cleaning practices",
+      "Internet",
+      "Kettle",
+      "Private entrance",
+      "Toaster",
+      "Towels provided",
+      "Town",
+      "Iron"
+    ],
+    "prices": {
+      "basePrice": 100,
+      "currency": "EUR",
+      "cleaningFee": 40,
+      "extraPersonFee": null,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "100908/AL",
+    "reviews": {
+      "avg": 8.6,
+      "total": 121
+    }
+  },
+  {
+    "_id": "60f827e3b82a7e002f852152",
+    "title": "Tripas-Coração: Breiner Heritage Apartment",
+    "nickname": "Breiner Greenhouse",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 4,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "beds": 2,
+    "address": {
+      "full": "Rua do Breiner 210, 4050-126 Porto, Portugal",
+      "street": "Rua do Breiner 210",
+      "city": "Porto",
+      "zipcode": "4050-126",
+      "country": "Portugal",
+      "lat": 41.1510296,
+      "lng": -8.620071099999999,
+      "floor": "1st",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/breiner-heritage-01.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-02.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-03.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-04.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-05.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-06.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-07.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-heritage-08.jpg",
+        "caption": ""
+      }
+    ],
+    "publicDescription": {
+      "summary": "This charming property has been renovated over the years and belongs to the family since the 19th century. In winter, this is not the place where you lounge with only a T-shirt on,  you’ll want to wrap yourself in a blanket with a warm drink in hand. The apartment features wooden floors, custom-made furniture, two bedrooms with comfortable beds, and two bathrooms—one smaller, near the kitchen, showcasing original architectural details. Portuguese crokery and linen add a local touch to your stay.\nThe apartment is located on the 1st floor and there is no elevator.",
+      "space": "The apartment features wooden floors, custom-made furniture, one bedroom with a queen bed and the 2nd bedroom has the possibility of having 2 single beds or 1 queen bed. There are 2 full bathrooms, one of them it's smaller smaller, near the kitchen, showcasing original architectural details. Theres a space near the kitchen with a desk and lots of natural light for those working remotelly.\nPortuguese ceramics and linen add a local touch to your stay.",
+      "access": "The apartment accommodates up to 4 people and has all amenities needed for you to feel at home.  It has two spacious bedrooms for 2 people each and 2 full bathrooms (a large one and a smaller one).",
+      "neighborhood": "Well, this is quintessential Porto downtown. You will be in the heart of Porto’s art district, where you'll find great galleries, young artist ateliers and shops, and can basically walk to all pins in the map. Jog by the river Douro in the morning, stroll by Aliados in the afternoon and hit Galerias de Paris for nightlife! No matter how busy the city looks, quietness is waiting for you when you return home after a long day exploring Porto’s secrets!",
+      "transit": "- Museu Nacional de Soares dos Reis: 400 m\n- Jardim da Cordoaria: 650 m\n- Jardins do Palácio de Cristal: 700 m\n- Torre dos Clérigos: 750 m\n- Passeio das Virtudes: 800 m\n- Muralha Fernandina: 1 km\n- Rotunda da Boavista: 1,1 km\n- Palácio da Bolsa: 1,1 km\n- Ferreira Borges Market: 1,1 km\n- Casa da Música: 1,2 km\n- Ribeira Square: 1,3 km\n- Ponte D. Luis I: 1,5 km",
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways. Tell us what you are looking for and we’ll make sure you get the best recommendations.\n\nSend us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to let us know and a locksmith will have to be called to open the door.\nIn case early check-in or late check-out it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\nOne of the bedrooms can be set up with 2 single beds or a queen size bed. Please let us know of your preference in advance."
+    },
+    "amenities": [
+      "Baby bath",
+      "Babysitter recommendations",
+      "Bed linens",
+      "Body soap",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Changing table",
+      "Cleaning Disinfection",
+      "Clothing storage",
+      "Coffee",
+      "Coffee maker",
+      "Cookware",
+      "Crib",
+      "Desk",
+      "Dining table",
+      "Dishes and silverware",
+      "Enhanced cleaning practices",
+      "Essentials",
+      "Extra pillows and blankets",
+      "Family/kid friendly",
+      "Fire extinguisher",
+      "First aid kit",
+      "Golf - Optional",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "High chair",
+      "Hot water",
+      "Internet",
+      "Iron",
+      "Kettle",
+      "Kitchen",
+      "Laptop friendly workspace",
+      "Long term stays allowed",
+      "Microwave",
+      "Mini fridge",
+      "Museums",
+      "Oven",
+      "Pack ’n play/travel crib",
+      "Paid parking off premises",
+      "Portable fans",
+      "Private entrance",
+      "Room-darkening shades",
+      "Safe",
+      "Shampoo",
+      "Shopping",
+      "Shower gel",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Toaster",
+      "Towels provided",
+      "Town",
+      "Washer",
+      "Water Sports",
+      "Wide clearance to bed",
+      "Wide clearance to shower and toilet",
+      "Wine glasses",
+      "Wireless Internet",
+      "Flat smooth pathway to front door",
+      "Suitable for children (2-12 years)",
+      "Suitable for infants (under 2 years)"
+    ],
+    "prices": {
+      "basePrice": 100,
+      "currency": "EUR",
+      "cleaningFee": 50,
+      "extraPersonFee": 30,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "53497/AL",
+    "reviews": {
+      "avg": 9.4,
+      "total": 284
+    }
+  },
+  {
+    "_id": "60f827e57aba91002d2bdc3c",
+    "title": "Tripas-Coração: Breiner Skylight Family Apartment",
+    "nickname": "Breiner Skylight",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 4,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "beds": 2,
+    "address": {
+      "full": "Rua do Breiner 210 210, 2º, Porto, Porto 4050-124, Portugal",
+      "street": "Rua do Breiner 210",
+      "city": "Porto",
+      "zipcode": "4050-124",
+      "country": "Portugal",
+      "lat": 41.151031,
+      "lng": -8.620071,
+      "floor": "2nd",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/breiner-skylight-01.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-02.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-03.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-04.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-05.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-06.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-07.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/breiner-skylight-08.jpg",
+        "caption": ""
+      }
+    ],
+    "publicDescription": {
+      "summary": "This charming property has been renovated over the years and belongs to the family since the 19th century. In winter, this is not the place where you lounge with only a T-shirt on,  you’ll want to wrap yourself in a blanket with a warm drink in hand. The apartment features wooden floors, custom-made furniture, two bedrooms with comfortable beds, and two bathrooms, one smaller, near the kitchen, showcasing original architectural details. Portuguese crokery and linen add a local touch to your stay.\nThe apartment is located on the 2nd floor and there’s no elevator in the building.",
+      "space": "The apartment features wooden floors, custom-made furniture, one bedroom with a queen bed and the 2nd bedroom has the possibility of having 2 single beds or 1 queen bed. There are 2 full bathrooms, one of them it's smaller smaller, near the kitchen, showcasing original architectural details. Theres a space near the kitchen with a desk and lots of natural light for those working remotelly.\nPortuguese ceramics and linen add a local touch to your stay.",
+      "access": "The apartment accommodates up to 4 people and has all amenities needed for you to feel at home.  It has two spacious bedrooms for 2 people each.",
+      "neighborhood": "Well, this is quintessential Porto downtown. You will be in the heart of Porto’s art district, where you'll find great galleries, young artist ateliers and shops, and can basically walk to all pins in the map. Jog by the river Douro in the morning, stroll by Aliados in the afternoon and hit Galerias de Paris for nightlife! No matter how busy the city looks, quietness is waiting for you when you return home after a long day exploring Porto’s secrets!",
+      "transit": "- Museu Nacional de Soares dos Reis: 400 m\n- Jardim da Cordoaria: 650 m\n- Jardins do Palácio de Cristal: 700 m\n- Torre dos Clérigos: 750 m\n- Passeio das Virtudes: 800 m\n- Muralha Fernandina: 1 km\n- Rotunda da Boavista: 1,1 km\n- Palácio da Bolsa: 1,1 km\n- Ferreira Borges Market: 1,1 km\n- Casa da Música: 1,2 km\n- Ribeira Square: 1,3 km\n- Ponte D. Luis I: 1,5 km",
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways. Tell us what you are looking for and we’ll make sure you get the best recommendations.\n\nSend us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to let us know and a locksmith will have to be called to open the door.\nIn case early check-in or late check-out it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\nOne of the bedrooms can be set up with 2 single beds or a queen size bed. Please let us know of your preference in advance.\n"
+    },
+    "amenities": [
+      "Accessible-height bed",
+      "Accessible-height toilet",
+      "Baby bath",
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Changing table",
+      "Children’s dinnerware",
+      "Cleaning Disinfection",
+      "Coffee maker",
+      "Cookware",
+      "Crib",
+      "Dishes and silverware",
+      "Enhanced cleaning practices",
+      "Essentials",
+      "Extra pillows and blankets",
+      "Family/kid friendly",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "High chair",
+      "Hot water",
+      "Internet",
+      "Iron",
+      "Kettle",
+      "Kitchen",
+      "Long term stays allowed",
+      "Microwave",
+      "Oven",
+      "Pack ’n play/travel crib",
+      "Paid parking off premises",
+      "Path to entrance lit at night",
+      "Private entrance",
+      "Refrigerator",
+      "Room-darkening shades",
+      "Safe",
+      "Shampoo",
+      "Smoke detector",
+      "Stair gates",
+      "Stove",
+      "TV",
+      "Toaster",
+      "Towels provided",
+      "Washer",
+      "Wide clearance to bed",
+      "Wide clearance to shower and toilet",
+      "Wide doorway",
+      "Wide hallway clearance",
+      "Wireless Internet",
+      "Flat smooth pathway to front door",
+      "Suitable for children (2-12 years)",
+      "Suitable for infants (under 2 years)"
+    ],
+    "prices": {
+      "basePrice": 100,
+      "currency": "EUR",
+      "cleaningFee": 50,
+      "extraPersonFee": 30,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "53495/AL",
+    "reviews": {
+      "avg": 9.3,
+      "total": 224
+    }
+  },
+  {
+    "_id": "60f82c06c8730e002dc84744",
+    "title": "Tripas-Coração: São Bento II - São Bento Railway Station View",
+    "nickname": "São Bento II",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 2,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "beds": 1,
+    "address": {
+      "full": "Praça de Almeida Garrett, 24 , Porto, Porto 4000-008, Portugal",
+      "street": "Praça de Almeida Garrett, 24",
+      "city": "Porto",
+      "zipcode": "4000-008",
+      "country": "Portugal",
+      "lat": 41.145458,
+      "lng": -8.611146,
+      "floor": "2nd Front",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/sao-bento-ii-01.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-02.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-03.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-04.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-05.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-06.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-07.jpg",
+        "caption": ""
+      },
+      {
+        "original": "/images/placeholder/sao-bento-ii-08.jpg",
+        "caption": ""
+      }
+    ],
+    "publicDescription": {
+      "summary": "Our beautiful studio apartment is located in the heart of Porto, with all landmarks at walking distance. Enjoy the view to São Bento railway station - widely recognised as one of the most beautiful train stations in the world - from the comfort of your bed!",
+      "space": "Located in the Historic Center of Porto, part of Unesco World Heritage, our studio apartment is the perfect symbiosis of 19th century architectural traces and the elegant and warm lines of the modern era. All of this, involved by the privileged view of the São Bento railway station and just a few steps from everything that should be contemplated in our city.",
+      "access": "The apartment accommodates up to 2 people and has all amenities needed for you to feel at home.",
+      "neighborhood": "Surrounded by commerce and culture, this could not be a more desirable area. Have breakfast at Rua das Flores, admire the view of Porto Cathedral, take a tram from Ribeira to Foz and return by the same way to dine on one of the picturesque streets that abound in the neighborhood.",
+      "transit": null,
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways.\nTell us what you are looking for and we’ll make sure you get the best recommendations.\n \nSend us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to contact the number: +351 964 347 211. The cost if your responsibility.\nIn case early check-in or late check-out, it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\nNo-Smoking is allowed inside the apartment.\n"
+    },
+    "amenities": [
+      "Accessible-height bed",
+      "Accessible-height toilet",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Coffee maker",
+      "Cookware",
+      "Dishes and silverware",
+      "Essentials",
+      "Fire extinguisher",
+      "First aid kit",
+      "Hair dryer",
+      "Hangers",
+      "Heating",
+      "Wide doorway",
+      "Hot water",
+      "Kitchen",
+      "Microwave",
+      "Oven",
+      "Paid parking off premises",
+      "Path to entrance lit at night",
+      "Patio or balcony",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Wide clearance to bed",
+      "Wireless Internet",
+      "Kettle",
+      "Toaster",
+      "Towels provided",
+      "Downtown",
+      "Enhanced cleaning practices",
+      "Extra pillows and blankets",
+      "Internet",
+      "Long term stays allowed",
+      "Private entrance",
+      "Town",
+      "Iron"
+    ],
+    "prices": {
+      "basePrice": 90,
+      "currency": "EUR",
+      "cleaningFee": 40,
+      "extraPersonFee": null,
+      "guestsIncludedInRegularFee": 2,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "79658/AL",
+    "reviews": {
+      "avg": 9.2,
+      "total": 234
+    }
+  },
+  {
+    "_id": "60f828533b29f7002f8ee8dc",
+    "title": "Tripas-Coração: São Bento Duplex",
+    "nickname": "São Bento Duplex",
+    "propertyType": "Apartment",
+    "roomType": "Entire home/apt",
+    "accommodates": 2,
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "beds": 1,
+    "address": {
+      "full": "Praça de Almeida Garrett 24, 4000-322 Porto, Portugal",
+      "street": "Praça de Almeida Garrett 24",
+      "city": "Porto",
+      "zipcode": "4000-322",
+      "country": "Portugal",
+      "lat": 41.1454598,
+      "lng": -8.6111461,
+      "floor": "1st Back",
+      "neighborhood": null
+    },
+    "pictures": [
+      {
+        "original": "/images/placeholder/sao-bento-duplex-01.jpg",
+        "caption": "Dining area"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-02.jpg",
+        "caption": "Open space: lounging and dining area, kitchen and outdoor space"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-03.jpg",
+        "caption": "Bedroom"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-04.jpg",
+        "caption": "Downstairs bathroom"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-05.jpg",
+        "caption": "Kitchen"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-06.jpg",
+        "caption": "Outdoor space"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-07.jpg",
+        "caption": "Bedroom"
+      },
+      {
+        "original": "/images/placeholder/sao-bento-duplex-08.jpg",
+        "caption": "Bedroom"
+      }
+    ],
+    "publicDescription": {
+      "summary": "Experience Porto at its most enchanting. Our charming studio apartments sit in a historic building right across from the iconic São Bento Station, placing you in the very heart of the old town. Step outside and you’ll find yourself surrounded by winding streets, cozy cafés, and traditional restaurants, with the Douro River just a leisurely 10-minute stroll away.\n\nEach studio is a warm and welcoming retreat, thoughtfully designed to capture the spirit of Porto. The atmosphere is intimate and full of character - ideal for couples or travelers seeking an authentic stay in the city.\n\nAs with many historic gems, our building does not have an elevator, and ongoing underground works nearby may bring some daytime noise. Yet, these little quirks come with the privilege of staying in one of the most central and atmospheric corners of Porto, where history and romance meet at your doorstep.",
+      "space": "Located in the Historic Center of Porto, part of Unesco World Heritage, our studio apartment is the perfect symbiosis of 19th century architectural traces and the elegant and warm lines of the modern era. All of this, surrounded by São Bento railway station and just a few steps from everything that should be contemplated in our city.",
+      "access": "The apartment comfortably accommodates up to 2 guests and is equipped with all the amenities necessary to ensure a home-like experience during your stay.",
+      "neighborhood": "To stay near São Bento is to live at the very heart of Porto’s story. Step outside the door and you are greeted by the station’s iconic azulejo-clad hall—its famous blue-and-white tile murals are among the city’s most photographed landmarks, perfect for capturing unforgettable memories.\n\nAround it, life moves to a rhythm both timeless and modern: historic trams pass along cobbled streets, locals linger at cafés over tiny cups of strong espresso, and the sound of church bells mingles with the bustle of city life. From here, shopping streets, international brands, and traditional markets are all within easy reach, offering plenty of opportunities to explore and bring home something special.\n\nWander uphill to grand boulevards and elegant squares, or stroll downhill where the streets wind like ribbons toward the golden Douro River, a UNESCO World Heritage site and a must-see for every visitor. Along the way, you’ll discover historic bookstores, cozy wine bars, and family-run eateries serving local favorites like fresh seafood and the famous francesinha.\n\nThis is a neighborhood where every corner is filled with character - rich in history, culture, and atmosphere - making it the perfect starting point for sightseeing, dining, shopping, and creating beautiful memories in Porto.",
+      "transit": "Getting around São Bento couldn’t be easier: this is Porto’s most central hub. From the station itself, you can catch trains to the Douro Valley or other Portuguese cities, while metro and bus connections put the whole city within easy reach. Many of Porto’s landmarks, however, don’t require transport at all: the grand Avenida dos Aliados, the Sé Cathedral, and the colorful Ribeira by the river are all just a short walk away.\n\nThe best way to explore is on foot, losing yourself in the narrow streets and stairways is part of the charm. For longer distances, trams and funiculars add a touch of old-world romance to the ride, while modern taxis and ride-sharing apps are readily available.",
+      "notes": "Porto is to be lived hitting the streets and getting lost in its secrets.\nEach of us experiences a city in different ways.\nTell us what you are looking for and we’ll make sure you get the best recommendations.\nSend us your questions/requests so that all you need to worry during your stay is whether you should extend your vacations for a couple of days more...",
+      "houseRules": "We will send you a link to complete your personal information for Customs and Border Protection Authorities (SEF).\nIf you lose the keys or get locked out, we ask you to contact the number: +351 964 347 211. The cost if your responsibility.\nIn case early check-in or late check-out, it's available, we are happy to accommodate and there will be an extra fee which we will communicate upon request.\nNo-Smoking is allowed inside the apartment.\n\n"
+    },
+    "amenities": [
+      "Bed linens",
+      "Cable TV",
+      "Carbon monoxide detector",
+      "Coffee maker",
+      "Cookware",
+      "Dishes and silverware",
+      "Essentials",
+      "Extra pillows and blankets",
+      "Fire extinguisher",
+      "Hair dryer",
+      "Hangers",
+      "Hot water",
+      "Kitchen",
+      "Long term stays allowed",
+      "Microwave",
+      "Oven",
+      "Paid parking off premises",
+      "Patio or balcony",
+      "Refrigerator",
+      "Shampoo",
+      "Smoke detector",
+      "Stove",
+      "TV",
+      "Wireless Internet",
+      "Kettle",
+      "Toaster",
+      "Towels provided",
+      "Accessible-height bed",
+      "Accessible-height toilet",
+      "Cleaning Disinfection",
+      "Downtown",
+      "Internet",
+      "Private entrance",
+      "Town",
+      "First aid kit",
+      "Iron"
+    ],
+    "prices": {
+      "basePrice": 100,
+      "currency": "EUR",
+      "cleaningFee": 45,
+      "extraPersonFee": null,
+      "guestsIncludedInRegularFee": null,
+      "weeklyPriceFactor": 0.95,
+      "monthlyPriceFactor": 0.9
+    },
+    "terms": {
+      "minNights": 2,
+      "maxNights": 1125
+    },
+    "defaultCheckInTime": "15:00",
+    "defaultCheckOutTime": "12:00",
+    "license": "79651/AL",
+    "reviews": {
+      "avg": 9.1,
+      "total": 405
+    }
+  }
+]
