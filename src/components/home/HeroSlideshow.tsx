@@ -123,7 +123,7 @@ export function HeroSlideshowBackground() {
  */
 export function HeroSlideshowLines({ className }: { className?: string }) {
   const t = useTranslations("home");
-  const { slides, index, running, paused, go, togglePause } = useSlideshow();
+  const { slides, index, running, paused, togglePause } = useSlideshow();
   const current = slides[index];
   return (
     <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
@@ -143,44 +143,48 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
             </Link>
           </div>
         ) : null}
-        <ol className="grid" style={{ gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))` }}>
-          {slides.map((slide, i) => (
-            <li key={slide.key}>
-              <button
-                type="button"
-                onClick={() => go(i)}
-                aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
-                aria-current={i === index ? "true" : undefined}
-                className="block w-full py-3"
-              >
-                <span className="relative block h-px overflow-hidden bg-white/45">
-                  <span
-                    key={i === index ? `on-${index}` : `off-${i}`}
-                    className={clsx("absolute inset-0 origin-left bg-white", i === index ? "" : "scale-x-0")}
-                    style={
-                      i === index
-                        ? {
-                            animation: `featured-progress ${SLIDE_MS}ms linear forwards`,
-                            animationPlayState: running ? "running" : "paused",
-                          }
-                        : undefined
-                    }
-                  />
-                </span>
-              </button>
-            </li>
-          ))}
-        </ol>
+        {/* The line itself is the pause control (WCAG 2.2.2): click/tap to pause or resume; a small
+            mark appears at its end on hover or keyboard focus. */}
+        <button
+          type="button"
+          onClick={togglePause}
+          aria-label={paused ? t("featuredPlay") : t("featuredPause")}
+          aria-pressed={paused}
+          className="group/line flex w-full items-center gap-3 py-3"
+        >
+          <span
+            aria-hidden
+            className="grid flex-1"
+            style={{ gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))` }}
+          >
+            {slides.map((slide, i) => (
+              <span key={slide.key} className="relative block h-px overflow-hidden bg-white/45">
+                <span
+                  key={i === index ? `on-${index}` : `off-${i}`}
+                  className={clsx("absolute inset-0 origin-left bg-white", i === index ? "" : "scale-x-0")}
+                  style={
+                    i === index
+                      ? {
+                          animation: `featured-progress ${SLIDE_MS}ms linear forwards`,
+                          animationPlayState: running ? "running" : "paused",
+                        }
+                      : undefined
+                  }
+                />
+              </span>
+            ))}
+          </span>
+          <Icon
+            name={paused ? "play" : "pause"}
+            size={12}
+            strokeWidth={1.75}
+            className={clsx(
+              "shrink-0 text-paper transition-opacity",
+              paused ? "opacity-100" : "opacity-0 group-hover/line:opacity-100 group-focus-visible/line:opacity-100",
+            )}
+          />
+        </button>
       </div>
-      {/* Required for auto-advancing content (WCAG 2.2.2). */}
-      <button
-        type="button"
-        onClick={togglePause}
-        className="mb-1 grid size-8 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15"
-        aria-label={paused ? t("featuredPlay") : t("featuredPause")}
-      >
-        <Icon name={paused ? "play" : "pause"} size={12} strokeWidth={1.75} />
-      </button>
     </div>
   );
 }
