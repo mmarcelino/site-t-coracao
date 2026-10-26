@@ -72,7 +72,7 @@ export default async function HomePage() {
             source: reviewSources[review.source],
             score: `${format.number(review.rating)}/${review.source === "booking" ? 10 : 5}`,
             mock: review.mock,
-            home: { slug: l.slug, title: l.title, image },
+            home: { slug: l.slug, title: l.title },
           },
         };
       }),

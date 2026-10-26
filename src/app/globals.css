@@ -340,91 +340,6 @@
   }
 }
 
-/*
- * Pinned hero (La Case-style). The hero stays put for ~1.3 screens of scrolling while the
- * photo shrinks into a centred card and four photos glide in around it. Pure CSS
- * (scroll-driven animations); phones, unsupported browsers and reduced motion get the
- * normal static hero.
- */
-.hero-pin {
-  /* Card leaves room for the pinned search below it (≈17rem of vertical chrome). */
-  --card-w: max(14rem, min(30vw, 28rem, calc((100svh - 17rem) / 1.32)));
-  --card-h: calc(var(--card-w) * 1.32);
-  height: 100svh;
-  min-height: 36rem;
-}
-.hero-pin__stage {
-  position: relative;
-  height: 100%;
-  overflow: hidden;
-}
-.hero-pin__frame {
-  clip-path: inset(0 0 0 0 round 0px);
-}
-.hero-pin__photo {
-  display: none;
-}
-
-
-@supports (animation-timeline: view()) {
-  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-    /* The hero is always first on the page, so it runs on the page scroll itself:
-       0 scroll = start. The section is 230svh tall, i.e. it pins for 130svh. */
-    .hero-pin {
-      height: 230svh;
-    }
-    .hero-pin__stage {
-      position: sticky;
-      top: 0;
-      height: 100svh;
-      min-height: 36rem;
-    }
-    .hero-pin__frame {
-      animation: hero-frame linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 100svh;
-    }
-    .hero-pin__content {
-      animation: hero-content-out linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 28svh;
-    }
-    .hero-pin__photo {
-      display: block;
-      animation: hero-photo-in linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 25svh 112svh;
-    }
-  }
-}
-
-@keyframes hero-frame {
-  to {
-    clip-path: inset(
-      calc(50% - var(--card-h) / 2 - 3.5rem) calc(50% - var(--card-w) / 2)
-        calc(50% - var(--card-h) / 2 + 3.5rem) round var(--radius-card)
-    );
-  }
-}
-
-@keyframes hero-content-out {
-  to {
-    opacity: 0;
-    transform: translateY(-2rem);
-    visibility: hidden;
-  }
-}
-
-@keyframes hero-photo-in {
-  from {
-    opacity: 0;
-    transform: translate(var(--from-x), var(--from-y));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
 /* Featured card: story-style progress for the active item (paused via play-state). */
 @keyframes featured-progress {
@@ -456,24 +371,7 @@
   transition: transform 9000ms cubic-bezier(0.25, 0.6, 0.3, 1);
 }
 
-/*
- * Hero glass (booking box, review card): lighter over the photo; darkens as the hero pins and
- * the boxes end up over the light wash, so their white text keeps its contrast.
- */
+/* Hero glass (booking box, review card): a light tint, always over the photo. */
 .hero-glass {
   background-color: rgb(27 26 24 / 0.28);
-}
-@supports (animation-timeline: scroll()) {
-  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-    .hero-glass {
-      animation: hero-glass-darken linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 60svh;
-    }
-  }
-}
-@keyframes hero-glass-darken {
-  to {
-    background-color: rgb(27 26 24 / 0.62);
-  }
 }

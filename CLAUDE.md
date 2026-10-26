@@ -185,6 +185,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 
 - [ ] Access to the client's Microsoft Clarity account / project ID
 - [ ] Google Business profile for reviews, and which review sources the client wants shown
+  - Real reviews must come through **Guesty's API** (Airbnb + Booking.com, per listing) and the **Google Places API** (needs the client's Google Business profile + an API key; ~5 reviews per place, attribution rules). No scraping: Airbnb has no public API and its terms forbid it. Until then all quotes on the site are flagged mock.
 
 - [ ] Final brand name/logo treatment for the new site (keep "Tripas-Coração"?)
 - [ ] Exact number of apartments and buildings, and the building/flat mapping (site says 41–42; brief says 50+). *Research 2026-10-26: the public Guesty booking site lists 42 listings across ~10 street addresses (see §16); client to confirm.*

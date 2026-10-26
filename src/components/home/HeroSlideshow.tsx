@@ -77,26 +77,44 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
   return <SlideshowContext.Provider value={value}>{children}</SlideshowContext.Provider>;
 }
 
-/** Stacked full-bleed photos; only the active one is visible (cross-fade + slow settle). */
+/**
+ * Stacked full-bleed photos; only the active one is visible (cross-fade + slow settle).
+ * Only the first photo loads with the page; the rest mount once the page has finished loading
+ * and the browser is idle, well before the first change at 7s.
+ */
 export function HeroSlideshowBackground() {
   const { slides, index } = useSlideshow();
+  const [restReady, setRestReady] = useState(false);
+
+  useEffect(() => {
+    const start = () => {
+      const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 300));
+      idle(() => setRestReady(true));
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    return () => window.removeEventListener("load", start);
+  }, []);
+
   return (
     <>
-      {slides.map((slide, i) => (
-        <div key={slide.key} className="hero-slide absolute inset-0 overflow-hidden" data-active={i === index}>
-          <Image
-            src={slide.image.src}
-            alt={i === index ? slide.image.alt : ""}
-            fill
-            sizes="100vw"
-            quality={75}
-            priority={i === 0}
-            loading={i === 0 ? undefined : "eager"}
-            fetchPriority={i === 0 ? "high" : "low"}
-            className="object-cover"
-          />
-        </div>
-      ))}
+      {slides.map((slide, i) => {
+        if (i !== 0 && i !== index && !restReady) return null;
+        return (
+          <div key={slide.key} className="hero-slide absolute inset-0 overflow-hidden" data-active={i === index}>
+            <Image
+              src={slide.image.src}
+              alt={i === index ? slide.image.alt : ""}
+              fill
+              sizes="100vw"
+              quality={75}
+              priority={i === 0}
+              fetchPriority={i === 0 ? "high" : "low"}
+              className="object-cover"
+            />
+          </div>
+        );
+      })}
     </>
   );
 }
@@ -120,9 +138,9 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
                 i === index ? "opacity-100" : "opacity-70 hover:opacity-100",
               )}
             >
-              <span className="hidden truncate pb-2 text-[0.75rem] text-paper md:block">
+              <span className="hidden truncate pb-2 text-[0.8125rem] text-paper md:block">
                 <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                <span className="ml-2 text-paper/85">{slide.label}</span>
+                <span className="ml-2">{slide.label}</span>
               </span>
               <span className="relative block h-px overflow-hidden bg-white/35">
                 <span
