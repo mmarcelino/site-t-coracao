@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
 
 export interface HeroSlide {
@@ -117,84 +116,22 @@ export function HeroSlideshowBackground() {
   );
 }
 
-/**
- * Thin lines, one per collection; the active one fills. Each line jumps to its slide; the active
- * label is a link to that collection's homes (so it does what it reads like it does).
- */
-export function HeroSlideshowLines({ className }: { className?: string }) {
+/** Small pause/play control for the slideshow (required for auto-advancing content, WCAG 2.2.2). */
+export function HeroSlideshowPause({ className }: { className?: string }) {
   const t = useTranslations("home");
-  const { slides, index, running, paused, go, togglePause } = useSlideshow();
-  const label = (i: number, name: string) => (
-    <>
-      <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-      <span className="ml-2">{name}</span>
-    </>
-  );
+  const { paused, togglePause } = useSlideshow();
   return (
-    <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
-      <ol className="grid flex-1 grid-cols-6 gap-2 sm:gap-3">
-        {slides.map((slide, i) => {
-          const active = i === index;
-          const line = (
-            <span className="relative block h-px overflow-hidden bg-white/35">
-              <span
-                key={active ? `on-${index}` : `off-${i}`}
-                className={clsx("absolute inset-0 origin-left bg-white", i < index ? "scale-x-100" : i > index ? "scale-x-0" : "")}
-                style={
-                  active
-                    ? {
-                        animation: `featured-progress ${SLIDE_MS}ms linear forwards`,
-                        animationPlayState: running ? "running" : "paused",
-                      }
-                    : undefined
-                }
-              />
-            </span>
-          );
-          return (
-            <li key={slide.key}>
-              {active ? (
-                <>
-                  <Link
-                    href={{ pathname: "/apartments", query: { tag: slide.key } }}
-                    className="hidden items-center gap-1 truncate pb-2 text-[0.8125rem] text-paper hover:underline md:flex"
-                  >
-                    {label(i, slide.label)}
-                    <Icon name="arrowRight" size={13} className="shrink-0" />
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => go(i)}
-                    aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
-                    aria-current="true"
-                    className="block w-full pt-2 pb-2 md:pt-0"
-                  >
-                    {line}
-                  </button>
-                </>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => go(i)}
-                  aria-label={t("slideShow", { n: i + 1, total: slides.length, name: slide.label })}
-                  className="block w-full pb-2 text-left opacity-70 transition-opacity hover:opacity-100 md:pt-0"
-                >
-                  <span className="hidden truncate pb-2 text-[0.8125rem] text-paper md:block">{label(i, slide.label)}</span>
-                  <span className="block pt-2 md:pt-0">{line}</span>
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-      <button
-        type="button"
-        onClick={togglePause}
-        className="mb-0.5 grid size-8 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15"
-        aria-label={paused ? t("featuredPlay") : t("featuredPause")}
-      >
-        <Icon name={paused ? "play" : "pause"} size={12} strokeWidth={1.75} />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={togglePause}
+      aria-label={paused ? t("featuredPlay") : t("featuredPause")}
+      aria-pressed={paused}
+      className={clsx(
+        "grid size-7 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15",
+        className,
+      )}
+    >
+      <Icon name={paused ? "play" : "pause"} size={11} strokeWidth={1.75} />
+    </button>
   );
 }

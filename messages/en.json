@@ -188,7 +188,8 @@
     "directCardPerk1": "Best rate",
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
-    "directCardRating": "{score} · {count} reviews"
+    "directCardRating": "{score} · {count} reviews",
+    "heroSub": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",
