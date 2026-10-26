@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { heroSlides } from "@/content/featured";
-import { getBuildings, getListings, getNeighbourhoods, getReviewSummary, getReviews } from "@/lib/data";
+import { getBuildings, getListings, getReviewSummary, getReviews } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
@@ -45,30 +45,40 @@ export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const [listings, buildings, neighbourhoods, summary, reviews] = await Promise.all([
+  const [listings, buildings, summary, reviews] = await Promise.all([
     getListings(locale),
     getBuildings(locale),
-    getNeighbourhoods(locale),
     getReviewSummary(locale),
     getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
-  const slides = heroSlides.flatMap(({ slug, image }) => {
-    const l = listings.find((x) => x.slug === slug);
-    if (!l) return [];
-    const building = buildings.find((b) => b.id === l.buildingId);
-    const home = {
-      slug: l.slug,
-      title: l.title,
-      place: neighbourhoods.find((n) => n.slug === l.neighbourhoodSlug)?.name ?? "",
-      image: { src: l.pictures[0]?.src ?? "", alt: l.pictures[0]?.alt ?? "" },
-      price: format.money(l.price.base.amount, l.price.base.currency),
-      rating: l.reviews ? format.number(l.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : null,
-    };
-    const alt = l.pictures.find((p) => p.src === image)?.alt ?? l.title;
-    return [{ key: slug, label: building?.name === l.title ? l.title : (building?.name ?? l.title), image: { src: image, alt }, home }];
-  });
+  // One slide per home: background photo + that home's guest review (visitor's language first).
+  const reviewSources = { google: "Google", airbnb: "Airbnb", booking: "Booking.com" } as const;
+  const slides = (
+    await Promise.all(
+      heroSlides.map(async ({ slug, image }) => {
+        const l = listings.find((x) => x.slug === slug);
+        const [review] = l ? await getReviews(locale, { listingId: l.id, limit: 1 }) : [];
+        if (!l || !review) return null;
+        const building = buildings.find((b) => b.id === l.buildingId);
+        return {
+          key: slug,
+          label: building?.name ?? l.title,
+          image: { src: image, alt: l.pictures.find((p) => p.src === image)?.alt ?? l.title },
+          review: {
+            quote: review.text,
+            lang: review.language,
+            author: review.author,
+            source: reviewSources[review.source],
+            score: `${format.number(review.rating)}/${review.source === "booking" ? 10 : 5}`,
+            mock: review.mock,
+            home: { slug: l.slug, title: l.title, image: l.pictures[0]?.src ?? image },
+          },
+        };
+      }),
+    )
+  ).filter((s): s is NonNullable<typeof s> => s !== null);
 
   return (
     <>

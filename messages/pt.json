@@ -182,7 +182,9 @@
     "featuredRating": "{score} em 10",
     "heroLine": "Casas de autor em edifícios históricos, com uma equipa local à distância de uma mensagem.",
     "slidesLabel": "Casas em destaque",
-    "slideShow": "Mostrar {n} de {total}: {name}"
+    "slideShow": "Mostrar {n} de {total}: {name}",
+    "heroTitleLead": "Casas com o Porto",
+    "heroTitleAccent": "no coração."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

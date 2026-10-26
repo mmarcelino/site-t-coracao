@@ -182,7 +182,9 @@
     "featuredRating": "{score} out of 10",
     "heroLine": "Design-led homes in historic buildings, with a local team one message away.",
     "slidesLabel": "Featured homes",
-    "slideShow": "Show {n} of {total}: {name}"
+    "slideShow": "Show {n} of {total}: {name}",
+    "heroTitleLead": "Homes with Porto",
+    "heroTitleAccent": "at heart."
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

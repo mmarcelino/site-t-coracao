@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import {
   HeroSlideshow,
   HeroSlideshowBackground,
-  HeroSlideshowFeatured,
+  HeroSlideshowReview,
   HeroSlideshowLines,
   type HeroSlide,
 } from "./HeroSlideshow";
@@ -73,11 +73,15 @@ export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: H
             {/* Headline + line fade as the photo shrinks; the bottom row never does. */}
             <div className="hero-pin__content absolute inset-x-0 top-0">
               <div className="container-page grid gap-6 pt-[calc(var(--header-h)+clamp(2rem,7vh,5rem))] lg:grid-cols-12">
+                {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
                 <h1
                   id="hero-title"
-                  className="animate-fade-in text-[clamp(2.75rem,1.2rem+6.4vw,8.25rem)] leading-[0.92] font-light tracking-[-0.03em] uppercase lg:col-span-9"
+                  className="animate-fade-in text-[clamp(3rem,1.4rem+6.2vw,8.5rem)] leading-[0.95] font-normal tracking-[-0.045em] lg:col-span-9"
                 >
-                  {t("heroTitle")}
+                  <span className="block">{t("heroTitleLead")}</span>{" "}
+                  <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">
+                    {t("heroTitleAccent")}
+                  </span>
                 </h1>
                 <p className="animate-fade-in hidden max-w-[22rem] text-[1.0625rem] leading-snug text-paper/90 lg:col-span-3 lg:block lg:justify-self-end">
                   {t("heroLine")}
@@ -93,7 +97,7 @@ export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: H
               <HeroSlideshowLines className="hero-pin__content mb-[clamp(0.75rem,2vh,1.25rem)]" />
               <div className="flex items-end justify-between gap-4">
                 <div className="hidden xl:block">
-                  <HeroSlideshowFeatured />
+                  <HeroSlideshowReview />
                 </div>
                 <div className="w-full max-w-5xl xl:max-w-[44rem]">
                   <SearchBar maxGuests={maxGuests} calendarPlacement="top" />

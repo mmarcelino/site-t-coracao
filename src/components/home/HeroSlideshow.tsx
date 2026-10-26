@@ -5,13 +5,13 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { Icon } from "@/components/ui/Icon";
-import { FeaturedCard, type FeaturedItem } from "./FeaturedCard";
+import { ReviewCard, type HeroReview } from "./ReviewCard";
 
 export interface HeroSlide {
   key: string;
   label: string; // short name under the line, e.g. "Casa do Farol"
   image: { src: string; alt: string };
-  home: FeaturedItem;
+  review: HeroReview;
 }
 
 const SLIDE_MS = 7000;
@@ -34,7 +34,7 @@ function useSlideshow() {
 }
 
 /**
- * One controller for the hero: background photo, progress lines and featured pill always show
+ * One controller for the hero: background photo, progress lines and guest review always show
  * the same home. A line filling up = time until the next photo (Delta Cafés-style).
  * Pausable (WCAG 2.2.2); starts paused for reduced motion.
  */
@@ -156,9 +156,9 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
   );
 }
 
-/** Featured pill for the home currently in the background. */
-export function HeroSlideshowFeatured() {
+/** Guest review of the home currently in the background. */
+export function HeroSlideshowReview() {
   const { slides, index } = useSlideshow();
   const slide = slides[index];
-  return slide ? <FeaturedCard item={slide.home} /> : null;
+  return slide ? <ReviewCard review={slide.review} /> : null;
 }
