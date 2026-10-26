@@ -72,7 +72,7 @@ export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: H
 
             {/* Headline + line fade as the photo shrinks; the bottom row never does. */}
             <div className="hero-pin__content absolute inset-x-0 top-0">
-              <div className="container-page grid gap-6 pt-[calc(var(--header-h)+clamp(2rem,7vh,5rem))] lg:grid-cols-12">
+              <div className="container-page grid gap-6 pt-[calc(var(--header-h)+clamp(3.5rem,17vh,11rem))] lg:grid-cols-12">
                 {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
                 <h1
                   id="hero-title"
@@ -83,9 +83,6 @@ export async function Hero({ maxGuests, slides }: { maxGuests: number; slides: H
                     {t("heroTitleAccent")}
                   </span>
                 </h1>
-                <p className="animate-fade-in hidden max-w-[22rem] text-[1.0625rem] leading-snug text-paper/90 lg:col-span-3 lg:block lg:justify-self-end">
-                  {t("heroLine")}
-                </p>
               </div>
             </div>
           </div>
