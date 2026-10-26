@@ -90,7 +90,7 @@ export function Gallery({ pictures, title }: { pictures: Picture[]; title: strin
               type="button"
               onClick={(e) => open(i, e.currentTarget)}
               className={clsx(
-                "group relative overflow-hidden bg-limestone",
+                "group relative overflow-hidden rounded-[var(--radius-tile)] bg-limestone",
                 i === 0 && "col-span-2 row-span-2",
               )}
             >
@@ -108,7 +108,7 @@ export function Gallery({ pictures, title }: { pictures: Picture[]; title: strin
           <button
             type="button"
             onClick={(e) => open(0, e.currentTarget)}
-            className="text-small absolute right-4 bottom-4 inline-flex items-center gap-2 bg-paper px-4 py-2.5 text-ink shadow-sm transition-colors hover:bg-white"
+            className="text-small absolute right-4 bottom-4 inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 font-semibold text-ink shadow-sm transition-colors hover:bg-white"
             data-testid="gallery-all"
           >
             <Icon name="grid" size={16} />

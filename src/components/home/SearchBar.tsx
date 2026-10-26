@@ -71,19 +71,22 @@ export function SearchBar({ maxGuests }: { maxGuests: number }) {
       className="relative w-full text-ink"
       data-testid="hero-search"
     >
-      <div ref={wrapper} className="grid bg-paper md:grid-cols-[1.3fr_1fr_auto]">
-        <div className="relative border-b border-ink/10 md:border-r md:border-b-0">
+      <div
+        ref={wrapper}
+        className="grid gap-1 rounded-[1.75rem] bg-white p-2 shadow-[0_18px_50px_-20px_rgba(27,26,24,0.45)] md:grid-cols-[1.25fr_1fr_auto] md:items-center md:rounded-full md:pl-6"
+      >
+        <div className="relative">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="search-calendar"
-            className="flex w-full items-center gap-4 px-5 py-4 text-left md:px-6 md:py-5"
+            className="w-full px-4 py-3 text-left md:px-3"
           >
-            <Icon name="calendar" size={22} className="shrink-0 text-granite" />
-            <span>
-              <span className="label block text-granite">{t("dates")}</span>
-              <span className="mt-1 block">{dateLabel}</span>
+            <span className="block text-[0.8125rem] font-semibold">{t("dates")}</span>
+            <span className="mt-1 flex items-center gap-2 border-b border-ink/20 pb-1.5 text-granite">
+              <Icon name="calendar" size={18} className="shrink-0" />
+              {dateLabel}
             </span>
           </button>
           {open ? (
@@ -91,7 +94,7 @@ export function SearchBar({ maxGuests }: { maxGuests: number }) {
               id="search-calendar"
               role="group"
               aria-label={t("calendarLabel")}
-              className="animate-fade-in-fast absolute top-full left-0 z-30 mt-2 bg-white p-4 shadow-2xl md:p-6"
+              className="animate-fade-in-fast absolute top-full left-0 z-30 mt-3 rounded-[var(--radius-card)] bg-white p-4 shadow-2xl md:p-6"
             >
               <DateRangeCalendar selected={range} onSelect={setRange} months={months} />
               <div className="mt-2 flex items-center justify-between border-t border-ink/10 pt-4">
@@ -105,16 +108,15 @@ export function SearchBar({ maxGuests }: { maxGuests: number }) {
             </div>
           ) : null}
         </div>
-        <div className="flex items-center gap-4 px-5 py-3 md:px-6">
-          <Icon name="guests" size={22} className="shrink-0 text-granite" />
-          <div className="flex-1">
-            <span className="label block text-granite">{t("guests")}</span>
+        <div className="px-4 py-2 md:px-3">
+          <span className="block text-[0.8125rem] font-semibold">{t("guests")}</span>
+          <div className="mt-1 border-b border-ink/20 pb-1 text-granite">
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} />
           </div>
         </div>
-        <button type="submit" className={buttonClasses("primary", "fluid", "md:px-9")}>
+        <button type="submit" className={buttonClasses("primary", "fluid", "md:ml-2")}>
+          <Icon name="arrowUpRight" size={18} />
           {t("submit")}
-          <Icon name="arrowRight" size={18} />
         </button>
       </div>
     </form>

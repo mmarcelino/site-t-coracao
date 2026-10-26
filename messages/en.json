@@ -151,7 +151,7 @@
     "buildingsTitle": "Every house has a story. Choose yours.",
     "buildingApartments": "{count, plural, one {# apartment} other {# apartments}}",
     "directEyebrow": "Book direct",
-    "directTitle": "Better than a platform: a home, with hosts.",
+    "directTitle": "Why book direct.",
     "directBody": "Our apartments are on Airbnb and Booking.com too. Here you get our best rate and something the platforms can't give you: us.",
     "neighbourhoodsEyebrow": "Neighbourhoods",
     "neighbourhoodsTitle": "Porto, on foot.",
@@ -173,7 +173,15 @@
     "faqCta": "All questions",
     "factSince": "welcoming guests in Porto",
     "factApartments": "apartments in historic buildings",
-    "factRating": "average guest rating"
+    "factRating": "average guest rating",
+    "statement1": "A weekend or two months.",
+    "statement2": "A studio or a family flat.",
+    "statement3": "Ribeira or Cedofeita.",
+    "statement4": "There’s a Tripas-Coração home for you.",
+    "allApartments": "All apartments",
+    "ownersServices": "What we do for you",
+    "buildingsLink": "See the building",
+    "neighbourhoodTag": "Local guide"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

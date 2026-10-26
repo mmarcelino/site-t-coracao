@@ -169,7 +169,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
             ensureOpened();
             setCalendarOpen((v) => !v);
           }}
-          className="grid w-full grid-cols-2 border border-ink/20 text-left transition-colors hover:border-ink/60"
+          className="grid w-full grid-cols-2 overflow-hidden rounded-[var(--radius-tile)] border border-ink/20 text-left transition-colors hover:border-ink/60"
           data-testid="booking-dates"
         >
           <span className="border-r border-ink/20 px-4 py-3">
@@ -186,7 +186,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
           </span>
         </button>
         {calendarOpen ? (
-          <div id={`${idPrefix}-calendar`} className="animate-fade-in-fast mt-3 border border-ink/10 bg-white p-3">
+          <div id={`${idPrefix}-calendar`} className="animate-fade-in-fast mt-3 rounded-[var(--radius-tile)] border border-ink/10 bg-white p-3">
             <DateRangeCalendar selected={range} onSelect={setRange} blockedNights={blocked ?? []} />
             <div className="flex items-center justify-between border-t border-ink/10 px-1 pt-3">
               <button
@@ -258,7 +258,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   const priceFrom = (
     <p className="whitespace-nowrap">
       <span className="text-small text-granite">{t("common.from")} </span>
-      <span className="text-h3 font-normal">{money(listing.basePrice)}</span>
+      <span className="text-h3 font-semibold">{money(listing.basePrice)}</span>
       <span className="text-small text-granite"> {t("common.perNight")}</span>
     </p>
   );
@@ -267,7 +267,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
     <>
       {/* Desktop: sticky card */}
       <div className="sticky top-[calc(var(--header-h)+2rem)] hidden lg:block" data-testid="booking-widget">
-        <div className="border border-ink/10 bg-white p-7 shadow-[0_1px_0_rgba(27,26,24,0.04),0_24px_60px_-30px_rgba(27,26,24,0.25)]">
+        <div className="rounded-[var(--radius-card)] border border-ink/10 bg-white p-7 shadow-[0_1px_0_rgba(27,26,24,0.04),0_24px_60px_-30px_rgba(27,26,24,0.25)]">
           <div className="mb-6 border-b border-ink/10 pb-6">
             <p className="label mb-2 text-granite">{t("booking.title")}</p>
             {priceFrom}

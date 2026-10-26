@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { createFormatter } from "@/lib/format";
 import { buttonClasses } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 
 const featured = ["food-walk", "douro-boat", "douro-valley", "cooking-class"];
 
@@ -19,7 +20,7 @@ export async function ExperiencesTeaser() {
   return (
     <section aria-labelledby="experiences-title" className="container-page section-y">
       <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-        <div className="reveal relative aspect-[4/5] overflow-hidden bg-limestone lg:col-span-6">
+        <div className="reveal relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] bg-limestone lg:col-span-6">
           <Image
             src="/images/placeholder/site-experiences.jpg"
             alt={t("experiencesImageAlt")}
@@ -30,17 +31,16 @@ export async function ExperiencesTeaser() {
         </div>
         <div className="lg:col-span-5 lg:col-start-8">
           <div className="reveal">
-            <p className="label mb-5 text-granite">{t("experiencesEyebrow")}</p>
-            <h2 id="experiences-title" className="text-h2">
+            <h2 id="experiences-title" className="text-h1">
               {t("experiencesTitle")}
             </h2>
             <p className="text-lead mt-6 text-granite">{t("experiencesBody")}</p>
           </div>
-          <ul className="mt-10 border-t border-ink/15">
+          <ul className="mt-10 border-t-2 border-ink">
             {items.map((item) => (
               <li key={item.id} className="reveal flex items-baseline justify-between gap-6 border-b border-ink/15 py-5">
                 <div>
-                  <h3 className="text-lead font-normal">{item.title[locale]}</h3>
+                  <h3 className="text-lead font-semibold">{item.title[locale]}</h3>
                   {item.partner ? <p className="text-small mt-1 text-granite">{item.partner}</p> : null}
                 </div>
                 {item.priceFrom ? (
@@ -55,7 +55,8 @@ export async function ExperiencesTeaser() {
               </li>
             ))}
           </ul>
-          <Link href="/experiences" className={buttonClasses("secondary", "lg", "mt-10")}>
+          <Link href="/experiences" className={buttonClasses("primary", "lg", "mt-10")}>
+            <Icon name="arrowUpRight" size={18} />
             {t("experiencesCta")}
           </Link>
         </div>

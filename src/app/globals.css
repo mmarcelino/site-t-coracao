@@ -2,11 +2,14 @@
 
 /*
  * Design tokens — CLAUDE.md §5.
+ * Branch `numa-like` (2026-10-26): experiment with Numa's "full" agency look — semibold poster
+ * type (600), an azulejo-wash colour block as the signature colour, pill buttons, rounded cards.
  * Neutrals drawn from the buildings (granite, limestone, warm off-white, near-black)
  * plus one accent (muted azulejo blue) used sparingly: links, focus, selected dates.
  * Contrast (WCAG): ink/paper 15.7:1 · granite/paper 5.3:1 · granite/sand 4.9:1
  * · azulejo/paper 8.1:1 · granite-light/ink 6.5:1. Granite on limestone is only 4.3:1:
  * use ink for small text on limestone. Stone is for borders/rules only (1.6:1).
+ * Wash: ink 12.5:1 · azulejo 6.5:1 · ink-soft-text 8.1:1 · granite 4.2:1 (don't).
  */
 @theme {
   /* Colour */
@@ -20,26 +23,34 @@
   --color-ink-soft: #262422;
   --color-azulejo: #2e4a72;
   --color-azulejo-tint: #dfe5ee;
+  /* Signature colour block (Numa's pink, in tile blue). Text on it: ink or ink-soft, never granite. */
+  --color-wash: #cddcef;
+  --color-ink-soft-text: #3d3a36;
+  /* Hover/active accent for big type (5.7:1 on paper, 4.5:1 on wash: large text only on wash) */
+  --color-azulejo-bright: #2f5fa8;
   --color-white: #ffffff;
 
   /* Type */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
 
-  --text-display: clamp(2.75rem, 1.55rem + 5.4vw, 7rem);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.04em;
-  --text-h1: clamp(2.375rem, 1.6rem + 3.4vw, 4.75rem);
-  --text-h1--line-height: 1.02;
-  --text-h1--letter-spacing: -0.035em;
-  --text-h2: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
-  --text-h2--line-height: 1.06;
-  --text-h2--letter-spacing: -0.03em;
-  --text-statement: clamp(1.625rem, 1.2rem + 1.6vw, 2.625rem);
-  --text-statement--line-height: 1.2;
-  --text-statement--letter-spacing: -0.025em;
-  --text-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
-  --text-h3--line-height: 1.15;
-  --text-h3--letter-spacing: -0.02em;
+  --text-display: clamp(3rem, 1.6rem + 6vw, 7.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.045em;
+  --text-mega: clamp(3rem, 1rem + 8.5vw, 10rem);
+  --text-mega--line-height: 0.92;
+  --text-mega--letter-spacing: -0.05em;
+  --text-h1: clamp(2.5rem, 1.5rem + 4.2vw, 6.25rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.04em;
+  --text-h2: clamp(2.25rem, 1.35rem + 3.6vw, 5rem);
+  --text-h2--line-height: 1;
+  --text-h2--letter-spacing: -0.035em;
+  --text-statement: clamp(2rem, 1.2rem + 3.2vw, 4.25rem);
+  --text-statement--line-height: 1.04;
+  --text-statement--letter-spacing: -0.035em;
+  --text-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-h3--line-height: 1.1;
+  --text-h3--letter-spacing: -0.025em;
   --text-lead: clamp(1.125rem, 1.02rem + 0.45vw, 1.4rem);
   --text-lead--line-height: 1.5;
   --text-body: 1.0625rem;
@@ -55,6 +66,10 @@
   --duration-fast: 200ms;
   --duration-base: 600ms;
   --duration-slow: 1000ms;
+
+  /* Shape */
+  --radius-card: 1.25rem;
+  --radius-tile: 0.75rem;
 }
 
 :root {
@@ -86,7 +101,7 @@
   }
 
   h1, h2, h3, h4 {
-    font-weight: 300;
+    font-weight: 600;
     text-wrap: balance;
   }
 
@@ -290,4 +305,53 @@
 .tc-calendar .rdp-day_button:focus-visible {
   outline: 2px solid var(--color-azulejo);
   outline-offset: 1px;
+}
+
+
+/* ------------------------------------------------------------------ numa-like devices */
+
+/* Statement lines that darken one by one as they scroll into place (CSS scroll-driven). */
+@keyframes line-ink {
+  from {
+    color: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  }
+  to {
+    color: var(--color-ink);
+  }
+}
+
+@utility scroll-ink {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: line-ink linear both;
+      animation-timeline: view();
+      animation-range: entry 60% cover 45%;
+    }
+  }
+}
+
+/* Building list: hovering/focusing a name reveals its photo; the first shows by default. */
+.building-list .building-preview {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity var(--duration-base) var(--ease-soft),
+    transform var(--duration-base) var(--ease-soft);
+}
+.building-list li:is(:hover, :focus-within) .building-preview,
+.building-list:not(:has(li:is(:hover, :focus-within))) li:first-child .building-preview {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stacked cards: each card sticks a little lower than the previous one. On desktop the home
+   search pill is pinned under the header too, so cards stop below it. */
+.stack-card {
+  position: sticky;
+  top: calc(var(--header-h) + 1rem + var(--stack-i, 0) * 1rem);
+}
+@media (min-width: 768px) {
+  .stack-card {
+    top: calc(var(--header-h) + 6.75rem + var(--stack-i, 0) * 1.25rem);
+  }
 }

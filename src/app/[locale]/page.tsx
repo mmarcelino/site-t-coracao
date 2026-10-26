@@ -13,6 +13,8 @@ import { BookDirect } from "@/components/home/BookDirect";
 import { BuildingsSection } from "@/components/home/BuildingsSection";
 import { ExperiencesTeaser } from "@/components/home/ExperiencesTeaser";
 import { Hero } from "@/components/home/Hero";
+import { SearchBar } from "@/components/home/SearchBar";
+import { StatementSection } from "@/components/home/StatementSection";
 import { NeighbourhoodsTeaser } from "@/components/home/NeighbourhoodsTeaser";
 import { OwnersTeaser } from "@/components/home/OwnersTeaser";
 import { ReviewsBlock } from "@/components/ReviewsBlock";
@@ -58,26 +60,25 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero maxGuests={maxGuests} />
+      <Hero />
 
-      <section aria-labelledby="intro-title" className="container-page section-y">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <p id="intro-title" className="label text-granite lg:col-span-3">
-            {t("introEyebrow")}
-          </p>
-          <div className="reveal lg:col-span-9">
-            <p className="text-statement max-w-[34ch] font-light">{t("intro")}</p>
-            <Link href="/about" className="text-lead mt-8 inline-flex items-center gap-3 link-quiet">
-              {t("introLink")}
-              <Icon name="arrowRight" size={20} />
-            </Link>
-          </div>
+      {/* Search pill: overlaps the hero, then stays pinned under the header on desktop (Numa). */}
+      <div className="container-page relative z-30 -mt-[4.5rem] md:sticky md:top-[calc(var(--header-h)+0.75rem)] md:-mt-11">
+        <div className="max-w-5xl">
+          <SearchBar maxGuests={maxGuests} />
         </div>
-        <dl className="mt-[clamp(3.5rem,7vw,6rem)] grid gap-10 border-t border-ink/15 pt-10 sm:grid-cols-3">
+      </div>
+
+      <div className="mt-[var(--section-tight)]">
+        <StatementSection />
+      </div>
+
+      <section aria-label={t("introEyebrow")} className="container-page pt-[var(--section-tight)]">
+        <dl className="grid gap-10 sm:grid-cols-3">
           {facts.map((fact) => (
-            <div key={fact.value} className="reveal flex flex-col-reverse">
+            <div key={fact.value} className="reveal flex flex-col-reverse border-t-2 border-ink pt-6">
               <dt className="mt-2 text-granite">{fact.label}</dt>
-              <dd className="text-h1 font-light tabular-nums">{fact.value}</dd>
+              <dd className="text-h1 font-semibold tabular-nums">{fact.value}</dd>
             </div>
           ))}
         </dl>
@@ -107,13 +108,12 @@ export default async function HomePage() {
       <section aria-labelledby="faq-title" className="border-t border-ink/10">
         <div className="container-page section-y grid gap-12 lg:grid-cols-12">
           <div className="reveal lg:col-span-4">
-            <p className="label mb-5 text-granite">{t("faqEyebrow")}</p>
-            <h2 id="faq-title" className="text-h2">
+            <h2 id="faq-title" className="text-h1">
               {t("faqTitle")}
             </h2>
-            <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-3 link-quiet">
+            <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-2 font-semibold hover:text-azulejo-bright">
+              <Icon name="arrowUpRight" size={22} />
               {t("faqCta")}
-              <Icon name="arrowRight" size={20} />
             </Link>
           </div>
           <div className="lg:col-span-8">

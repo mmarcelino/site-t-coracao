@@ -36,7 +36,7 @@ export async function ReviewsBlock({
           {heading}
         </h2>
         <div className="mt-10 flex items-end gap-4">
-          <p className="text-display leading-none font-light tabular-nums">{score(overall.score)}</p>
+          <p className="text-mega leading-none font-semibold tabular-nums">{score(overall.score)}</p>
           <p className="pb-2 text-small text-granite">
             {t("outOf")}
             <br />
@@ -49,7 +49,7 @@ export async function ReviewsBlock({
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
               <li key={source}>
                 <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-2 text-lead tabular-nums">{score(bySource[source].score)}</p>
+                <p className="mt-2 text-h3 font-semibold tabular-nums">{score(bySource[source].score)}</p>
                 <p className="text-[0.75rem] text-granite">{format.number(bySource[source].count)}</p>
               </li>
             ))}
@@ -57,17 +57,17 @@ export async function ReviewsBlock({
         ) : null}
       </div>
 
-      <ul className="grid gap-px self-start bg-ink/10 sm:grid-cols-2 lg:col-span-8">
+      <ul className="grid gap-3 self-start sm:grid-cols-2 lg:col-span-8">
         {reviews.map((review, i) => (
-          <li key={review.id} className={clsx("reveal bg-paper p-7 md:p-9", i === 0 && "sm:col-span-2")}>
+          <li key={review.id} className={clsx("reveal rounded-[var(--radius-card)] p-7 md:p-9", i === 0 ? "bg-wash sm:col-span-2" : "bg-sand")}>
             <figure>
               <blockquote
                 lang={review.language}
-                className={clsx(i === 0 ? "text-h3 font-light" : "text-lead font-light")}
+                className={clsx(i === 0 ? "text-h3 font-semibold" : "text-lead font-medium")}
               >
                 “{review.text}”
               </blockquote>
-              <figcaption className="text-small mt-6 text-granite">
+              <figcaption className="text-small mt-6 text-ink-soft-text">
                 {review.author} · {t(`source.${review.source}`)} ·{" "}
                 {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
               </figcaption>

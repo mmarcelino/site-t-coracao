@@ -10,11 +10,11 @@ import { Icon } from "./ui/Icon";
 export function FaqList({ items, locale, withJsonLd = true }: { items: FaqItem[]; locale: Locale; withJsonLd?: boolean }) {
   return (
     <>
-      <div className="border-t border-ink/15">
+      <div className="border-t-2 border-ink">
         {items.map((item) => (
           <details key={item.id} className="group border-b border-ink/15" id={`faq-${item.id}`}>
             <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-6 [&::-webkit-details-marker]:hidden">
-              <h3 className="text-lead font-normal">{item.question[locale]}</h3>
+              <h3 className="text-lead font-semibold">{item.question[locale]}</h3>
               <Icon
                 name="plus"
                 size={22}

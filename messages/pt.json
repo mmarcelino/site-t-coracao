@@ -151,7 +151,7 @@
     "buildingsTitle": "Cada casa tem a sua história. Escolha a sua.",
     "buildingApartments": "{count, plural, one {# apartamento} other {# apartamentos}}",
     "directEyebrow": "Reservar diretamente",
-    "directTitle": "Melhor do que uma plataforma: uma casa com anfitriões.",
+    "directTitle": "Porquê reservar aqui.",
     "directBody": "Os nossos apartamentos também estão no Airbnb e no Booking.com. Aqui, fica com o melhor preço e com algo que as plataformas não dão: a nossa equipa.",
     "neighbourhoodsEyebrow": "Os bairros",
     "neighbourhoodsTitle": "O Porto, a pé.",
@@ -173,7 +173,15 @@
     "faqCta": "Todas as perguntas",
     "factSince": "a receber hóspedes no Porto",
     "factApartments": "apartamentos em edifícios históricos",
-    "factRating": "nota média dos hóspedes"
+    "factRating": "nota média dos hóspedes",
+    "statement1": "Um fim de semana ou dois meses.",
+    "statement2": "Um estúdio ou uma casa de família.",
+    "statement3": "Ribeira ou Cedofeita.",
+    "statement4": "Há uma casa Tripas-Coração para si.",
+    "allApartments": "Todos os apartamentos",
+    "ownersServices": "O que fazemos por si",
+    "buildingsLink": "Ver o edifício",
+    "neighbourhoodTag": "Guia local"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

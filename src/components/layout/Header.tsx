@@ -76,7 +76,10 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={pathname === item.href ? "page" : undefined}
-                    className="text-small py-2 opacity-90 transition-opacity hover:opacity-100 aria-[current=page]:underline aria-[current=page]:underline-offset-8"
+                    className={clsx(
+                      "py-2 text-[1.0625rem] font-semibold tracking-[-0.01em] transition-[color,opacity] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                      light ? "hover:opacity-70" : "hover:text-azulejo-bright",
+                    )}
                   >
                     {t(`nav.${item.key}`)}
                   </Link>
@@ -90,7 +93,10 @@ export function Header() {
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
-                className="text-small inline-flex py-2 opacity-90 transition-opacity hover:opacity-100"
+                className={clsx(
+                  "inline-flex py-2 text-[1.0625rem] font-semibold tracking-[-0.01em] transition-[color,opacity]",
+                  light ? "hover:opacity-70" : "hover:text-azulejo-bright",
+                )}
               >
                 <span className="hidden xl:inline">{t("whatsapp.cta")}</span>
                 <span className="xl:hidden">{t("whatsapp.short")}</span>
@@ -138,7 +144,7 @@ export function Header() {
             <ul className="space-y-1">
               {primaryNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-h2 block py-2">
+                  <Link href={item.href} className="text-h1 block py-1.5 font-semibold">
                     {t(`nav.${item.key}`)}
                   </Link>
                 </li>

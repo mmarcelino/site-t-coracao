@@ -1,50 +1,65 @@
+import Image from "next/image";
+import type { CSSProperties } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { perks, type Perk } from "@/content/perks";
 import type { Locale } from "@/i18n/routing";
-import { Icon, type IconName } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 
-const perkIcons: Record<Perk["id"], IconName> = {
-  "best-rate": "tag",
-  flexible: "refresh",
-  welcome: "gift",
-  concierge: "whatsapp",
-  "early-late": "key",
+/** Photo per perk (placeholders; decorative, the text carries the meaning). */
+const perkImages: Record<Perk["id"], string> = {
+  "best-rate": "/images/placeholder/breiner-skylight-01.jpg",
+  flexible: "/images/placeholder/cordoaria-river-balcony-03.jpg",
+  welcome: "/images/placeholder/sao-bento-duplex-01.jpg",
+  concierge: "/images/placeholder/site-experiences.jpg",
+  "early-late": "/images/placeholder/mouzinho-rooftop-e-03.jpg",
 };
 
-/** Why book direct, as hospitality (not discounts). Dark section for rhythm. */
+/**
+ * Why book direct, as Numa's "How it works": a title on the signature colour, then cards that
+ * stack as you scroll (sticky). Framed as hospitality, never as discounts.
+ */
 export async function BookDirect() {
   const t = await getTranslations();
   const locale = (await getLocale()) as Locale;
 
   return (
-    <section aria-labelledby="direct-title" className="on-dark bg-ink text-paper">
-      <div className="container-page section-y grid gap-14 lg:grid-cols-12">
-        <div className="reveal lg:col-span-5">
-          <p className="label mb-5 text-granite-light">{t("home.directEyebrow")}</p>
-          <h2 id="direct-title" className="text-h2">
+    <section aria-labelledby="direct-title" className="bg-wash">
+      <div className="container-page pt-[var(--section)] pb-[var(--section-tight)]">
+        <div className="reveal grid gap-8 lg:grid-cols-12 lg:items-end">
+          <h2 id="direct-title" className="text-h1 lg:col-span-7">
             {t("home.directTitle")}
           </h2>
-          <p className="text-lead mt-6 max-w-md text-paper/75">{t("home.directBody")}</p>
-          <WhatsAppLink
-            message={t("whatsapp.messageGeneric")}
-            page="home"
-            className="inline-flex text-lead mt-10 border-b border-paper/30 pb-1 transition-colors hover:border-paper"
-          >
-            {t("whatsapp.cta")}
-          </WhatsAppLink>
+          <div className="lg:col-span-5">
+            <p className="text-lead text-ink-soft-text">{t("home.directBody")}</p>
+            <WhatsAppLink
+              message={t("whatsapp.messageGeneric")}
+              page="home"
+              className="text-lead mt-6 inline-flex font-semibold hover:text-azulejo"
+            >
+              {t("whatsapp.cta")}
+            </WhatsAppLink>
+          </div>
         </div>
-        <ol className="lg:col-span-6 lg:col-start-7">
+
+        <ol className="mt-[clamp(3rem,6vw,5rem)] space-y-6">
           {perks.map((perk, i) => (
-            <li key={perk.id} className="reveal grid grid-cols-[2.5rem_1fr] gap-x-5 border-t border-paper/15 py-7 last:border-b">
-              <Icon name={perkIcons[perk.id]} size={24} className="mt-1 text-paper/70" />
-              <div>
-                <h3 className="text-lead font-normal">
-                  <span className="sr-only">{i + 1}. </span>
-                  {perk.title[locale]}
-                </h3>
-                <p className="mt-2 text-paper/70">{perk.body[locale]}</p>
-              </div>
+            <li
+              key={perk.id}
+              className="stack-card"
+              style={{ "--stack-i": i } as CSSProperties}
+            >
+              <article className="grid min-h-[clamp(22rem,50vh,30rem)] gap-6 overflow-hidden rounded-[var(--radius-card)] bg-white p-4 shadow-[0_-12px_40px_-24px_rgba(27,26,24,0.35)] md:grid-cols-2 md:gap-10 md:p-6">
+                <div className="relative min-h-56 overflow-hidden rounded-[var(--radius-tile)] bg-limestone">
+                  <Image src={perkImages[perk.id]} alt="" fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+                </div>
+                <div className="flex flex-col justify-end p-2 md:p-4">
+                  <p className="label mb-4 text-granite">
+                    {String(i + 1).padStart(2, "0")} / {String(perks.length).padStart(2, "0")}
+                  </p>
+                  <h3 className="text-h2">{perk.title[locale]}</h3>
+                  <p className="text-lead mt-5 max-w-md text-granite">{perk.body[locale]}</p>
+                </div>
+              </article>
             </li>
           ))}
         </ol>
