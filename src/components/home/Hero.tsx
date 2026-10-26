@@ -54,7 +54,8 @@ export async function Hero({
           <div className="container-page pb-[clamp(1.25rem,4vh,2.5rem)]">
             <HeroSlideshowLines className="mb-[clamp(0.75rem,2vh,1.25rem)]" />
             <div className="flex items-end justify-between gap-4">
-              <div className="hidden xl:block">
+              {/* Caption sits level with the booking box's text, not its outer edge. */}
+              <div className="hidden pb-3 xl:block">
                 <DirectCard rating={rating} />
               </div>
               <div className="w-full md:ml-auto md:w-auto">
