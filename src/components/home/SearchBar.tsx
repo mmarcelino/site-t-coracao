@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { useRouter } from "@/i18n/navigation";
 import { track } from "@/lib/analytics";
-import { localDateToISO } from "@/lib/dates";
+import { localDateToISO, nightsBetween } from "@/lib/dates";
 import { useFormat } from "@/lib/format";
 import { DateRangeCalendar } from "@/components/booking/DateRangeCalendar";
 import { GuestsStepper } from "@/components/booking/GuestsStepper";
@@ -23,6 +23,7 @@ export function SearchBar({
   calendarPlacement?: "top" | "bottom";
 }) {
   const t = useTranslations("search");
+  const tc = useTranslations("common");
   const format = useFormat();
   const router = useRouter();
   const [range, setRange] = useState<DateRange | undefined>();
@@ -53,12 +54,10 @@ export function SearchBar({
     };
   }, [open]);
 
-  const dateLabel =
-    range?.from && range.to
-      ? format.dateTimeRange(range.from, range.to, { day: "numeric", month: "short" })
-      : range?.from
-        ? format.dateTime(range.from, { day: "numeric", month: "short" })
-        : t("addDates");
+  const arriveLabel = range?.from
+    ? format.dateTime(range.from, { weekday: "short", day: "numeric", month: "short" })
+    : t("choose");
+  const nights = range?.from && range.to ? nightsBetween(localDateToISO(range.from), localDateToISO(range.to)) : 0;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -71,64 +70,79 @@ export function SearchBar({
     });
   }
 
+  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-3 text-left md:px-6";
+  const fieldLabel = "block text-[0.8125rem] text-paper/85";
+  const fieldValue = "mt-0.5 block text-lg font-medium text-paper";
+
   return (
     <form
       role="search"
       aria-label={t("label")}
       onSubmit={submit}
-      className="relative w-full text-ink"
+      className="relative w-full"
       data-testid="hero-search"
     >
+      {/* Glass pill. The tint is dark enough that white text stays legible over the photo and,
+          once the hero shrinks, over the light wash behind it. */}
       <div
         ref={wrapper}
-        className="grid gap-1 rounded-[1.75rem] bg-white p-2 shadow-[0_18px_50px_-20px_rgba(27,26,24,0.45)] md:grid-cols-[1.25fr_1fr_auto] md:items-center md:rounded-full md:pl-6"
+        className="grid grid-cols-1 rounded-[1.75rem] border border-white/30 bg-ink/55 p-2 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl md:grid-cols-[1fr_1fr_1.25fr_auto] md:items-center md:rounded-full md:pl-3"
       >
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="search-calendar"
-            className="w-full px-4 py-3 text-left md:px-3"
-          >
-            <span className="block text-[0.8125rem] font-semibold">{t("dates")}</span>
-            <span className="mt-1 flex items-center gap-2 border-b border-ink/20 pb-1.5 text-granite">
-              <Icon name="calendar" size={18} className="shrink-0" />
-              {dateLabel}
-            </span>
-          </button>
-          {open ? (
-            <div
-              id="search-calendar"
-              role="group"
-              aria-label={t("calendarLabel")}
-              className={clsx(
-                "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 shadow-2xl md:p-6",
-                calendarPlacement === "top" ? "bottom-full mb-3" : "top-full mt-3",
-              )}
-            >
-              <DateRangeCalendar selected={range} onSelect={setRange} months={months} />
-              <div className="mt-2 flex items-center justify-between border-t border-ink/10 pt-4">
-                <button type="button" onClick={() => setRange(undefined)} className="link-quiet text-small">
-                  {t("clearDates")}
-                </button>
-                <button type="button" onClick={() => setOpen(false)} className={buttonClasses("secondary", "sm")}>
-                  {t("done")}
-                </button>
-              </div>
-            </div>
-          ) : null}
-        </div>
-        <div className="px-4 py-2 md:px-3">
-          <span className="block text-[0.8125rem] font-semibold">{t("guests")}</span>
-          <div className="mt-1 border-b border-ink/20 pb-1 text-granite">
-            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} />
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="search-calendar"
+          className={field}
+        >
+          <span className={fieldLabel}>{t("arrive")}</span>
+          <span className={fieldValue}>{arriveLabel}</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="search-calendar"
+          className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}
+        >
+          <span className={fieldLabel}>{t("nightsLabel")}</span>
+          <span className={fieldValue}>{nights ? tc("nights", { count: nights }) : "—"}</span>
+        </button>
+        <div className={clsx(field, "border-t border-white/20 md:border-t-0 md:border-l")}>
+          <span className={fieldLabel}>{t("guests")}</span>
+          <div className="mt-0.5 text-lg font-medium text-paper">
+            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone="light" />
           </div>
         </div>
-        <button type="submit" className={buttonClasses("primary", "fluid", "md:ml-2")}>
-          <Icon name="arrowUpRight" size={18} />
+        <button
+          type="submit"
+          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-wash px-8 text-[1.0625rem] font-semibold text-ink transition-colors hover:bg-white md:mt-0"
+        >
           {t("submit")}
+          <Icon name="arrowRight" size={18} />
         </button>
+
+        {open ? (
+          <div
+            id="search-calendar"
+            role="group"
+            aria-label={t("calendarLabel")}
+            className={clsx(
+              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:p-6",
+              calendarPlacement === "top" ? "bottom-full mb-3" : "top-full mt-3",
+            )}
+          >
+            <DateRangeCalendar selected={range} onSelect={setRange} months={months} />
+            <div className="mt-2 flex items-center justify-between border-t border-ink/10 pt-4">
+              <button type="button" onClick={() => setRange(undefined)} className="link-quiet text-small">
+                {t("clearDates")}
+              </button>
+              <button type="button" onClick={() => setOpen(false)} className={buttonClasses("secondary", "sm")}>
+                {t("done")}
+              </button>
+            </div>
+          </div>
+        ) : null}
       </div>
     </form>
   );

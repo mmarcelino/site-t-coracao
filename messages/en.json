@@ -33,7 +33,9 @@
     "contact": "Contact",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "home": "Tripas-Coração, home"
+    "home": "Tripas-Coração, home",
+    "menu": "Menu",
+    "homeShort": "Home"
   },
   "language": {
     "label": "Language",
@@ -80,7 +82,10 @@
     "done": "Done",
     "fewerGuests": "Fewer guests",
     "moreGuests": "More guests",
-    "calendarLabel": "Choose your arrival and departure dates"
+    "calendarLabel": "Choose your arrival and departure dates",
+    "arrive": "Arrive",
+    "nightsLabel": "Nights",
+    "choose": "Choose"
   },
   "booking": {
     "title": "Book direct",

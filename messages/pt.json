@@ -33,7 +33,9 @@
     "contact": "Contactos",
     "openMenu": "Abrir menu",
     "closeMenu": "Fechar menu",
-    "home": "Tripas-Coração, página inicial"
+    "home": "Tripas-Coração, página inicial",
+    "menu": "Menu",
+    "homeShort": "Início"
   },
   "language": {
     "label": "Idioma",
@@ -80,7 +82,10 @@
     "done": "Concluir",
     "fewerGuests": "Menos hóspedes",
     "moreGuests": "Mais hóspedes",
-    "calendarLabel": "Escolha as datas de chegada e partida"
+    "calendarLabel": "Escolha as datas de chegada e partida",
+    "arrive": "Chegada",
+    "nightsLabel": "Noites",
+    "choose": "Escolher"
   },
   "booking": {
     "title": "Reserve diretamente",

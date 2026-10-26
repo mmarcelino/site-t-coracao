@@ -80,7 +80,7 @@
   --section: clamp(5rem, 3rem + 8vw, 10rem);
   --section-tight: clamp(3.5rem, 2.4rem + 4.5vw, 6.5rem);
   --page-max: 96rem;
-  --header-h: 4.5rem;
+  --header-h: 5.25rem;
 }
 
 @layer base {
@@ -343,7 +343,7 @@
   --card-w: max(14rem, min(30vw, 28rem, calc((100svh - 17rem) / 1.32)));
   --card-h: calc(var(--card-w) * 1.32);
   /* Height of the search pill: one row on desktop, stacked on phones. */
-  --search-h: 15rem;
+  --search-h: 19rem;
   height: 100svh;
   min-height: 36rem;
 }

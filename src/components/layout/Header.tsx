@@ -56,35 +56,70 @@ export function Header() {
 
   return (
     <>
-      {/* Floating pill: frosted over the hero, white with a soft shadow once the page scrolls.
-          The strip around the pill is click-through. */}
-      <header className="pointer-events-none sticky top-0 z-40 h-[var(--header-h)]">
-        <div className="container-page pt-3">
-          <div
-            className={clsx(
-              "pointer-events-auto flex h-14 items-center justify-between gap-4 rounded-full pr-2 pl-5 ring-1 backdrop-blur-xl transition-[background-color,color,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-soft)] lg:pl-6",
-              light
-                ? "on-dark bg-ink/25 text-paper ring-white/20"
-                : "bg-white/85 text-ink shadow-[0_12px_32px_-14px_rgba(27,26,24,0.28)] ring-ink/[0.06]",
-            )}
-          >
+      {/* Minimal bar: wordmark, hamburger, and a hairline rule below (elvara-style). Transparent
+          over the home hero, white once the page scrolls. Everything else lives in the menu. */}
+      <header
+        className={clsx(
+          "sticky top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
+          light ? "on-dark text-paper" : "bg-paper/95 text-ink backdrop-blur-md",
+        )}
+      >
+        <div className="container-page flex h-full flex-col">
+          <div className="flex flex-1 items-center justify-between">
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
             </Link>
+            <button
+              ref={menuButton}
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-expanded={menuOpen}
+              aria-controls="site-menu"
+              className="group -mr-2 flex h-11 items-center gap-3 px-2"
+            >
+              <span className="label hidden sm:inline">{t("nav.menu")}</span>
+              <Hamburger />
+              <span className="sr-only">{t("nav.openMenu")}</span>
+            </button>
+          </div>
+          <div aria-hidden className={clsx("h-px", light ? "bg-paper/70" : "bg-ink/15")} />
+        </div>
+      </header>
 
-            <nav aria-label={t("nav.label")} className="hidden lg:block">
-              <ul className="flex items-center gap-1">
-                {primaryNav.map((item) => (
+      {menuOpen ? (
+        <div
+          id="site-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("nav.label")}
+          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper"
+        >
+          <div className="container-page flex h-[var(--header-h)] shrink-0 flex-col">
+            <div className="flex flex-1 items-center justify-between">
+              <Wordmark />
+              <button
+                ref={closeButton}
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                className="-mr-2 flex h-11 items-center gap-3 px-2"
+              >
+                <span className="label hidden sm:inline">{t("common.close")}</span>
+                <Icon name="close" size={28} strokeWidth={1} />
+                <span className="sr-only">{t("nav.closeMenu")}</span>
+              </button>
+            </div>
+            <div aria-hidden className="h-px bg-paper/30" />
+          </div>
+
+          <div className="container-page grid flex-1 gap-12 py-10 lg:grid-cols-12 lg:py-16">
+            <nav aria-label={t("nav.label")} className="lg:col-span-8">
+              <ul>
+                {[{ href: "/" as const, key: "homeShort" as const }, ...primaryNav].map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
-                      className={clsx(
-                        "block rounded-full px-4 py-2 text-[0.9375rem] font-semibold tracking-[-0.01em] transition-colors",
-                        light
-                          ? "hover:bg-white/15 aria-[current=page]:bg-white aria-[current=page]:text-ink"
-                          : "hover:bg-ink/[0.06] aria-[current=page]:bg-ink aria-[current=page]:text-paper",
-                      )}
+                      className="text-display block py-1 font-light uppercase transition-opacity hover:opacity-60 aria-[current=page]:opacity-50"
                     >
                       {t(`nav.${item.key}`)}
                     </Link>
@@ -92,87 +127,41 @@ export function Header() {
                 ))}
               </ul>
             </nav>
-
-            <div className="flex items-center gap-2">
-              <div className="hidden sm:block">
-                <LanguageSwitcher tone={light ? "light" : "dark"} />
+            <div className="flex flex-col justify-end gap-8 lg:col-span-4">
+              <div>
+                <WhatsAppLink message={t("whatsapp.messageGeneric")} page={pathname} className="inline-flex text-lead">
+                  {t("whatsapp.cta")}
+                </WhatsAppLink>
+                <p className="text-small mt-2 text-granite-light">{t("whatsapp.hours")}</p>
               </div>
-              <WhatsAppLink
-                message={t("whatsapp.messageGeneric")}
-                page={pathname}
-                icon={false}
-                className={clsx(
-                  "hidden size-10 place-items-center rounded-full transition-colors md:grid",
-                  light ? "bg-white/15 hover:bg-white/25" : "bg-ink/[0.06] hover:bg-ink/10",
-                )}
-              >
-                <Icon name="whatsapp" size={20} />
-                <span className="sr-only">{t("whatsapp.cta")}</span>
-              </WhatsAppLink>
-              <div className="hidden sm:block">
-                <Link href="/apartments" className={buttonClasses(light ? "light" : "primary", "sm")}>
+              <div className="flex items-center justify-between gap-6 border-t border-paper/20 pt-6">
+                <LanguageSwitcher tone="light" />
+                <Link href="/apartments" className={buttonClasses("light")}>
                   {t("common.bookNow")}
                 </Link>
               </div>
-              <button
-                ref={menuButton}
-                type="button"
-                onClick={() => setMenuOpen(true)}
-                aria-expanded={menuOpen}
-                aria-controls="mobile-menu"
-                className={clsx(
-                  "grid size-10 place-items-center rounded-full lg:hidden",
-                  light ? "bg-white/15" : "bg-ink/[0.06]",
-                )}
-              >
-                <Icon name="menu" size={22} />
-                <span className="sr-only">{t("nav.openMenu")}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {menuOpen ? (
-        <div
-          id="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-          aria-label={t("nav.label")}
-          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper lg:hidden"
-        >
-          <div className="container-page flex h-[var(--header-h)] shrink-0 items-center justify-between">
-            <Wordmark />
-            <button ref={closeButton} type="button" onClick={() => setMenuOpen(false)} className="-mr-2 p-2">
-              <Icon name="close" size={26} />
-              <span className="sr-only">{t("nav.closeMenu")}</span>
-            </button>
-          </div>
-          <nav aria-label={t("nav.label")} className="container-page flex-1 pt-10">
-            <ul className="space-y-1">
-              {primaryNav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-h1 block py-1.5 font-semibold">
-                    {t(`nav.${item.key}`)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="container-page space-y-6 pt-10 pb-10">
-            <WhatsAppLink message={t("whatsapp.messageGeneric")} page={pathname} className="inline-flex text-lead">
-              {t("whatsapp.cta")}
-            </WhatsAppLink>
-            <p className="text-small text-granite-light">{t("whatsapp.hours")}</p>
-            <div className="flex items-center justify-between border-t border-paper/15 pt-6">
-              <LanguageSwitcher tone="light" />
-              <Link href="/apartments" className={buttonClasses("light")}>
-                {t("common.bookNow")}
-              </Link>
             </div>
           </div>
         </div>
       ) : null}
     </>
+  );
+}
+
+/** Two long hairlines (elvara-style) instead of the usual three-bar icon. */
+function Hamburger() {
+  return (
+    <svg width="40" height="14" viewBox="0 0 40 14" aria-hidden focusable="false" className="overflow-visible">
+      <line x1="0" y1="1" x2="40" y2="1" stroke="currentColor" strokeWidth="1.5" />
+      <line
+        x1="0"
+        y1="13"
+        x2="40"
+        y2="13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="origin-right transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:scale-x-75"
+      />
+    </svg>
   );
 }

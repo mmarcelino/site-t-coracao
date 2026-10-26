@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Tripas-Coração: an azulejo-blue tile with a heart (coração). -->
+  <rect width="64" height="64" rx="14" fill="#2e4a72"/>
+  <rect x="5" y="5" width="54" height="54" rx="10" fill="none" stroke="#cddcef" stroke-opacity="0.45" stroke-width="2"/>
+  <path d="M32 47.5c-.6 0-1.2-.2-1.7-.6C22.6 40.6 16 35.2 16 27.4 16 22.2 19.9 18 24.9 18c3 0 5.6 1.5 7.1 3.9 1.5-2.4 4.1-3.9 7.1-3.9 5 0 8.9 4.2 8.9 9.4 0 7.8-6.6 13.2-14.3 19.5-.5.4-1.1.6-1.7.6Z" fill="#ffffff"/>
+</svg>
