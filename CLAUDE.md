@@ -160,6 +160,11 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - A small set of smoke tests: each page renders in PT and EN without console errors, language switch keeps the equivalent page, booking widget opens and shows a mock quote, consent banner appears and both choices work.
 - Add basic automated accessibility checks (e.g. `@axe-core/playwright`) on key pages.
 
+**Temporary rule: visual-direction phase (from 2026-10-26, until the client approves the look).** Speed over completeness while exploring design:
+- Per round, only: `pnpm typecheck` + a few screenshots of the pages actually changed (one locale, 1280px and 375px), reviewed before handing over.
+- Skip until the direction is approved: full test/a11y suite, full screenshot matrix, production builds, detailed CLAUDE.md/SOURCES.md logging (one short line at most), multiple polished commits (one commit per round is enough).
+- When the look is approved, and always before merging to `main`: one full pass (lint, typecheck, `pnpm test`, `pnpm screenshots` at all widths and both locales, a11y fixes, CLAUDE.md + SOURCES.md up to date). Then this rule is removed and §12–§14 apply in full again.
+
 ## 13. Quality bars
 
 - Mobile-first; test at 375px, 768px, 1280px, 1600px+.
