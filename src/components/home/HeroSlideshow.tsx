@@ -31,7 +31,8 @@ function useSlideshow() {
 /**
  * One controller for the hero: background photo and progress lines always show the same
  * collection. A line filling up = time until the next photo (Delta Cafés-style).
- * No visible control (client decision): it pauses while the hero is hovered or has keyboard focus,
+ * No visible control (client decision): it pauses while the booking box ([data-pause-slideshow])
+ * is hovered or has keyboard focus,
  * while the tab is hidden, and starts paused for reduced motion. Known WCAG 2.2.2 gap: an explicit
  * pause control is still recommended before launch (see CLAUDE.md §15).
  */
@@ -81,9 +82,11 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     <SlideshowContext.Provider value={value}>
       <div
         className="contents"
-        onMouseEnter={() => setEngaged(true)}
-        onMouseLeave={() => setEngaged(false)}
-        onFocus={() => setEngaged(true)}
+        // Only the booking box pauses it: the hero fills the screen, so pausing on any hover
+        // would freeze the slideshow for most visitors.
+        onPointerOver={(e) => setEngaged(Boolean((e.target as Element).closest("[data-pause-slideshow]")))}
+        onPointerLeave={() => setEngaged(false)}
+        onFocus={(e) => setEngaged(Boolean((e.target as Element).closest("[data-pause-slideshow]")))}
         onBlur={() => setEngaged(false)}
       >
         {children}
