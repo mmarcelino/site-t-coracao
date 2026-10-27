@@ -121,7 +121,7 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="mt-1 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-ink px-8 text-[1rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-azulejo md:mt-0 md:size-16 md:px-0"
+          className="mt-1 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-wash px-8 text-[1rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-[#b9cde6] md:mt-0 md:size-16 md:px-0"
         >
           <Icon name="search" size={22} strokeWidth={1.75} />
           {/* Label on phones (full-width button); magnifying glass only from md up. */}
