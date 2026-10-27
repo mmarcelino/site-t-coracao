@@ -36,8 +36,9 @@ export async function Hero({
         <div className="absolute inset-0 bg-ink/35" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_40%,rgba(27,26,24,0)_60%,rgba(27,26,24,0.6)_100%)]" />
 
-        <div className="absolute inset-x-0 top-0">
-          <div className="container-page pt-[calc(var(--header-h)+clamp(3.5rem,17vh,11rem))]">
+        {/* Headline in the lower half: its top sits at the vertical middle from md up. */}
+        <div className="absolute inset-x-0 top-0 md:top-1/2">
+          <div className="container-page pt-[calc(var(--header-h)+clamp(3.5rem,17vh,11rem))] md:pt-0">
             {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
             <h1
               id="hero-title"
