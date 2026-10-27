@@ -34,10 +34,11 @@ export async function Hero({
         {/* Bottom block, left-aligned: headline, booking box, book-direct line. */}
         <div className="absolute inset-x-0 bottom-0 z-10">
           <div className="container-page pb-[clamp(1.5rem,5vh,3rem)]">
-            {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
+            {/* Grotesk + italic serif. Indented like the book-direct line, to start where the booking
+                box's first field text starts. */}
             <h1
               id="hero-title"
-              className="animate-fade-in text-[clamp(3rem,1.2rem+6.4vw,8.25rem)] leading-[0.92] font-medium tracking-[-0.05em]"
+              className="animate-fade-in pl-7 text-[clamp(3rem,1.2rem+6.4vw,8.25rem)] leading-[0.92] font-medium tracking-[-0.05em] md:pl-8"
             >
               <span className="block sm:whitespace-nowrap">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
