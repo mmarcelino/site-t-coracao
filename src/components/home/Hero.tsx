@@ -43,9 +43,10 @@ export async function Hero({
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
             </h1>
             {/* Booking box, with the book-direct line under it. */}
-            <div className="mt-[clamp(1rem,2.5vh,1.75rem)] max-w-[60rem]">
+            <div className="mt-[clamp(1.75rem,5vh,3.5rem)] max-w-[60rem]">
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
-              <DirectLine locale={locale} className="mt-4" />
+              {/* Indented to start where the box's first field text starts (8px pill + field padding). */}
+              <DirectLine locale={locale} className="mt-4 pl-7 md:pl-8" />
             </div>
           </div>
         </div>
