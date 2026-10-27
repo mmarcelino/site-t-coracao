@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
 
 export interface HeroSlide {
@@ -118,31 +117,15 @@ export function HeroSlideshowBackground() {
 }
 
 /**
- * The current collection's name over one static, full-bleed hairline (like the header's).
+ * One static, full-bleed line (2px) across the bottom of the hero.
  * Clicking the line pauses/resumes the slideshow.
  */
 export function HeroSlideshowLines({ className }: { className?: string }) {
   const t = useTranslations("home");
-  const { slides, index, paused, togglePause } = useSlideshow();
-  const current = slides[index];
+  const { paused, togglePause } = useSlideshow();
   return (
     <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
       <div className="min-w-0 flex-1">
-        {/* Only the current collection is named, linking to its homes; it fades with the photo. */}
-        {current ? (
-          // Fixed at the left end of the line; only the word changes (fade), it never moves.
-          <div className="relative h-5">
-            <Link
-              href={{ pathname: "/apartments", query: { tag: current.key } }}
-              className="absolute top-0 left-0 text-[0.8125rem] whitespace-nowrap text-paper hover:underline"
-            >
-              <span key={current.key} className="animate-fade-in-fast inline-flex items-center gap-1.5">
-                {current.label}
-                <Icon name="arrowRight" size={13} />
-              </span>
-            </Link>
-          </div>
-        ) : null}
         {/* Static full-bleed hairline (like the header's). It doubles as the pause control
             (WCAG 2.2.2): click/tap to pause or resume; a small mark shows on hover/focus. */}
         <button
@@ -152,7 +135,7 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
           aria-pressed={paused}
           className="group/line relative flex h-6 w-full items-center justify-end"
         >
-          <span aria-hidden className="pointer-events-none absolute top-1/2 left-[calc(50%-50vw)] h-px w-screen bg-paper/70" />
+          <span aria-hidden className="pointer-events-none absolute top-1/2 left-[calc(50%-50vw)] h-[2px] w-screen -translate-y-1/2 bg-paper/70" />
           <Icon
             name={paused ? "play" : "pause"}
             size={12}

@@ -9,7 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
-import { headerNav, primaryNav } from "./navItems";
+import { headerNav, highlightedNav, primaryNav } from "./navItems";
 
 /**
  * Sticky header. Over the home hero it starts transparent with light text and turns solid
@@ -56,7 +56,7 @@ export function Header() {
 
   return (
     <>
-      {/* Bar with a hairline rule below: wordmark, key links, WhatsApp and language
+      {/* Bar: wordmark, key links, WhatsApp and language
           on desktop; WhatsApp + hamburger on smaller screens. Transparent over the home hero,
           white once the page scrolls. */}
       <header
@@ -78,7 +78,15 @@ export function Header() {
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
-                      className="py-2 text-[0.9375rem] transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-8"
+                      className={clsx(
+                        "text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                        item.href === highlightedNav
+                          ? clsx(
+                              "rounded-full border px-4 py-1.5",
+                              light ? "border-paper/80 hover:bg-paper hover:text-ink" : "border-ink/40 hover:bg-ink hover:text-paper",
+                            )
+                          : "py-2 hover:opacity-70",
+                      )}
                     >
                       {t(`nav.${item.key}`)}
                     </Link>
@@ -114,8 +122,6 @@ export function Header() {
             </div>
           </div>
         </div>
-        {/* Full-bleed hairline, edge to edge of the screen. */}
-        <div aria-hidden className={clsx("absolute inset-x-0 bottom-0 h-px", light ? "bg-paper/70" : "bg-ink/15")} />
       </header>
 
       {menuOpen ? (
@@ -141,7 +147,6 @@ export function Header() {
               </button>
             </div>
           </div>
-          <div aria-hidden className="h-px bg-paper/30" />
 
           <div className="container-page grid flex-1 gap-12 py-10 lg:grid-cols-12 lg:py-16">
             <nav aria-label={t("nav.label")} className="lg:col-span-8">
