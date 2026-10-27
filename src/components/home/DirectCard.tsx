@@ -5,38 +5,37 @@ import type { Locale } from "@/i18n/routing";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * "Book direct" strip above the header, on every page: label, three perks and the rating.
- * Perks are TO CONFIRM with the client (CLAUDE.md §15). Scrolls away with the page.
+ * "Book direct" as one centred line under the hero's booking box: label, rating with review count,
+ * then the three perks. Perks are TO CONFIRM with the client (CLAUDE.md §15).
  */
-export async function DirectStrip({ locale }: { locale: Locale }) {
+export async function DirectLine({ locale, className }: { locale: Locale; className?: string }) {
   const t = await getTranslations();
   const { overall } = await getReviewSummary(locale);
   const format = createFormatter(locale);
   const perks = [t("home.directCardPerk1"), t("home.directCardPerk2"), t("home.directCardPerk3")];
+  const score = format.number(overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   return (
-    <aside
-      aria-labelledby="direct-strip-title"
-      className="relative z-50 flex h-[var(--strip-h)] items-center bg-wash text-ink"
+    <section
+      aria-labelledby="direct-line-title"
+      className={`flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-[0.875rem] text-paper ${className ?? ""}`}
     >
-      <div className="container-page flex items-center justify-center gap-x-3 overflow-hidden text-[0.8125rem] whitespace-nowrap">
-        <h2 id="direct-strip-title" className="label text-[0.6875rem]">
-          {t("home.directCardTitle")}
-        </h2>
-        <span className="flex items-center gap-1">
-          <Icon name="star" size={11} fill="currentColor" strokeWidth={0} />
-          {format.number(overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
-          {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
-        </span>
-        <span aria-hidden className="h-3 w-px bg-ink/30" />
-        <ul className="flex items-center gap-x-3 text-ink-soft-text">
-          {perks.map((perk, i) => (
-            <li key={perk} className={`items-center gap-3 ${i === 0 ? "flex" : "hidden sm:flex"}`}>
-              {i > 0 ? <span aria-hidden className="size-[3px] rounded-full bg-ink/40" /> : null}
-              {perk}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </aside>
+      <h2 id="direct-line-title" className="label text-[0.6875rem] whitespace-nowrap">
+        {t("home.directCardTitle")}
+      </h2>
+      <span className="flex items-center gap-1 whitespace-nowrap">
+        <Icon name="star" size={11} fill="currentColor" strokeWidth={0} />
+        {t("home.directCardRating", { score, count: format.number(overall.count) })}
+        {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
+      </span>
+      <span aria-hidden className="hidden h-3 w-px bg-paper/50 sm:block" />
+      <ul className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-paper/90">
+        {perks.map((perk, i) => (
+          <li key={perk} className="flex items-center gap-3 whitespace-nowrap">
+            {i > 0 ? <span aria-hidden className="size-[3px] rounded-full bg-paper/60" /> : null}
+            {perk}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

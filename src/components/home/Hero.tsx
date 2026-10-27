@@ -1,10 +1,12 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 import { HeroSlideshow, HeroSlideshowBackground, type HeroSlide } from "./HeroSlideshow";
+import { DirectLine } from "./DirectCard";
 import { SearchBar } from "./SearchBar";
 
 /**
  * Hero (branch hero-lunevar): a slideshow of homes with a large headline directly above a
- * full-width booking box (Numa-style). "Book direct" lives in the strip above the header. The whole hero fits
+ * centred booking box (Numa-style), with the "book direct" line centred under it. The whole hero fits
  * the first screen.
  */
 export async function Hero({
@@ -15,10 +17,11 @@ export async function Hero({
   slides: HeroSlide[];
 }) {
   const t = await getTranslations("home");
+  const locale = (await getLocale()) as Locale;
   return (
     <section
       aria-labelledby="hero-title"
-      className="on-dark relative -mt-[var(--header-h)] h-[calc(100svh-var(--strip-h))] min-h-[36rem] overflow-hidden bg-ink text-paper"
+      className="on-dark relative -mt-[var(--header-h)] h-[100svh] min-h-[36rem] overflow-hidden bg-ink text-paper"
       data-hero-stage
     >
       <HeroSlideshow slides={slides}>
@@ -40,8 +43,10 @@ export async function Hero({
               <span className="block sm:whitespace-nowrap">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
             </h1>
-            <div className="mt-[clamp(1.25rem,3vh,2rem)] max-w-[52rem]">
+            {/* Booking box centred, with the book-direct line centred under it. */}
+            <div className="mx-auto mt-[clamp(1.25rem,3vh,2rem)] max-w-[52rem]">
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
+              <DirectLine locale={locale} className="mt-4" />
             </div>
           </div>
         </div>
