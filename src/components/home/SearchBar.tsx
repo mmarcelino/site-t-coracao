@@ -71,7 +71,9 @@ export function SearchBar({
   }
 
   // Numa-style fields: small bold label over an underlined value.
-  const field = "flex w-full flex-col items-stretch justify-center px-5 py-2 text-left md:px-6 md:py-3";
+  // On desktop fields are exactly the round button's height (64px), so the pill's 8px padding
+  // reads as an even inset all the way round the button.
+  const field = "flex w-full flex-col items-stretch justify-center px-5 py-2 text-left md:h-16 md:px-6 md:py-0";
   const fieldLabel = "block text-[0.8125rem] leading-tight font-semibold text-ink";
   const fieldValue = "mt-1.5 block w-full border-b border-ink/70 pb-1.5 text-[1rem] leading-tight text-ink";
 
