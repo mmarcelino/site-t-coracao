@@ -375,3 +375,10 @@
 .hero-glass {
   background-color: rgb(27 26 24 / 0.28);
 }
+
+/* Header and the hero's bottom band share one height from md up (branch hero-single-line). */
+@media (min-width: 768px) {
+  :root {
+    --header-h: 6rem;
+  }
+}

@@ -50,19 +50,24 @@ export async function Hero({
         </div>
 
         {/* Collection lines, then one row in one material: why book direct (wide screens) + booking. */}
-        <div className="absolute inset-x-0 bottom-0 z-10">
-          <div className="container-page pb-[clamp(1.25rem,4vh,2.5rem)]">
-            <HeroSlideshowLines className="mb-[clamp(0.75rem,2vh,1.25rem)]" />
-            <div className="flex items-end justify-between gap-4">
-              {/* Caption sits level with the booking box's text, not its outer edge. */}
-              <div className="hidden pb-3 xl:block">
-                <DirectCard rating={rating} />
-              </div>
-              <div className="w-full md:ml-auto md:w-auto">
-                <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
-                {/* Book-direct promise for phones/tablets (wide screens get the caption). */}
-                <DirectPerksLine className="mt-3 xl:hidden" />
-              </div>
+        {/* Bottom band: same height as the header from md up (--header-h), with the hairline as
+            its top edge; book-direct caption (wide screens) + booking centred inside it. */}
+        <div className="absolute inset-x-0 bottom-0 z-10 md:h-[var(--header-h)]">
+          <div className="absolute inset-x-0 top-0 -translate-y-1/2">
+            <div className="container-page">
+              <HeroSlideshowLines />
+            </div>
+          </div>
+          <div className="container-page flex h-full items-center justify-between gap-4 py-5 md:py-0">
+            <div className="hidden xl:block">
+              <DirectCard rating={rating} />
+            </div>
+            {/* Laptops/large tablets: the promise as a short line on the left of the band. */}
+            <DirectPerksLine className="hidden max-w-[22rem] lg:block lg:text-left xl:hidden" />
+            <div className="w-full md:ml-auto md:w-auto">
+              <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
+              {/* Book-direct promise for phones/tablets (wide screens get the caption). */}
+              <DirectPerksLine className="mt-3 md:hidden" />
             </div>
           </div>
         </div>
