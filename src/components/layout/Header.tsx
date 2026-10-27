@@ -122,6 +122,8 @@ export function Header() {
             </div>
           </div>
         </div>
+        {/* Full-bleed hairline, edge to edge (matches the hero's bottom line). */}
+        <div aria-hidden className={clsx("absolute inset-x-0 bottom-0 h-px", light ? "bg-paper/70" : "bg-ink/15")} />
       </header>
 
       {menuOpen ? (
