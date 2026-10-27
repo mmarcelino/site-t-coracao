@@ -5,8 +5,8 @@ import type { Locale } from "@/i18n/routing";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * "Book direct" as one centred line under the hero's booking box: label, rating with review count,
- * then the three perks. Perks are TO CONFIRM with the client (CLAUDE.md §15).
+ * "Book direct" as one centred line under the hero's booking box: label, the three perks, then
+ * the rating with review count. Perks are TO CONFIRM with the client (CLAUDE.md §15).
  */
 export async function DirectLine({ locale, className }: { locale: Locale; className?: string }) {
   const t = await getTranslations();
@@ -22,11 +22,6 @@ export async function DirectLine({ locale, className }: { locale: Locale; classN
       <h2 id="direct-line-title" className="label text-[0.6875rem] whitespace-nowrap">
         {t("home.directCardTitle")}
       </h2>
-      <span className="flex items-center gap-1 whitespace-nowrap">
-        <Icon name="star" size={11} fill="currentColor" strokeWidth={0} />
-        {t("home.directCardRating", { score, count: format.number(overall.count) })}
-        {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
-      </span>
       <span aria-hidden className="hidden h-3 w-px bg-paper/50 sm:block" />
       <ul className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-paper/90">
         {perks.map((perk, i) => (
@@ -36,6 +31,12 @@ export async function DirectLine({ locale, className }: { locale: Locale; classN
           </li>
         ))}
       </ul>
+      <span aria-hidden className="hidden h-3 w-px bg-paper/50 sm:block" />
+      <span className="flex items-center gap-1 whitespace-nowrap">
+        <Icon name="star" size={11} fill="currentColor" strokeWidth={0} />
+        {t("home.directCardRating", { score, count: format.number(overall.count) })}
+        {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
+      </span>
     </section>
   );
 }
