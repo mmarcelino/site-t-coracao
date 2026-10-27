@@ -7,16 +7,16 @@ import type { ListingTag, Localized } from "@/lib/data/types";
  */
 export const heroSlides: Array<{ tag: ListingTag; slug: string; image: string; alt: Localized}> = [
   {
+    tag: "families",
+    slug: "breiner-skylight-apartment",
+    image: "/images/placeholder/breiner-skylight-02.jpg",
+    alt: { pt: "Sofá fundo com almofadas verdes, tapete verde e luz quente no Breiner 210", en: "Deep sofa with green cushions, a green rug and warm light at Breiner 210" },
+  },
+  {
     tag: "couples",
     slug: "sao-bento-station-view-studio",
     image: "/images/placeholder/sao-bento-ii-01.jpg",
     alt: { pt: "Cama de casal virada para três janelas de sacada, em São Bento", en: "Double bed facing three French windows, at São Bento" },
-  },
-  {
-    tag: "families",
-    slug: "breiner-skylight-apartment",
-    image: "/images/placeholder/breiner-skylight-07.jpg",
-    alt: { pt: "Mesa de jantar para a família e sala ampla no Breiner 210", en: "Family dining table and a spacious living room at Breiner 210" },
   },
   {
     tag: "sea",

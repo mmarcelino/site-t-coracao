@@ -42,7 +42,7 @@ export async function Hero({
             {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
             <h1
               id="hero-title"
-              className="animate-fade-in text-[clamp(3rem,1.4rem+6.2vw,8.5rem)] leading-[0.95] font-normal tracking-[-0.045em]"
+              className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.95] font-normal tracking-[-0.045em]"
             >
               <span className="block">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
@@ -51,9 +51,9 @@ export async function Hero({
         </div>
 
         {/* Collection lines, then one row in one material: why book direct (wide screens) + booking. */}
-        {/* Bottom band: same height as the header from md up (--header-h), with the hairline as
+        {/* Bottom band: same height as the header bar over the hero (--hero-band-h), with the hairline as
             its top edge; book-direct caption (wide screens) + booking centred inside it. */}
-        <div className="absolute inset-x-0 bottom-0 z-10 md:h-[var(--header-h)]">
+        <div className="absolute inset-x-0 bottom-0 z-10 md:h-[var(--hero-band-h)]">
           <div className="absolute inset-x-0 top-0 -translate-y-1/2">
             <div className="container-page">
               <HeroSlideshowLines />

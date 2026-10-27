@@ -65,7 +65,14 @@ export function Header() {
           light ? "on-dark text-paper" : "bg-paper/95 text-ink backdrop-blur-md",
         )}
       >
-        <div className="container-page flex h-full flex-col">
+        {/* The bar is taller over the home hero (md up) but the header's box stays --header-h, so
+            nothing shifts when it shrinks on scroll; the extra height just overlaps the photo. */}
+        <div
+          className={clsx(
+            "relative container-page flex flex-col transition-[height] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
+            light ? "h-[var(--hero-band-h)]" : "h-[var(--header-h)]",
+          )}
+        >
           <div className="flex flex-1 items-center justify-between">
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
@@ -121,9 +128,15 @@ export function Header() {
               </button>
             </div>
           </div>
+          {/* Full-bleed hairline, edge to edge (matches the hero's bottom line). */}
+          <div
+            aria-hidden
+            className={clsx(
+              "absolute bottom-0 left-[calc(50%-50vw)] h-px w-screen",
+              light ? "bg-paper/70" : "bg-ink/15",
+            )}
+          />
         </div>
-        {/* Full-bleed hairline, edge to edge (matches the hero's bottom line). */}
-        <div aria-hidden className={clsx("absolute inset-x-0 bottom-0 h-px", light ? "bg-paper/70" : "bg-ink/15")} />
       </header>
 
       {menuOpen ? (

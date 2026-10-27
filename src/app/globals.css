@@ -376,9 +376,13 @@
   background-color: rgb(27 26 24 / 0.28);
 }
 
-/* Header and the hero's bottom band share one height from md up (branch hero-single-line). */
+/* Over the home hero the header bar and the hero's bottom band share one height (md up);
+   elsewhere, and once scrolled, the header is the usual --header-h. */
+:root {
+  --hero-band-h: var(--header-h);
+}
 @media (min-width: 768px) {
   :root {
-    --header-h: 6rem;
+    --hero-band-h: 6rem;
   }
 }
