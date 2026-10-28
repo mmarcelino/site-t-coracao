@@ -123,7 +123,7 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-paper px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-wash md:mt-0 md:ml-1 md:w-14 md:px-0"
+          className="mt-2 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-pop px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-paper md:mt-0 md:ml-1 md:w-14 md:px-0"
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
           {/* Label visible on phones (full-width button); icon only from md up. */}

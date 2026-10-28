@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, Instrument_Serif } from "next/font/google";
+import { Barlow_Condensed, Fraunces, Hanken_Grotesk, Instrument_Serif } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { locale as rootLocale } from "next/root-params";
@@ -31,6 +31,22 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+// Branch ahotels: bold display serif + compressed sans, free stand-ins for Moret and
+// Benton Sans Compressed (both commercial). OFL, self-hosted by next/font.
+const fraunces = Fraunces({
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600"],
+  variable: "--font-barlow-condensed",
+  display: "swap",
+});
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -59,7 +75,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   return (
     // suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, password managers…)
     // inject attributes on <html>/<body>. It only ignores attribute diffs on these two elements.
-    <html lang={locale === "pt" ? "pt-PT" : "en"} className={`${hanken.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
+    <html lang={locale === "pt" ? "pt-PT" : "en"} className={`${hanken.variable} ${instrumentSerif.variable} ${fraunces.variable} ${barlowCondensed.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh" suppressHydrationWarning>
         <NextIntlClientProvider>
           <ConsentProvider>

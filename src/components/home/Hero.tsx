@@ -42,10 +42,10 @@ export async function Hero({
             {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
             <h1
               id="hero-title"
-              className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.95] font-normal tracking-[-0.045em]"
+              className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.92] font-semibold tracking-[-0.03em]"
             >
               <span className="block">{t("heroTitleLead")}</span>{" "}
-              <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
+              <span className="block font-medium italic">{t("heroTitleAccent")}</span>
             </h1>
           </div>
         </div>

@@ -32,7 +32,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
           alt={c.image.alt[locale]}
           fill
           sizes={sizes}
-          className="object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+          className="reveal-clip object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
         />
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0)_40%,rgba(27,26,24,0.75)_100%)]" />
         <span className="absolute top-4 left-4 rounded-full bg-white/95 px-3 py-1.5 text-[0.8125rem] font-semibold text-ink">
@@ -83,7 +83,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
                   alt={wide.image.alt[locale]}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+                  className="reveal-clip object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
                 />
               </span>
             </Link>

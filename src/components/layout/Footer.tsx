@@ -17,7 +17,7 @@ export async function Footer() {
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
 
   return (
-    <footer className="bg-wash text-ink">
+    <footer className="border-t border-ink bg-cork text-ink">
       <div className="container-page section-y-tight">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
@@ -29,15 +29,15 @@ export async function Footer() {
             >
               {t("whatsapp.cta")}
             </WhatsAppLink>
-            <p className="text-small mt-2 text-ink-soft-text">{t("whatsapp.hours")}</p>
+            <p className="text-small mt-2 text-ink">{t("whatsapp.hours")}</p>
             <div className="mt-8 flex items-center gap-4">
-              <span className="label text-ink-soft-text">{t("language.label")}</span>
+              <span className="label text-ink">{t("language.label")}</span>
               <LanguageSwitcher />
             </div>
           </div>
 
           <div className="md:col-span-3">
-            <h2 className="label mb-5 text-ink-soft-text">{t("footer.contact")}</h2>
+            <h2 className="label mb-5 text-ink">{t("footer.contact")}</h2>
             <address className="text-small space-y-3 not-italic">
               <p>
                 {site.address.street}
@@ -55,7 +55,7 @@ export async function Footer() {
                 </a>
               </p>
             </address>
-            <h2 className="label mt-8 mb-4 text-ink-soft-text">{t("footer.social")}</h2>
+            <h2 className="label mt-8 mb-4 text-ink">{t("footer.social")}</h2>
             <ul className="flex gap-4">
               <li>
                 <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="block p-1 -m-1 opacity-80 hover:opacity-100">
@@ -71,7 +71,7 @@ export async function Footer() {
           </div>
 
           <nav aria-label={t("footer.explore")} className="md:col-span-2">
-            <h2 className="label mb-5 text-ink-soft-text">{t("footer.explore")}</h2>
+            <h2 className="label mb-5 text-ink">{t("footer.explore")}</h2>
             <ul className="text-small space-y-3">
               {primaryNav.map((item) => (
                 <li key={item.href}>
@@ -89,7 +89,7 @@ export async function Footer() {
           </nav>
 
           <nav aria-label={t("footer.legal")} className="md:col-span-2">
-            <h2 className="label mb-5 text-ink-soft-text">{t("footer.legal")}</h2>
+            <h2 className="label mb-5 text-ink">{t("footer.legal")}</h2>
             <ul className="text-small space-y-3">
               <li>
                 <Link href="/terms" className="link-quiet">
@@ -124,7 +124,7 @@ export async function Footer() {
         <p aria-hidden className="mt-20 overflow-hidden">
           <Wordmark className="block text-[clamp(3.25rem,0.5rem+12.2vw,13rem)] leading-[0.9] [&>span]:text-[1em]" />
         </p>
-        <div className="mt-8 grid gap-4 border-t border-ink/20 pt-8 text-[0.8125rem] text-ink-soft-text md:grid-cols-12">
+        <div className="mt-8 grid gap-4 border-t border-ink/20 pt-8 text-[0.8125rem] text-ink md:grid-cols-12">
           <p className="md:col-span-8">
             <span className="label mr-3 text-[0.6875rem]">{t("footer.licences")}</span>
             {site.licencesNote}

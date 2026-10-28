@@ -69,43 +69,63 @@ export default async function HomePage() {
     <>
       <Hero maxGuests={maxGuests} slides={slides} rating={rating} />
 
-      <Intro />
+      {/* Everything below the hero, with the yellow hand-drawn line drawing itself as you scroll. */}
+      <div className="relative">
+        <svg
+          aria-hidden
+          viewBox="0 0 100 1000"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-0 z-20 size-full overflow-visible text-pop"
+        >
+          <path
+            d="M96 0 C70 40 40 60 62 120 C84 180 20 220 30 300 C40 380 90 400 80 480 C70 560 8 580 18 660 C28 740 88 760 76 840 C64 920 30 950 4 1000"
+            pathLength={1}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.75}
+            vectorEffect="non-scaling-stroke"
+            className="draw-on-scroll"
+          />
+        </svg>
 
-      <Collections listings={listings} />
+        <Intro />
 
-      <BookDirect />
+        <Collections listings={listings} />
 
-      <section aria-labelledby="reviews-title" className="container-page section-y">
-        {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
-        <ReviewsBlock
-          overall={summary.bySource.google}
-          reviews={reviews}
-          eyebrow={tr("eyebrow")}
-          heading={tr("title")}
-          headingId="reviews-title"
-        />
-      </section>
+        <BookDirect />
 
-      <HowItWorks />
+        <section aria-labelledby="reviews-title" className="container-page section-y">
+          {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
+          <ReviewsBlock
+            overall={summary.bySource.google}
+            reviews={reviews}
+            eyebrow={tr("eyebrow")}
+            heading={tr("title")}
+            headingId="reviews-title"
+          />
+        </section>
 
-      <ExperiencesStrip />
+        <HowItWorks />
 
-      <section aria-labelledby="faq-title" className="bg-sand">
-        <div className="container-page section-y grid gap-12 lg:grid-cols-12">
-          <div className="reveal lg:col-span-4">
-            <h2 id="faq-title" className="text-h2">
-              {t("faqTitle")}
-            </h2>
-            <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-2 font-semibold hover:text-azulejo-bright">
-              <Icon name="arrowUpRight" size={22} />
-              {t("faqCta")}
-            </Link>
+        <ExperiencesStrip />
+
+        <section aria-labelledby="faq-title" className="bg-sand">
+          <div className="container-page section-y grid gap-12 lg:grid-cols-12">
+            <div className="reveal lg:col-span-4">
+              <h2 id="faq-title" className="text-h2">
+                {t("faqTitle")}
+              </h2>
+              <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-2 font-semibold hover:text-azulejo-bright">
+                <Icon name="arrowUpRight" size={22} />
+                {t("faqCta")}
+              </Link>
+            </div>
+            <div className="lg:col-span-8">
+              <FaqList items={faqFor("home")} locale={locale} />
+            </div>
           </div>
-          <div className="lg:col-span-8">
-            <FaqList items={faqFor("home")} locale={locale} />
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }
