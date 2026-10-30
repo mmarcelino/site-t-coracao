@@ -79,7 +79,7 @@ export function Header() {
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "text-base font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                        "text-[1.0625rem] font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
                         "py-2 hover:opacity-70",
                       )}
                     >
@@ -99,7 +99,7 @@ export function Header() {
                 className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
                 <Icon name="whatsapp" size={24} strokeWidth={1.4} />
-                <span className="hidden text-base font-semibold whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
+                <span className="hidden text-[1.0625rem] font-semibold whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
                 <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
               <LanguageSwitcher className="hidden lg:flex" tone={light ? "light" : "dark"} />

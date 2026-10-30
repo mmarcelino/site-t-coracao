@@ -5,7 +5,7 @@
 export function Wordmark({ className }: { className?: string }) {
   return (
     <span className={className} translate="no">
-      <span className="text-[1.375rem] leading-none font-semibold tracking-[-0.04em]">Tripas-Coração</span>
+      <span className="text-[1.625rem] leading-none font-semibold tracking-[-0.04em]">Tripas-Coração</span>
     </span>
   );
 }

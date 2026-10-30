@@ -71,9 +71,9 @@ export function SearchBar({
   }
 
   // A pill bar, flush fields with thin ink dividers, ending in a round search button (md up).
-  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:w-auto md:py-0";
-  const fieldLabel = "block text-[0.75rem] leading-tight text-granite";
-  const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-ink";
+  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:w-auto md:py-0 hd:h-16 hd:px-6";
+  const fieldLabel = "block text-[0.75rem] leading-tight text-granite hd:text-[0.8125rem]";
+  const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-ink hd:text-[1.0625rem]";
 
   return (
     <form
@@ -86,7 +86,7 @@ export function SearchBar({
       {/* Solid white bar: the one interactive object at the bottom of the hero. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3"
+        className="grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] hd:grid-cols-[11.5rem_11.5rem_15rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3"
       >
         <button
           type="button"
@@ -121,7 +121,7 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:size-14 md:rounded-full md:px-0"
+          className="inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:size-14 md:rounded-full md:px-0 hd:size-16"
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
           {/* Full label on phones (full-width block); icon only in the round button from md up. */}

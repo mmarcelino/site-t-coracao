@@ -13,6 +13,8 @@
  * azulejo-bright on white 6.3:1.
  */
 @theme {
+  /* Wide desktops: room for the larger hero booking bar beside the book-direct caption. */
+  --breakpoint-hd: 85rem;
   /* Colour */
   /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
   --color-paper: #ffffff;
