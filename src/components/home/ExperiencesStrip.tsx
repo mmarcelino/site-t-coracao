@@ -52,7 +52,7 @@ export async function ExperiencesStrip() {
                 <h3 className="text-h3">{item.title[locale]}</h3>
                 <p className="mt-3 text-paper/85">{item.summary[locale]}</p>
                 {item.priceFrom ? (
-                  <p className="mt-5 text-small font-semibold">
+                  <p className="mt-5 text-small">
                     {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
                     {item.priceFrom.per === "person" ? t("experiencesPerPerson") : t("experiencesPerGroup")}
                   </p>
@@ -64,7 +64,7 @@ export async function ExperiencesStrip() {
         <li className="w-[min(78vw,22rem)] shrink-0 snap-start">
           <Link
             href="/experiences"
-            className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
+            className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] bg-wash p-6 text-ink"
           >
             <Icon
               name="arrowRight"

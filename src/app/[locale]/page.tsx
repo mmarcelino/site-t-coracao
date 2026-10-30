@@ -97,9 +97,9 @@ export default async function HomePage() {
           <div className="lg:col-span-8">
             <FaqList items={faqFor("home")} locale={locale} />
             {/* The way on, after the last question. */}
-            <Link href="/faq" className="group mt-8 inline-flex items-center gap-4 font-semibold">
+            <Link href="/faq" className="group mt-8 inline-flex items-center gap-4">
               {t("faqCta")}
-              <span className="grid size-10 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+              <span className="grid size-10 place-items-center rounded-full border border-current transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
                 <Icon name="arrowRight" size={20} />
               </span>
             </Link>

@@ -13,9 +13,6 @@
  * azulejo-bright on white 6.3:1.
  */
 @theme {
-  /* hero-lines' own accent: the light blue wash (ink on it 13.1:1; never as text on white) for
-     panels, arrows and buttons below the hero. */
-  --color-pop: var(--color-wash);
   /* Colour */
   /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
   --color-paper: #ffffff;
@@ -29,7 +26,7 @@
   --color-azulejo: #2e4a72;
   --color-azulejo-tint: #dfe5ee;
   /* Signature colour block (Numa's pink, in tile blue). Text on it: ink or ink-soft, never granite. */
-  --color-wash: #cddcef;
+  --color-wash: #cbc2b4; /* branch hero-lines: stone accent (the same stone as the rule colour); text on it in ink only (10.1:1) */
   --color-ink-soft-text: #3d3a36;
   /* Hover/active accent for big type (5.7:1 on paper, 4.5:1 on wash: large text only on wash) */
   --color-azulejo-bright: #2f5fa8;
@@ -106,16 +103,10 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Branch hero-lines: light, editorial headings everywhere, to match the hero. */
   h1, h2, h3, h4 {
-    font-weight: 600;
+    font-weight: 400;
     text-wrap: balance;
-  }
-
-  /* Small titles in caps, as on yellow-accent. */
-  h3 {
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
   }
 
   p {
@@ -174,7 +165,7 @@
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Underlined text link with a calm hover */

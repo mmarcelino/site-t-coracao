@@ -39,7 +39,7 @@ export async function Hero({
         {/* Headline in the lower half: its top sits at the vertical middle from md up. */}
         <div className="absolute inset-x-0 top-0 md:top-1/2">
           <div className="container-page pt-[calc(var(--header-h)+clamp(3.5rem,17vh,11rem))] md:pt-0">
-            {/* One upright grotesk on two lines. */}
+            {/* One upright grotesk, light, on two lines. */}
             <h1
               id="hero-title"
               className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.95] font-normal tracking-[-0.045em]"
