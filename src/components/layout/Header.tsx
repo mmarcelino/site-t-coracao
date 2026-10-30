@@ -108,7 +108,7 @@ export function Header() {
                 icon={false}
                 className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
-                <Icon name="whatsapp" size={26} strokeWidth={0.9} />
+                <Icon name="whatsapp" size={24} strokeWidth={1.75} />
                 <span className="nav-type hidden text-[1.125rem] whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
                 <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
