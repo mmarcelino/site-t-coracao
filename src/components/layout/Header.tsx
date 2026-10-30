@@ -86,10 +86,10 @@ export function Header() {
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "nav-type text-[1.0625rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
-                        // Highlighted entry: the yellow accent (ink text on it, readable on any ground).
+                        "nav-type text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                        // Highlighted entry: an outline, so the yellow stays on the one action (search).
                         item.href === highlightedNav
-                          ? "rounded-full bg-pop px-4 py-1 text-ink hover:bg-paper"
+                          ? "rounded-full border-[1.5px] border-current px-4 py-1 hover:border-pop hover:bg-pop hover:text-ink"
                           : "py-2 hover:opacity-70",
                       )}
                     >
@@ -111,7 +111,7 @@ export function Header() {
                 <Icon name="whatsapp" size={24} strokeWidth={1.4} />
                 <span className="sr-only">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
-              <LanguageSwitcher className="hidden lg:flex [&_button]:nav-type [&_button]:text-[1.0625rem]" tone={light ? "light" : "dark"} />
+              <LanguageSwitcher className="hidden lg:flex [&_button]:nav-type [&_button]:text-[0.9375rem]" tone={light ? "light" : "dark"} />
               <button
                 ref={menuButton}
                 type="button"

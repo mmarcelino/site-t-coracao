@@ -7,6 +7,13 @@ import type { ListingTag, Localized } from "@/lib/data/types";
  */
 export const heroSlides: Array<{ tag: ListingTag; slug: string; image: string; alt: Localized}> = [
   {
+    // First slide: architecture before interiors (azulejo façade + tram says "Porto" at a glance).
+    tag: "sea",
+    slug: "casa-do-farol",
+    image: "/images/placeholder/casa-do-farol-09.jpg",
+    alt: { pt: "Fachadas de azulejo verde e varandas de ferro junto à linha do elétrico, na Foz", en: "Green-tiled façades and iron balconies along the tram line, in Foz" },
+  },
+  {
     tag: "families",
     slug: "breiner-skylight-apartment",
     image: "/images/placeholder/breiner-skylight-02.jpg",
@@ -17,12 +24,6 @@ export const heroSlides: Array<{ tag: ListingTag; slug: string; image: string; a
     slug: "sao-bento-station-view-studio",
     image: "/images/placeholder/sao-bento-ii-01.jpg",
     alt: { pt: "Cama de casal virada para três janelas de sacada, em São Bento", en: "Double bed facing three French windows, at São Bento" },
-  },
-  {
-    tag: "sea",
-    slug: "casa-do-farol",
-    image: "/images/placeholder/casa-do-farol-02.jpg",
-    alt: { pt: "Terraço com vista para o mar e a foz do Douro, na Casa do Farol", en: "Terrace overlooking the sea and the mouth of the Douro, at Casa do Farol" },
   },
   {
     tag: "outdoor",

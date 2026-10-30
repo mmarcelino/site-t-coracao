@@ -31,9 +31,10 @@ export async function Hero({
       <HeroSlideshow slides={slides}>
         {/* Six homes, cross-fading as the lines below fill up. */}
         <HeroSlideshowBackground />
-        {/* Even, calm darkening; a little more at the top (headline) and bottom (small text). */}
-        <div className="absolute inset-0 bg-ink/35" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_40%,rgba(27,26,24,0)_60%,rgba(27,26,24,0.6)_100%)]" />
+        {/* Shade only where there's text (nav, headline on the left, bottom band); the rest of the
+            photo stays at full brightness. */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_22%,rgba(27,26,24,0)_72%,rgba(27,26,24,0.55)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,26,24,0.55)_0%,rgba(27,26,24,0.25)_45%,rgba(27,26,24,0)_70%)]" />
 
         {/* Headline + subline centred vertically between the header and the bottom band (md up), so
             the bottom of the hero stays calm; on phones they sit under the header. */}
@@ -48,7 +49,7 @@ export async function Hero({
               <span className="block font-medium italic">{t("heroTitleAccent")}</span>
             </h1>
             {/* What this is, in plain words: apartments to book and stay in. */}
-            <p className="animate-fade-in mt-5 max-w-[34rem] text-lead text-paper/90">{t("heroSub")}</p>
+            <p className="animate-fade-in mt-5 max-w-[48rem] text-lead text-paper">{t("heroSub")}</p>
           </div>
         </div>
 
