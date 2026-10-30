@@ -79,11 +79,12 @@ export function Header() {
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "text-[0.9375rem] font-medium transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                        "text-base font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
                         item.href === highlightedNav
                           ? clsx(
-                              "rounded-full border px-4 py-1.5",
-                              light ? "border-paper/80 hover:bg-paper hover:text-ink" : "border-ink/40 hover:bg-ink hover:text-paper",
+                              // Solid pill, echoing the hero's white booking bar.
+                              "rounded-full px-4 py-1.5",
+                              light ? "bg-paper text-ink hover:bg-paper/85" : "bg-ink text-paper hover:bg-ink-soft",
                             )
                           : "py-2 hover:opacity-70",
                       )}
@@ -103,8 +104,8 @@ export function Header() {
                 icon={false}
                 className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
-                <Icon name="whatsapp" size={26} strokeWidth={0.9} />
-                <span className="hidden text-[0.9375rem] font-medium whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
+                <Icon name="whatsapp" size={24} strokeWidth={1.4} />
+                <span className="hidden text-base font-semibold whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
                 <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
               <LanguageSwitcher className="hidden lg:flex" tone={light ? "light" : "dark"} />
