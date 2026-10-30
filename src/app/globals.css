@@ -401,11 +401,11 @@
 /* Over the home hero the header bar and the hero's bottom band share one height (md up);
    elsewhere, and once scrolled, the header is the usual --header-h. */
 :root {
-  --hero-band-h: var(--header-h);
+  --hero-band-h: calc(var(--header-h) + 1rem);
 }
 @media (min-width: 768px) {
   :root {
-    --hero-band-h: 6rem;
+    --hero-band-h: 7rem;
   }
 }
 

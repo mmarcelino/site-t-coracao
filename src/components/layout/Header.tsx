@@ -77,31 +77,9 @@ export function Header() {
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
             </Link>
-            {/* Desktop: the key links, grouped on the right with the icons (logo left, everything else right). */}
-            <nav aria-label={t("nav.label")} className="hidden lg:mr-10 lg:ml-auto lg:block">
-              <ul className="flex items-center gap-8">
-                {headerNav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={pathname === item.href ? "page" : undefined}
-                      className={clsx(
-                        "nav-type text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
-                        // Highlighted entry: an outlined pill, so the yellow stays on the one action (search).
-                        item.href === highlightedNav
-                          ? "rounded-full border-2 border-current px-4 py-1 hover:border-pop hover:bg-pop hover:text-ink"
-                          : "py-2 hover:opacity-70",
-                      )}
-                    >
-                      {t(`nav.${item.key}`)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
 
             <div className="flex items-center gap-3 sm:gap-5">
-              {/* WhatsApp concierge: icon only (named for screen readers). */}
+              {/* Order (desktop): WhatsApp, language, then the links. WhatsApp is icon only (named for screen readers). */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
@@ -112,6 +90,28 @@ export function Header() {
                 <span className="sr-only">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
               <LanguageSwitcher className="hidden lg:flex [&_button]:nav-type [&_button]:text-[0.9375rem]" tone={light ? "light" : "dark"} />
+              {/* Desktop: the key links, after WhatsApp and the language switcher (client's order). */}
+              <nav aria-label={t("nav.label")} className="hidden lg:ml-5 lg:block">
+                <ul className="flex items-center gap-8">
+                  {headerNav.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        aria-current={pathname === item.href ? "page" : undefined}
+                        className={clsx(
+                          "nav-type text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                          // Highlighted entry: an outlined pill, so the yellow stays on the one action (search).
+                          item.href === highlightedNav
+                            ? "rounded-full border-2 border-current px-4 py-1 hover:border-pop hover:bg-pop hover:text-ink"
+                            : "py-2 hover:opacity-70",
+                        )}
+                      >
+                        {t(`nav.${item.key}`)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
               <button
                 ref={menuButton}
                 type="button"

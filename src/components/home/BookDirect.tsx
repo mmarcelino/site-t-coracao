@@ -7,12 +7,13 @@ const homePerks: Array<{ id: Perk["id"]; icon: IconName }> = [
   { id: "best-rate", icon: "tag" },
   { id: "flexible", icon: "calendar" },
   { id: "welcome", icon: "gift" },
-  { id: "concierge", icon: "whatsapp" },
+  { id: "secure-payment", icon: "lock" },
 ];
 
 /**
  * Why book direct: four perks framed as hospitality, never as discounts. Branch ahotels: the one
- * yellow panel on the page (inside the margins, same curve as the cards), numbered perks under ink rules.
+ * yellow panel on the page (inside the margins, same curve as the cards), each perk led by its icon
+ * under an ink rule.
  */
 export async function BookDirect() {
   const t = await getTranslations("home");
@@ -25,22 +26,16 @@ export async function BookDirect() {
   return (
     <section aria-labelledby="direct-title" className="container-page">
       <div className="rounded-[var(--radius-card)] bg-pop px-[var(--gutter)] py-[clamp(3rem,6vw,6rem)] text-ink">
-        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-          <h2 id="direct-title" className="text-h1 reveal lg:col-span-6">
-            {t("directTitle")}
-          </h2>
-          <p className="text-lead reveal max-w-xl lg:col-span-5 lg:col-start-8">{t("directBody")}</p>
-        </div>
+        <h2 id="direct-title" className="text-h1 reveal">
+          {t("directTitle")}
+        </h2>
         <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
-          {items.map(({ perk, icon }, i) => (
+          {items.map(({ perk, icon }) => (
             <li key={perk.id} className="reveal border-t-2 border-ink pt-5">
-              <div className="flex items-center justify-between">
-                <span className="text-[0.8125rem] font-semibold tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                <span className="grid size-12 place-items-center rounded-full bg-ink text-pop">
-                  <Icon name={icon} size={22} />
-                </span>
-              </div>
-              <h3 className="mt-10 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>
+              <span className="grid size-12 place-items-center rounded-full bg-ink text-pop">
+                <Icon name={icon} size={22} />
+              </span>
+              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>
               <p className="mt-3 max-w-xs">{perk.body[locale]}</p>
             </li>
           ))}

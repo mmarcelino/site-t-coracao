@@ -9,8 +9,8 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * Branch ahotels: an ink panel inside the page margins (same curve as the yellow book-direct
- * panel), led by one big WhatsApp invitation. AL licence numbers live on each apartment page.
+ * Branch yellow-accent: an ink panel inside the page margins (same curve as the yellow
+ * book-direct panel). AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
@@ -19,20 +19,8 @@ export async function Footer() {
 
   return (
     <footer className="container-page pb-[var(--gutter)]">
-      <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(3rem,6vw,5rem)] pb-8 text-paper">
-        <WhatsAppLink
-          message={t("whatsapp.messageGeneric")}
-          page="footer"
-          icon={false}
-          className="group inline-flex items-center gap-5 text-h1 font-semibold"
-        >
-          {t("whatsapp.short")}
-          <span className="grid size-[0.9em] place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
-            <Icon name="whatsapp" size={28} strokeWidth={1.5} />
-          </span>
-        </WhatsAppLink>
-
-        <div className="mt-[clamp(3rem,6vw,5rem)] grid gap-10 border-t border-paper/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <h2 className={heading}>{t("footer.contact")}</h2>
             <address className="text-small space-y-3 not-italic">
@@ -52,6 +40,17 @@ export async function Footer() {
                 </a>
               </p>
             </address>
+            <WhatsAppLink
+              message={t("whatsapp.messageGeneric")}
+              page="footer"
+              icon={false}
+              className="group text-small mt-5 inline-flex items-center gap-2.5 font-semibold transition-colors hover:text-pop"
+            >
+              <span className="grid size-8 place-items-center rounded-full bg-pop text-ink">
+                <Icon name="whatsapp" size={16} strokeWidth={1.5} />
+              </span>
+              {t("whatsapp.short")}
+            </WhatsAppLink>
           </div>
 
           <nav aria-label={t("footer.explore")}>
@@ -128,13 +127,10 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 text-[0.8125rem] text-paper/60">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
-          <div className="flex items-center gap-3">
-            <span className="label">{t("language.label")}</span>
-            {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
-            <LanguageSwitcher tone="light" className="text-paper" />
-          </div>
+          {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
+          <LanguageSwitcher tone="light" className="text-paper" />
         </div>
       </div>
     </footer>

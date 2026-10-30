@@ -1,6 +1,6 @@
-import clsx from "clsx";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Icon } from "@/components/ui/Icon";
+import { ReviewsScroller } from "@/components/ReviewsScroller";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
@@ -62,28 +62,26 @@ export async function ReviewsBlock({
         ) : null}
       </div>
 
-      <ul className="grid gap-x-8 gap-y-12 self-start sm:grid-cols-2 lg:col-span-8">
-        {reviews.map((review, i) => (
-          <li key={review.id} className={clsx(
-              "reveal border-t-2 border-ink pt-6",
-              // A lead quote spans the row only when it leaves an even number below it.
-              i === 0 && reviews.length % 2 === 1 && "sm:col-span-2",
-            )}>
-            <figure>
-              <blockquote
-                lang={review.language}
-                className={clsx(i === 0 && reviews.length % 2 === 1 ? "text-h3 font-semibold" : "text-lead font-medium")}
-              >
-                “{review.text}”
-              </blockquote>
-              <figcaption className="label mt-6 text-ink">
-                {review.author} · {t(`source.${review.source}`)} ·{" "}
-                {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
-              </figcaption>
-            </figure>
-          </li>
-        ))}
-      </ul>
+      {/* Four quotes at a time (two on phones), in columns that page sideways. */}
+      <div className="min-w-0 self-start lg:col-span-8">
+        <ReviewsScroller prevLabel={t("prev")} nextLabel={t("next")}>
+          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-12 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
+            {reviews.map((review) => (
+              <li key={review.id} className="snap-start border-t-2 border-ink pt-6">
+                <figure>
+                  <blockquote lang={review.language} className="text-lead font-medium">
+                    “{review.text}”
+                  </blockquote>
+                  <figcaption className="label mt-6 text-ink">
+                    {review.author} · {t(`source.${review.source}`)} ·{" "}
+                    {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </ReviewsScroller>
+      </div>
 
       {hasMock ? (
         <p className="text-[0.8125rem] text-granite lg:col-span-12">
