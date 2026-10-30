@@ -133,7 +133,7 @@
     "source": {
       "google": "Google",
       "airbnb": "Airbnb",
-      "booking": "Booking.com",
+      "booking": "Booking",
       "guesty": "Todas as plataformas"
     },
     "mockNote": "Dados de demonstração: as citações e os totais do Airbnb e do Booking.com são fictícios até termos acesso às fontes reais. A nota do Google é real.",

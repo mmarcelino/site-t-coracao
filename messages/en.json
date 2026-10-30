@@ -133,7 +133,7 @@
     "source": {
       "google": "Google",
       "airbnb": "Airbnb",
-      "booking": "Booking.com",
+      "booking": "Booking",
       "guesty": "All platforms"
     },
     "mockNote": "Demo data: the review quotes and the Airbnb and Booking.com totals are placeholders until we connect the real sources. The Google rating is real.",
@@ -187,7 +187,7 @@
     "directCardPerk1": "Best rate",
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
-    "directCardRating": "{score} on Google · {count}+ guest reviews",
+    "directCardRating": "{score} on Google · {count}+ reviews",
     "heroSub": "More personal than a hotel. Like home, only better.",
     "how4Title": "A concierge on WhatsApp",
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm."
