@@ -28,5 +28,4 @@ export const footerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"]
   { href: "/about", key: "about" },
   { href: "/property-management", key: "owners" },
   { href: "/faq", key: "faq" },
-  { href: "/contact", key: "contact" },
 ];
