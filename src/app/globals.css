@@ -13,8 +13,6 @@
  * azulejo-bright on white 6.3:1.
  */
 @theme {
-  /* Yellow accent (ink on it 13.4:1; never yellow text on light): panels, arrows, buttons below the hero. */
-  --color-pop: #eee824;
   /* Colour */
   /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
   --color-paper: #ffffff;
@@ -36,7 +34,6 @@
 
   /* Type */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
 
   --text-display: clamp(3rem, 1.6rem + 6vw, 7.5rem);
   --text-display--line-height: 0.95;
@@ -106,16 +103,10 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Branch hero-lines: light, editorial headings everywhere, to match the hero. */
   h1, h2, h3, h4 {
-    font-weight: 600;
+    font-weight: 400;
     text-wrap: balance;
-  }
-
-  /* Small titles in caps, as on yellow-accent. */
-  h3 {
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
   }
 
   p {
@@ -174,7 +165,7 @@
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Underlined text link with a calm hover */

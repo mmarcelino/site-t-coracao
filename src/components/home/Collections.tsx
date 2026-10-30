@@ -40,10 +40,10 @@ export async function Collections({ listings }: { listings: Listing[] }) {
         </span>
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
           <span>
-            <span className={clsx("block font-semibold", titleClass)}>{c.title[locale]}</span>
+            <span className={clsx("block font-normal", titleClass)}>{c.title[locale]}</span>
             <span className="mt-2 block max-w-sm text-paper/85">{c.blurb[locale]}</span>
           </span>
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+          <span className="grid size-11 shrink-0 place-items-center rounded-full border border-current transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
             <Icon name="arrowRight" size={20} />
           </span>
         </span>
@@ -69,10 +69,10 @@ export async function Collections({ listings }: { listings: Listing[] }) {
               className="group grid h-full overflow-hidden rounded-[var(--radius-card)] sm:grid-cols-[1.15fr_1fr]"
             >
               {/* Outline on the copy only; the photo runs to the card's edge like the tiles above. */}
-              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] border-2 border-b-0 border-ink p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] sm:border-r-0 sm:border-b-2 md:p-8">
+              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] border border-b-0 border-ink/20 p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] sm:border-r-0 sm:border-b md:p-8">
                 <span className="label text-ink-soft-text">{t("collectionCount", { count: count(wide) })}</span>
                 <span>
-                  <span className="block text-[clamp(1.75rem,1.1rem+1.8vw,2.75rem)] leading-[1.02] font-semibold tracking-[-0.035em]">
+                  <span className="block text-[clamp(1.75rem,1.1rem+1.8vw,2.75rem)] leading-[1.02] font-normal tracking-[-0.035em]">
                     {wide.title[locale]}
                   </span>
                   <span className="mt-3 block text-ink-soft-text">{wide.blurb[locale]}</span>
@@ -94,14 +94,14 @@ export async function Collections({ listings }: { listings: Listing[] }) {
         <li className="reveal lg:col-span-4">
           <Link
             href="/apartments"
-            className="group on-dark flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] bg-ink p-6 text-paper md:p-8"
+            className="group flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] border border-ink/20 p-6 text-ink transition-colors hover:border-ink md:p-8"
           >
-            <span className="grid size-12 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+            <span className="grid size-12 place-items-center rounded-full border border-current transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
               <Icon name="arrowRight" size={22} />
             </span>
             <span>
-              <span className="text-h3 block font-semibold">{t("seeAll")}</span>
-              <span className="mt-2 block text-paper/75">
+              <span className="text-h3 block">{t("seeAll")}</span>
+              <span className="mt-2 block text-granite">
                 {t("collectionCount", { count: listings.length })}
               </span>
             </span>
