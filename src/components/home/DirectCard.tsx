@@ -1,41 +1,52 @@
 import { getTranslations } from "next-intl/server";
-import { getReviewSummary } from "@/lib/data";
-import { createFormatter } from "@/lib/format";
-import type { Locale } from "@/i18n/routing";
 import { Icon } from "@/components/ui/Icon";
 
+export interface HeroRating {
+  score: string; // formatted, e.g. "9,4"
+  count: string; // formatted, e.g. "2 234"
+  mock: boolean;
+}
+
 /**
- * "Book direct" as one line under the hero's booking box: label, the three perks, then
- * the rating with review count. Perks are TO CONFIRM with the client (CLAUDE.md §15).
+ * Why book here, in the hero: set as an editorial caption on the photo (no box), so the booking
+ * box stays the only solid, interactive object. Perks are TO CONFIRM with the client (CLAUDE.md §15).
  */
-export async function DirectLine({ locale, className }: { locale: Locale; className?: string }) {
+export async function DirectCard({ rating }: { rating: HeroRating }) {
   const t = await getTranslations();
-  const { overall } = await getReviewSummary(locale);
-  const format = createFormatter(locale);
   const perks = [t("home.directCardPerk1"), t("home.directCardPerk2"), t("home.directCardPerk3")];
-  const score = format.number(overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   return (
-    <section
-      aria-labelledby="direct-line-title"
-      className={`flex flex-wrap items-baseline gap-x-3 gap-y-1.5 text-[0.875rem] text-paper ${className ?? ""}`}
-    >
-      <h2 id="direct-line-title" className="label text-[0.75rem] leading-none whitespace-nowrap">
-        {t("home.directCardTitle")}:
-      </h2>
-      <ul className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-paper/90">
+    <section aria-labelledby="direct-card-title" className="w-max shrink-0 border-t-2 border-paper pt-4 text-paper">
+      {/* As wide as the perk line, so the rating's right edge meets the last perk's. */}
+      <div className="flex items-center justify-between gap-8 text-[0.75rem] leading-none">
+        <h2 id="direct-card-title" className="label">
+          {t("home.directCardTitle")}
+        </h2>
+        <p className="flex items-center gap-1.5 text-paper/90">
+          <Icon name="star" size={11} fill="currentColor" strokeWidth={0} className="text-paper" />
+          {t("home.directCardRating", { score: rating.score, count: rating.count })}
+          {rating.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
+        </p>
+      </div>
+      <ul className="mt-3 flex items-center text-[1.0625rem] leading-none whitespace-nowrap">
         {perks.map((perk, i) => (
-          <li key={perk} className="flex items-baseline gap-3 whitespace-nowrap">
-            {i > 0 ? <span aria-hidden className="size-[3px] self-center rounded-full bg-paper/60" /> : null}
+          <li key={perk} className="flex items-center">
+            {i > 0 ? <span aria-hidden className="mx-3 size-[3px] rounded-full bg-paper/60" /> : null}
             {perk}
           </li>
         ))}
       </ul>
-      <span aria-hidden className="hidden h-3 w-px self-center bg-paper/50 sm:block" />
-      <span className="flex items-baseline gap-1 whitespace-nowrap">
-        <Icon name="star" size={11} fill="currentColor" strokeWidth={0} className="self-center" />
-        {t("home.directCardRating", { score, count: format.number(overall.count) })}
-        {overall.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
-      </span>
     </section>
+  );
+}
+
+/** The same promise as one small line, for screens where the caption doesn't fit. */
+export async function DirectPerksLine({ className }: { className?: string }) {
+  const t = await getTranslations("home");
+  const perks = [t("directCardPerk1"), t("directCardPerk2"), t("directCardPerk3")];
+  return (
+    <p className={`text-[0.8125rem] text-paper ${className ?? ""}`}>
+      <span className="sr-only">{t("directCardTitle")}: </span>
+      {perks.join(" · ")}
+    </p>
   );
 }

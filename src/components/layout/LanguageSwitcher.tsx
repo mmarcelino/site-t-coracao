@@ -8,6 +8,9 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { locales, type Locale } from "@/i18n/routing";
 import { track } from "@/lib/analytics";
 
+// Display order: English first, then the others (the default locale stays pt).
+const ordered = [...locales].sort((a, b) => Number(b === "en") - Number(a === "en"));
+
 /** Switches locale while staying on the equivalent page (localized slug, same params and query). */
 export function LanguageSwitcher({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
   const t = useTranslations("language");
@@ -34,7 +37,7 @@ export function LanguageSwitcher({ className, tone = "dark" }: { className?: str
 
   return (
     <div role="group" aria-label={t("label")} className={clsx("flex items-center", pending && "opacity-60", className)}>
-      {locales.map((l, i) => (
+      {ordered.map((l, i) => (
         <span key={l} className="flex items-center">
           {i > 0 ? (
             <span aria-hidden className={clsx("mx-1.5", tone === "light" ? "text-paper/50" : "text-stone")}>

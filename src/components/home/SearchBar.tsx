@@ -53,7 +53,7 @@ export function SearchBar({
     };
   }, [open]);
 
-  // One prompt only: "Quando?" under arrival; departure stays an empty underline until set.
+  // One prompt only: "Quando?" under arrival, a quiet dash under departure until dates are set.
   const placeholder = "text-granite";
 
   function submit(e: React.FormEvent) {
@@ -70,12 +70,10 @@ export function SearchBar({
     });
   }
 
-  // Numa-style fields: small bold label over an underlined value.
-  // On desktop fields are exactly the round button's height (64px), so the pill's 8px padding
-  // reads as an even inset all the way round the button.
-  const field = "flex w-full flex-col items-stretch justify-center px-5 py-2 text-left md:h-16 md:px-6 md:py-0";
-  const fieldLabel = "block text-[0.8125rem] leading-tight font-semibold text-ink";
-  const fieldValue = "mt-1.5 block w-full border-b border-ink/70 pb-1.5 text-[1rem] leading-tight text-ink";
+  // Branch ahotels: a pill bar, flush fields with thin ink dividers, ending in a accent block.
+  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-16 md:w-auto md:py-0";
+  const fieldLabel = "block text-[0.75rem] leading-tight text-granite";
+  const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-ink";
 
   return (
     <form
@@ -85,10 +83,10 @@ export function SearchBar({
       className="relative w-full"
       data-testid="hero-search"
     >
-      {/* Solid white pill spanning the content width; the hero's one interactive object. */}
+      {/* Solid white bar: the one interactive object at the bottom of the hero. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 gap-y-1 rounded-[1.75rem] bg-white p-2 text-ink shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] md:grid-cols-[1fr_1fr_1.2fr_auto] md:items-center md:gap-x-2 md:rounded-full md:pl-2"
+        className="grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-stretch md:rounded-full md:pl-2"
       >
         <button
           type="button"
@@ -107,27 +105,28 @@ export function SearchBar({
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="search-calendar"
-          className={field}
+          className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}
         >
           <span className={fieldLabel}>{t("depart")}</span>
           <span className={clsx(fieldValue, !range?.to && placeholder)}>
-            {range?.to ? format.dayMonth(range.to) : "\u00a0"}
+            {range?.to ? format.dayMonth(range.to) : "—"}
           </span>
         </button>
-        <div className={field}>
+        <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className="mt-1 border-b border-ink/70 pb-0.5 text-[1rem] text-ink">
+          <div className="mt-0.5 text-[0.9375rem] font-medium text-ink">
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
         <button
           type="submit"
           aria-label={t("submit")}
-          className="mt-1 inline-flex h-14 items-center justify-center gap-3 rounded-full bg-ink px-8 text-[1rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-azulejo md:mt-0 md:size-16 md:px-0"
+          className="inline-flex h-14 items-center justify-center gap-3 bg-pop px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-ink hover:text-pop md:h-auto"
         >
-          <Icon name="search" size={22} strokeWidth={1.75} />
-          {/* Label on phones (full-width button); magnifying glass only from md up. */}
+          <Icon name="search" size={20} strokeWidth={1.75} />
+          {/* Full label on phones (full-width block); the short one from md up. */}
           <span className="md:hidden">{t("submit")}</span>
+          <span className="hidden md:inline">{t("submitShort")}</span>
         </button>
 
         {open ? (
@@ -136,9 +135,10 @@ export function SearchBar({
             role="group"
             aria-label={t("calendarLabel")}
             className={clsx(
-              // Sized to its content (two months side by side), anchored to the box's right edge.
-              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:right-0 md:left-auto md:w-max md:p-6",
-              calendarPlacement === "top" ? "bottom-full mb-3" : "top-full mt-3",
+              // Sized to its content (two months side by side), anchored to the bar's left edge (the bar
+              // sits on the left margin, so the calendar opens over the photo, not off-screen).
+              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:w-max md:p-6",
+              calendarPlacement === "top" ? "bottom-full mb-2" : "top-full mt-2",
             )}
           >
             <DateRangeCalendar selected={range} onSelect={setRange} months={months} />

@@ -51,7 +51,6 @@
     "messageDates": "Olá! Estou a ver o apartamento {listing} ({building}) de {checkIn} a {checkOut} e tenho uma pergunta."
   },
   "footer": {
-    "tagline": "Apartamentos boutique com o Porto no coração, em edifícios históricos restaurados do centro do Porto à Foz. Desde 2015.",
     "contact": "Contactos",
     "explore": "Explorar",
     "company": "Empresa",
@@ -61,8 +60,7 @@
     "cookies": "Cookies",
     "complaintsBook": "Livro de Reclamações",
     "social": "Redes sociais",
-    "rights": "© {year} Tripas-Coração. Todos os direitos reservados.",
-    "whatsapp": "Fale com a nossa equipa das 10h às 22h"
+    "rights": "© {year} Tripas-Coração. Todos os direitos reservados."
   },
   "consent": {
     "title": "Cookies, com transparência",
@@ -77,6 +75,7 @@
     "addDates": "Escolher datas",
     "guests": "Hóspedes",
     "submit": "Ver disponibilidade",
+    "submitShort": "Pesquisar",
     "clearDates": "Limpar datas",
     "done": "Concluir",
     "fewerGuests": "Menos hóspedes",
@@ -140,7 +139,9 @@
     "mockNote": "Dados de demonstração: avaliações e totais por plataforma são fictícios até termos acesso às fontes reais.",
     "listingTitle": "Avaliações",
     "listingScore": "{score} em 10 · {count} avaliações",
-    "stayedAt": "{date}"
+    "stayedAt": "{date}",
+    "prev": "Avaliações anteriores",
+    "next": "Mais avaliações"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",
@@ -151,13 +152,14 @@
     "directTitle": "Porquê reservar aqui.",
     "directBody": "Os nossos apartamentos também estão no Airbnb e no Booking.com. Aqui, fica com o melhor preço e com algo que as plataformas não dão: a nossa equipa.",
     "experiencesTitle": "O Porto e o Douro, com quem os conhece.",
-    "experiencesBody": "Passeios, mesas e barcos com os parceiros que recomendamos aos amigos. Diga-nos o que procura e tratamos do resto.",
+    "experiencesBody": "Passeios, mesas e barcos com os parceiros que recomendamos aos amigos.",
     "experiencesCta": "Ver experiências",
     "experiencesFrom": "desde {price}",
     "experiencesPerPerson": "por pessoa",
     "experiencesPerGroup": "privado",
     "faqTitle": "Antes de reservar.",
     "faqCta": "Todas as perguntas",
+    "intro1": "Fachadas históricas, interiores discretamente modernos e uma equipa local que conhece a cidade como a palma da mão.",
     "collectionsTitle": "Encontre a sua casa.",
     "collectionCount": "{count, plural, one {# casa} other {# casas}}",
     "seeAll": "Ver todos os apartamentos",
@@ -186,7 +188,7 @@
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
     "directCardRating": "{score} · {count} avaliações",
-    "heroSub": "Como em casa, só que melhor. E mais pessoal do que qualquer hotel.",
+    "heroSub": "Mais pessoal do que um hotel. Como em casa, só que melhor.",
     "how4Title": "Concierge no WhatsApp",
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h."
   },

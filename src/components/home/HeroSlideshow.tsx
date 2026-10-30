@@ -31,10 +31,7 @@ function useSlideshow() {
 /**
  * One controller for the hero: background photo and progress lines always show the same
  * collection. A line filling up = time until the next photo (Delta Cafés-style).
- * No visible control (client decision): it pauses while the booking box ([data-pause-slideshow])
- * is hovered or has keyboard focus,
- * while the tab is hidden, and starts paused for reduced motion. Known WCAG 2.2.2 gap: an explicit
- * pause control is still recommended before launch (see CLAUDE.md §15).
+ * Pausable (WCAG 2.2.2); starts paused for reduced motion.
  */
 export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; children: ReactNode }) {
   const [index, setIndex] = useState(0);
@@ -46,6 +43,9 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true);
   }, []);
 
+  // No visible control on this branch: it pauses while the booking box ([data-pause-slideshow]) is
+  // hovered/focused, while the tab is hidden, and starts paused for reduced motion.
+  // Known WCAG 2.2.2 gap (CLAUDE.md §15): an explicit pause control is expected before launch.
   const [engaged, setEngaged] = useState(false);
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
@@ -78,15 +78,14 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     go: setIndex,
     togglePause: () => setPaused((p) => !p),
   };
+  const inBookingBox = (e: { target: EventTarget }) => Boolean((e.target as Element).closest("[data-pause-slideshow]"));
   return (
     <SlideshowContext.Provider value={value}>
       <div
         className="contents"
-        // Only the booking box pauses it: the hero fills the screen, so pausing on any hover
-        // would freeze the slideshow for most visitors.
-        onPointerOver={(e) => setEngaged(Boolean((e.target as Element).closest("[data-pause-slideshow]")))}
+        onPointerOver={(e) => setEngaged(inBookingBox(e))}
         onPointerLeave={() => setEngaged(false)}
-        onFocus={(e) => setEngaged(Boolean((e.target as Element).closest("[data-pause-slideshow]")))}
+        onFocus={(e) => setEngaged(inBookingBox(e))}
         onBlur={() => setEngaged(false)}
       >
         {children}
@@ -136,3 +135,4 @@ export function HeroSlideshowBackground() {
     </>
   );
 }
+

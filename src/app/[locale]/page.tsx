@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { heroSlides } from "@/content/featured";
 import { getListings, getReviewSummary, getReviews } from "@/lib/data";
+import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
@@ -14,6 +15,7 @@ import { Collections } from "@/components/home/Collections";
 import { ExperiencesStrip } from "@/components/home/ExperiencesStrip";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
+import { Intro } from "@/components/home/Intro";
 import { ReviewsBlock } from "@/components/ReviewsBlock";
 import { Icon } from "@/components/ui/Icon";
 
@@ -36,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Home, in order: hero (headline, intro line, search) · collections · why book direct · reviews ·
+ * Home, in order: hero + search · intro line · collections · why book direct · reviews ·
  * how it works · experiences · FAQ excerpt (footer comes from the layout).
  */
 export default async function HomePage() {
@@ -47,19 +49,27 @@ export default async function HomePage() {
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
     getReviewSummary(locale),
-    getReviews(locale, { limit: 4 }),
+    getReviews(locale, { limit: 12 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
+  const format = createFormatter(locale);
   // One slide per collection: a home that really carries the tag, shown with a fitting photo.
   const slides = heroSlides.flatMap(({ tag, slug, image, alt }) =>
     listings.some((l) => l.slug === slug && l.tags.includes(tag))
       ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
       : [],
   );
+  const rating = {
+    score: format.number(summary.overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+    count: format.number(summary.overall.count),
+    mock: summary.overall.mock,
+  };
 
   return (
     <>
-      <Hero maxGuests={maxGuests} slides={slides} />
+      <Hero maxGuests={maxGuests} slides={slides} rating={rating} />
+
+      <Intro />
 
       <Collections listings={listings} />
 
@@ -70,7 +80,6 @@ export default async function HomePage() {
         <ReviewsBlock
           overall={summary.bySource.google}
           reviews={reviews}
-          eyebrow={tr("eyebrow")}
           heading={tr("title")}
           headingId="reviews-title"
         />
@@ -80,7 +89,7 @@ export default async function HomePage() {
 
       <ExperiencesStrip />
 
-      <section aria-labelledby="faq-title" className="bg-sand">
+      <section aria-labelledby="faq-title">
         <div className="container-page section-y grid gap-12 lg:grid-cols-12">
           <h2 id="faq-title" className="text-h2 reveal lg:col-span-4">
             {t("faqTitle")}

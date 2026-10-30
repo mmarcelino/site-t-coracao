@@ -1,11 +1,12 @@
 /**
  * Type-only wordmark until the client's brand assets arrive (CLAUDE.md §15).
- * Hanken Grotesk, regular weight and tight tracking: the same voice as the headline's sans line.
+ * Branch ahotels: Hanken Grotesk bold, mixed case and tight, so it reads as a mark and not as
+ * another (compressed caps) nav link.
  */
 export function Wordmark({ className }: { className?: string }) {
   return (
     <span className={className} translate="no">
-      <span className="text-[1.375rem] leading-none font-normal tracking-[-0.04em]">Tripas-Coração</span>
+      <span className="text-[1.5rem] leading-none font-bold tracking-[-0.05em]">Tripas-Coração</span>
     </span>
   );
 }

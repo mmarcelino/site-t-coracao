@@ -84,7 +84,7 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
 
 1. **Home** (revised 2026-10-26, in this order):
    1. Hero: full-bleed photo (or slow video) of one of the buildings, one short headline, search (dates, guests) on it. No other CTAs. The whole hero stays above the fold.
-   2. Intro line: one or two sentences on who they are (restored historic buildings, local team since 2015), before anything is for sale. *(Branch hero-lunevar: this line is the hero's subheader; no separate section.)*
+   2. Intro line: one or two sentences on who they are (restored historic buildings, local team since 2015), before anything is for sale.
    3. Collections: 4 featured (for two, for families, by the sea, with outdoor space) + "See all" → apartments page with tag pills and filters.
    4. Why book direct: four perks with small icons (best rate, flexible cancellation, welcome gift, local concierge). Early, because it's the main business goal.
    5. Reviews: aggregate scores (Google now; Airbnb and Booking.com later) + 3–4 short excerpts.
@@ -196,7 +196,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - [ ] Keep the luggage storage page/service?
 - [ ] Allow or block AI crawlers?
 - [ ] High-res photography and building history material from the client
-- [ ] **Accessibility gap (hero slideshow):** the visible pause button was removed at the client's request; it pauses on hover/focus/hidden tab and for reduced motion, but WCAG 2.2.2 expects an explicit pause control. Resolve before launch.
+- [ ] **Accessibility gap (hero slideshow, branches hero-lunevar/ahotels):** no visible pause control (client request); it pauses on booking-box hover/focus, hidden tab and reduced motion, but WCAG 2.2.2 expects an explicit control. Resolve before launch.
 - [ ] AL licence numbers per property (10 known from Guesty, see `src/content/site.ts`)
 - [ ] **Copy/facts flagged TO CONFIRM in the code** (search for `TO CONFIRM`, `INVENTED`, `toConfirm: true`, `mock: true`):
   - Cancellation terms used in copy: "free cancellation up to 14 days before arrival" (perks, FAQ, reassurance)

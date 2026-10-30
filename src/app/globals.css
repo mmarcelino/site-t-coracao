@@ -13,7 +13,6 @@
  * azulejo-bright on white 6.3:1.
  */
 @theme {
-  --color-pop: #eee824; /* yellow accent: arrows */
   /* Colour */
   /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
   --color-paper: #ffffff;
@@ -27,15 +26,21 @@
   --color-azulejo: #2e4a72;
   --color-azulejo-tint: #dfe5ee;
   /* Signature colour block (Numa's pink, in tile blue). Text on it: ink or ink-soft, never granite. */
-  --color-wash: #cddcef;
+  --color-wash: #efe5d4; /* branch ahotels: warm cream instead of the light blue */
   --color-ink-soft-text: #3d3a36;
   /* Hover/active accent for big type (5.7:1 on paper, 4.5:1 on wash: large text only on wash) */
   --color-azulejo-bright: #2f5fa8;
+  /* Branch blue-accent: identical to yellow-accent, with the light blue wash as the accent
+     (ink on it 13.1:1; never as text on light). */
+  --color-pop: #cddcef;
+  --color-cork: #a88b70;
   --color-white: #ffffff;
 
   /* Type */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  /* Branch ahotels: all copy in Hanken Grotesk (display and caps roles kept as tokens). */
+  --font-display: var(--font-sans);
+  --font-condensed: var(--font-sans);
 
   --text-display: clamp(3rem, 1.6rem + 6vw, 7.5rem);
   --text-display--line-height: 0.95;
@@ -72,8 +77,10 @@
   --duration-slow: 1000ms;
 
   /* Shape */
-  --radius-card: 1.25rem;
-  --radius-tile: 0.75rem;
+  /* Branch ahotels: one curve for every surface (cards, tiles, booking bar, panels); small
+     controls are fully round. Structure comes from the ink rules, not the corners. */
+  --radius-card: 1rem;
+  --radius-tile: 1rem;
 }
 
 :root {
@@ -107,6 +114,18 @@
   h1, h2, h3, h4 {
     font-weight: 600;
     text-wrap: balance;
+  }
+
+  /* Branch ahotels: bold display serif for headlines, compressed caps for small titles. */
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+  h3 {
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   p {
@@ -161,11 +180,13 @@
 
 /* Tracked uppercase label (eyebrows, meta) */
 @utility label {
-  font-size: var(--text-label);
-  line-height: var(--text-label--line-height);
-  letter-spacing: var(--text-label--letter-spacing);
+  /* Branch ahotels: bold caps (Hanken). */
+  font-family: var(--font-condensed);
+  font-size: 0.8125rem;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Underlined text link with a calm hover */
@@ -375,4 +396,51 @@
 /* Hero glass (booking box, review card): a light tint, always over the photo. */
 .hero-glass {
   background-color: rgb(27 26 24 / 0.28);
+}
+
+/* Over the home hero the header bar and the hero's bottom band share one height (md up);
+   elsewhere, and once scrolled, the header is the usual --header-h. */
+:root {
+  --hero-band-h: calc(var(--header-h) + 1rem);
+}
+@media (min-width: 768px) {
+  :root {
+    --hero-band-h: 7rem;
+  }
+}
+
+/* ------------------------------------------------------------------ ahotels branch devices */
+
+@utility condensed {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Photos: wipe up into view. */
+    .reveal-clip {
+      animation: clip-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+@keyframes clip-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Navbar type (branch ahotels): Hanken bold caps; the wordmark (mixed case, tight) stays distinct. */
+@utility nav-type {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }

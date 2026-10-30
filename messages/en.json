@@ -51,7 +51,6 @@
     "messageDates": "Hello! I'm looking at {listing} ({building}) from {checkIn} to {checkOut} and have a question."
   },
   "footer": {
-    "tagline": "Boutique apartments with Porto at heart, in restored historic buildings from the city centre to the sea. Since 2015.",
     "contact": "Contact",
     "explore": "Explore",
     "company": "Company",
@@ -61,8 +60,7 @@
     "cookies": "Cookies",
     "complaintsBook": "Complaints Book (Livro de Reclamações)",
     "social": "Social",
-    "rights": "© {year} Tripas-Coração. All rights reserved.",
-    "whatsapp": "Talk to our team from 10 am to 10 pm"
+    "rights": "© {year} Tripas-Coração. All rights reserved."
   },
   "consent": {
     "title": "Cookies, plainly",
@@ -77,6 +75,7 @@
     "addDates": "Add dates",
     "guests": "Guests",
     "submit": "Check availability",
+    "submitShort": "Search",
     "clearDates": "Clear dates",
     "done": "Done",
     "fewerGuests": "Fewer guests",
@@ -140,7 +139,9 @@
     "mockNote": "Demo data: reviews and per-platform totals are placeholders until we connect the real sources.",
     "listingTitle": "Reviews",
     "listingScore": "{score} out of 10 · {count} reviews",
-    "stayedAt": "{date}"
+    "stayedAt": "{date}",
+    "prev": "Previous reviews",
+    "next": "More reviews"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartments in historic Porto buildings",
@@ -151,13 +152,14 @@
     "directTitle": "Why book direct.",
     "directBody": "Our apartments are on Airbnb and Booking.com too. Here you get our best rate and something the platforms can't give you: us.",
     "experiencesTitle": "Porto and the Douro, with people who know them.",
-    "experiencesBody": "Walks, tables and boats with the partners we recommend to friends. Tell us what you're after and we'll take care of the rest.",
+    "experiencesBody": "Walks, tables and boats with the partners we recommend to friends.",
     "experiencesCta": "See experiences",
     "experiencesFrom": "from {price}",
     "experiencesPerPerson": "per person",
     "experiencesPerGroup": "private",
     "faqTitle": "Before you book.",
     "faqCta": "All questions",
+    "intro1": "Historic façades, quietly modern interiors, and a local team who knows the city inside out.",
     "collectionsTitle": "Find your home.",
     "collectionCount": "{count, plural, one {# home} other {# homes}}",
     "seeAll": "See all apartments",
@@ -186,7 +188,7 @@
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
     "directCardRating": "{score} · {count} reviews",
-    "heroSub": "Like home, only better. And more personal than any hotel.",
+    "heroSub": "More personal than a hotel. Like home, only better.",
     "how4Title": "A concierge on WhatsApp",
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm."
   },
