@@ -77,9 +77,10 @@
   --duration-slow: 1000ms;
 
   /* Shape */
-  /* Branch ahotels: square cards and tiles (hard edges, ink rules); pills stay on controls. */
-  --radius-card: 0;
-  --radius-tile: 0;
+  /* Branch ahotels: one curve for every surface (cards, tiles, booking bar, panels); small
+     controls are fully round. Structure comes from the ink rules, not the corners. */
+  --radius-card: 1rem;
+  --radius-tile: 1rem;
 }
 
 :root {

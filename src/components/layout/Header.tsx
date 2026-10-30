@@ -87,9 +87,9 @@ export function Header() {
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
                         "nav-type text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
-                        // Highlighted entry: a square outline, so the yellow stays on the one action (search).
+                        // Highlighted entry: an outlined pill, so the yellow stays on the one action (search).
                         item.href === highlightedNav
-                          ? "border-2 border-current px-4 py-1 hover:border-pop hover:bg-pop hover:text-ink"
+                          ? "rounded-full border-2 border-current px-4 py-1 hover:border-pop hover:bg-pop hover:text-ink"
                           : "py-2 hover:opacity-70",
                       )}
                     >

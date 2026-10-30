@@ -70,7 +70,7 @@ export function SearchBar({
     });
   }
 
-  // Branch ahotels: a square bar, flush fields with thin ink dividers, ending in a yellow block.
+  // Branch ahotels: a rounded bar, flush fields with thin ink dividers, ending in a yellow block.
   const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-16 md:w-auto md:py-0";
   const fieldLabel = "block text-[0.75rem] leading-tight text-granite";
   const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-ink";
@@ -86,7 +86,7 @@ export function SearchBar({
       {/* Solid white bar: the one interactive object at the bottom of the hero. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-stretch"
+        className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-card)] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-stretch"
       >
         <button
           type="button"

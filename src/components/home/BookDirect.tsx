@@ -12,7 +12,7 @@ const homePerks: Array<{ id: Perk["id"]; icon: IconName }> = [
 
 /**
  * Why book direct: four perks framed as hospitality, never as discounts. Branch ahotels: the one
- * full yellow block on the page, with numbered perks under heavy ink rules.
+ * yellow panel on the page (inside the margins, same curve as the cards), numbered perks under ink rules.
  */
 export async function BookDirect() {
   const t = await getTranslations("home");
@@ -23,8 +23,8 @@ export async function BookDirect() {
   });
 
   return (
-    <section aria-labelledby="direct-title" className="bg-pop text-ink">
-      <div className="container-page section-y-tight">
+    <section aria-labelledby="direct-title" className="container-page">
+      <div className="rounded-[var(--radius-card)] bg-pop px-[var(--gutter)] py-[clamp(3rem,6vw,6rem)] text-ink">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <h2 id="direct-title" className="text-h1 reveal lg:col-span-6">
             {t("directTitle")}

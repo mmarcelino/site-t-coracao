@@ -35,7 +35,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
           className="reveal-clip object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
         />
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0)_40%,rgba(27,26,24,0.75)_100%)]" />
-        <span className="label absolute top-0 left-0 bg-paper px-3 py-2 text-ink">
+        <span className="label absolute top-4 left-4 rounded-full bg-paper px-3 py-1.5 text-ink">
           {t("collectionCount", { count: count(c) })}
         </span>
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
