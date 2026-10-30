@@ -460,9 +460,9 @@
   }
 }
 
-/* Navbar type (branch ahotels): Hanken medium, sentence case; the wordmark (bold, tight) stays distinct. */
+/* Navbar type (branch ahotels): Hanken semibold, sentence case; the wordmark (bigger, bold, tight) stays distinct. */
 @utility nav-type {
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.005em;
 }
