@@ -21,8 +21,6 @@ export async function BookDirect() {
     const perk = perks.find((p) => p.id === id);
     return perk ? [{ perk, icon }] : [];
   });
-  // Best rate leads (the main reason to book direct); the other three follow, smaller.
-  const [lead, ...rest] = items;
 
   return (
     <section aria-labelledby="direct-title" className="bg-wash">
@@ -30,21 +28,14 @@ export async function BookDirect() {
         <h2 id="direct-title" className="text-h1 reveal">
           {t("directTitle")}
         </h2>
-        {lead ? (
-          /* The main reason to book direct, given the room: large, on its own rule. */
-          <div className="reveal mt-14 grid gap-6 border-t border-ink/20 pt-6 lg:mt-20 lg:grid-cols-12 lg:gap-10">
-            <h3 className="text-h2 max-w-[16ch] lg:col-span-7">{lead.perk.title[locale]}</h3>
-            <p className="text-lead max-w-md lg:col-span-5 lg:pt-3">{lead.perk.body[locale]}</p>
-          </div>
-        ) : null}
-        <ol className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-3 lg:mt-16">
-          {rest.map(({ perk, icon }) => (
+        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+          {items.map(({ perk, icon }) => (
             <li key={perk.id} className="reveal border-t border-ink/20 pt-5">
-              <span className="grid size-10 place-items-center rounded-full border border-ink/40">
-                <Icon name={icon} size={18} />
+              <span className="grid size-12 place-items-center rounded-full border border-ink/40">
+                <Icon name={icon} size={22} />
               </span>
-              <h3 className="mt-6 text-[1.125rem] leading-[1.2]">{perk.title[locale]}</h3>
-              <p className="mt-2 max-w-xs text-small">{perk.body[locale]}</p>
+              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>
+              <p className="mt-3 max-w-xs">{perk.body[locale]}</p>
             </li>
           ))}
         </ol>
