@@ -31,7 +31,7 @@ export async function BookDirect() {
         <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {items.map(({ perk, icon }) => (
             <li key={perk.id} className="reveal border-t border-ink/20 pt-5">
-              <span className="grid size-12 place-items-center rounded-full bg-paper">
+              <span className="grid size-12 place-items-center rounded-full border border-ink/40">
                 <Icon name={icon} size={22} />
               </span>
               <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>

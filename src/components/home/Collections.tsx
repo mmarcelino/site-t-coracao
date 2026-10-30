@@ -68,14 +68,14 @@ export async function Collections({ listings }: { listings: Listing[] }) {
               href={href(wide)}
               className="group grid h-full overflow-hidden rounded-[var(--radius-card)] sm:grid-cols-[1.15fr_1fr]"
             >
-              {/* Stone copy half; the photo runs to the card's edge like the tiles above. */}
-              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] bg-wash p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] md:p-8">
-                <span className="label text-ink">{t("collectionCount", { count: count(wide) })}</span>
+              {/* Outlined copy half; the photo runs to the card's edge like the tiles above. */}
+              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] border border-b-0 border-ink/20 p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] sm:border-r-0 sm:border-b md:p-8">
+                <span className="label text-ink-soft-text">{t("collectionCount", { count: count(wide) })}</span>
                 <span>
                   <span className="block text-[clamp(1.75rem,1.1rem+1.8vw,2.75rem)] leading-[1.02] font-normal tracking-[-0.035em]">
                     {wide.title[locale]}
                   </span>
-                  <span className="mt-3 block text-ink">{wide.blurb[locale]}</span>
+                  <span className="mt-3 block text-ink-soft-text">{wide.blurb[locale]}</span>
                 </span>
               </span>
               <span className="relative min-h-56 overflow-hidden">
@@ -94,14 +94,14 @@ export async function Collections({ listings }: { listings: Listing[] }) {
         <li className="reveal lg:col-span-4">
           <Link
             href="/apartments"
-            className="group flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] border border-ink/20 p-6 text-ink transition-colors hover:border-ink md:p-8"
+            className="group flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] bg-wash p-6 text-ink md:p-8"
           >
             <span className="grid size-12 place-items-center rounded-full border border-current transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
               <Icon name="arrowRight" size={22} />
             </span>
             <span>
               <span className="text-h3 block">{t("seeAll")}</span>
-              <span className="mt-2 block text-granite">
+              <span className="mt-2 block text-ink-soft-text">
                 {t("collectionCount", { count: listings.length })}
               </span>
             </span>

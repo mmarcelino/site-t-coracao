@@ -51,7 +51,6 @@
     "messageDates": "Hello! I'm looking at {listing} ({building}) from {checkIn} to {checkOut} and have a question."
   },
   "footer": {
-    "statement": "Your home in Porto, looked after since 2015.",
     "contact": "Contact",
     "explore": "Explore",
     "company": "Company",
