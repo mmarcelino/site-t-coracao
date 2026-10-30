@@ -141,8 +141,7 @@
     "listingScore": "{score} out of 10 · {count} reviews",
     "stayedAt": "{date}",
     "prev": "Previous reviews",
-    "next": "More reviews",
-    "airbnbBadges": "Superhost · Guest favourite"
+    "next": "More reviews"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartments in historic Porto buildings",
@@ -188,7 +187,7 @@
     "directCardPerk1": "Best rate",
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
-    "directCardRating": "{score} on Google · {count}+ guest reviews · Airbnb Superhost",
+    "directCardRating": "{score} on Google · {count}+ guest reviews",
     "heroSub": "More personal than a hotel. Like home, only better.",
     "how4Title": "A concierge on WhatsApp",
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm."
