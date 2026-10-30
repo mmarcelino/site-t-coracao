@@ -25,7 +25,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
     <li className={clsx("reveal", className)}>
       <Link
         href={href(c)}
-        className="group relative block h-full min-h-[18rem] overflow-hidden lg:min-h-0 rounded-[var(--radius-card)] bg-ink text-paper"
+        className="group relative isolate block h-full min-h-[18rem] overflow-hidden rounded-[var(--radius-card)] text-paper lg:min-h-0"
       >
         <Image
           src={c.image.src}

@@ -16,7 +16,7 @@ export async function Footer() {
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
 
   return (
-    <footer className="border-t border-ink bg-cork text-ink">
+    <footer className="bg-cork text-ink">
       <div className="container-page section-y-tight">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
