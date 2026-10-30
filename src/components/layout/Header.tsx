@@ -82,9 +82,9 @@ export function Header() {
                         "text-base font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
                         item.href === highlightedNav
                           ? clsx(
-                              // Solid pill, echoing the hero's white booking bar.
-                              "rounded-full px-4 py-1.5",
-                              light ? "bg-paper text-ink hover:bg-paper/85" : "bg-ink text-paper hover:bg-ink-soft",
+                              // Outlined pill; 2px, the same weight as the rule above "Book direct" in the hero.
+                              "rounded-full border-2 px-4 py-1",
+                              light ? "border-paper hover:bg-paper hover:text-ink" : "border-ink hover:bg-ink hover:text-paper",
                             )
                           : "py-2 hover:opacity-70",
                       )}
