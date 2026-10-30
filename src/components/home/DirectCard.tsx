@@ -15,7 +15,7 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
   const t = await getTranslations();
   const perks = [t("home.directCardPerk1"), t("home.directCardPerk2"), t("home.directCardPerk3")];
   return (
-    <section aria-labelledby="direct-card-title" className="w-max shrink-0 text-paper">
+    <section aria-labelledby="direct-card-title" className="w-max shrink-0 border-t-2 border-paper pt-4 text-paper">
       {/* As wide as the perk line, so the rating's right edge meets the last perk's. */}
       <div className="flex items-center justify-between gap-8 text-[0.75rem] leading-none">
         <h2 id="direct-card-title" className="label">
