@@ -116,6 +116,9 @@ export function Header() {
               </button>
             </div>
           </div>
+          {/* 2px rule along the bar's bottom, within the page margins: the same weight as the rule
+              above "Book direct" at the bottom of the hero. */}
+          <div aria-hidden className={clsx("h-[2px]", light ? "bg-paper" : "bg-ink/15")} />
         </div>
       </header>
 
