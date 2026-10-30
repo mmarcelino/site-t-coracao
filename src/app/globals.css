@@ -41,7 +41,6 @@
   /* Branch ahotels: all copy in Hanken Grotesk (display and caps roles kept as tokens). */
   --font-display: var(--font-sans);
   --font-condensed: var(--font-sans);
-  --font-nav: var(--font-barlow-condensed), ui-sans-serif, system-ui, sans-serif;
 
   --text-display: clamp(3rem, 1.6rem + 6vw, 7.5rem);
   --text-display--line-height: 0.95;
@@ -461,10 +460,9 @@
   }
 }
 
-/* Navbar type (branch ahotels): compressed bold caps. */
+/* Navbar type (branch ahotels): Hanken medium, sentence case; the wordmark (bold, tight) stays distinct. */
 @utility nav-type {
-  font-family: var(--font-nav);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.005em;
 }

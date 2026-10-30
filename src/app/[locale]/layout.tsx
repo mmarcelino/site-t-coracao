@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Hanken_Grotesk } from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { locale as rootLocale } from "next/root-params";
@@ -23,13 +23,6 @@ const hanken = Hanken_Grotesk({
   display: "swap",
 });
 
-// Branch ahotels: compressed caps for the navbar only (free stand-in for Benton Sans Compressed).
-const barlowCondensed = Barlow_Condensed({
-  subsets: ["latin", "latin-ext"],
-  weight: ["500", "600"],
-  variable: "--font-barlow-condensed",
-  display: "swap",
-});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -59,7 +52,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   return (
     // suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, password managers…)
     // inject attributes on <html>/<body>. It only ignores attribute diffs on these two elements.
-    <html lang={locale === "pt" ? "pt-PT" : "en"} className={`${hanken.variable} ${barlowCondensed.variable}`} suppressHydrationWarning>
+    <html lang={locale === "pt" ? "pt-PT" : "en"} className={hanken.variable} suppressHydrationWarning>
       <body className="min-h-dvh" suppressHydrationWarning>
         <NextIntlClientProvider>
           <ConsentProvider>
