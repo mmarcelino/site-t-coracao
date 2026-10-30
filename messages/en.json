@@ -147,7 +147,7 @@
     "metaTitle": "Tripas-Coração · Apartments in historic Porto buildings",
     "metaDescription": "Design-led apartments in historic buildings in central Porto. Book direct for our best rate, flexible cancellation and a local team always close by.",
     "heroEyebrow": "Porto · since 2015",
-    "heroTitle": "Homes with Porto at heart.",
+    "heroTitle": "Boutique apartments with Porto at heart.",
     "heroImageAlt": "Tall French windows over the trees of the Cordoaria gardens, in a restored apartment",
     "directTitle": "Why book direct.",
     "directBody": "Our apartments are on Airbnb and Booking.com too. Here you get our best rate and something the platforms can't give you: us.",
@@ -180,14 +180,14 @@
     "featuredRating": "{score} out of 10",
     "slidesLabel": "Featured homes",
     "slideShow": "Show {n} of {total}: {name}",
-    "heroTitleLead": "Homes with Porto",
-    "heroTitleAccent": "at heart.",
+    "heroTitleLead": "Boutique apartments",
+    "heroTitleAccent": "with Porto at heart.",
     "directCardTitle": "Book direct",
     "directCardPerk1": "Best rate",
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
     "directCardRating": "{score} · {count} reviews",
-    "heroSub": "Apartments in restored historic buildings, in central Porto and by the sea in Foz. Looked after by a local team since 2015."
+    "heroSub": "Like home, only better. And more personal than any hotel."
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

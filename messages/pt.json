@@ -147,7 +147,7 @@
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",
     "metaDescription": "Apartamentos de autor em edifícios históricos do centro do Porto. Reserve diretamente para o melhor preço, cancelamento flexível e a nossa equipa local sempre por perto.",
     "heroEyebrow": "Porto · desde 2015",
-    "heroTitle": "Casas com o Porto no coração.",
+    "heroTitle": "Apartamentos boutique com o Porto no coração.",
     "heroImageAlt": "Janelas altas de sacada sobre as árvores do Jardim da Cordoaria, num apartamento restaurado",
     "directTitle": "Porquê reservar aqui.",
     "directBody": "Os nossos apartamentos também estão no Airbnb e no Booking.com. Aqui, fica com o melhor preço e com algo que as plataformas não dão: a nossa equipa.",
@@ -180,14 +180,14 @@
     "featuredRating": "{score} em 10",
     "slidesLabel": "Casas em destaque",
     "slideShow": "Mostrar {n} de {total}: {name}",
-    "heroTitleLead": "Casas com o Porto",
-    "heroTitleAccent": "no coração.",
+    "heroTitleLead": "Apartamentos boutique",
+    "heroTitleAccent": "com o Porto no coração.",
     "directCardTitle": "Reserve diretamente",
     "directCardPerk1": "Melhor preço",
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
     "directCardRating": "{score} · {count} avaliações",
-    "heroSub": "Apartamentos em edifícios históricos restaurados, no centro do Porto e na Foz. Cuidados por uma equipa local desde 2015."
+    "heroSub": "Como em casa, só que melhor. E mais pessoal do que qualquer hotel."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

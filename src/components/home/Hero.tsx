@@ -43,6 +43,8 @@ export async function Hero({
               <span className="block sm:whitespace-nowrap">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
             </h1>
+            {/* What this is, in one warm line (no room for it on phones in this layout). */}
+            <p className="animate-fade-in mt-5 hidden max-w-[48rem] text-lead text-paper md:block pl-7 md:pl-8">{t("heroSub")}</p>
             {/* Booking box, with the book-direct line under it. */}
             <div className="mt-[clamp(1.75rem,5vh,3.5rem)] max-w-[60rem]" data-pause-slideshow>
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
