@@ -5,7 +5,7 @@ import type { Localized } from "@/lib/data/types";
  * All TO CONFIRM: the client hasn't committed to specific perks yet (CLAUDE.md §15).
  */
 export interface Perk {
-  id: "best-rate" | "flexible" | "welcome" | "concierge" | "early-late";
+  id: "best-rate" | "flexible" | "welcome" | "concierge" | "secure-payment" | "early-late";
   title: Localized;
   body: Localized;
 }
@@ -41,6 +41,16 @@ export const perks: Perk[] = [
     body: {
       pt: "Fale diretamente connosco por WhatsApp, das 10h às 22h, antes e durante a estadia.",
       en: "Message us directly on WhatsApp, 10 am to 10 pm, before and during your stay.",
+    },
+  },
+  {
+    // Payment runs through Guesty's booking engine (GuestyPay or Stripe via Guesty, TO CONFIRM);
+    // either way card data is tokenised by the provider and never stored on our site.
+    id: "secure-payment",
+    title: { pt: "Pagamento seguro", en: "Safe, secure payment" },
+    body: {
+      pt: "Pague com cartão num checkout encriptado, gerido por um fornecedor de pagamentos certificado. Os dados do seu cartão nunca ficam guardados no nosso site.",
+      en: "Pay by card on an encrypted checkout run by a certified payment provider. Your card details are never stored on our site.",
     },
   },
   {

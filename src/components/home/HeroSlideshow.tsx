@@ -198,3 +198,27 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
     </div>
   );
 }
+
+/**
+ * One continuous, translucent white line across the hero, with the slideshow's pause control at
+ * its end (WCAG 2.2.2). Replaces the per-collection lines on this branch.
+ */
+export function HeroSlideshowRule({ className }: { className?: string }) {
+  const t = useTranslations("home");
+  const { slides, paused, togglePause } = useSlideshow();
+  return (
+    <div className={clsx("flex items-center gap-4", className)}>
+      <span aria-hidden className="h-px flex-1 bg-white/45" />
+      {slides.length > 1 ? (
+        <button
+          type="button"
+          onClick={togglePause}
+          className="grid size-8 shrink-0 place-items-center rounded-full border border-white/40 text-paper transition-colors hover:bg-white/15"
+          aria-label={paused ? t("featuredPlay") : t("featuredPause")}
+        >
+          <Icon name={paused ? "play" : "pause"} size={12} strokeWidth={1.75} />
+        </button>
+      ) : null}
+    </div>
+  );
+}

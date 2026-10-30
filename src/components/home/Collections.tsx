@@ -25,17 +25,17 @@ export async function Collections({ listings }: { listings: Listing[] }) {
     <li className={clsx("reveal", className)}>
       <Link
         href={href(c)}
-        className="group relative block h-full min-h-[18rem] overflow-hidden lg:min-h-0 rounded-[var(--radius-card)] bg-ink text-paper"
+        className="group relative isolate block h-full min-h-[18rem] overflow-hidden rounded-[var(--radius-card)] text-paper lg:min-h-0"
       >
         <Image
           src={c.image.src}
           alt={c.image.alt[locale]}
           fill
           sizes={sizes}
-          className="object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+          className="reveal-clip object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
         />
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0)_40%,rgba(27,26,24,0.75)_100%)]" />
-        <span className="absolute top-4 left-4 rounded-full bg-white/95 px-3 py-1.5 text-[0.8125rem] font-semibold text-ink">
+        <span className="label absolute top-4 left-4 rounded-full bg-paper px-3 py-1.5 text-ink">
           {t("collectionCount", { count: count(c) })}
         </span>
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
@@ -66,9 +66,10 @@ export async function Collections({ listings }: { listings: Listing[] }) {
           <li className="reveal lg:col-span-8">
             <Link
               href={href(wide)}
-              className="group grid h-full overflow-hidden rounded-[var(--radius-card)] bg-wash sm:grid-cols-[1.15fr_1fr]"
+              className="group grid h-full overflow-hidden rounded-[var(--radius-card)] sm:grid-cols-[1.15fr_1fr]"
             >
-              <span className="flex flex-col justify-between gap-6 p-6 md:p-8">
+              {/* Outline on the copy only; the photo runs to the card's edge like the tiles above. */}
+              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] border-2 border-b-0 border-ink p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] sm:border-r-0 sm:border-b-2 md:p-8">
                 <span className="label text-ink-soft-text">{t("collectionCount", { count: count(wide) })}</span>
                 <span>
                   <span className="block text-[clamp(1.75rem,1.1rem+1.8vw,2.75rem)] leading-[1.02] font-semibold tracking-[-0.035em]">
@@ -83,7 +84,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
                   alt={wide.image.alt[locale]}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
+                  className="reveal-clip object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
                 />
               </span>
             </Link>

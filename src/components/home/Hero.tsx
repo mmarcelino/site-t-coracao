@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import {
   HeroSlideshow,
   HeroSlideshowBackground,
-  HeroSlideshowLines,
+  HeroSlideshowRule,
   type HeroSlide,
 } from "./HeroSlideshow";
 import { DirectCard, DirectPerksLine, type HeroRating } from "./DirectCard";
@@ -51,10 +51,10 @@ export async function Hero({
           </div>
         </div>
 
-        {/* Collection lines, then one row in one material: why book direct (wide screens) + booking. */}
+        {/* A continuous line, then one row in one material: why book direct (wide screens) + booking. */}
         <div className="absolute inset-x-0 bottom-0 z-10">
           <div className="container-page pb-[clamp(1.25rem,4vh,2.5rem)]">
-            <HeroSlideshowLines className="mb-[clamp(0.75rem,2vh,1.25rem)]" />
+            <HeroSlideshowRule className="mb-[clamp(0.75rem,2vh,1.25rem)]" />
             <div className="flex items-end justify-between gap-4">
               {/* Caption sits level with the booking box's text, not its outer edge. */}
               <div className="hidden pb-3 xl:block">

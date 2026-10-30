@@ -22,14 +22,14 @@ export async function HowItWorks() {
         </h2>
         <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-8">
           {steps.map((step, i) => (
-            <li key={step.title} className="reveal">
-              <p className="flex items-center gap-3 text-[0.8125rem] font-semibold text-azulejo">
-                <span className="grid size-9 place-items-center rounded-full bg-wash text-ink">
-                  <Icon name={step.icon} size={18} />
-                </span>
+            <li key={step.title} className="reveal border-t-2 border-ink pt-5">
+              <p className="flex items-center justify-between text-[0.8125rem] font-semibold tabular-nums">
                 {String(i + 1).padStart(2, "0")}
+                <span className="grid size-12 place-items-center rounded-full bg-pop-2 text-ink">
+                  <Icon name={step.icon} size={22} />
+                </span>
               </p>
-              <h3 className="text-h3 mt-5">{step.title}</h3>
+              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{step.title}</h3>
               <p className="mt-3 text-granite">{step.body}</p>
             </li>
           ))}

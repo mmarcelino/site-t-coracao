@@ -13,7 +13,6 @@
  * azulejo-bright on white 6.3:1.
  */
 @theme {
-  --color-pop: #eee824; /* yellow accent: arrows */
   /* Colour */
   /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
   --color-paper: #ffffff;
@@ -31,6 +30,11 @@
   --color-ink-soft-text: #3d3a36;
   /* Hover/active accent for big type (5.7:1 on paper, 4.5:1 on wash: large text only on wash) */
   --color-azulejo-bright: #2f5fa8;
+  /* Branch beige-grey-accents: yellow-accent's layout below the hero, with two quiet accents:
+     limestone beige (panels, arrows, buttons; ink on it 13.2:1) and a light grey for secondary
+     surfaces (icons, the last experience tile). Never as text on white. */
+  --color-pop: #e4dccf;
+  --color-pop-2: #e6e7e9;
   --color-white: #ffffff;
 
   /* Type */
@@ -72,8 +76,9 @@
   --duration-slow: 1000ms;
 
   /* Shape */
-  --radius-card: 1.25rem;
-  --radius-tile: 0.75rem;
+  /* One curve for every surface below the hero; small controls fully round. */
+  --radius-card: 1rem;
+  --radius-tile: 1rem;
 }
 
 :root {
@@ -107,6 +112,13 @@
   h1, h2, h3, h4 {
     font-weight: 600;
     text-wrap: balance;
+  }
+
+  /* Small titles in caps, as on yellow-accent. */
+  h3 {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   p {
@@ -165,7 +177,7 @@
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Underlined text link with a calm hover */
@@ -375,4 +387,23 @@
 /* Hero glass (booking box, review card): a light tint, always over the photo. */
 .hero-glass {
   background-color: rgb(27 26 24 / 0.28);
+}
+
+/* Photos below the hero: wipe up into view (as on yellow-accent). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-clip {
+      animation: clip-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+@keyframes clip-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }

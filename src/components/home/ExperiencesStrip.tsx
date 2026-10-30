@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { experiences } from "@/content/experiences";
 import { Link } from "@/i18n/navigation";
@@ -7,8 +7,6 @@ import { createFormatter } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
 const featured = ["douro-valley", "food-walk", "douro-boat", "cooking-class", "yacht"];
-// Colour tiles until each partner tour has its own photography (TO CONFIRM with the client).
-const tones = ["bg-ink text-paper", "bg-wash text-ink", "bg-sand text-ink", "bg-wash text-ink", "bg-ink text-paper"];
 
 /** A horizontal strip of partner tours: positions the team as hosts, not just landlords. */
 export async function ExperiencesStrip() {
@@ -32,22 +30,27 @@ export async function ExperiencesStrip() {
         aria-label={t("experiencesLabel")}
         className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-2 [scroll-padding-inline:var(--gutter)] lg:px-[max(var(--gutter),calc((100vw-var(--page-max))/2+var(--gutter)))]"
       >
-        {items.map((item, i) => (
+        {items.map((item) => (
           <li key={item.id} className="w-[min(78vw,22rem)] shrink-0 snap-start">
-            <article
-              className={clsx(
-                "flex aspect-[4/5] flex-col justify-between rounded-[var(--radius-card)] p-6",
-                tones[i % tones.length],
-                i % tones.length === 0 || i % tones.length === 4 ? "on-dark" : undefined,
-              )}
-            >
-              <p className="text-[0.8125rem] font-semibold opacity-80">
+            {/* Photo tile, like the collection cards: label pill on top, copy on a soft shade. */}
+            <article className="on-dark relative isolate flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] bg-ink p-6 text-paper">
+              {item.image ? (
+                <Image
+                  src={item.image.src}
+                  alt={item.image.alt[locale]}
+                  fill
+                  sizes="(min-width: 640px) 22rem, 78vw"
+                  className="-z-10 object-cover"
+                />
+              ) : null}
+              <span aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(27,26,24,0)_35%,rgba(27,26,24,0.8)_100%)]" />
+              <p className="label self-start rounded-full bg-paper px-3 py-1.5 text-ink">
                 {item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
                 {item.partner ? ` · ${item.partner}` : null}
               </p>
               <div>
                 <h3 className="text-h3">{item.title[locale]}</h3>
-                <p className="mt-3 opacity-85">{item.summary[locale]}</p>
+                <p className="mt-3 text-paper/85">{item.summary[locale]}</p>
                 {item.priceFrom ? (
                   <p className="mt-5 text-small font-semibold">
                     {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
@@ -61,9 +64,14 @@ export async function ExperiencesStrip() {
         <li className="w-[min(78vw,22rem)] shrink-0 snap-start">
           <Link
             href="/experiences"
-            className="flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] border-2 border-ink p-6 transition-colors hover:bg-ink hover:text-paper"
+            className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] bg-pop-2 p-6 text-ink"
           >
-            <Icon name="arrowUpRight" size={40} strokeWidth={1.75} />
+            <Icon
+              name="arrowRight"
+              size={40}
+              strokeWidth={1.75}
+              className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
+            />
             <span className="text-h3 mt-4">{t("experiencesAll")}</span>
           </Link>
         </li>
