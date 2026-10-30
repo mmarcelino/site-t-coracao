@@ -1,19 +1,26 @@
-import clsx from "clsx";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Icon } from "@/components/ui/Icon";
-import { bookDirectComparison } from "@/content/perks";
+import { Icon, type IconName } from "@/components/ui/Icon";
+import { perks, type Perk } from "@/content/perks";
 import type { Locale } from "@/i18n/routing";
 
+const homePerks: Array<{ id: Perk["id"]; icon: IconName }> = [
+  { id: "best-rate", icon: "tag" },
+  { id: "flexible", icon: "calendar" },
+  { id: "welcome", icon: "gift" },
+  { id: "secure-payment", icon: "lock" },
+];
+
 /**
- * Why book direct, as a side-by-side: booking with us vs. on a platform, row by row. Framed as
- * hospitality, never as discounts. Branch hero-lines: on the stone band, "with us" in a white
- * column, the platform column muted.
+ * Why book direct: four perks framed as hospitality, never as discounts. Branch hero-lines: a
+ * full-width stone band, each perk led by its icon under a hairline.
  */
 export async function BookDirect() {
   const t = await getTranslations("home");
   const locale = (await getLocale()) as Locale;
-  const rows = bookDirectComparison;
-  const last = rows.length - 1;
+  const items = homePerks.flatMap(({ id, icon }) => {
+    const perk = perks.find((p) => p.id === id);
+    return perk ? [{ perk, icon }] : [];
+  });
 
   return (
     <section aria-labelledby="direct-title" className="bg-wash">
@@ -21,50 +28,17 @@ export async function BookDirect() {
         <h2 id="direct-title" className="text-h1 reveal">
           {t("directTitle")}
         </h2>
-
-        <table className="reveal mt-12 w-full border-separate border-spacing-0 text-left lg:mt-16">
-          <thead>
-            <tr>
-              <td className="hidden md:table-cell md:w-[22%]" />
-              <th scope="col" className="rounded-t-[var(--radius-card)] bg-paper px-5 pt-6 pb-4 md:px-8">
-                <span className="label">{t("directUs")}</span>
-              </th>
-              <th scope="col" className="px-5 pt-6 pb-4 md:px-8">
-                <span className="label text-ink-soft-text">{t("directPlatform")}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <tr key={row.id}>
-                <th
-                  scope="row"
-                  className="hidden border-t border-ink/15 py-5 align-top font-normal text-ink-soft-text md:table-cell"
-                >
-                  {row.label[locale]}
-                </th>
-                <td
-                  className={clsx(
-                    "bg-paper px-5 py-5 align-top md:px-8",
-                    i === last && "rounded-b-[var(--radius-card)] pb-7",
-                  )}
-                >
-                  <span className="flex items-start gap-3 border-t border-ink/10 pt-5 -mt-5 md:text-lead">
-                    <Icon name="check" size={18} className="mt-1 shrink-0" />
-                    <span>
-                      {/* Phones: the row label sits above (the label column is hidden). */}
-                      <span className="label mb-1.5 block text-ink-soft-text md:hidden">{row.label[locale]}</span>
-                      {row.direct[locale]}
-                    </span>
-                  </span>
-                </td>
-                <td className="border-t border-ink/15 px-5 py-5 align-top text-ink-soft-text md:px-8">
-                  {row.platform[locale]}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+          {items.map(({ perk, icon }) => (
+            <li key={perk.id} className="reveal border-t border-ink/20 pt-5">
+              <span className="grid size-12 place-items-center rounded-full border border-ink/40">
+                <Icon name={icon} size={22} />
+              </span>
+              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>
+              <p className="mt-3 max-w-xs">{perk.body[locale]}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
