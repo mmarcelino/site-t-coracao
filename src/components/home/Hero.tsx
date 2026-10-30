@@ -39,13 +39,13 @@ export async function Hero({
         {/* Headline in the lower half: its top sits at the vertical middle from md up. */}
         <div className="absolute inset-x-0 top-0 md:top-1/2">
           <div className="container-page pt-[calc(var(--header-h)+clamp(3.5rem,17vh,11rem))] md:pt-0">
-            {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
+            {/* One upright grotesk on two lines. */}
             <h1
               id="hero-title"
               className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.95] font-normal tracking-[-0.045em]"
             >
               <span className="block">{t("heroTitleLead")}</span>{" "}
-              <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
+              <span className="block">{t("heroTitleAccent")}</span>
             </h1>
             {/* What this is, in one warm line (no room for it on phones in this layout). */}
             <p className="animate-fade-in mt-5 hidden max-w-[48rem] text-lead text-paper md:block">{t("heroSub")}</p>
