@@ -37,28 +37,33 @@ export async function ReviewsBlock({
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
-        <div className="mt-10 flex items-end gap-4">
-          <p className="text-mega flex items-start gap-2 leading-none font-light tabular-nums">
-            {score(overall.score)}
-            <Icon name="star" size={28} strokeWidth={1.25} className="mt-2" />
-          </p>
-          <p className="pb-2 text-small text-granite">
-            {t("outOf", { max: overall.outOf })}
-            <br />
-            {t("basedOn", { count: format.number(overall.count) })}
-          </p>
-        </div>
-        <p className="label mt-3">{t(`source.${overall.source}`)}</p>
+        {/* One big score when there's a single source (apartment pages); per-platform scores otherwise. */}
+        {bySource ? null : (
+          <>
+            <div className="mt-10 flex items-end gap-4">
+              <p className="text-mega flex items-start gap-2 leading-none font-light tabular-nums">
+                {score(overall.score)}
+                <Icon name="star" size={28} strokeWidth={1.25} className="mt-2" />
+              </p>
+              <p className="pb-2 text-small text-granite">
+                {t("outOf", { max: overall.outOf })}
+                <br />
+                {t("basedOn", { count: format.number(overall.count) })}
+              </p>
+            </div>
+            <p className="label mt-3">{t(`source.${overall.source}`)}</p>
+          </>
+        )}
         {bySource ? (
-          <ul className="mt-10 grid grid-cols-3 gap-4 border-t border-ink/15 pt-6">
+          <ul className="mt-10 grid grid-cols-3 gap-4">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
               <li key={source}>
                 <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-2 text-h3 font-semibold tabular-nums">
+                <p className="mt-2 text-[clamp(1.75rem,1.3rem+1.6vw,2.75rem)] leading-none font-semibold tabular-nums">
                   {score(bySource[source].score)}
                   <span className="text-small font-normal text-granite">/{bySource[source].outOf}</span>
                 </p>
-                <p className="text-[0.75rem] text-granite">{format.number(bySource[source].count)}</p>
+                <p className="mt-2 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
               </li>
             ))}
           </ul>
