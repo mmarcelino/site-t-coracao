@@ -9,7 +9,7 @@ import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
-import { headerNav, highlightedNav, primaryNav } from "./navItems";
+import { headerNav, primaryNav } from "./navItems";
 
 /**
  * Sticky header. Over the home hero it starts transparent with light text and turns solid
@@ -80,10 +80,7 @@ export function Header() {
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
                         "text-base font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
-                        item.href === highlightedNav
-                          ? // Underlined (2px, the same weight as the rule above "Book direct" in the hero).
-                            "py-2 underline decoration-2 underline-offset-[6px] hover:opacity-70"
-                          : "py-2 hover:opacity-70",
+                        "py-2 hover:opacity-70",
                       )}
                     >
                       {t(`nav.${item.key}`)}
