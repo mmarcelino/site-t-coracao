@@ -188,7 +188,8 @@
     "directCardPerk1": "Melhor preço",
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
-    "directCardRating": "{score} · {count} avaliações"
+    "directCardRating": "{score} · {count} avaliações",
+    "heroSub": "Apartamentos para ficar no centro histórico do Porto e na Foz, de uma noite a dois meses."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

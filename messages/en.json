@@ -188,7 +188,8 @@
     "directCardPerk1": "Best rate",
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
-    "directCardRating": "{score} · {count} reviews"
+    "directCardRating": "{score} · {count} reviews",
+    "heroSub": "Apartments to stay in, in Porto's historic centre and by the sea in Foz, from one night to two months."
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",
