@@ -11,8 +11,8 @@ const homePerks: Array<{ id: Perk["id"]; icon: IconName }> = [
 ];
 
 /**
- * Why book direct: four perks framed as hospitality, never as discounts. Branch ahotels: the one
- * yellow panel on the page (inside the margins, same curve as the cards), each perk led by its icon
+ * Why book direct: four perks framed as hospitality, never as discounts. Branch hero-lines: the one
+ * light-blue panel on the page (inside the margins, same curve as the cards), each perk led by its icon
  * under an ink rule.
  */
 export async function BookDirect() {

@@ -9,7 +9,7 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * Branch hero-lines: an ink panel inside the page margins (same curve as the yellow
+ * Branch hero-lines: an ink panel inside the page margins (same curve as the light-blue
  * book-direct panel). AL licence numbers live on each apartment page.
  */
 export async function Footer() {
