@@ -30,9 +30,8 @@
   --color-ink-soft-text: #3d3a36;
   /* Hover/active accent for big type (5.7:1 on paper, 4.5:1 on wash: large text only on wash) */
   --color-azulejo-bright: #2f5fa8;
-  /* Branch ahotels: electric yellow accent (ink on it 13.4:1; never yellow text on light) and a
-     warm cork ground (ink on it 5.5:1). */
-  --color-pop: #eee824;
+  /* Accent: limestone beige (as seen on beige-grey-accents; ink on it 13.2:1; never as text on white). */
+  --color-pop: #e4dccf;
   --color-cork: #a88b70;
   --color-white: #ffffff;
 
