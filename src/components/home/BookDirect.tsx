@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { perks, type Perk } from "@/content/perks";
@@ -26,22 +25,9 @@ export async function BookDirect() {
   return (
     <section aria-labelledby="direct-title" className="bg-wash">
       <div className="container-page section-y-tight">
-        {/* Title on the left; a small, human photo fills the space on the right (placeholder until the
-            client's own shot of the welcome gift or the team). */}
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <h2 id="direct-title" className="text-h1 reveal lg:col-span-7">
-            {t("directTitle")}
-          </h2>
-          <div className="reveal relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] lg:col-span-4 lg:col-start-9">
-            <Image
-              src="/images/placeholder/casa-do-farol-08.jpg"
-              alt={locale === "pt" ? "Recanto de leitura com cadeirão, livros e uma obra de arte vermelha junto à janela" : "A reading corner with an armchair, books and a red artwork by the window"}
-              fill
-              sizes="(min-width: 1024px) 30vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
+        <h2 id="direct-title" className="text-h1 reveal">
+          {t("directTitle")}
+        </h2>
         <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {items.map(({ perk, icon }) => (
             <li key={perk.id} className="reveal border-t border-ink/20 pt-5">
