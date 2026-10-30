@@ -143,7 +143,10 @@ export const mockReviews: Review[] = [
 
 /** MOCK platform-wide aggregates. Replace with Google Business + Guesty channel data. */
 export const mockSourceAggregates: Record<ReviewSource, ReviewAggregate> = {
-  google: { source: "google", score: 9.6, count: 412, mock: true },
-  airbnb: { source: "airbnb", score: 9.6, count: 3180, mock: true },
-  booking: { source: "booking", score: 9.2, count: 2650, mock: true },
+  // Real: the client's Google Business profile ("Tripas-Coração (Office)"), read 2026-10-30.
+  // TO CONFIRM before launch, then fed by the Google Places API.
+  google: { source: "google", score: 4.9, outOf: 5, count: 516, mock: false },
+  // Placeholders until Guesty is connected (it reports per-platform totals).
+  airbnb: { source: "airbnb", score: 4.9, outOf: 5, count: 3180, mock: true },
+  booking: { source: "booking", score: 9.2, outOf: 10, count: 2650, mock: true },
 };
