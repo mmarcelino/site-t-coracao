@@ -25,7 +25,7 @@ export async function HowItWorks() {
             <li key={step.title} className="reveal border-t border-ink/20 pt-5">
               <p className="flex items-center justify-between text-[0.8125rem] text-ink-soft-text tabular-nums">
                 {String(i + 1).padStart(2, "0")}
-                <span className="grid size-12 place-items-center rounded-full bg-wash text-ink">
+                <span className="grid size-12 place-items-center rounded-full border border-ink/25 text-ink">
                   <Icon name={step.icon} size={22} />
                 </span>
               </p>
