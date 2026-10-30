@@ -65,53 +65,49 @@ export function Header() {
           light ? "on-dark text-paper" : "bg-paper/95 text-ink backdrop-blur-md",
         )}
       >
-        {/* The bar is taller over the home hero (md up) but the header's box stays --header-h, so
-            nothing shifts when it shrinks on scroll; the extra height just overlaps the photo. */}
-        <div
-          className={clsx(
-            "relative container-page flex flex-col transition-[height] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
-            light ? "h-[var(--hero-band-h)]" : "h-[var(--header-h)]",
-          )}
-        >
+        <div className="container-page flex h-full flex-col">
           <div className="flex flex-1 items-center justify-between">
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
             </Link>
+            {/* Desktop: the key links, always visible. */}
+            <nav aria-label={t("nav.label")} className="hidden lg:block">
+              <ul className="flex items-center gap-8">
+                {headerNav.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className={clsx(
+                        "text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
+                        item.href === highlightedNav
+                          ? clsx(
+                              "rounded-full border px-4 py-1.5",
+                              light ? "border-paper/80 hover:bg-paper hover:text-ink" : "border-ink/40 hover:bg-ink hover:text-paper",
+                            )
+                          : "py-2 hover:opacity-70",
+                      )}
+                    >
+                      {t(`nav.${item.key}`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
             <div className="flex items-center gap-3 sm:gap-5">
-              {/* Order (desktop): WhatsApp, language, then the links. WhatsApp is icon only (named for screen readers). */}
+              {/* WhatsApp concierge: icon + label on desktop, icon only on smaller screens. */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
                 icon={false}
                 className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
-                <Icon name="whatsapp" size={24} strokeWidth={1.4} />
-                <span className="sr-only">{t("whatsapp.cta")}</span>
+                <Icon name="whatsapp" size={26} strokeWidth={0.9} />
+                <span className="hidden text-[0.9375rem] whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
+                <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
-              <LanguageSwitcher className="hidden lg:flex [&_button]:nav-type [&_button]:text-[0.9375rem]" tone={light ? "light" : "dark"} />
-              {/* Desktop: the key links, after WhatsApp and the language switcher (client's order). */}
-              <nav aria-label={t("nav.label")} className="hidden lg:ml-5 lg:block">
-                <ul className="flex items-center gap-8">
-                  {headerNav.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        aria-current={pathname === item.href ? "page" : undefined}
-                        className={clsx(
-                          "nav-type text-[0.9375rem] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
-                          // Highlighted entry: an outlined pill, so the yellow stays on the one action (search).
-                          item.href === highlightedNav
-                            ? "rounded-full border-2 border-current px-4 py-1 hover:border-pop hover:bg-pop hover:text-ink"
-                            : "py-2 hover:opacity-70",
-                        )}
-                      >
-                        {t(`nav.${item.key}`)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+              <LanguageSwitcher className="hidden lg:flex" tone={light ? "light" : "dark"} />
               <button
                 ref={menuButton}
                 type="button"
@@ -125,10 +121,6 @@ export function Header() {
               </button>
             </div>
           </div>
-          {/* Full-bleed hairline, edge to edge; none over the hero, where the photo runs free. */}
-          {light ? null : (
-            <div aria-hidden className="absolute bottom-0 left-[calc(50%-50vw)] h-[2px] w-screen bg-ink/15" />
-          )}
         </div>
       </header>
 

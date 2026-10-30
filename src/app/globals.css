@@ -398,16 +398,6 @@
   background-color: rgb(27 26 24 / 0.28);
 }
 
-/* Over the home hero the header bar and the hero's bottom band share one height (md up);
-   elsewhere, and once scrolled, the header is the usual --header-h. */
-:root {
-  --hero-band-h: calc(var(--header-h) + 1rem);
-}
-@media (min-width: 768px) {
-  :root {
-    --hero-band-h: 7rem;
-  }
-}
 
 /* ------------------------------------------------------------------ ahotels branch devices */
 
@@ -437,10 +427,3 @@
   }
 }
 
-/* Navbar type (branch ahotels): Hanken bold caps; the wordmark (mixed case, tight) stays distinct. */
-@utility nav-type {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
