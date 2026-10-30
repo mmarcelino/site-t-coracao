@@ -16,7 +16,7 @@ import { footerNav } from "./navItems";
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
-  const heading = "label mb-4 text-ink-soft-text";
+  const heading = "label mb-4 font-semibold text-ink";
   // Underline only on hover, so the columns read calm.
   const link = "underline-offset-4 decoration-1 hover:underline";
 
@@ -71,9 +71,9 @@ export async function Footer() {
             </div>
           </div>
 
-          <nav aria-label={t("footer.explore")} className="lg:col-span-4 lg:col-start-6">
+          <nav aria-label={t("footer.explore")} className="lg:col-span-3 lg:col-start-7">
             <h2 className={heading}>{t("footer.explore")}</h2>
-            <ul className="text-small grid grid-cols-2 gap-x-6 gap-y-2">
+            <ul className="text-small space-y-2">
               {footerNav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className={link}>
@@ -102,7 +102,7 @@ export async function Footer() {
                 <CookiePreferencesButton label={t("footer.cookies")} className={`cursor-pointer text-left ${link}`} />
               </li>
               <li>
-                <a href={site.complaintsBookUrl} target="_blank" rel="noopener noreferrer" className={link} lang="pt">
+                <a href={site.complaintsBookUrl} target="_blank" rel="noopener noreferrer" className={link} >
                   {t("footer.complaintsBook")}
                 </a>
               </li>
