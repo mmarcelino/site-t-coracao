@@ -56,8 +56,6 @@ export async function Hero({
         {/* Bottom band: same height as the header bar over the hero (--hero-band-h); book-direct
             caption (wide screens) + booking centred inside it. */}
         <div className="absolute inset-x-0 bottom-0 z-10 md:h-[var(--hero-band-h)]">
-          {/* Solid 2px full-bleed line along the band's top edge (matches the header's). */}
-          <div aria-hidden className="absolute inset-x-0 top-0 h-[2px] -translate-y-1/2 bg-paper" />
           <div className="container-page flex h-full items-center justify-between gap-4 py-5 md:py-0">
             <div className="hidden xl:block">
               <DirectCard rating={rating} />
