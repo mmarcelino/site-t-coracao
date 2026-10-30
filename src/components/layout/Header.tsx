@@ -126,6 +126,14 @@ export function Header() {
               </button>
             </div>
           </div>
+          {/* Full-bleed hairline, edge to edge (matches the hero's bottom line). */}
+          <div
+            aria-hidden
+            className={clsx(
+              "absolute bottom-0 left-[calc(50%-50vw)] h-[2px] w-screen",
+              light ? "bg-paper" : "bg-ink/15",
+            )}
+          />
         </div>
       </header>
 
