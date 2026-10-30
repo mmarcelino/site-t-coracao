@@ -31,12 +31,13 @@ export async function ReviewsBlock({
 
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-      <div className="reveal lg:col-span-4">
+      {/* Starts on an ink rule, level with the first quote's. */}
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4">
         {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
-        <div className="mt-10 flex items-end gap-4 border-t-2 border-ink pt-6">
+        <div className="mt-10 flex items-end gap-4">
           <p className="text-mega flex items-start gap-2 leading-none font-semibold tabular-nums">
             {score(overall.score)}
             <Icon name="star" size={32} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-2 text-pop" />

@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { getLocale, getTranslations } from "next-intl/server";
 import { experiences } from "@/content/experiences";
 import { Link } from "@/i18n/navigation";
@@ -7,8 +6,7 @@ import { createFormatter } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
 const featured = ["douro-valley", "food-walk", "douro-boat", "cooking-class", "yacht"];
-// Ink and outlined tiles until each partner tour has its own photography (TO CONFIRM with the client).
-const tones = ["bg-ink text-paper", "text-ink", "bg-ink text-paper", "text-ink", "bg-ink text-paper"];
+// Outlined tiles until each partner tour has its own photography (TO CONFIRM with the client).
 
 /** A horizontal strip of partner tours: positions the team as hosts, not just landlords. */
 export async function ExperiencesStrip() {
@@ -32,15 +30,9 @@ export async function ExperiencesStrip() {
         aria-label={t("experiencesLabel")}
         className="scrollbar-none mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-2 [scroll-padding-inline:var(--gutter)] lg:px-[max(var(--gutter),calc((100vw-var(--page-max))/2+var(--gutter)))]"
       >
-        {items.map((item, i) => (
+        {items.map((item) => (
           <li key={item.id} className="w-[min(78vw,22rem)] shrink-0 snap-start">
-            <article
-              className={clsx(
-                "flex aspect-[4/5] flex-col justify-between rounded-[var(--radius-card)] border-2 border-ink p-6",
-                tones[i % tones.length],
-                i % 2 === 0 ? "on-dark" : undefined,
-              )}
-            >
+            <article className="flex aspect-[4/5] flex-col justify-between rounded-[var(--radius-card)] border-2 border-ink p-6 text-ink">
               <p className="text-[0.8125rem] font-semibold opacity-80">
                 {item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
                 {item.partner ? ` · ${item.partner}` : null}
