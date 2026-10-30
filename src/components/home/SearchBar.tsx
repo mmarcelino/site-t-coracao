@@ -70,8 +70,8 @@ export function SearchBar({
     });
   }
 
-  // Branch ahotels: a pill bar, flush fields with thin ink dividers, ending in a yellow block.
-  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-16 md:w-auto md:py-0";
+  // A pill bar, flush fields with thin ink dividers, ending in a round search button (md up).
+  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:w-auto md:py-0";
   const fieldLabel = "block text-[0.75rem] leading-tight text-granite";
   const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-ink";
 
@@ -86,7 +86,7 @@ export function SearchBar({
       {/* Solid white bar: the one interactive object at the bottom of the hero. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-stretch md:rounded-full md:pl-2"
+        className="grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3"
       >
         <button
           type="button"
@@ -121,12 +121,11 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="inline-flex h-14 items-center justify-center gap-3 bg-pop px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-ink hover:text-pop md:h-auto"
+          className="inline-flex h-14 items-center justify-center gap-3 bg-pop px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-ink hover:text-pop md:ml-1 md:size-14 md:rounded-full md:px-0"
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
-          {/* Full label on phones (full-width block); the short one from md up. */}
+          {/* Full label on phones (full-width block); icon only in the round button from md up. */}
           <span className="md:hidden">{t("submit")}</span>
-          <span className="hidden md:inline">{t("submitShort")}</span>
         </button>
 
         {open ? (
