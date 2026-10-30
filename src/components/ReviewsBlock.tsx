@@ -85,7 +85,7 @@ export async function ReviewsBlock({
 
       {hasMock ? (
         <p className="text-[0.8125rem] text-granite lg:col-span-12">
-          <span className="label mr-2 bg-azulejo-tint px-1.5 py-0.5 text-azulejo">{tc("demo")}</span>
+          <span className="label mr-2 bg-sand px-1.5 py-0.5 text-ink">{tc("demo")}</span>
           {t("mockNote")}
         </p>
       ) : null}

@@ -9,17 +9,17 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * Branch hero-lines: light and editorial like the hero, on the light-blue ground.
+ * Branch hero-lines: light and editorial like the hero (hairline rules, no panel).
  * AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
-  const heading = "label mb-5 text-ink-soft-text";
+  const heading = "label mb-5 text-granite";
 
   return (
-    <footer className="bg-wash">
-      <div className="container-page pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-ink">
+    <footer className="container-page pb-[var(--gutter)]">
+      <div className="border-t border-ink/20 pt-[clamp(2.5rem,5vw,4rem)] pb-4 text-ink">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <h2 className={heading}>{t("footer.contact")}</h2>
@@ -46,7 +46,7 @@ export async function Footer() {
               icon={false}
               className="group text-small mt-5 inline-flex items-center gap-2.5 transition-colors hover:text-granite"
             >
-              <span className="grid size-8 place-items-center rounded-full bg-paper">
+              <span className="grid size-8 place-items-center rounded-full border border-ink/25">
                 <Icon name="whatsapp" size={16} strokeWidth={1.5} />
               </span>
               {t("whatsapp.short")}
@@ -127,7 +127,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-ink/15 pt-6 text-[0.8125rem] text-ink-soft-text">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-ink/15 pt-6 text-[0.8125rem] text-granite">
           <p>{t("footer.rights", { year })}</p>
           {/* Own colour, so the current language reads darkest (not the row's muted grey). */}
           <LanguageSwitcher className="text-ink" />

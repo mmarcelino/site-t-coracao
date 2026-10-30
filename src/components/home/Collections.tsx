@@ -68,8 +68,8 @@ export async function Collections({ listings }: { listings: Listing[] }) {
               href={href(wide)}
               className="group grid h-full overflow-hidden rounded-[var(--radius-card)] sm:grid-cols-[1.15fr_1fr]"
             >
-              {/* Light-blue copy half; the photo runs to the card's edge like the tiles above. */}
-              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] bg-wash p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] md:p-8">
+              {/* Outline on the copy only; the photo runs to the card's edge like the tiles above. */}
+              <span className="flex flex-col justify-between gap-6 rounded-t-[var(--radius-card)] border border-b-0 border-ink/20 p-6 sm:rounded-tr-none sm:rounded-l-[var(--radius-card)] sm:border-r-0 sm:border-b md:p-8">
                 <span className="label text-ink-soft-text">{t("collectionCount", { count: count(wide) })}</span>
                 <span>
                   <span className="block text-[clamp(1.75rem,1.1rem+1.8vw,2.75rem)] leading-[1.02] font-normal tracking-[-0.035em]">
