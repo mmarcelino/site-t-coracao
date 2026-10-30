@@ -60,11 +60,16 @@ export default async function HomePage() {
       : [],
   );
   // Hero: the Google rating, as shown on Google (whole business, checkable by guests).
+  // Hero: the real Google score, plus every guest review across platforms (counts add up honestly,
+  // scores on different scales don't), rounded down to the thousand. TO CONFIRM: the Airbnb and
+  // Booking.com totals are placeholders until Guesty is connected.
   const google = summary.bySource.google;
+  const sources = Object.values(summary.bySource);
+  const totalReviews = sources.reduce((sum, s) => sum + s.count, 0);
   const rating = {
     score: format.number(google.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
-    count: format.number(google.count),
-    mock: google.mock,
+    count: format.number(Math.floor(totalReviews / 1000) * 1000),
+    mock: sources.some((s) => s.mock),
   };
 
   return (
