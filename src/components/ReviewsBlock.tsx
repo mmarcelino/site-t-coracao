@@ -64,6 +64,8 @@ export async function ReviewsBlock({
                   <span className="text-small font-normal text-granite">/{bySource[source].outOf}</span>
                 </p>
                 <p className="mt-2 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+                {/* Host badges (TO CONFIRM with the client). */}
+                {source === "airbnb" ? <p className="mt-2 text-[0.8125rem] font-semibold">{t("airbnbBadges")}</p> : null}
               </li>
             ))}
           </ul>
