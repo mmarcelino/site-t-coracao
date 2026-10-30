@@ -42,7 +42,7 @@ export function ReviewsScroller({
   };
 
   const button =
-    "grid size-12 place-items-center rounded-full border border-ink/30 text-ink transition-[opacity,background-color,color] hover:bg-ink hover:text-paper disabled:cursor-default disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-ink";
+    "grid size-12 place-items-center rounded-full bg-pop text-ink transition-opacity disabled:cursor-default disabled:opacity-30";
 
   return (
     <div>

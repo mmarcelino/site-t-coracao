@@ -24,15 +24,15 @@ export async function BookDirect() {
   });
 
   return (
-    <section aria-labelledby="direct-title" className="container-page section-y-tight">
-      <div>
+    <section aria-labelledby="direct-title" className="container-page">
+      <div className="rounded-[var(--radius-card)] bg-pop px-[var(--gutter)] py-[clamp(3rem,6vw,6rem)] text-ink">
         <h2 id="direct-title" className="text-h1 reveal">
           {t("directTitle")}
         </h2>
         <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {items.map(({ perk, icon }) => (
-            <li key={perk.id} className="reveal border-t border-ink/20 pt-5">
-              <span className="grid size-12 place-items-center rounded-full border border-ink/25">
+            <li key={perk.id} className="reveal border-t-2 border-ink pt-5">
+              <span className="grid size-12 place-items-center rounded-full bg-ink text-pop">
                 <Icon name={icon} size={22} />
               </span>
               <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>

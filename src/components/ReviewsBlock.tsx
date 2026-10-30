@@ -32,15 +32,15 @@ export async function ReviewsBlock({
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
       {/* Starts on an ink rule, level with the first quote's. */}
-      <div className="reveal border-t border-ink/20 pt-6 lg:col-span-4">
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4">
         {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
         <div className="mt-10 flex items-end gap-4">
-          <p className="text-mega flex items-start gap-2 leading-none font-light tabular-nums">
+          <p className="text-mega flex items-start gap-2 leading-none font-semibold tabular-nums">
             {score(overall.score)}
-            <Icon name="star" size={28} strokeWidth={1.25} className="mt-2" />
+            <Icon name="star" size={32} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-2 text-pop" />
           </p>
           <p className="pb-2 text-small text-granite">
             {t("outOf")}
@@ -67,12 +67,12 @@ export async function ReviewsBlock({
         <ReviewsScroller prevLabel={t("prev")} nextLabel={t("next")}>
           <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-12 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
             {reviews.map((review) => (
-              <li key={review.id} className="snap-start border-t border-ink/20 pt-6">
+              <li key={review.id} className="snap-start border-t-2 border-ink pt-6">
                 <figure>
-                  <blockquote lang={review.language} className="text-lead">
+                  <blockquote lang={review.language} className="text-lead font-medium">
                     “{review.text}”
                   </blockquote>
-                  <figcaption className="label mt-6 text-granite">
+                  <figcaption className="label mt-6 text-ink">
                     {review.author} · {t(`source.${review.source}`)} ·{" "}
                     {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
                   </figcaption>
@@ -85,7 +85,7 @@ export async function ReviewsBlock({
 
       {hasMock ? (
         <p className="text-[0.8125rem] text-granite lg:col-span-12">
-          <span className="label mr-2 bg-sand px-1.5 py-0.5 text-ink">{tc("demo")}</span>
+          <span className="label mr-2 bg-pop px-1.5 py-0.5 text-ink">{tc("demo")}</span>
           {t("mockNote")}
         </p>
       ) : null}

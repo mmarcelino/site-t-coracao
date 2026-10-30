@@ -9,17 +9,17 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * Branch hero-lines: light and editorial like the hero (hairline rules, no panel).
- * AL licence numbers live on each apartment page.
+ * Branch hero-lines: an ink panel inside the page margins (same curve as the yellow
+ * book-direct panel). AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
-  const heading = "label mb-5 text-granite";
+  const heading = "label mb-5 text-paper/60";
 
   return (
     <footer className="container-page pb-[var(--gutter)]">
-      <div className="border-t border-ink/20 pt-[clamp(2.5rem,5vw,4rem)] pb-4 text-ink">
+      <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <h2 className={heading}>{t("footer.contact")}</h2>
@@ -44,9 +44,9 @@ export async function Footer() {
               message={t("whatsapp.messageGeneric")}
               page="footer"
               icon={false}
-              className="group text-small mt-5 inline-flex items-center gap-2.5 transition-colors hover:text-granite"
+              className="group text-small mt-5 inline-flex items-center gap-2.5 font-semibold transition-colors hover:text-pop"
             >
-              <span className="grid size-8 place-items-center rounded-full border border-ink/25">
+              <span className="grid size-8 place-items-center rounded-full bg-pop text-ink">
                 <Icon name="whatsapp" size={16} strokeWidth={1.5} />
               </span>
               {t("whatsapp.short")}
@@ -58,7 +58,7 @@ export async function Footer() {
             <ul className="text-small space-y-3">
               {footerNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="link-quiet">
+                  <Link href={item.href} className="transition-colors hover:text-pop">
                     {t(`nav.${item.key}`)}
                   </Link>
                 </li>
@@ -70,12 +70,12 @@ export async function Footer() {
             <h2 className={heading}>{t("footer.legal")}</h2>
             <ul className="text-small space-y-3">
               <li>
-                <Link href="/terms" className="link-quiet">
+                <Link href="/terms" className="transition-colors hover:text-pop">
                   {t("footer.terms")}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="link-quiet">
+                <Link href="/privacy" className="transition-colors hover:text-pop">
                   {t("footer.privacy")}
                 </Link>
               </li>
@@ -83,7 +83,7 @@ export async function Footer() {
                 {/* One cookie entry: reopens the consent choices, which link to the cookie policy. */}
                 <CookiePreferencesButton
                   label={t("footer.cookies")}
-                  className="cursor-pointer text-left link-quiet"
+                  className="cursor-pointer text-left transition-colors hover:text-pop"
                 />
               </li>
               <li>
@@ -91,7 +91,7 @@ export async function Footer() {
                   href={site.complaintsBookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-quiet"
+                  className="transition-colors hover:text-pop"
                   lang="pt"
                 >
                   {t("footer.complaintsBook")}
@@ -108,7 +108,7 @@ export async function Footer() {
                   href={site.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-ink/25 transition-colors hover:bg-ink hover:text-paper"
+                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
                 >
                   <Icon name="instagram" size={20} title="Instagram" />
                 </a>
@@ -118,7 +118,7 @@ export async function Footer() {
                   href={site.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-ink/25 transition-colors hover:bg-ink hover:text-paper"
+                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
                 >
                   <Icon name="facebook" size={20} title="Facebook" />
                 </a>
@@ -127,10 +127,10 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-ink/15 pt-6 text-[0.8125rem] text-granite">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
-          {/* Own colour, so the current language reads darkest (not the row's muted grey). */}
-          <LanguageSwitcher className="text-ink" />
+          {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
+          <LanguageSwitcher tone="light" className="text-paper" />
         </div>
       </div>
     </footer>
