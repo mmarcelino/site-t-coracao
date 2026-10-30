@@ -6,7 +6,7 @@ const homePerks: Perk["id"][] = ["best-rate", "flexible", "welcome", "secure-pay
 
 /**
  * Why book direct: four perks framed as hospitality, never as discounts. Branch hero-lines: a
- * full-width stone band, each perk a title under a hairline (no icons).
+ * full-width stone band, the perks as a manifesto of large, light lines.
  */
 export async function BookDirect() {
   const t = await getTranslations("home");
@@ -22,11 +22,17 @@ export async function BookDirect() {
         <h2 id="direct-title" className="text-h1 reveal">
           {t("directTitle")}
         </h2>
-        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+        {/* A manifesto: each perk one large, light line, with the detail small on the right. */}
+        <ol className="mt-12 border-b border-ink/20 lg:mt-16">
           {items.map(({ perk }) => (
-            <li key={perk.id} className="reveal border-t border-ink/20 pt-6">
-              <h3 className="text-[1.625rem] leading-[1.1]">{perk.title[locale]}</h3>
-              <p className="mt-3 max-w-xs">{perk.body[locale]}</p>
+            <li
+              key={perk.id}
+              className="reveal grid gap-3 border-t border-ink/20 py-6 md:grid-cols-12 md:items-baseline md:gap-10 md:py-8"
+            >
+              <h3 className="text-[clamp(1.875rem,1.2rem+2.6vw,3.5rem)] leading-[1.05] tracking-[-0.025em] md:col-span-7">
+                {perk.title[locale]}.
+              </h3>
+              <p className="max-w-md text-ink-soft-text md:col-span-5">{perk.body[locale]}</p>
             </li>
           ))}
         </ol>
