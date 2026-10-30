@@ -43,8 +43,8 @@ export async function Collections({ listings }: { listings: Listing[] }) {
             <span className={clsx("block font-semibold", titleClass)}>{c.title[locale]}</span>
             <span className="mt-2 block max-w-sm text-paper/85">{c.blurb[locale]}</span>
           </span>
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-white text-ink transition-transform duration-[var(--duration-base)] group-hover:rotate-45">
-            <Icon name="arrowUpRight" size={20} />
+          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+            <Icon name="arrowRight" size={20} />
           </span>
         </span>
       </Link>
@@ -95,8 +95,8 @@ export async function Collections({ listings }: { listings: Listing[] }) {
             href="/apartments"
             className="group on-dark flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] bg-ink p-6 text-paper md:p-8"
           >
-            <span className="grid size-12 place-items-center rounded-full bg-wash text-ink transition-transform duration-[var(--duration-base)] group-hover:rotate-45">
-              <Icon name="arrowUpRight" size={22} />
+            <span className="grid size-12 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+              <Icon name="arrowRight" size={22} />
             </span>
             <span>
               <span className="text-h3 block font-semibold">{t("seeAll")}</span>

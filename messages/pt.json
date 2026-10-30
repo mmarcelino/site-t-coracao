@@ -51,19 +51,18 @@
     "messageDates": "Olá! Estou a ver o apartamento {listing} ({building}) de {checkIn} a {checkOut} e tenho uma pergunta."
   },
   "footer": {
-    "tagline": "Casas com o Porto no coração. Alojamento local em edifícios históricos do centro do Porto, desde 2015.",
+    "tagline": "Apartamentos boutique com o Porto no coração, em edifícios históricos restaurados do centro do Porto à Foz. Desde 2015.",
     "contact": "Contactos",
     "explore": "Explorar",
     "company": "Empresa",
     "legal": "Legal",
     "terms": "Termos e condições",
     "privacy": "Política de privacidade",
-    "cookies": "Política de cookies",
-    "cookiePreferences": "Preferências de cookies",
+    "cookies": "Cookies",
     "complaintsBook": "Livro de Reclamações",
-    "licences": "Registos de Alojamento Local",
     "social": "Redes sociais",
-    "rights": "© {year} Tripas-Coração. Todos os direitos reservados."
+    "rights": "© {year} Tripas-Coração. Todos os direitos reservados.",
+    "whatsapp": "Fale com a nossa equipa das 10h às 22h"
   },
   "consent": {
     "title": "Cookies, com transparência",
@@ -166,10 +165,10 @@
     "howTitle": "Como funciona.",
     "how1Title": "Reserve diretamente",
     "how1Body": "Escolha a casa e as datas aqui, com pagamento seguro e o melhor preço.",
-    "how2Title": "Check-in autónomo",
-    "how2Body": "Antes de chegar recebe as instruções e entra à hora que lhe convém.",
-    "how3Title": "Concierge no WhatsApp",
-    "how3Body": "A nossa equipa no Porto responde das 10h às 22h, durante toda a estadia.",
+    "how2Title": "O seu guia digital",
+    "how2Body": "Cada apartamento inclui um portal do hóspede: informações de check-in, os restaurantes e experiências de que mais gostamos e sugestões para explorar o Porto ao seu ritmo.",
+    "how3Title": "Check-in autónomo",
+    "how3Body": "Antes de chegar recebe as instruções e entra à hora que lhe convém.",
     "experiencesAll": "Ver todas as experiências",
     "experiencesLabel": "Experiências recomendadas",
     "experienceInPorto": "No Porto",
@@ -188,7 +187,9 @@
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
     "directCardRating": "{score} · {count} avaliações",
-    "heroSub": "Como em casa, só que melhor. E mais pessoal do que qualquer hotel."
+    "heroSub": "Como em casa, só que melhor. E mais pessoal do que qualquer hotel.",
+    "how4Title": "Concierge no WhatsApp",
+    "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

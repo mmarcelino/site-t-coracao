@@ -416,33 +416,8 @@
   letter-spacing: 0.04em;
 }
 
-/* Hand-drawn lines (SVG paths with pathLength="1") that draw themselves. */
-@keyframes draw-line {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-.draw-on-scroll,
-.draw-on-view {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    /* The page-long squiggle: drawn as the whole page scrolls. */
-    .draw-on-scroll {
-      animation: draw-line linear both;
-      animation-timeline: scroll(root block);
-    }
-    /* Outlines around words: drawn as they enter the viewport. */
-    .draw-on-view {
-      animation: draw-line linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 40%;
-    }
     /* Photos: wipe up into view. */
     .reveal-clip {
       animation: clip-up linear both;

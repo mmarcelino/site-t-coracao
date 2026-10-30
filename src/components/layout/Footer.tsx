@@ -5,12 +5,11 @@ import { CookiePreferencesButton } from "@/components/consent/ConsentBanner";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { Wordmark } from "./Wordmark";
-import { primaryNav } from "./navItems";
+import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * numa-like: signature colour block with a giant wordmark across the bottom.
+ * AL licence numbers live on each apartment page, not here.
  */
 export async function Footer() {
   const t = await getTranslations();
@@ -21,15 +20,14 @@ export async function Footer() {
       <div className="container-page section-y-tight">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="text-h3 max-w-sm">{t("footer.tagline")}</p>
+            <p className="text-lead max-w-md">{t("footer.tagline")}</p>
             <WhatsAppLink
               message={t("whatsapp.messageGeneric")}
               page="footer"
               className="inline-flex text-lead mt-8 font-semibold transition-colors hover:text-azulejo"
             >
-              {t("whatsapp.cta")}
+              {t("footer.whatsapp")}
             </WhatsAppLink>
-            <p className="text-small mt-2 text-ink">{t("whatsapp.hours")}</p>
             <div className="mt-8 flex items-center gap-4">
               <span className="label text-ink">{t("language.label")}</span>
               <LanguageSwitcher />
@@ -73,18 +71,13 @@ export async function Footer() {
           <nav aria-label={t("footer.explore")} className="md:col-span-2">
             <h2 className="label mb-5 text-ink">{t("footer.explore")}</h2>
             <ul className="text-small space-y-3">
-              {primaryNav.map((item) => (
+              {footerNav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="link-quiet">
                     {t(`nav.${item.key}`)}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/faq" className="link-quiet">
-                  {t("nav.faq")}
-                </Link>
-              </li>
             </ul>
           </nav>
 
@@ -102,13 +95,9 @@ export async function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/cookies" className="link-quiet">
-                  {t("footer.cookies")}
-                </Link>
-              </li>
-              <li>
+                {/* One cookie entry: reopens the consent choices, which link to the cookie policy. */}
                 <CookiePreferencesButton
-                  label={t("footer.cookiePreferences")}
+                  label={t("footer.cookies")}
                   className="link-quiet cursor-pointer text-left"
                 />
               </li>
@@ -121,16 +110,7 @@ export async function Footer() {
           </nav>
         </div>
 
-        <p aria-hidden className="mt-20 overflow-hidden">
-          <Wordmark className="block text-[clamp(3.25rem,0.5rem+12.2vw,13rem)] leading-[0.9] [&>span]:text-[1em]" />
-        </p>
-        <div className="mt-8 grid gap-4 border-t border-ink/20 pt-8 text-[0.8125rem] text-ink md:grid-cols-12">
-          <p className="md:col-span-8">
-            <span className="label mr-3 text-[0.6875rem]">{t("footer.licences")}</span>
-            {site.licencesNote}
-          </p>
-          <p className="md:col-span-4 md:text-right">{t("footer.rights", { year })}</p>
-        </div>
+        <p className="mt-16 border-t border-ink/20 pt-8 text-[0.8125rem] text-ink">{t("footer.rights", { year })}</p>
       </div>
     </footer>
   );
