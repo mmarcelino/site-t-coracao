@@ -77,8 +77,8 @@ export function Header() {
             <Link href="/" aria-label={t("nav.home")} className="shrink-0">
               <Wordmark />
             </Link>
-            {/* Desktop: the key links, always visible. */}
-            <nav aria-label={t("nav.label")} className="hidden lg:block">
+            {/* Desktop: the key links, grouped on the right with the icons (logo left, everything else right). */}
+            <nav aria-label={t("nav.label")} className="hidden lg:mr-10 lg:ml-auto lg:block">
               <ul className="flex items-center gap-8">
                 {headerNav.map((item) => (
                   <li key={item.href}>

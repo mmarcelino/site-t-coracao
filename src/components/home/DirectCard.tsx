@@ -44,7 +44,7 @@ export async function DirectPerksLine({ className }: { className?: string }) {
   const t = await getTranslations("home");
   const perks = [t("directCardPerk1"), t("directCardPerk2"), t("directCardPerk3")];
   return (
-    <p className={`text-center text-[0.8125rem] text-paper md:text-right ${className ?? ""}`}>
+    <p className={`text-[0.8125rem] text-paper ${className ?? ""}`}>
       <span className="sr-only">{t("directCardTitle")}: </span>
       {perks.join(" · ")}
     </p>
