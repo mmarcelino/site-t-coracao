@@ -9,33 +9,32 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * AL licence numbers live on each apartment page, not here.
+ * Branch ahotels: an ink panel inside the page margins (same curve as the yellow book-direct
+ * panel), led by one big WhatsApp invitation. AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
+  const heading = "label mb-5 text-paper/60";
 
   return (
-    <footer className="bg-cork text-ink">
-      <div className="container-page section-y-tight">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <p className="text-lead max-w-md">{t("footer.tagline")}</p>
-            <WhatsAppLink
-              message={t("whatsapp.messageGeneric")}
-              page="footer"
-              className="inline-flex text-lead mt-8 font-semibold transition-colors hover:text-azulejo"
-            >
-              {t("footer.whatsapp")}
-            </WhatsAppLink>
-            <div className="mt-8 flex items-center gap-4">
-              <span className="label text-ink">{t("language.label")}</span>
-              <LanguageSwitcher />
-            </div>
-          </div>
+    <footer className="container-page pb-[var(--gutter)]">
+      <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(3rem,6vw,5rem)] pb-8 text-paper">
+        <WhatsAppLink
+          message={t("whatsapp.messageGeneric")}
+          page="footer"
+          icon={false}
+          className="group inline-flex items-center gap-5 text-h1 font-semibold"
+        >
+          {t("whatsapp.short")}
+          <span className="grid size-[0.9em] place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+            <Icon name="whatsapp" size={28} strokeWidth={1.5} />
+          </span>
+        </WhatsAppLink>
 
-          <div className="md:col-span-3">
-            <h2 className="label mb-5 text-ink">{t("footer.contact")}</h2>
+        <div className="mt-[clamp(3rem,6vw,5rem)] grid gap-10 border-t border-paper/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <h2 className={heading}>{t("footer.contact")}</h2>
             <address className="text-small space-y-3 not-italic">
               <p>
                 {site.address.street}
@@ -53,27 +52,14 @@ export async function Footer() {
                 </a>
               </p>
             </address>
-            <h2 className="label mt-8 mb-4 text-ink">{t("footer.social")}</h2>
-            <ul className="flex gap-4">
-              <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="block p-1 -m-1 opacity-80 hover:opacity-100">
-                  <Icon name="instagram" size={22} title="Instagram" />
-                </a>
-              </li>
-              <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="block p-1 -m-1 opacity-80 hover:opacity-100">
-                  <Icon name="facebook" size={22} title="Facebook" />
-                </a>
-              </li>
-            </ul>
           </div>
 
-          <nav aria-label={t("footer.explore")} className="md:col-span-2">
-            <h2 className="label mb-5 text-ink">{t("footer.explore")}</h2>
+          <nav aria-label={t("footer.explore")}>
+            <h2 className={heading}>{t("footer.explore")}</h2>
             <ul className="text-small space-y-3">
               {footerNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="link-quiet">
+                  <Link href={item.href} className="transition-colors hover:text-pop">
                     {t(`nav.${item.key}`)}
                   </Link>
                 </li>
@@ -81,16 +67,16 @@ export async function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label={t("footer.legal")} className="md:col-span-2">
-            <h2 className="label mb-5 text-ink">{t("footer.legal")}</h2>
+          <nav aria-label={t("footer.legal")}>
+            <h2 className={heading}>{t("footer.legal")}</h2>
             <ul className="text-small space-y-3">
               <li>
-                <Link href="/terms" className="link-quiet">
+                <Link href="/terms" className="transition-colors hover:text-pop">
                   {t("footer.terms")}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="link-quiet">
+                <Link href="/privacy" className="transition-colors hover:text-pop">
                   {t("footer.privacy")}
                 </Link>
               </li>
@@ -98,19 +84,57 @@ export async function Footer() {
                 {/* One cookie entry: reopens the consent choices, which link to the cookie policy. */}
                 <CookiePreferencesButton
                   label={t("footer.cookies")}
-                  className="link-quiet cursor-pointer text-left"
+                  className="cursor-pointer text-left transition-colors hover:text-pop"
                 />
               </li>
               <li>
-                <a href={site.complaintsBookUrl} target="_blank" rel="noopener noreferrer" className="link-quiet" lang="pt">
+                <a
+                  href={site.complaintsBookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-pop"
+                  lang="pt"
+                >
                   {t("footer.complaintsBook")}
                 </a>
               </li>
             </ul>
           </nav>
+
+          <div>
+            <h2 className={heading}>{t("footer.social")}</h2>
+            <ul className="flex gap-3">
+              <li>
+                <a
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
+                >
+                  <Icon name="instagram" size={20} title="Instagram" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={site.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
+                >
+                  <Icon name="facebook" size={20} title="Facebook" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <p className="mt-16 border-t border-ink/20 pt-8 text-[0.8125rem] text-ink">{t("footer.rights", { year })}</p>
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 text-[0.8125rem] text-paper/60">
+          <p>{t("footer.rights", { year })}</p>
+          <div className="flex items-center gap-3">
+            <span className="label">{t("language.label")}</span>
+            <LanguageSwitcher tone="light" />
+          </div>
+        </div>
       </div>
     </footer>
   );

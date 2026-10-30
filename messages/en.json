@@ -51,7 +51,6 @@
     "messageDates": "Hello! I'm looking at {listing} ({building}) from {checkIn} to {checkOut} and have a question."
   },
   "footer": {
-    "tagline": "Boutique apartments with Porto at heart, in restored historic buildings from the city centre to the sea. Since 2015.",
     "contact": "Contact",
     "explore": "Explore",
     "company": "Company",
@@ -61,8 +60,7 @@
     "cookies": "Cookies",
     "complaintsBook": "Complaints Book (Livro de Reclamações)",
     "social": "Social",
-    "rights": "© {year} Tripas-Coração. All rights reserved.",
-    "whatsapp": "Talk to our team from 10 am to 10 pm"
+    "rights": "© {year} Tripas-Coração. All rights reserved."
   },
   "consent": {
     "title": "Cookies, plainly",

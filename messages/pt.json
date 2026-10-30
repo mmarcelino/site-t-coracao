@@ -51,7 +51,6 @@
     "messageDates": "Olá! Estou a ver o apartamento {listing} ({building}) de {checkIn} a {checkOut} e tenho uma pergunta."
   },
   "footer": {
-    "tagline": "Apartamentos boutique com o Porto no coração, em edifícios históricos restaurados do centro do Porto à Foz. Desde 2015.",
     "contact": "Contactos",
     "explore": "Explorar",
     "company": "Empresa",
@@ -61,8 +60,7 @@
     "cookies": "Cookies",
     "complaintsBook": "Livro de Reclamações",
     "social": "Redes sociais",
-    "rights": "© {year} Tripas-Coração. Todos os direitos reservados.",
-    "whatsapp": "Fale com a nossa equipa das 10h às 22h"
+    "rights": "© {year} Tripas-Coração. Todos os direitos reservados."
   },
   "consent": {
     "title": "Cookies, com transparência",
