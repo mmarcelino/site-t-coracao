@@ -384,8 +384,8 @@
 }
 @media (min-width: 768px) {
   :root {
-    /* Tall enough that the booking box (~4.6rem) clears the band's top line with room to spare. */
-    --hero-band-h: 7.5rem;
+    /* The slim booking box (~3.9rem on desktop) sits in it with ~1rem clear above and below. */
+    --hero-band-h: 6rem;
   }
 }
 
