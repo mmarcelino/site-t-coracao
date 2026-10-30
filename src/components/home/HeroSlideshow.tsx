@@ -1,10 +1,7 @@
 "use client";
 
-import clsx from "clsx";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { Icon } from "@/components/ui/Icon";
 
 export interface HeroSlide {
   key: string;
@@ -46,7 +43,17 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true);
   }, []);
 
-  const running = !paused && slides.length > 1;
+  // No visible control on this branch: it pauses while the booking box ([data-pause-slideshow]) is
+  // hovered/focused, while the tab is hidden, and starts paused for reduced motion.
+  // Known WCAG 2.2.2 gap (CLAUDE.md §15): an explicit pause control is expected before launch.
+  const [engaged, setEngaged] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  useEffect(() => {
+    const onVisibility = () => setHidden(document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+  const running = !paused && !engaged && !hidden && slides.length > 1;
 
   // The timer drives the slides (lines are only visual); pausing mid-way resumes where it left off.
   const elapsed = useRef(0);
@@ -71,7 +78,20 @@ export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; child
     go: setIndex,
     togglePause: () => setPaused((p) => !p),
   };
-  return <SlideshowContext.Provider value={value}>{children}</SlideshowContext.Provider>;
+  const inBookingBox = (e: { target: EventTarget }) => Boolean((e.target as Element).closest("[data-pause-slideshow]"));
+  return (
+    <SlideshowContext.Provider value={value}>
+      <div
+        className="contents"
+        onPointerOver={(e) => setEngaged(inBookingBox(e))}
+        onPointerLeave={() => setEngaged(false)}
+        onFocus={(e) => setEngaged(inBookingBox(e))}
+        onBlur={() => setEngaged(false)}
+      >
+        {children}
+      </div>
+    </SlideshowContext.Provider>
+  );
 }
 
 /**
@@ -116,37 +136,3 @@ export function HeroSlideshowBackground() {
   );
 }
 
-/**
- * One static, full-bleed hairline across the bottom of the hero.
- * Clicking the line pauses/resumes the slideshow.
- */
-export function HeroSlideshowLines({ className }: { className?: string }) {
-  const t = useTranslations("home");
-  const { paused, togglePause } = useSlideshow();
-  return (
-    <div className={clsx("flex items-end gap-4", className)} role="group" aria-label={t("slidesLabel")}>
-      <div className="min-w-0 flex-1">
-        {/* Static full-bleed hairline (like the header's). It doubles as the pause control
-            (WCAG 2.2.2): click/tap to pause or resume; a small mark shows on hover/focus. */}
-        <button
-          type="button"
-          onClick={togglePause}
-          aria-label={paused ? t("featuredPlay") : t("featuredPause")}
-          aria-pressed={paused}
-          className="group/line relative flex h-6 w-full items-center justify-end"
-        >
-          <span aria-hidden className="pointer-events-none absolute top-1/2 left-[calc(50%-50vw)] h-[2px] w-screen -translate-y-1/2 bg-paper" />
-          <Icon
-            name={paused ? "play" : "pause"}
-            size={12}
-            strokeWidth={1.75}
-            className={clsx(
-              "relative -translate-y-3 text-paper transition-opacity",
-              paused ? "opacity-100" : "opacity-0 group-hover/line:opacity-100 group-focus-visible/line:opacity-100",
-            )}
-          />
-        </button>
-      </div>
-    </div>
-  );
-}

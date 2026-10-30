@@ -38,7 +38,6 @@
 
   /* Type */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
   /* Branch ahotels: all copy in Hanken Grotesk (display and caps roles kept as tokens). */
   --font-display: var(--font-sans);
   --font-condensed: var(--font-sans);

@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import {
   HeroSlideshow,
   HeroSlideshowBackground,
-  HeroSlideshowLines,
   type HeroSlide,
 } from "./HeroSlideshow";
 import { DirectCard, DirectPerksLine, type HeroRating } from "./DirectCard";
@@ -50,22 +49,16 @@ export async function Hero({
           </div>
         </div>
 
-        {/* Collection lines, then one row in one material: why book direct (wide screens) + booking. */}
-        {/* Bottom band: same height as the header bar over the hero (--hero-band-h), with the hairline as
-            its top edge; book-direct caption (wide screens) + booking centred inside it. */}
+        {/* Bottom band: same height as the header bar over the hero (--hero-band-h); book-direct
+            caption (wide screens) + booking centred inside it. */}
         <div className="absolute inset-x-0 bottom-0 z-10 md:h-[var(--hero-band-h)]">
-          <div className="absolute inset-x-0 top-0 -translate-y-1/2">
-            <div className="container-page">
-              <HeroSlideshowLines />
-            </div>
-          </div>
           <div className="container-page flex h-full items-center justify-between gap-4 py-5 md:py-0">
             <div className="hidden xl:block">
               <DirectCard rating={rating} />
             </div>
             {/* Laptops/large tablets: the promise as a short line on the left of the band. */}
             <DirectPerksLine className="hidden max-w-[22rem] lg:block lg:text-left xl:hidden" />
-            <div className="w-full md:ml-auto md:w-auto">
+            <div className="w-full md:ml-auto md:w-auto" data-pause-slideshow>
               <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
               {/* Book-direct promise for phones/tablets (wide screens get the caption). */}
               <DirectPerksLine className="mt-3 md:hidden" />

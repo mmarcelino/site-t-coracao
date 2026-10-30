@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Hanken_Grotesk, Instrument_Serif } from "next/font/google";
+import { Barlow_Condensed, Hanken_Grotesk } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { locale as rootLocale } from "next/root-params";
@@ -20,15 +20,6 @@ const hanken = Hanken_Grotesk({
   subsets: ["latin", "latin-ext"],
   style: ["normal", "italic"],
   variable: "--font-hanken",
-  display: "swap",
-});
-
-// Editorial serif (OFL): italic accents in display type only.
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin", "latin-ext"],
-  weight: "400",
-  style: "italic",
-  variable: "--font-instrument",
   display: "swap",
 });
 
@@ -68,7 +59,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   return (
     // suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, password managers…)
     // inject attributes on <html>/<body>. It only ignores attribute diffs on these two elements.
-    <html lang={locale === "pt" ? "pt-PT" : "en"} className={`${hanken.variable} ${instrumentSerif.variable} ${barlowCondensed.variable}`} suppressHydrationWarning>
+    <html lang={locale === "pt" ? "pt-PT" : "en"} className={`${hanken.variable} ${barlowCondensed.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh" suppressHydrationWarning>
         <NextIntlClientProvider>
           <ConsentProvider>
