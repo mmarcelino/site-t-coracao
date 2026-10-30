@@ -35,10 +35,10 @@ export async function Hero({
         <div className="absolute inset-0 bg-ink/35" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_40%,rgba(27,26,24,0)_60%,rgba(27,26,24,0.6)_100%)]" />
 
-        {/* Headline + subline in the lower half, sitting a fixed distance above the bottom band (md
-            up); on phones they sit under the header, above the booking card. */}
-        <div className="absolute inset-x-0 top-0 md:top-auto md:bottom-[calc(var(--hero-band-h)+clamp(2.5rem,7vh,4.5rem))]">
-          <div className="container-page pt-[calc(var(--header-h)+clamp(1.5rem,7vh,4rem))] md:pt-0">
+        {/* Headline + subline centred vertically between the header and the bottom band (md up), so
+            the bottom of the hero stays calm; on phones they sit under the header. */}
+        <div className="absolute inset-x-0 top-0 md:inset-y-[var(--hero-band-h)] md:flex md:items-center">
+          <div className="container-page w-full pt-[calc(var(--header-h)+clamp(1.5rem,7vh,4rem))] md:pt-0">
             {/* Grotesk + italic serif: modern structure, warmth on the brand line. */}
             <h1
               id="hero-title"
@@ -48,7 +48,7 @@ export async function Hero({
               <span className="block font-medium italic">{t("heroTitleAccent")}</span>
             </h1>
             {/* What this is, in plain words: apartments to book and stay in. */}
-            <p className="animate-fade-in mt-5 max-w-xl text-lead text-paper/90">{t("heroSub")}</p>
+            <p className="animate-fade-in mt-5 max-w-[34rem] text-lead text-paper/90">{t("heroSub")}</p>
           </div>
         </div>
 

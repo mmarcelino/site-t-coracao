@@ -101,7 +101,7 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-3 sm:gap-5">
-              {/* WhatsApp concierge: icon + label on desktop, icon only on smaller screens. */}
+              {/* WhatsApp concierge: icon only (named for screen readers). */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
@@ -109,8 +109,7 @@ export function Header() {
                 className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
                 <Icon name="whatsapp" size={24} strokeWidth={1.4} />
-                <span className="nav-type hidden text-[1.125rem] whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
-                <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
+                <span className="sr-only">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
               <LanguageSwitcher className="hidden lg:flex [&_button]:nav-type [&_button]:text-[1.125rem]" tone={light ? "light" : "dark"} />
               <button
