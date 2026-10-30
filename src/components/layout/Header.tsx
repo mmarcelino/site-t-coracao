@@ -81,11 +81,8 @@ export function Header() {
                       className={clsx(
                         "text-base font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
                         item.href === highlightedNav
-                          ? clsx(
-                              // Outlined pill; 2px, the same weight as the rule above "Book direct" in the hero.
-                              "rounded-full border-2 px-4 py-1",
-                              light ? "border-paper hover:bg-paper hover:text-ink" : "border-ink hover:bg-ink hover:text-paper",
-                            )
+                          ? // Underlined (2px, the same weight as the rule above "Book direct" in the hero).
+                            "py-2 underline decoration-2 underline-offset-[6px] hover:opacity-70"
                           : "py-2 hover:opacity-70",
                       )}
                     >
