@@ -135,7 +135,7 @@ export function HeroSlideshowLines({ className }: { className?: string }) {
           aria-pressed={paused}
           className="group/line relative flex h-6 w-full items-center justify-end"
         >
-          <span aria-hidden className="pointer-events-none absolute top-1/2 left-[calc(50%-50vw)] h-[2px] w-screen -translate-y-1/2 bg-paper/70" />
+          <span aria-hidden className="pointer-events-none absolute top-1/2 left-[calc(50%-50vw)] h-[2px] w-screen -translate-y-1/2 bg-paper" />
           <Icon
             name={paused ? "play" : "pause"}
             size={12}
