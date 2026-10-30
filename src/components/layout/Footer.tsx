@@ -132,7 +132,8 @@ export async function Footer() {
           <p>{t("footer.rights", { year })}</p>
           <div className="flex items-center gap-3">
             <span className="label">{t("language.label")}</span>
-            <LanguageSwitcher tone="light" />
+            {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
+            <LanguageSwitcher tone="light" className="text-paper" />
           </div>
         </div>
       </div>
