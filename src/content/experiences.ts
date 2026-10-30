@@ -3,8 +3,8 @@ import type { Localized } from "@/lib/data/types";
 /**
  * Partner experiences, carried over from tripas-coracao.pt/pt/experiences-your-guest-portal
  * (CLAUDE.md §9). Prices are "from" prices as published there. Durations are not published
- * on the current site: `duration: null` until the client confirms. Images: only one placeholder
- * exists today; per-experience photography TO CONFIRM.
+ * on the current site: `duration: null` until the client confirms. Images: placeholders from the
+ * same page (see SOURCES.md) for the tours shown on the home page; the rest TO CONFIRM.
  */
 export interface Experience {
   id: string;
@@ -14,6 +14,7 @@ export interface Experience {
   duration: Localized | null;
   title: Localized;
   summary: Localized;
+  image?: { src: string; alt: Localized };
 }
 
 export const experiences: Experience[] = [
@@ -28,6 +29,10 @@ export const experiences: Experience[] = [
       pt: "Tascas, mercados e pastelarias pelo centro, com a Helena a contar a cidade pelo que se come.",
       en: "Taverns, markets and pastry shops through the centre, with Helena telling the city through its food.",
     },
+    image: {
+      src: "/images/placeholder/exp-food-walk.jpg",
+      alt: { pt: "Quatro pessoas a partilhar petiscos numa rua do Porto", en: "Four people sharing food on a street in Porto" },
+    },
   },
   {
     id: "douro-boat",
@@ -39,6 +44,10 @@ export const experiences: Experience[] = [
     summary: {
       pt: "As seis pontes vistas do rio, só para si, com o Capitão Paulo ao leme.",
       en: "The six bridges from the water, just for you, with Captain Paulo at the helm.",
+    },
+    image: {
+      src: "/images/placeholder/exp-douro-boat.jpg",
+      alt: { pt: "Passageiro de braços abertos num barco no Douro, com a Ponte Luís I ao fundo", en: "A passenger with arms outstretched on a boat on the Douro, the Luís I Bridge behind" },
     },
   },
   {
@@ -52,6 +61,10 @@ export const experiences: Experience[] = [
       pt: "Cozinhar e sentar à mesa: receitas de casa, aprendidas com quem as faz há anos.",
       en: "Cook, then sit down to eat: home recipes, learned from someone who has made them for years.",
     },
+    image: {
+      src: "/images/placeholder/exp-cooking-class.jpg",
+      alt: { pt: "A Helena a preparar peixe numa cozinha, com legumes e fruta na bancada", en: "Helena preparing fish in a kitchen, with vegetables and fruit on the counter" },
+    },
   },
   {
     id: "yacht",
@@ -63,6 +76,10 @@ export const experiences: Experience[] = [
     summary: {
       pt: "O Douro e a foz num iate só para o seu grupo.",
       en: "The Douro and its mouth on a yacht reserved for your group.",
+    },
+    image: {
+      src: "/images/placeholder/exp-yacht.jpg",
+      alt: { pt: "Iate a navegar no rio Douro, no Porto", en: "A yacht cruising on the Douro river in Porto" },
     },
   },
   {
@@ -111,6 +128,10 @@ export const experiences: Experience[] = [
     summary: {
       pt: "Quintas, provas, almoço e um passeio de barco no vale onde nasce o vinho do Porto.",
       en: "Estates, tastings, lunch and a boat trip in the valley where port is born.",
+    },
+    image: {
+      src: "/images/placeholder/exp-douro-valley.jpg",
+      alt: { pt: "Socalcos de vinha no Vale do Douro, junto ao rio", en: "Terraced vineyards in the Douro Valley, beside the river" },
     },
   },
   {

@@ -13,7 +13,8 @@
  * azulejo-bright on white 6.3:1.
  */
 @theme {
-  --color-pop: #eee824; /* yellow accent: arrows */
+  /* Yellow accent (ink on it 13.4:1; never yellow text on light): panels, arrows, buttons below the hero. */
+  --color-pop: #eee824;
   /* Colour */
   /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
   --color-paper: #ffffff;
@@ -72,8 +73,9 @@
   --duration-slow: 1000ms;
 
   /* Shape */
-  --radius-card: 1.25rem;
-  --radius-tile: 0.75rem;
+  /* One curve for every surface below the hero; small controls fully round. */
+  --radius-card: 1rem;
+  --radius-tile: 1rem;
 }
 
 :root {
@@ -107,6 +109,13 @@
   h1, h2, h3, h4 {
     font-weight: 600;
     text-wrap: balance;
+  }
+
+  /* Small titles in caps, as on yellow-accent. */
+  h3 {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   p {
@@ -165,7 +174,7 @@
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Underlined text link with a calm hover */
@@ -384,6 +393,26 @@
 }
 @media (min-width: 768px) {
   :root {
-    --hero-band-h: 6rem;
+    /* Tall enough that the booking box (~4.6rem) clears the band's top line with room to spare. */
+    --hero-band-h: 7.5rem;
+  }
+}
+
+/* Photos below the hero: wipe up into view (as on yellow-accent). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-clip {
+      animation: clip-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+@keyframes clip-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }

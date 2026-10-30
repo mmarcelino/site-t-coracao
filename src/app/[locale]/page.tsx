@@ -49,7 +49,7 @@ export default async function HomePage() {
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
     getReviewSummary(locale),
-    getReviews(locale, { limit: 4 }),
+    getReviews(locale, { limit: 12 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
@@ -80,7 +80,6 @@ export default async function HomePage() {
         <ReviewsBlock
           overall={summary.bySource.google}
           reviews={reviews}
-          eyebrow={tr("eyebrow")}
           heading={tr("title")}
           headingId="reviews-title"
         />
@@ -90,7 +89,7 @@ export default async function HomePage() {
 
       <ExperiencesStrip />
 
-      <section aria-labelledby="faq-title" className="bg-sand">
+      <section aria-labelledby="faq-title">
         <div className="container-page section-y grid gap-12 lg:grid-cols-12">
           <h2 id="faq-title" className="text-h2 reveal lg:col-span-4">
             {t("faqTitle")}
