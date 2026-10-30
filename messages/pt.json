@@ -128,15 +128,15 @@
     "eyebrow": "O que dizem os hóspedes",
     "title": "Uma nota que se mantém, estadia após estadia.",
     "overall": "Nota média dos nossos apartamentos",
-    "basedOn": "{count} avaliações verificadas",
-    "outOf": "em 10",
+    "basedOn": "{count} avaliações",
+    "outOf": "em {max}",
     "source": {
       "google": "Google",
       "airbnb": "Airbnb",
       "booking": "Booking.com",
       "guesty": "Todas as plataformas"
     },
-    "mockNote": "Dados de demonstração: avaliações e totais por plataforma são fictícios até termos acesso às fontes reais.",
+    "mockNote": "Dados de demonstração: as citações e os totais do Airbnb e do Booking.com são fictícios até termos acesso às fontes reais. A nota do Google é real.",
     "listingTitle": "Avaliações",
     "listingScore": "{score} em 10 · {count} avaliações",
     "stayedAt": "{date}",
@@ -187,7 +187,7 @@
     "directCardPerk1": "Melhor preço",
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
-    "directCardRating": "{score} · {count} avaliações",
+    "directCardRating": "{score} · {count} avaliações no Google",
     "heroSub": "Mais pessoal do que um hotel. Como em casa, só que melhor.",
     "how4Title": "Concierge no WhatsApp",
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h."

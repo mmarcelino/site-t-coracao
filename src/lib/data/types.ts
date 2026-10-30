@@ -128,8 +128,10 @@ export interface Money {
 
 export interface ReviewAggregate {
   source: ReviewSource | "guesty";
-  /** Normalised to a 0–10 scale (Booking.com style); Google/Airbnb 0–5 are doubled. */
+  /** On the source's own scale (see `outOf`), never converted: guests can check it at the source. */
   score: number;
+  /** Google and Airbnb rate out of 5; Booking.com and Guesty's aggregates out of 10. */
+  outOf: 5 | 10;
   count: number;
   /** True when the numbers are placeholders, not real client data. */
   mock: boolean;

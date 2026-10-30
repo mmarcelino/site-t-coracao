@@ -148,7 +148,7 @@ function toListing(raw: GuestyListing, content: ListingContent, locale: Locale):
     licence: raw.license,
     reviews:
       raw.reviews.avg !== null
-        ? { source: "guesty", score: raw.reviews.avg, count: raw.reviews.total, mock: false }
+        ? { source: "guesty", outOf: 10, score: raw.reviews.avg, count: raw.reviews.total, mock: false }
         : null,
   };
 }
