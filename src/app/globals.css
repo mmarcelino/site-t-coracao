@@ -77,8 +77,9 @@
   --duration-slow: 1000ms;
 
   /* Shape */
-  --radius-card: 1.25rem;
-  --radius-tile: 0.75rem;
+  /* Branch ahotels: square cards and tiles (hard edges, ink rules); pills stay on controls. */
+  --radius-card: 0;
+  --radius-tile: 0;
 }
 
 :root {

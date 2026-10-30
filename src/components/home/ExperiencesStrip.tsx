@@ -7,8 +7,8 @@ import { createFormatter } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
 const featured = ["douro-valley", "food-walk", "douro-boat", "cooking-class", "yacht"];
-// Colour tiles until each partner tour has its own photography (TO CONFIRM with the client).
-const tones = ["bg-ink text-paper", "bg-wash text-ink", "bg-sand text-ink", "bg-wash text-ink", "bg-ink text-paper"];
+// Ink and outlined tiles until each partner tour has its own photography (TO CONFIRM with the client).
+const tones = ["bg-ink text-paper", "text-ink", "bg-ink text-paper", "text-ink", "bg-ink text-paper"];
 
 /** A horizontal strip of partner tours: positions the team as hosts, not just landlords. */
 export async function ExperiencesStrip() {
@@ -36,9 +36,9 @@ export async function ExperiencesStrip() {
           <li key={item.id} className="w-[min(78vw,22rem)] shrink-0 snap-start">
             <article
               className={clsx(
-                "flex aspect-[4/5] flex-col justify-between rounded-[var(--radius-card)] p-6",
+                "flex aspect-[4/5] flex-col justify-between rounded-[var(--radius-card)] border-2 border-ink p-6",
                 tones[i % tones.length],
-                i % tones.length === 0 || i % tones.length === 4 ? "on-dark" : undefined,
+                i % 2 === 0 ? "on-dark" : undefined,
               )}
             >
               <p className="text-[0.8125rem] font-semibold opacity-80">
@@ -61,9 +61,14 @@ export async function ExperiencesStrip() {
         <li className="w-[min(78vw,22rem)] shrink-0 snap-start">
           <Link
             href="/experiences"
-            className="flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] border-2 border-ink p-6 transition-colors hover:bg-ink hover:text-paper"
+            className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
           >
-            <Icon name="arrowUpRight" size={40} strokeWidth={1.75} />
+            <Icon
+              name="arrowRight"
+              size={40}
+              strokeWidth={1.75}
+              className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
+            />
             <span className="text-h3 mt-4">{t("experiencesAll")}</span>
           </Link>
         </li>

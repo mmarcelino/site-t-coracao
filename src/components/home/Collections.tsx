@@ -35,7 +35,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
           className="reveal-clip object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-soft)] group-hover:scale-[1.04]"
         />
         <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0)_40%,rgba(27,26,24,0.75)_100%)]" />
-        <span className="absolute top-4 left-4 rounded-full bg-white/95 px-3 py-1.5 text-[0.8125rem] font-semibold text-ink">
+        <span className="label absolute top-0 left-0 bg-paper px-3 py-2 text-ink">
           {t("collectionCount", { count: count(c) })}
         </span>
         <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
@@ -66,7 +66,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
           <li className="reveal lg:col-span-8">
             <Link
               href={href(wide)}
-              className="group grid h-full overflow-hidden rounded-[var(--radius-card)] bg-wash sm:grid-cols-[1.15fr_1fr]"
+              className="group grid h-full overflow-hidden rounded-[var(--radius-card)] border-2 border-ink sm:grid-cols-[1.15fr_1fr]"
             >
               <span className="flex flex-col justify-between gap-6 p-6 md:p-8">
                 <span className="label text-ink-soft-text">{t("collectionCount", { count: count(wide) })}</span>
