@@ -130,7 +130,7 @@ export function Header() {
           <div
             aria-hidden
             className={clsx(
-              "absolute bottom-0 left-[calc(50%-50vw)] h-px w-screen",
+              "absolute bottom-0 left-[calc(50%-50vw)] h-[2px] w-screen",
               light ? "bg-paper/70" : "bg-ink/15",
             )}
           />
