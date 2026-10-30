@@ -121,7 +121,7 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="inline-flex h-14 items-center justify-center gap-3 bg-pop px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:bg-ink hover:text-pop md:ml-1 md:size-14 md:rounded-full md:px-0"
+          className="inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:size-14 md:rounded-full md:px-0"
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
           {/* Full label on phones (full-width block); icon only in the round button from md up. */}
