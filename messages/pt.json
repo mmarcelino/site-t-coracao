@@ -141,7 +141,8 @@
     "listingScore": "{score} em 10 · {count} avaliações",
     "stayedAt": "{date}",
     "prev": "Avaliações anteriores",
-    "next": "Mais avaliações"
+    "next": "Mais avaliações",
+    "airbnbBadges": "Superhost · Preferido dos hóspedes"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",
@@ -187,7 +188,7 @@
     "directCardPerk1": "Melhor preço",
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
-    "directCardRating": "{score} · {count} avaliações no Google",
+    "directCardRating": "{score} no Google · mais de {count} avaliações · Superhost no Airbnb",
     "heroSub": "Mais pessoal do que um hotel. Como em casa, só que melhor.",
     "how4Title": "Concierge no WhatsApp",
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h."
