@@ -18,7 +18,7 @@ import "../globals.css";
 // Self-hosted at build time by next/font (no runtime request to Google).
 const hanken = Hanken_Grotesk({
   subsets: ["latin", "latin-ext"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   variable: "--font-hanken",
   display: "swap",
 });

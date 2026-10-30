@@ -45,7 +45,7 @@ export async function Hero({
               className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.92] font-semibold tracking-[-0.03em]"
             >
               <span className="block">{t("heroTitleLead")}</span>{" "}
-              <span className="block font-medium italic">{t("heroTitleAccent")}</span>
+              <span className="block">{t("heroTitleAccent")}</span>
             </h1>
             {/* What this is, in plain words: apartments to book and stay in. */}
             <p className="animate-fade-in mt-5 max-w-[48rem] text-lead text-paper">{t("heroSub")}</p>
