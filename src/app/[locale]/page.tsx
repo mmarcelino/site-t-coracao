@@ -82,17 +82,18 @@ export default async function HomePage() {
 
       <section aria-labelledby="faq-title" className="bg-sand">
         <div className="container-page section-y grid gap-12 lg:grid-cols-12">
-          <div className="reveal lg:col-span-4">
-            <h2 id="faq-title" className="text-h2">
-              {t("faqTitle")}
-            </h2>
-            <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-2 font-semibold hover:text-azulejo-bright">
-              <Icon name="arrowUpRight" size={22} />
-              {t("faqCta")}
-            </Link>
-          </div>
+          <h2 id="faq-title" className="text-h2 reveal lg:col-span-4">
+            {t("faqTitle")}
+          </h2>
           <div className="lg:col-span-8">
             <FaqList items={faqFor("home")} locale={locale} />
+            {/* The way on, after the last question. */}
+            <Link href="/faq" className="group mt-8 inline-flex items-center gap-4 font-semibold">
+              {t("faqCta")}
+              <span className="grid size-10 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+                <Icon name="arrowRight" size={20} />
+              </span>
+            </Link>
           </div>
         </div>
       </section>

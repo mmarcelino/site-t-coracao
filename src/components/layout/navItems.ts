@@ -20,3 +20,13 @@ export const headerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"]
 
 /** Shown as an outlined pill in the header: the owners audience gets its own entry point. */
 export const highlightedNav: StaticPathname = "/property-management";
+
+/** Footer "Explore" column: the header's links plus the help pages. */
+export const footerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"] }> = [
+  { href: "/apartments", key: "apartments" },
+  { href: "/experiences", key: "experiences" },
+  { href: "/about", key: "about" },
+  { href: "/property-management", key: "owners" },
+  { href: "/faq", key: "faq" },
+  { href: "/contact", key: "contact" },
+];
