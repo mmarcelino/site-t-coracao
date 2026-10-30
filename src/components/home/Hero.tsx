@@ -46,6 +46,8 @@ export async function Hero({
               <span className="block">{t("heroTitleLead")}</span>{" "}
               <span className="block font-serif text-[1.08em] tracking-[-0.02em] italic">{t("heroTitleAccent")}</span>
             </h1>
+            {/* What this is, in one warm line (no room for it on phones in this layout). */}
+            <p className="animate-fade-in mt-5 hidden max-w-[48rem] text-lead text-paper md:block">{t("heroSub")}</p>
           </div>
         </div>
 
