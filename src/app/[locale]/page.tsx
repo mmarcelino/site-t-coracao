@@ -59,10 +59,12 @@ export default async function HomePage() {
       ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
       : [],
   );
+  // Hero: the Google rating, as shown on Google (whole business, checkable by guests).
+  const google = summary.bySource.google;
   const rating = {
-    score: format.number(summary.overall.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
-    count: format.number(summary.overall.count),
-    mock: summary.overall.mock,
+    score: format.number(google.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+    count: format.number(google.count),
+    mock: google.mock,
   };
 
   return (
@@ -79,6 +81,7 @@ export default async function HomePage() {
         {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
         <ReviewsBlock
           overall={summary.bySource.google}
+          bySource={summary.bySource}
           reviews={reviews}
           heading={tr("title")}
           headingId="reviews-title"

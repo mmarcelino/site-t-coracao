@@ -43,7 +43,7 @@ export async function ReviewsBlock({
             <Icon name="star" size={28} strokeWidth={1.25} className="mt-2" />
           </p>
           <p className="pb-2 text-small text-granite">
-            {t("outOf")}
+            {t("outOf", { max: overall.outOf })}
             <br />
             {t("basedOn", { count: format.number(overall.count) })}
           </p>
@@ -54,7 +54,10 @@ export async function ReviewsBlock({
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
               <li key={source}>
                 <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-2 text-h3 font-semibold tabular-nums">{score(bySource[source].score)}</p>
+                <p className="mt-2 text-h3 font-semibold tabular-nums">
+                  {score(bySource[source].score)}
+                  <span className="text-small font-normal text-granite">/{bySource[source].outOf}</span>
+                </p>
                 <p className="text-[0.75rem] text-granite">{format.number(bySource[source].count)}</p>
               </li>
             ))}
