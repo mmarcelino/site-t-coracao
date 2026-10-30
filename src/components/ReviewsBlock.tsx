@@ -5,8 +5,8 @@ import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Rating block + excerpts (CLAUDE.md §5 trust signals). Shows source, score, count; anything
- * flagged `mock` gets a visible "demo data" note so placeholders can't be mistaken for real.
+ * Rating block + excerpts (CLAUDE.md §5 trust signals). Shows source, score, count. Placeholders
+ * stay flagged `mock: true` in the data (no visible note, at the client's request).
  */
 export async function ReviewsBlock({
   overall,
@@ -24,10 +24,8 @@ export async function ReviewsBlock({
   headingId: string;
 }) {
   const t = await getTranslations("reviews");
-  const tc = await getTranslations("common");
   const format = createFormatter(await getLocale());
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const hasMock = overall.mock || reviews.some((r) => r.mock) || Object.values(bySource ?? {}).some((s) => s.mock);
 
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
@@ -91,12 +89,6 @@ export async function ReviewsBlock({
         </ReviewsScroller>
       </div>
 
-      {hasMock ? (
-        <p className="text-[0.8125rem] text-granite lg:col-span-12">
-          <span className="label mr-2 bg-pop px-1.5 py-0.5 text-ink">{tc("demo")}</span>
-          {t("mockNote")}
-        </p>
-      ) : null}
     </div>
   );
 }
