@@ -23,9 +23,9 @@ export async function HowItWorks() {
         <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-8">
           {steps.map((step, i) => (
             <li key={step.title} className="reveal border-t border-ink/20 pt-5">
-              <p className="flex items-center justify-between text-[0.8125rem] text-granite tabular-nums">
+              <p className="flex items-center justify-between text-[0.8125rem] text-azulejo tabular-nums">
                 {String(i + 1).padStart(2, "0")}
-                <span className="grid size-12 place-items-center rounded-full border border-ink/25 text-ink">
+                <span className="grid size-12 place-items-center rounded-full bg-wash text-ink">
                   <Icon name={step.icon} size={22} />
                 </span>
               </p>

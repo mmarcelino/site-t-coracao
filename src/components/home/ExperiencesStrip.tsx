@@ -64,7 +64,7 @@ export async function ExperiencesStrip() {
         <li className="w-[min(78vw,22rem)] shrink-0 snap-start">
           <Link
             href="/experiences"
-            className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] border border-ink/20 p-6 text-ink transition-colors hover:border-ink"
+            className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] bg-wash p-6 text-ink"
           >
             <Icon
               name="arrowRight"
