@@ -50,7 +50,7 @@ export async function Hero({
             {/* What this is, in plain words: apartments to book and stay in. */}
             <p className="animate-fade-in mt-5 max-w-[48rem] text-lead text-paper">{t("heroSub")}</p>
 
-            <div className="mt-10 flex flex-col gap-4 md:mt-16 lg:flex-row lg:items-end lg:justify-between">
+            <div className="mt-9 flex flex-col gap-4 md:mt-13 lg:flex-row lg:items-end lg:justify-between">
               <div className="w-full md:w-max" data-pause-slideshow>
                 <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
               </div>
