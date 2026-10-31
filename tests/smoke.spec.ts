@@ -123,7 +123,7 @@ test("consent banner: accept hides it and can be reopened from the footer", asyn
   await expect(banner).toBeHidden();
   const cookies = await page.context().cookies();
   expect(cookies.find((c) => c.name === "tc_consent")?.value).toBe("granted");
-  await page.getByRole("button", { name: "Cookie preferences" }).click();
+  await page.getByRole("button", { name: "Cookies", exact: true }).click();
   await expect(page.getByTestId("consent-banner")).toBeVisible();
 });
 

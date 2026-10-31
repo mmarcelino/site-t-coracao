@@ -2,8 +2,7 @@
 
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
-import type { DateRange } from "react-day-picker";
+import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { track } from "@/lib/analytics";
 import { localDateToISO } from "@/lib/dates";
@@ -12,21 +11,27 @@ import { DateRangeCalendar } from "@/components/booking/DateRangeCalendar";
 import { GuestsStepper } from "@/components/booking/GuestsStepper";
 import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
+import { useSearchState } from "./SearchState";
 
 /** Hero search: dates + guests → apartments list. The one primary action on the home page. */
 export function SearchBar({
   maxGuests,
   calendarPlacement = "bottom",
+  docked = false,
+  testId = "hero-search",
 }: {
   maxGuests: number;
   /** "top" when the bar sits at the bottom of a clipped area (the hero). */
   calendarPlacement?: "top" | "bottom";
+  /** The slim copy docked at the top of the screen once the hero has scrolled away. */
+  docked?: boolean;
+  testId?: string;
 }) {
   const t = useTranslations("search");
   const format = useFormat();
   const router = useRouter();
-  const [range, setRange] = useState<DateRange | undefined>();
-  const [guests, setGuests] = useState(2);
+  const { range, setRange, guests, setGuests } = useSearchState();
+  const calendarId = useId();
   const [open, setOpen] = useState(false);
   const [months, setMonths] = useState<1 | 2>(1);
   const wrapper = useRef<HTMLDivElement>(null);
@@ -71,9 +76,13 @@ export function SearchBar({
   }
 
   // A pill bar, flush fields with thin ink dividers, ending in a round search button (md up).
-  const field = "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:h-14 md:w-auto md:py-0 hd:h-16 hd:px-6";
-  const fieldLabel = "block text-[0.75rem] leading-tight text-granite hd:text-[0.8125rem]";
-  const fieldValue = "mt-1 block text-[0.9375rem] leading-tight font-medium text-ink hd:text-[1.0625rem]";
+  // The docked copy stays slim at every width (no larger "hd" sizes).
+  const field = clsx(
+    "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:w-auto md:py-0",
+    docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:h-16 hd:px-6",
+  );
+  const fieldLabel = clsx("block text-[0.75rem] leading-tight text-granite", !docked && "hd:text-[0.8125rem]");
+  const fieldValue = clsx("mt-1 block text-[0.9375rem] leading-tight font-medium text-ink", !docked && "hd:text-[1.0625rem]");
 
   return (
     <form
@@ -81,18 +90,21 @@ export function SearchBar({
       aria-label={t("label")}
       onSubmit={submit}
       className="relative w-full"
-      data-testid="hero-search"
+      data-testid={testId}
     >
       {/* Solid white bar: the one interactive object at the bottom of the hero. */}
       <div
         ref={wrapper}
-        className="grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] hd:grid-cols-[11.5rem_11.5rem_15rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3"
+        className={clsx(
+          "grid grid-cols-1 rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3",
+          docked ? "border border-ink/15 md:p-1.5" : "overflow-hidden hd:grid-cols-[11.5rem_11.5rem_15rem_auto]",
+        )}
       >
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          aria-controls="search-calendar"
+          aria-controls={calendarId}
           className={field}
         >
           <span className={fieldLabel}>{t("arrive")}</span>
@@ -104,7 +116,7 @@ export function SearchBar({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          aria-controls="search-calendar"
+          aria-controls={calendarId}
           className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}
         >
           <span className={fieldLabel}>{t("depart")}</span>
@@ -121,7 +133,10 @@ export function SearchBar({
         <button
           type="submit"
           aria-label={t("submit")}
-          className="inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:size-14 md:rounded-full md:px-0 hd:size-16"
+          className={clsx(
+            "inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:rounded-full md:px-0",
+            docked ? "md:size-11" : "md:size-14 hd:size-16",
+          )}
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
           {/* Full label on phones (full-width block); icon only in the round button from md up. */}
@@ -130,7 +145,7 @@ export function SearchBar({
 
         {open ? (
           <div
-            id="search-calendar"
+            id={calendarId}
             role="group"
             aria-label={t("calendarLabel")}
             className={clsx(

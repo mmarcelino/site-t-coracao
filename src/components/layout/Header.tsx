@@ -10,25 +10,25 @@ import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
 import { headerNav, primaryNav } from "./navItems";
+import { OPEN_MENU_EVENT } from "@/components/home/DockedSearch";
 
 /**
- * Sticky header. Over the home hero it starts transparent with light text and turns solid
- * once the page scrolls; everywhere else it is solid. Mobile gets a full-screen menu.
+ * Header. On the home page it sits transparent over the hero and scrolls away with it (the booking
+ * bar docks instead, see DockedSearch); everywhere else it is solid and sticky. The full-screen
+ * menu opens from the hamburger (phones) or from the docked bar (any width).
  */
 export function Header() {
   const t = useTranslations();
   const pathname = usePathname();
   const overlay = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const open = () => setMenuOpen(true);
+    window.addEventListener(OPEN_MENU_EVENT, open);
+    return () => window.removeEventListener(OPEN_MENU_EVENT, open);
   }, []);
 
   // Close the menu on navigation (render-time sync with the current path).
@@ -52,7 +52,7 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const light = overlay && !scrolled;
+  const light = overlay;
 
   return (
     <>
@@ -61,7 +61,8 @@ export function Header() {
           white once the page scrolls. */}
       <header
         className={clsx(
-          "sticky top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
+          "top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
+          overlay ? "relative" : "sticky",
           light ? "on-dark text-paper" : "bg-paper/95 text-ink backdrop-blur-md",
         )}
       >
@@ -128,7 +129,7 @@ export function Header() {
           role="dialog"
           aria-modal="true"
           aria-label={t("nav.label")}
-          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper lg:hidden"
+          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper"
         >
           <div className="container-page flex h-[var(--header-h)] shrink-0 flex-col">
             <div className="flex flex-1 items-center justify-between">

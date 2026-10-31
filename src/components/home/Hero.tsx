@@ -5,7 +5,9 @@ import {
   type HeroSlide,
 } from "./HeroSlideshow";
 import { DirectCard, DirectPerksLine, type HeroRating } from "./DirectCard";
+import { DockedSearch } from "./DockedSearch";
 import { SearchBar } from "./SearchBar";
+import { SearchStateProvider } from "./SearchState";
 
 /**
  * Editorial hero: a slideshow of homes behind one text stack at the bottom-left (headline, subline,
@@ -22,6 +24,7 @@ export async function Hero({
 }) {
   const t = await getTranslations("home");
   return (
+    <SearchStateProvider>
     <section
       aria-labelledby="hero-title"
       className="on-dark relative -mt-[var(--header-h)] h-[100svh] min-h-[36rem] overflow-hidden bg-ink text-paper"
@@ -65,5 +68,8 @@ export async function Hero({
         </div>
       </HeroSlideshow>
     </section>
+    {/* Booking stays in reach after the hero (shares dates and guests with the bar above). */}
+    <DockedSearch maxGuests={maxGuests} />
+    </SearchStateProvider>
   );
 }
