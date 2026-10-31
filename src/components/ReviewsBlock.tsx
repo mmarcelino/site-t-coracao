@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Icon } from "@/components/ui/Icon";
 import { ReviewQuote } from "@/components/ReviewQuote";
+import { SourceIcon } from "@/components/SourceIcon";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
@@ -56,7 +57,7 @@ export async function ReviewsBlock({
           <ul className="mt-8 grid grid-cols-3 gap-4">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
               <li key={source}>
-                <p className="label text-granite">{t(`source.${source}`)}</p>
+                <SourceIcon source={source} label={t(`source.${source}`)} size={20} className="h-5 text-ink" />
                 <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
                   {score(bySource[source].score)}
                 </p>
@@ -75,7 +76,8 @@ export async function ReviewsBlock({
               <figure>
                 <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
                 <figcaption className="label mt-6 text-ink">
-                  {review.author} · {t(`source.${review.source}`)} ·{" "}
+                  <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
+                  {review.author} ·{" "}
                   {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
                 </figcaption>
               </figure>
