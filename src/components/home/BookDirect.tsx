@@ -26,7 +26,7 @@ export async function BookDirect() {
   return (
     <section aria-labelledby="direct-title" className="container-page">
       <div className="rounded-[var(--radius-card)] bg-pop px-[var(--gutter)] py-[clamp(3rem,6vw,6rem)] text-ink">
-        <h2 id="direct-title" className="text-h1 reveal">
+        <h2 id="direct-title" className="text-h2 reveal">
           {t("directTitle")}
         </h2>
         <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">

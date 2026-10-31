@@ -26,10 +26,10 @@ export async function ExperiencesStrip() {
   return (
     <section aria-labelledby="experiences-title" className="section-y-tight">
       <div className="container-page">
-        {/* Two lines from lg up, split at the comma: the place, then the promise. */}
+        {/* Same size as the other section titles; from lg up it breaks at the comma (place, then promise). */}
         <h2
           id="experiences-title"
-          className="reveal text-[clamp(2.25rem,1.4rem+2.6vw,3.5rem)] leading-[1.05] tracking-[-0.02em]"
+          className="text-h2 reveal"
         >
           <span className="lg:block">{titleLead},</span> <span className="lg:block">{titleRest}</span>
         </h2>
