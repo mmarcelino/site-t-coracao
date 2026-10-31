@@ -53,16 +53,18 @@ export async function ReviewsBlock({
           </>
         )}
         {bySource ? (
-          /* Three aligned columns under one hairline: label, score, scale, count on shared baselines. */
-          <ul className="mt-14 grid grid-cols-3 gap-6 border-t border-ink/15 pt-6">
+          /* One row per platform, like a small table: name left, score with its count beneath on the right. */
+          <ul className="mt-14 border-b border-ink/15">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-              <li key={source} className="text-small text-granite">
-                <p className="label text-ink">{t(`source.${source}`)}</p>
-                <p className="mt-4 text-[clamp(2rem,1.5rem+1.6vw,3rem)] leading-none font-semibold text-ink tabular-nums">
-                  {score(bySource[source].score)}
-                </p>
-                <p className="mt-3">{t("outOf", { max: bySource[source].outOf })}</p>
-                <p>{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+              <li key={source} className="flex items-center justify-between gap-4 border-t border-ink/15 py-4">
+                <span className="label text-ink">{t(`source.${source}`)}</span>
+                <span className="text-right text-small text-granite tabular-nums">
+                  <span className="block">
+                    <span className="text-[1.75rem] leading-none font-semibold text-ink">{score(bySource[source].score)}</span>
+                    <span className="ml-1">/{bySource[source].outOf}</span>
+                  </span>
+                  <span className="mt-1 block">{t("basedOn", { count: format.number(bySource[source].count) })}</span>
+                </span>
               </li>
             ))}
           </ul>
