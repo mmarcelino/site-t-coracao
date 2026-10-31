@@ -12,7 +12,7 @@ export async function Intro() {
       <div className="grid items-end gap-6 md:grid-cols-12 md:gap-10">
         <p className="md:col-span-5">
           <span className="label block">{t("introSince")}</span>
-          <span className="mt-2 block text-[clamp(5rem,3rem+9vw,11rem)] leading-[0.8] font-semibold tracking-[-0.05em] tabular-nums">
+          <span className="mt-2 block text-[clamp(3.5rem,2.4rem+4.5vw,7rem)] leading-[0.85] font-medium tracking-[-0.045em] tabular-nums">
             2015
           </span>
         </p>
