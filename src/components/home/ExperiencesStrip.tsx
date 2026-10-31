@@ -34,12 +34,12 @@ export async function ExperiencesStrip() {
         scrollClassName="mt-10 px-[var(--gutter)] pb-2 [scroll-padding-inline:var(--gutter)] lg:px-[max(var(--gutter),calc((100vw-var(--page-max))/2+var(--gutter)))]"
         controlsClassName="container-page"
       >
-        <ul aria-label={t("experiencesLabel")} className="flex gap-4">
+        <ul aria-label={t("experiencesLabel")} className="flex items-stretch gap-4">
           {items.map((item) => (
             <li key={item.id} className="w-[min(78vw,21rem)] shrink-0 snap-start">
-              {/* A clean photo, then the copy below it in dark text (readable on any photo). */}
-              <article>
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-sand">
+              {/* One card: a clean photo on top, the copy inside the card below it (readable on any photo). */}
+              <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-ink/10 bg-paper">
+                <div className="relative aspect-[4/3] bg-sand">
                   {item.image ? (
                     <Image
                       src={item.image.src}
@@ -50,24 +50,26 @@ export async function ExperiencesStrip() {
                     />
                   ) : null}
                 </div>
-                <p className="mt-4 text-small text-granite">
-                  {item.partner ? t("experienceWith", { partner: item.partner }) : item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
-                </p>
-                <h3 className="mt-1 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.01em] normal-case">{item.title[locale]}</h3>
-                <p className="mt-2 text-granite">{item.summary[locale]}</p>
-                {item.priceFrom ? (
-                  <p className="mt-3 text-small font-semibold">
-                    {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
-                    {item.priceFrom.per === "person" ? t("experiencesPerPerson") : t("experiencesPerGroup")}
+                <div className="flex flex-1 flex-col p-5 md:p-6">
+                  <p className="text-small text-granite">
+                    {item.partner ? t("experienceWith", { partner: item.partner }) : item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
                   </p>
-                ) : null}
+                  <h3 className="mt-1 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.01em] normal-case">{item.title[locale]}</h3>
+                  <p className="mt-2 text-granite">{item.summary[locale]}</p>
+                  {item.priceFrom ? (
+                    <p className="mt-auto pt-4 text-small font-semibold">
+                      {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
+                      {item.priceFrom.per === "person" ? t("experiencesPerPerson") : t("experiencesPerGroup")}
+                    </p>
+                  ) : null}
+                </div>
               </article>
             </li>
           ))}
           <li className="w-[min(78vw,21rem)] shrink-0 snap-start">
             <Link
               href="/experiences"
-              className="group flex aspect-[4/3] flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
+              className="group flex h-full flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
             >
               <Icon
                 name="arrowRight"

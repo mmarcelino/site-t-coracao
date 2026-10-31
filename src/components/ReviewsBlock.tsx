@@ -29,10 +29,10 @@ export async function ReviewsBlock({
 
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-      {/* Starts on a hairline, level with the first quote's. */}
-      <div className="reveal border-t border-ink/15 pt-6 lg:col-span-4">
+      {/* Starts on an ink rule, level with the first quote's. */}
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4">
         {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
-        <h2 id={headingId} className="text-[clamp(2rem,1.4rem+2.2vw,3.5rem)] leading-[1.05]">
+        <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
         {/* One big score when there's a single source (apartment pages); per-platform scores otherwise. */}
@@ -53,34 +53,32 @@ export async function ReviewsBlock({
           </>
         )}
         {bySource ? (
-          /* One quiet row per platform: name, score on its own scale, count. */
-          <ul className="mt-10 border-b border-ink/15">
+          <ul className="mt-10 grid grid-cols-3 gap-4">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-              <li key={source} className="flex items-baseline justify-between gap-4 border-t border-ink/15 py-3">
-                <span>{t(`source.${source}`)}</span>
-                <span className="text-small text-granite tabular-nums">
-                  <span className="text-lead font-semibold text-ink">{score(bySource[source].score)}</span>/
-                  {bySource[source].outOf}
-                  {" · "}
-                  {t("basedOn", { count: format.number(bySource[source].count) })}
-                </span>
+              <li key={source}>
+                <p className="label text-granite">{t(`source.${source}`)}</p>
+                <p className="mt-2 text-[clamp(1.75rem,1.3rem+1.6vw,2.75rem)] leading-none font-semibold tabular-nums">
+                  {score(bySource[source].score)}
+                  <span className="text-small font-normal text-granite">/{bySource[source].outOf}</span>
+                </p>
+                <p className="mt-2 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
               </li>
             ))}
           </ul>
         ) : null}
       </div>
 
-      {/* Two quotes at a time (one on phones), paging sideways. */}
+      {/* Four quotes at a time (two on phones), in columns that page sideways. */}
       <div className="min-w-0 self-start lg:col-span-8">
         <Carousel prevLabel={t("prev")} nextLabel={t("next")}>
-          <ul className="grid auto-cols-[85%] grid-flow-col gap-x-10 sm:auto-cols-[calc(50%-1.25rem)]">
+          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-14 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
             {reviews.map((review) => (
-              <li key={review.id} className="snap-start border-t border-ink/15 pt-6">
+              <li key={review.id} className="snap-start border-t-2 border-ink pt-6">
                 <figure>
-                  <blockquote lang={review.language} className="text-[clamp(1.1875rem,1rem+0.5vw,1.4375rem)] leading-[1.45]">
+                  <blockquote lang={review.language} className="text-[1.1875rem] leading-[1.5] font-medium">
                     “{review.text}”
                   </blockquote>
-                  <figcaption className="label mt-6 text-granite">
+                  <figcaption className="label mt-6 text-ink">
                     {review.author} · {t(`source.${review.source}`)} ·{" "}
                     {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
                   </figcaption>
