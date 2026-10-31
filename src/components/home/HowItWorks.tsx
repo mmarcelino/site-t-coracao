@@ -2,16 +2,16 @@ import { getTranslations } from "next-intl/server";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 /**
- * Four steps that answer "is this a hotel or an Airbnb?": book, the digital guide (guest portal),
- * check in, and the WhatsApp concierge for what a guide can't cover. Compact on purpose.
+ * Four steps that answer "is this a hotel or an Airbnb?": book, check in,
+ * the digital guide (guest portal), and the WhatsApp concierge for what a guide can't cover. Compact on purpose.
  * Self check-in: TO CONFIRM (Guesty copy says some arrivals are met in person).
  */
 export async function HowItWorks() {
   const t = await getTranslations("home");
   const steps: Array<{ icon: IconName; title: string; body: string }> = [
     { icon: "calendar", title: t("how1Title"), body: t("how1Body") },
-    { icon: "phone", title: t("how2Title"), body: t("how2Body") },
     { icon: "key", title: t("how3Title"), body: t("how3Body") },
+    { icon: "phone", title: t("how2Title"), body: t("how2Body") },
     { icon: "whatsapp", title: t("how4Title"), body: t("how4Body") },
   ];
   return (
