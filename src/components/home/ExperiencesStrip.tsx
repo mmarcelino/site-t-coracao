@@ -36,40 +36,38 @@ export async function ExperiencesStrip() {
       >
         <ul aria-label={t("experiencesLabel")} className="flex gap-4">
           {items.map((item) => (
-            <li key={item.id} className="w-[min(78vw,22rem)] shrink-0 snap-start">
-              {/* Photo tile, like the collection cards: label pill on top, copy on a soft shade. */}
-              <article className="on-dark relative isolate flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] bg-ink p-6 text-paper">
-                {item.image ? (
-                  <Image
-                    src={item.image.src}
-                    alt={item.image.alt[locale]}
-                    fill
-                    sizes="(min-width: 640px) 22rem, 78vw"
-                    className="-z-10 object-cover"
-                  />
-                ) : null}
-                <span aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(27,26,24,0)_35%,rgba(27,26,24,0.8)_100%)]" />
-                <p className="label self-start rounded-full bg-paper px-3 py-1.5 text-ink">
-                  {item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
-                  {item.partner ? ` · ${item.partner}` : null}
-                </p>
-                <div>
-                  <h3 className="text-h3">{item.title[locale]}</h3>
-                  <p className="mt-3 text-paper/85">{item.summary[locale]}</p>
-                  {item.priceFrom ? (
-                    <p className="mt-5 text-small font-semibold">
-                      {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
-                      {item.priceFrom.per === "person" ? t("experiencesPerPerson") : t("experiencesPerGroup")}
-                    </p>
+            <li key={item.id} className="w-[min(78vw,21rem)] shrink-0 snap-start">
+              {/* A clean photo, then the copy below it in dark text (readable on any photo). */}
+              <article>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-sand">
+                  {item.image ? (
+                    <Image
+                      src={item.image.src}
+                      alt={item.image.alt[locale]}
+                      fill
+                      sizes="(min-width: 640px) 21rem, 78vw"
+                      className="object-cover"
+                    />
                   ) : null}
                 </div>
+                <p className="mt-4 text-small text-granite">
+                  {item.partner ? t("experienceWith", { partner: item.partner }) : item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
+                </p>
+                <h3 className="mt-1 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.01em] normal-case">{item.title[locale]}</h3>
+                <p className="mt-2 text-granite">{item.summary[locale]}</p>
+                {item.priceFrom ? (
+                  <p className="mt-3 text-small font-semibold">
+                    {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
+                    {item.priceFrom.per === "person" ? t("experiencesPerPerson") : t("experiencesPerGroup")}
+                  </p>
+                ) : null}
               </article>
             </li>
           ))}
-          <li className="w-[min(78vw,22rem)] shrink-0 snap-start">
+          <li className="w-[min(78vw,21rem)] shrink-0 snap-start">
             <Link
               href="/experiences"
-              className="group flex aspect-[4/5] flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
+              className="group flex aspect-[4/3] flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
             >
               <Icon
                 name="arrowRight"
@@ -77,7 +75,7 @@ export async function ExperiencesStrip() {
                 strokeWidth={1.75}
                 className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
               />
-              <span className="text-h3 mt-4">{t("experiencesAll")}</span>
+              <span className="mt-4 text-[1.375rem] leading-[1.2] font-semibold">{t("experiencesAll")}</span>
             </Link>
           </li>
         </ul>

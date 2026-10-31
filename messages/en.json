@@ -192,7 +192,8 @@
     "how4Title": "A concierge on WhatsApp",
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm.",
     "experiencesPrev": "Previous experiences",
-    "experiencesNext": "More experiences"
+    "experiencesNext": "More experiences",
+    "experienceWith": "With {partner}"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

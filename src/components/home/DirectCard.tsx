@@ -16,10 +16,17 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
   const perks = [t("home.directCardPerk1"), t("home.directCardPerk2"), t("home.directCardPerk3")];
   return (
     <section aria-labelledby="direct-card-title" className="w-max shrink-0 border-t-2 border-paper pt-4 text-paper">
-      {/* Three quiet lines: what this is, the perks, then the rating on its own. */}
-      <h2 id="direct-card-title" className="label text-[0.75rem] leading-none">
-        {t("home.directCardTitle")}
-      </h2>
+      {/* As wide as the perk line, so the rating's right edge meets the last perk's. */}
+      <div className="flex items-center justify-between gap-8 text-[0.75rem] leading-none">
+        <h2 id="direct-card-title" className="label">
+          {t("home.directCardTitle")}
+        </h2>
+        <p className="flex items-center gap-1.5 text-paper/90">
+          <Icon name="star" size={11} fill="currentColor" strokeWidth={0} className="text-paper" />
+          {t("home.directCardRating", { score: rating.score, count: rating.count })}
+          {rating.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
+        </p>
+      </div>
       <ul className="mt-3 flex items-center text-[1.0625rem] leading-none whitespace-nowrap">
         {perks.map((perk, i) => (
           <li key={perk} className="flex items-center">
@@ -28,11 +35,6 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
           </li>
         ))}
       </ul>
-      <p className="mt-3 flex items-center gap-1.5 text-[0.8125rem] leading-none text-paper/85">
-        <Icon name="star" size={12} fill="currentColor" strokeWidth={0} className="text-paper" />
-        {t("home.directCardRating", { score: rating.score, count: rating.count })}
-        {rating.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
-      </p>
     </section>
   );
 }

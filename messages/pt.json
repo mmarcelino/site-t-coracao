@@ -192,7 +192,8 @@
     "how4Title": "Concierge no WhatsApp",
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h.",
     "experiencesPrev": "Experiências anteriores",
-    "experiencesNext": "Mais experiências"
+    "experiencesNext": "Mais experiências",
+    "experienceWith": "Com {partner}"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
