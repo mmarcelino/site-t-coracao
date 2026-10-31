@@ -49,7 +49,7 @@ export default async function HomePage() {
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
     getReviewSummary(locale),
-    getReviews(locale, { limit: 12 }),
+    getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);

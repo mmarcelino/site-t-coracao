@@ -141,7 +141,9 @@
     "listingScore": "{score} em 10 · {count} avaliações",
     "stayedAt": "{date}",
     "prev": "Avaliações anteriores",
-    "next": "Mais avaliações"
+    "next": "Mais avaliações",
+    "readMore": "Ler mais",
+    "readLess": "Mostrar menos"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",
@@ -151,8 +153,7 @@
     "heroImageAlt": "Janelas altas de sacada sobre as árvores do Jardim da Cordoaria, num apartamento restaurado",
     "directTitle": "Porquê reservar aqui.",
     "directBody": "Os nossos apartamentos também estão no Airbnb e no Booking.com. Aqui, fica com o melhor preço e com algo que as plataformas não dão: a nossa equipa.",
-    "experiencesTitle": "O Porto e o Douro, com quem os conhece.",
-    "experiencesBody": "Passeios, mesas e barcos com os parceiros que recomendamos aos amigos.",
+    "experiencesTitle": "O Porto e arredores, com os parceiros que recomendamos aos amigos.",
     "experiencesCta": "Ver experiências",
     "experiencesFrom": "desde {price}",
     "experiencesPerPerson": "por pessoa",

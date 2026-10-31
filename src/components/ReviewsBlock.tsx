@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Icon } from "@/components/ui/Icon";
-import { Carousel } from "@/components/Carousel";
+import { ReviewQuote } from "@/components/ReviewQuote";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
@@ -68,25 +68,21 @@ export async function ReviewsBlock({
         ) : null}
       </div>
 
-      {/* Four quotes at a time (two on phones), in columns that page sideways. */}
+      {/* Four quotes, fixed (no carousel); long ones are cut at five lines with "Read more". */}
       <div className="min-w-0 self-start lg:col-span-8">
-        <Carousel prevLabel={t("prev")} nextLabel={t("next")}>
-          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-20 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
-            {reviews.map((review) => (
-              <li key={review.id} className="snap-start border-t-2 border-ink pt-6">
-                <figure>
-                  <blockquote lang={review.language} className="text-[1.1875rem] leading-[1.5] font-medium">
-                    “{review.text}”
-                  </blockquote>
-                  <figcaption className="label mt-6 text-ink">
-                    {review.author} · {t(`source.${review.source}`)} ·{" "}
-                    {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
-        </Carousel>
+        <ul className="grid gap-x-8 gap-y-16 sm:grid-cols-2">
+          {reviews.slice(0, 4).map((review) => (
+            <li key={review.id} className="border-t-2 border-ink pt-6">
+              <figure>
+                <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
+                <figcaption className="label mt-6 text-ink">
+                  {review.author} · {t(`source.${review.source}`)} ·{" "}
+                  {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
       </div>
 
     </div>

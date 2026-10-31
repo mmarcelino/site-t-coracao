@@ -20,11 +20,10 @@ export async function ExperiencesStrip() {
 
   return (
     <section aria-labelledby="experiences-title" className="section-y-tight">
-      <div className="container-page grid gap-6 lg:grid-cols-12 lg:items-end">
-        <h2 id="experiences-title" className="text-h2 reveal lg:col-span-7">
+      <div className="container-page">
+        <h2 id="experiences-title" className="text-h2 reveal max-w-[22ch]">
           {t("experiencesTitle")}
         </h2>
-        <p className="text-lead text-granite lg:col-span-5">{t("experiencesBody")}</p>
       </div>
 
       {/* Bleeds to the screen edge so the next card peeks in; arrows below, on the page margin. */}
