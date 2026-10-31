@@ -53,15 +53,16 @@ export async function ReviewsBlock({
           </>
         )}
         {bySource ? (
-          <ul className="mt-10 grid grid-cols-3 gap-4">
+          /* Three aligned columns under one hairline: label, score, scale, count on shared baselines. */
+          <ul className="mt-14 grid grid-cols-3 gap-6 border-t border-ink/15 pt-6">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-              <li key={source}>
-                <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-2 text-[clamp(1.75rem,1.3rem+1.6vw,2.75rem)] leading-none font-semibold tabular-nums">
+              <li key={source} className="text-small text-granite">
+                <p className="label text-ink">{t(`source.${source}`)}</p>
+                <p className="mt-4 text-[clamp(2rem,1.5rem+1.6vw,3rem)] leading-none font-semibold text-ink tabular-nums">
                   {score(bySource[source].score)}
-                  <span className="text-small font-normal text-granite">/{bySource[source].outOf}</span>
                 </p>
-                <p className="mt-2 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+                <p className="mt-3">{t("outOf", { max: bySource[source].outOf })}</p>
+                <p>{t("basedOn", { count: format.number(bySource[source].count) })}</p>
               </li>
             ))}
           </ul>
