@@ -37,9 +37,7 @@ export async function Collections() {
           <span>
             <span className={clsx("block font-semibold", titleClass)}>{c.title[locale]}</span>
           </span>
-          <span className="grid size-12 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
-            <Icon name="arrowRight" size={20} />
-          </span>
+          <Icon name="arrowRight" size={32} strokeWidth={1.75} className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
         </span>
       </Link>
     </li>
@@ -91,7 +89,7 @@ export async function Collections() {
             {/* Same "see all" treatment as the experiences strip: a large bare arrow above the label. */}
             <Icon
               name="arrowRight"
-              size={40}
+              size={32}
               strokeWidth={1.75}
               className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
             />

@@ -168,9 +168,7 @@ export function Header() {
                       <span className="transition-opacity group-hover:opacity-70 group-aria-[current=page]:opacity-60">
                         {t(`nav.${item.key}`)}
                       </span>
-                      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
-                        <Icon name="arrowRight" size={18} />
-                      </span>
+                      <Icon name="arrowRight" size={32} strokeWidth={1.75} className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
                     </Link>
                   </li>
                 ))}

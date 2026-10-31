@@ -107,9 +107,7 @@ export default async function HomePage() {
             {/* The way on, after the last question. */}
             <Link href="/faq" className="group mt-8 inline-flex items-center gap-4 font-semibold">
               {t("faqCta")}
-              <span className="grid size-10 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
-                <Icon name="arrowRight" size={20} />
-              </span>
+              <Icon name="arrowRight" size={24} strokeWidth={1.75} className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
             </Link>
           </div>
         </div>

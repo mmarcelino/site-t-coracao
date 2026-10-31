@@ -50,7 +50,8 @@ export function Carousel({
   };
 
   const button =
-    "grid size-12 place-items-center rounded-full bg-pop text-ink transition-opacity disabled:cursor-default disabled:opacity-30";
+    // Bare arrows like every other arrow on the page; the button keeps a 48px hit area.
+    "grid size-12 place-items-center transition-[opacity,transform] duration-[var(--duration-base)] ease-[var(--ease-soft)] disabled:cursor-default disabled:opacity-25";
 
   return (
     <div>
@@ -59,11 +60,11 @@ export function Carousel({
       </div>
       {can.prev || can.next ? (
         <div className={clsx("mt-8 flex gap-3", controlsClassName)}>
-          <button type="button" onClick={() => go(-1)} disabled={!can.prev} aria-label={prevLabel} className={button}>
-            <Icon name="arrowLeft" size={20} />
+          <button type="button" onClick={() => go(-1)} disabled={!can.prev} aria-label={prevLabel} className={clsx(button, "-ml-2 enabled:hover:-translate-x-1")}>
+            <Icon name="arrowLeft" size={32} strokeWidth={1.75} />
           </button>
-          <button type="button" onClick={() => go(1)} disabled={!can.next} aria-label={nextLabel} className={button}>
-            <Icon name="arrowRight" size={20} />
+          <button type="button" onClick={() => go(1)} disabled={!can.next} aria-label={nextLabel} className={clsx(button, "enabled:hover:translate-x-1")}>
+            <Icon name="arrowRight" size={32} strokeWidth={1.75} />
           </button>
         </div>
       ) : null}

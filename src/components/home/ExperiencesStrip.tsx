@@ -78,7 +78,7 @@ export async function ExperiencesStrip() {
             >
               <Icon
                 name="arrowRight"
-                size={40}
+                size={32}
                 strokeWidth={1.75}
                 className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
               />
