@@ -10,10 +10,12 @@ export async function Intro() {
   const t = await getTranslations("home");
   return (
     <section className="container-page section-y">
-      <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
-        <p className="label lg:col-span-3 lg:pt-4">{t("heroEyebrow")}</p>
-        <p className="max-w-[30ch] text-[clamp(1.5rem,1.15rem+1.2vw,2.25rem)] leading-[1.15] font-semibold tracking-[-0.025em] lg:col-span-9">
-          <span className="scroll-ink block">{t("intro1")}</span>
+      {/* A centred pause between the hero and the homes: everything else on the page is left-aligned. */}
+      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <p className="label">{t("heroEyebrow")}</p>
+        <span aria-hidden className="mt-6 h-10 w-[2px] bg-ink" />
+        <p className="mt-6 text-[clamp(1.5rem,1.15rem+1.2vw,2.25rem)] leading-[1.2] font-semibold tracking-[-0.025em] text-balance">
+          <span className="scroll-ink">{t("intro1")}</span>
         </p>
       </div>
     </section>

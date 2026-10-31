@@ -54,7 +54,7 @@ export async function ExperiencesStrip() {
                       alt={item.image.alt[locale]}
                       fill
                       sizes="(min-width: 640px) 21rem, 78vw"
-                      className="object-cover"
+                      className="object-cover [filter:saturate(0.58)_sepia(0.14)_contrast(0.92)_brightness(1.04)]"
                     />
                   ) : null}
                 </div>
