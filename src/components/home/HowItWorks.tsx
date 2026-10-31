@@ -18,18 +18,18 @@ export async function HowItWorks() {
       <h2 id="how-title" className="text-h2 reveal">
         {t("howTitle")}
       </h2>
-      {/* A timeline: one continuous line with the step numbers on it (across on desktop, down the
-          left edge on phones). Each number cuts the line with an equal gap on both sides. */}
-      <ol className="relative mt-[clamp(2.5rem,5vw,4rem)] grid gap-10 border-l-2 border-ink pl-8 md:grid-cols-4 md:gap-8 md:border-t-2 md:border-l-0 md:pt-0 md:pl-0">
+      {/* A timeline: each step's line runs only across its own column, with the step number cutting in
+          at the start (four across on desktop, stacked on phones). */}
+      <ol className="mt-[clamp(2.5rem,5vw,4rem)] grid gap-12 md:grid-cols-4 md:gap-8">
         {steps.map((step, i) => (
-          <li key={step.title} className="reveal relative md:pt-10">
+          <li key={step.title} className="reveal relative border-t-2 border-ink pt-10">
             <span
               aria-hidden
-              className="absolute top-0 -left-8 grid size-14 -translate-x-1/2 place-items-center rounded-full bg-paper text-[1.75rem] leading-none font-semibold tabular-nums md:-left-5 md:w-auto md:translate-x-0 md:-translate-y-1/2 md:rounded-none md:px-5"
+              className="absolute top-0 left-0 grid h-12 -translate-y-1/2 items-center bg-paper pr-5 text-[1.75rem] leading-none font-semibold tabular-nums"
             >
               {String(i + 1).padStart(2, "0")}
             </span>
-            <h3 className="pt-14 text-[1.375rem] leading-[1.1] md:pt-0">{step.title}</h3>
+            <h3 className="text-[1.375rem] leading-[1.1]">{step.title}</h3>
             <p className="mt-3 max-w-xs text-granite">{step.body}</p>
           </li>
         ))}

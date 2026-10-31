@@ -12,7 +12,7 @@ export async function Intro() {
     <section className="container-page section-y">
       <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
         <p className="label lg:col-span-3 lg:pt-4">{t("heroEyebrow")}</p>
-        <p className="text-statement max-w-[26ch] font-semibold lg:col-span-9">
+        <p className="max-w-[34ch] text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)] leading-[1.25] font-normal tracking-[-0.015em] text-ink-soft-text lg:col-span-9">
           <span className="scroll-ink block">{t("intro1")}</span>
         </p>
       </div>
