@@ -78,7 +78,7 @@ export default async function HomePage() {
 
       <Intro />
 
-      <Collections listings={listings} />
+      <Collections />
 
       <BookDirect />
 
