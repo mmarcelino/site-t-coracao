@@ -190,7 +190,9 @@
     "directCardRating": "{score} on Google · {count}+ reviews",
     "heroSub": "More personal than a hotel. Like home, only better.",
     "how4Title": "A concierge on WhatsApp",
-    "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm."
+    "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm.",
+    "experiencesPrev": "Previous experiences",
+    "experiencesNext": "More experiences"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

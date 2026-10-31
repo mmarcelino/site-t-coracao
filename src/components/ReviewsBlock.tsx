@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Icon } from "@/components/ui/Icon";
-import { ReviewsScroller } from "@/components/ReviewsScroller";
+import { Carousel } from "@/components/Carousel";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
@@ -70,12 +70,12 @@ export async function ReviewsBlock({
 
       {/* Four quotes at a time (two on phones), in columns that page sideways. */}
       <div className="min-w-0 self-start lg:col-span-8">
-        <ReviewsScroller prevLabel={t("prev")} nextLabel={t("next")}>
-          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-12 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
+        <Carousel prevLabel={t("prev")} nextLabel={t("next")}>
+          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-14 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
             {reviews.map((review) => (
               <li key={review.id} className="snap-start border-t-2 border-ink pt-6">
                 <figure>
-                  <blockquote lang={review.language} className="text-lead font-medium">
+                  <blockquote lang={review.language} className="text-[1.1875rem] leading-[1.5] font-medium">
                     “{review.text}”
                   </blockquote>
                   <figcaption className="label mt-6 text-ink">
@@ -86,7 +86,7 @@ export async function ReviewsBlock({
               </li>
             ))}
           </ul>
-        </ReviewsScroller>
+        </Carousel>
       </div>
 
     </div>

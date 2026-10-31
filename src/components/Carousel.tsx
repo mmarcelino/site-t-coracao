@@ -1,20 +1,28 @@
 "use client";
 
+import clsx from "clsx";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * Horizontal scroller for review quotes, a page at a time (CSS scroll-snap does the paging; the
- * arrows just scroll by one view). Arrows only show when there is more to see.
+ * Horizontal carousel, a page at a time (CSS scroll-snap does the paging; the arrows scroll by one
+ * view). Phones swipe; from md up it moves only with the arrows, so a sideways drift of the trackpad
+ * while scrolling the page never slides it. Arrows only show when there is more to see.
  */
-export function ReviewsScroller({
+export function Carousel({
   children,
   prevLabel,
   nextLabel,
+  scrollClassName,
+  controlsClassName,
 }: {
   children: ReactNode;
   prevLabel: string;
   nextLabel: string;
+  /** Extra classes for the scrolling element (e.g. padding so it can bleed to the screen edge). */
+  scrollClassName?: string;
+  /** Extra classes for the arrows row (e.g. a container to align it with the page margins). */
+  controlsClassName?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [can, setCan] = useState({ prev: false, next: false });
@@ -46,11 +54,11 @@ export function ReviewsScroller({
 
   return (
     <div>
-      <div ref={ref} className="scrollbar-none snap-x snap-mandatory overflow-x-auto">
+      <div ref={ref} className={clsx("scrollbar-none snap-x snap-mandatory overflow-x-auto md:overflow-x-hidden", scrollClassName)}>
         {children}
       </div>
       {can.prev || can.next ? (
-        <div className="mt-8 flex gap-3">
+        <div className={clsx("mt-8 flex gap-3", controlsClassName)}>
           <button type="button" onClick={() => go(-1)} disabled={!can.prev} aria-label={prevLabel} className={button}>
             <Icon name="arrowLeft" size={20} />
           </button>
