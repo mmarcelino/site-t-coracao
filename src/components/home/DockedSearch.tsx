@@ -54,15 +54,17 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
 
   return (
     <>
-      {/* Desktop: docked at the top. */}
+      {/* Desktop: a floating panel within the page margins, its black rule ending where the margins end
+          (like the rule under the nav over the hero). */}
       <div
         inert={!shown}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 hidden border-b-2 border-ink bg-paper transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
-          shown ? "translate-y-0" : "-translate-y-full",
+          "pointer-events-none fixed inset-x-0 top-3 z-40 hidden transition-[transform,opacity] duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
+          shown ? "translate-y-0 opacity-100" : "-translate-y-[calc(100%+1rem)] opacity-0",
         )}
       >
-        <div className="container-page flex h-20 items-center justify-between gap-6">
+        <div className="container-page">
+        <div className="pointer-events-auto flex h-20 items-center justify-between gap-6 rounded-[var(--radius-card)] border-b-2 border-ink bg-paper px-6 shadow-[0_12px_32px_-16px_rgba(0,0,0,0.35)]">
           <Link href="/" aria-label={t("nav.home")} className="shrink-0">
             <Wordmark />
           </Link>
@@ -77,6 +79,7 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
             <Icon name="menu" size={24} />
             <span className="sr-only">{t("nav.openMenu")}</span>
           </button>
+        </div>
         </div>
       </div>
 
