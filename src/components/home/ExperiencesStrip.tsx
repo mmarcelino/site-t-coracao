@@ -50,10 +50,7 @@ export async function ExperiencesStrip() {
                   ) : null}
                 </div>
                 <div className="mt-5 flex flex-1 flex-col border-t-2 border-ink pt-4">
-                  <p className="text-small text-granite">
-                    {item.partner ? t("experienceWith", { partner: item.partner }) : item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
-                  </p>
-                  <h3 className="mt-1 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.01em] normal-case">{item.title[locale]}</h3>
+                  <h3 className="text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.01em] normal-case">{item.title[locale]}</h3>
                   <p className="mt-2 text-granite">{item.summary[locale]}</p>
                   {item.priceFrom ? (
                     <p className="mt-auto pt-4 text-small font-semibold">

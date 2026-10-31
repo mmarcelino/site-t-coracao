@@ -153,7 +153,7 @@
     "heroImageAlt": "Tall French windows over the trees of the Cordoaria gardens, in a restored apartment",
     "directTitle": "Why book direct.",
     "directBody": "Our apartments are on Airbnb and Booking.com too. Here you get our best rate and something the platforms can't give you: us.",
-    "experiencesTitle": "Porto and around, with the partners we recommend to friends.",
+    "experiencesTitle": "Porto and beyond, with the partners we recommend to friends.",
     "experiencesCta": "See experiences",
     "experiencesFrom": "from {price}",
     "experiencesPerPerson": "per person",
@@ -193,8 +193,7 @@
     "how4Title": "A concierge on WhatsApp",
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm.",
     "experiencesPrev": "Previous experiences",
-    "experiencesNext": "More experiences",
-    "experienceWith": "With {partner}"
+    "experiencesNext": "More experiences"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",
