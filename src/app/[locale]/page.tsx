@@ -12,7 +12,6 @@ import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
 import { Collections } from "@/components/home/Collections";
-import { FeaturedHomes } from "@/components/home/FeaturedHomes";
 import { ExperiencesStrip } from "@/components/home/ExperiencesStrip";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
@@ -79,9 +78,7 @@ export default async function HomePage() {
 
       <Intro />
 
-      <Collections />
-
-      <FeaturedHomes listings={listings} />
+      <Collections listings={listings} />
 
       <BookDirect />
 

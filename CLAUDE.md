@@ -196,7 +196,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - [ ] Keep the luggage storage page/service?
 - [ ] Allow or block AI crawlers?
 - [ ] High-res photography and building history material from the client
-  - Photography needed to show the interiors well (branch `showcase`): the high-res originals (current placeholders are compressed listing photos), plus a short detail shoot per building: furniture, textiles, materials (tiles, granite, timber), light on surfaces; consistent warm, bright grading. Placeholders chosen for the home's featured homes and details strip are listed in `src/content/showcase.ts`.
+  - Photography needed to show the interiors well (branch `showcase`): the high-res originals (current placeholders are compressed listing photos), plus a short detail shoot per building: furniture, textiles, materials (tiles, granite, timber), light on surfaces; consistent warm, bright grading. Home collection photos (wide + detail) are set in `src/content/collections.ts`.
 - [ ] **Accessibility gap (hero slideshow, branches hero-lunevar/ahotels):** no visible pause control (client request); it pauses on booking-box hover/focus, hidden tab and reduced motion, but WCAG 2.2.2 expects an explicit control. Resolve before launch.
 - [ ] AL licence numbers per property (10 known from Guesty, see `src/content/site.ts`)
 - [ ] **Copy/facts flagged TO CONFIRM in the code** (search for `TO CONFIRM`, `INVENTED`, `toConfirm: true`, `mock: true`):
