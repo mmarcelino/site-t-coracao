@@ -161,7 +161,7 @@
     "experiencesPerGroup": "private",
     "faqTitle": "Before you book.",
     "faqCta": "All questions",
-    "intro1": "Historic façades, quietly modern interiors, and a local team who knows the city inside out.",
+    "intro1": "Historic façades, quietly modern interiors, and the best of Porto right outside the door.",
     "collectionsTitle": "Find your home.",
     "collectionCount": "{count, plural, one {# home} other {# homes}}",
     "seeAll": "See all apartments",
@@ -195,7 +195,7 @@
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm.",
     "experiencesPrev": "Previous experiences",
     "experiencesNext": "More experiences",
-    "featuredHomesTitle": "A few of our homes."
+    "featuredHomesTitle": "Homes we'd happily live in."
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

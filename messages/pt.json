@@ -161,7 +161,7 @@
     "experiencesPerGroup": "privado",
     "faqTitle": "Antes de reservar.",
     "faqCta": "Todas as perguntas",
-    "intro1": "Fachadas históricas, interiores discretamente modernos e uma equipa local que conhece a cidade como a palma da mão.",
+    "intro1": "Fachadas históricas, interiores discretamente modernos e o melhor do Porto à porta de casa.",
     "collectionsTitle": "Encontre a sua casa.",
     "collectionCount": "{count, plural, one {# casa} other {# casas}}",
     "seeAll": "Ver todos os apartamentos",
@@ -195,7 +195,7 @@
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h.",
     "experiencesPrev": "Experiências anteriores",
     "experiencesNext": "Mais experiências",
-    "featuredHomesTitle": "Algumas das nossas casas."
+    "featuredHomesTitle": "Casas onde viveríamos com gosto."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
