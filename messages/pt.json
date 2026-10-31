@@ -46,6 +46,7 @@
     "cta": "Fale com a nossa equipa",
     "short": "Fale connosco",
     "hours": "Equipa no Porto, das 10h às 22h",
+    "hoursShort": "Das 10h às 22h",
     "messageGeneric": "Olá! Estou a ver o vosso site e tenho uma pergunta.",
     "messageListing": "Olá! Estou a ver o apartamento {listing} ({building}) no vosso site e tenho uma pergunta.",
     "messageDates": "Olá! Estou a ver o apartamento {listing} ({building}) de {checkIn} a {checkOut} e tenho uma pergunta."

@@ -4,12 +4,12 @@ import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
-import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
-import { headerNav, primaryNav } from "./navItems";
+import { site } from "@/content/site";
+import { headerNav, menuNav } from "./navItems";
 import { OPEN_MENU_EVENT } from "@/components/home/DockedSearch";
 
 /**
@@ -119,7 +119,7 @@ export function Header() {
           </div>
           {/* 2px rule along the bar's bottom, within the page margins: the same weight as the rule
               above "Book direct" at the bottom of the hero. */}
-          <div aria-hidden className={clsx("h-[2px]", light ? "bg-paper" : "bg-ink/15")} />
+          <div aria-hidden className={clsx("h-[2px]", light ? "bg-paper" : "bg-ink")} />
         </div>
       </header>
 
@@ -133,46 +133,85 @@ export function Header() {
         >
           <div className="container-page flex h-[var(--header-h)] shrink-0 flex-col">
             <div className="flex flex-1 items-center justify-between">
-              <Wordmark />
+              <Link href="/" aria-label={t("nav.home")}>
+                <Wordmark />
+              </Link>
               <button
                 ref={closeButton}
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                className="-mr-2 flex h-11 items-center gap-3 px-2"
+                className="-mr-2 flex h-11 items-center gap-3 px-2 transition-opacity hover:opacity-70"
               >
                 <span className="label hidden sm:inline">{t("common.close")}</span>
-                <Icon name="close" size={28} strokeWidth={1} />
+                <Icon name="close" size={24} strokeWidth={1.4} />
                 <span className="sr-only">{t("nav.closeMenu")}</span>
               </button>
             </div>
+            {/* Same 2px rule as under the nav over the hero. */}
+            <div aria-hidden className="h-[2px] bg-paper" />
           </div>
 
-          <div className="container-page grid flex-1 gap-12 py-10 lg:grid-cols-12 lg:py-16">
-            <nav aria-label={t("nav.label")} className="lg:col-span-8">
-              <ul>
-                {[{ href: "/" as const, key: "homeShort" as const }, ...primaryNav].map((item) => (
-                  <li key={item.href}>
+          {/* The same links as the header and footer, in sentence case at section-title weight; contact
+              and booking on the right. Sized to sit calmly on a desktop screen. */}
+          <div className="container-page grid flex-1 content-start gap-14 py-10 lg:grid-cols-12 lg:gap-10 lg:py-16">
+            <nav aria-label={t("nav.label")} className="lg:col-span-7">
+              <ul className="border-b border-paper/20">
+                {menuNav.map((item) => (
+                  <li key={item.href} className="border-t border-paper/20">
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
-                      className="text-display block py-1 font-light uppercase transition-opacity hover:opacity-60 aria-[current=page]:opacity-50"
+                      className="group flex items-center justify-between gap-6 py-4 text-[clamp(1.75rem,1.2rem+1.8vw,2.75rem)] leading-tight font-semibold tracking-[-0.02em] lg:py-5"
                     >
-                      {t(`nav.${item.key}`)}
+                      <span className="transition-opacity group-hover:opacity-70 group-aria-[current=page]:opacity-60">
+                        {t(`nav.${item.key}`)}
+                      </span>
+                      <span className="grid size-10 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+                        <Icon name="arrowRight" size={18} />
+                      </span>
                     </Link>
                   </li>
                 ))}
               </ul>
             </nav>
-            <div className="flex flex-col justify-end gap-8 lg:col-span-4">
+
+            <div className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9">
               <div>
-                <WhatsAppLink message={t("whatsapp.messageGeneric")} page={pathname} className="inline-flex text-lead">
-                  {t("whatsapp.cta")}
+                <p className="label mb-5 text-paper/60">{t("footer.contact")}</p>
+                <WhatsAppLink
+                  message={t("whatsapp.messageGeneric")}
+                  page={pathname}
+                  icon={false}
+                  className="inline-flex items-center gap-3 text-lead font-semibold transition-opacity hover:opacity-70"
+                >
+                  <span className="grid size-10 place-items-center rounded-full bg-pop text-ink">
+                    <Icon name="whatsapp" size={18} strokeWidth={1.5} />
+                  </span>
+                  {t("whatsapp.short")}
                 </WhatsAppLink>
-                <p className="text-small mt-2 text-granite-light">{t("whatsapp.hours")}</p>
+                <p className="text-small mt-2 text-paper/60">{t("whatsapp.hoursShort")}</p>
+                <address className="text-small mt-6 space-y-1 text-paper/80 not-italic">
+                  <p>
+                    <a href={site.phoneHref} className="hover:underline">
+                      {site.phone}
+                    </a>
+                  </p>
+                  <p>
+                    <a href={`mailto:${site.email}`} className="hover:underline">
+                      {site.email}
+                    </a>
+                  </p>
+                  <p>
+                    {site.address.street}, {site.address.postalCode} {site.address.city}
+                  </p>
+                </address>
               </div>
               <div className="flex items-center justify-between gap-6 border-t border-paper/20 pt-6">
-                <LanguageSwitcher tone="light" />
-                <Link href="/apartments" className={buttonClasses("light")}>
+                <LanguageSwitcher tone="light" className="text-paper" />
+                <Link
+                  href="/apartments"
+                  className="inline-flex h-11 items-center rounded-full bg-paper px-6 text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-pop"
+                >
                   {t("common.bookNow")}
                 </Link>
               </div>

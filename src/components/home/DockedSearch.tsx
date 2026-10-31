@@ -58,7 +58,7 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
       <div
         inert={!shown}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 hidden border-b border-ink/10 bg-paper/95 backdrop-blur-md transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
+          "fixed inset-x-0 top-0 z-40 hidden border-b-2 border-ink bg-paper/95 backdrop-blur-md transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
           shown ? "translate-y-0" : "-translate-y-full",
         )}
       >

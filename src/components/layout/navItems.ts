@@ -26,3 +26,6 @@ export const footerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"]
   { href: "/property-management", key: "owners" },
   { href: "/faq", key: "faq" },
 ];
+
+/** Full-screen menu: the header's links plus the FAQ (the logo links home). */
+export const menuNav: Array<{ href: StaticPathname; key: keyof Messages["nav"] }> = [...headerNav, { href: "/faq", key: "faq" }];
