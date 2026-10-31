@@ -19,13 +19,13 @@ export async function HowItWorks() {
         {t("howTitle")}
       </h2>
       {/* A timeline: one continuous line with the step numbers on it (across on desktop, down the
-          left edge on phones), so it reads as a sequence rather than another grid. */}
+          left edge on phones). Each number cuts the line with an equal gap on both sides. */}
       <ol className="relative mt-[clamp(2.5rem,5vw,4rem)] grid gap-10 border-l-2 border-ink pl-8 md:grid-cols-4 md:gap-8 md:border-t-2 md:border-l-0 md:pt-0 md:pl-0">
         {steps.map((step, i) => (
           <li key={step.title} className="reveal relative md:pt-10">
             <span
               aria-hidden
-              className="absolute top-0 -left-8 grid size-14 -translate-x-1/2 place-items-center rounded-full bg-paper text-[1.75rem] leading-none font-semibold tabular-nums md:left-0 md:-translate-x-0 md:-translate-y-1/2 md:justify-items-start"
+              className="absolute top-0 -left-8 grid size-14 -translate-x-1/2 place-items-center rounded-full bg-paper text-[1.75rem] leading-none font-semibold tabular-nums md:-left-5 md:w-auto md:translate-x-0 md:-translate-y-1/2 md:rounded-none md:px-5"
             >
               {String(i + 1).padStart(2, "0")}
             </span>
