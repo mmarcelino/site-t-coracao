@@ -20,7 +20,7 @@ export async function HowItWorks() {
       </h2>
       {/* A timeline: one continuous line with the step numbers on it (across on desktop, down the
           left edge on phones), so it reads as a sequence rather than another grid. */}
-      <ol className="relative mt-[clamp(2.5rem,5vw,4rem)] grid gap-10 border-l border-ink pl-8 md:grid-cols-4 md:gap-8 md:border-t md:border-l-0 md:pt-0 md:pl-0">
+      <ol className="relative mt-[clamp(2.5rem,5vw,4rem)] grid gap-10 border-l-2 border-ink pl-8 md:grid-cols-4 md:gap-8 md:border-t-2 md:border-l-0 md:pt-0 md:pl-0">
         {steps.map((step, i) => (
           <li key={step.title} className="reveal relative md:pt-10">
             <span

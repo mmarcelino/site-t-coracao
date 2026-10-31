@@ -31,7 +31,7 @@ export async function BookDirect() {
         </h2>
         <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {items.map(({ perk, icon }) => (
-            <li key={perk.id} className="reveal border-t border-ink pt-5">
+            <li key={perk.id} className="reveal border-t-2 border-ink pt-5">
               <span className="grid size-12 place-items-center rounded-full bg-ink text-pop">
                 <Icon name={icon} size={22} />
               </span>

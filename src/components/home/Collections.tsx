@@ -46,7 +46,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
                   <Image src={c.detail.src} alt={c.detail.alt[locale]} fill sizes="(min-width: 768px) 19vw, 40vw" className="object-cover" />
                 </div>
               </div>
-              <div className="mt-5 border-t border-ink pt-4">
+              <div className="mt-5 border-t-2 border-ink pt-4">
                 <div className="flex items-start justify-between gap-6">
                   <div>
                     <p className="label text-granite">{t("home.collectionCount", { count })}</p>

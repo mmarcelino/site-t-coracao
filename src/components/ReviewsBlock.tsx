@@ -31,7 +31,7 @@ export async function ReviewsBlock({
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
       {/* Starts on an ink rule, level with the first quote's. */}
-      <div className="reveal border-t border-ink pt-6 lg:col-span-4">
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4">
         {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
         <h2 id={headingId} className="text-h2">
           {heading}
@@ -72,7 +72,7 @@ export async function ReviewsBlock({
       <div className="min-w-0 self-start lg:col-span-8">
         <ul className="grid gap-x-8 gap-y-16 sm:grid-cols-2">
           {reviews.slice(0, 4).map((review) => (
-            <li key={review.id} className="border-t border-ink pt-6">
+            <li key={review.id} className="border-t-2 border-ink pt-6">
               <figure>
                 <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
                 <figcaption className="label mt-6 text-ink">
