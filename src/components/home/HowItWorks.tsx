@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { Icon, type IconName } from "@/components/ui/Icon";
 
 /**
  * Four steps that answer "is this a hotel or an Airbnb?": book, check in,
@@ -8,11 +7,11 @@ import { Icon, type IconName } from "@/components/ui/Icon";
  */
 export async function HowItWorks() {
   const t = await getTranslations("home");
-  const steps: Array<{ icon: IconName; title: string; body: string }> = [
-    { icon: "calendar", title: t("how1Title"), body: t("how1Body") },
-    { icon: "key", title: t("how3Title"), body: t("how3Body") },
-    { icon: "phone", title: t("how2Title"), body: t("how2Body") },
-    { icon: "whatsapp", title: t("how4Title"), body: t("how4Body") },
+  const steps: Array<{ title: string; body: string }> = [
+    { title: t("how1Title"), body: t("how1Body") },
+    { title: t("how3Title"), body: t("how3Body") },
+    { title: t("how2Title"), body: t("how2Body") },
+    { title: t("how4Title"), body: t("how4Body") },
   ];
   return (
     <section aria-labelledby="how-title" className="container-page section-y-tight">
@@ -23,13 +22,8 @@ export async function HowItWorks() {
         <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-8">
           {steps.map((step, i) => (
             <li key={step.title} className="reveal border-t-2 border-ink pt-5">
-              <p className="flex items-center justify-between text-[0.8125rem] font-semibold tabular-nums">
-                {String(i + 1).padStart(2, "0")}
-                <span className="grid size-12 place-items-center rounded-full bg-pop text-ink">
-                  <Icon name={step.icon} size={22} />
-                </span>
-              </p>
-              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{step.title}</h3>
+              <p className="text-[0.8125rem] font-semibold tabular-nums">{String(i + 1).padStart(2, "0")}</p>
+              <h3 className="mt-6 text-[1.375rem] leading-[1.1]">{step.title}</h3>
               <p className="mt-3 text-granite">{step.body}</p>
             </li>
           ))}

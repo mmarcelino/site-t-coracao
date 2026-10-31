@@ -37,7 +37,7 @@ export async function Collections() {
           <span>
             <span className={clsx("block font-semibold", titleClass)}>{c.title[locale]}</span>
           </span>
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
+          <span className="grid size-12 shrink-0 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
             <Icon name="arrowRight" size={20} />
           </span>
         </span>
@@ -89,7 +89,7 @@ export async function Collections() {
             className="group on-dark flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] bg-ink p-6 text-paper md:p-8"
           >
             <span className="grid size-12 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
-              <Icon name="arrowRight" size={22} />
+              <Icon name="arrowRight" size={20} />
             </span>
             <span>
               <span className="text-h3 block font-semibold">{t("seeAll")}</span>
