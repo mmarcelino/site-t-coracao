@@ -50,15 +50,16 @@ export async function Hero({
             {/* What this is, in plain words: apartments to book and stay in. */}
             <p className="animate-fade-in mt-5 max-w-[48rem] text-lead text-paper">{t("heroSub")}</p>
 
-            <div className="mt-12 flex flex-col gap-4 md:mt-20 lg:flex-row lg:items-end lg:justify-between">
+            <div className="mt-12 flex flex-col gap-4 md:mt-20 lg:flex-row lg:items-stretch lg:justify-between">
               <div className="w-full md:w-max" data-pause-slideshow>
                 <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
               </div>
-              <div className="hidden xl:block">
+              {/* Same height as the booking bar: its rule on the bar's top edge, its last line on the bar's bottom. */}
+              <div className="hidden xl:flex">
                 <DirectCard rating={rating} />
               </div>
               {/* Smaller screens: the promise as one short line (under the box, or right on laptops). */}
-              <DirectPerksLine className="lg:max-w-[18rem] lg:border-t-2 lg:border-paper lg:pt-3 lg:text-right xl:hidden" />
+              <DirectPerksLine className="lg:flex lg:max-w-[18rem] lg:flex-col lg:justify-end lg:border-t-2 lg:border-paper lg:pb-1 lg:text-right xl:hidden" />
             </div>
           </div>
         </div>
