@@ -22,7 +22,7 @@ export async function HowItWorks() {
         </h2>
         <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-8">
           {steps.map((step, i) => (
-            <li key={step.title} className="reveal border-t-2 border-ink pt-5">
+            <li key={step.title} className="reveal border-t border-ink/25 pt-5">
               <p className="flex items-center justify-between text-[0.8125rem] font-semibold tabular-nums">
                 {String(i + 1).padStart(2, "0")}
                 <span className="grid size-12 place-items-center rounded-full bg-pop text-ink">

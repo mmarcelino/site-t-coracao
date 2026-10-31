@@ -117,16 +117,15 @@
     text-wrap: balance;
   }
 
-  /* Branch ahotels: bold display serif for headlines, compressed caps for small titles. */
+  /* Section titles in medium (confident, not shouting); small titles in normal case. The hero
+     headline keeps its own semibold. */
   h1, h2 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 500;
   }
   h3 {
     font-family: var(--font-condensed);
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
   }
 
   p {
@@ -181,13 +180,13 @@
 
 /* Tracked uppercase label (eyebrows, meta) */
 @utility label {
-  /* Branch ahotels: bold caps (Hanken). */
+  /* Small caps labels (Hanken), medium weight. */
   font-family: var(--font-condensed);
   font-size: 0.8125rem;
   line-height: 1.1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Underlined text link with a calm hover */
