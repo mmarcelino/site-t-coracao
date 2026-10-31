@@ -25,7 +25,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
   return (
     <section aria-labelledby="collections-title" className="container-page section-y pt-0">
       <h2 id="collections-title" className="text-h2 reveal">
-        {t("home.collectionsTitle")} <span className="text-granite">{t("home.collectionsTitleCta")}</span>
+        {t("home.collectionsTitle")} {t("home.collectionsTitleCta")}
       </h2>
       <ul className="mt-[clamp(2rem,4vw,3.5rem)] grid gap-x-6 gap-y-14 md:grid-cols-2">
         {items.map(({ c, count, from, currency }) => (
