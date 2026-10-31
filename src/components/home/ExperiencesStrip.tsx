@@ -18,11 +18,20 @@ export async function ExperiencesStrip() {
     .map((id) => experiences.find((e) => e.id === id))
     .filter((e): e is (typeof experiences)[number] => Boolean(e));
 
+  const title = t("experiencesTitle");
+  const comma = title.indexOf(",");
+  const titleLead = title.slice(0, comma);
+  const titleRest = title.slice(comma + 1).trim();
+
   return (
     <section aria-labelledby="experiences-title" className="section-y-tight">
       <div className="container-page">
-        <h2 id="experiences-title" className="text-h2 reveal max-w-[22ch]">
-          {t("experiencesTitle")}
+        {/* Two lines from lg up, split at the comma: the place, then the promise. */}
+        <h2
+          id="experiences-title"
+          className="reveal text-[clamp(2.25rem,1.4rem+2.6vw,3.5rem)] leading-[1.05] tracking-[-0.02em]"
+        >
+          <span className="lg:block">{titleLead},</span> <span className="lg:block">{titleRest}</span>
         </h2>
       </div>
 
