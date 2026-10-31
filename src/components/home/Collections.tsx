@@ -86,14 +86,16 @@ export async function Collections() {
         <li className="reveal lg:col-span-4">
           <Link
             href="/apartments"
-            className="group on-dark flex h-full min-h-44 flex-col justify-between rounded-[var(--radius-card)] bg-ink p-6 text-paper md:p-8"
+            className="group on-dark flex h-full min-h-44 flex-col justify-end rounded-[var(--radius-card)] bg-ink p-6 text-paper md:p-8"
           >
-            <span className="grid size-12 place-items-center rounded-full bg-pop text-ink transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2">
-              <Icon name="arrowRight" size={20} />
-            </span>
-            <span>
-              <span className="text-h3 block font-semibold">{t("seeAll")}</span>
-            </span>
+            {/* Same "see all" treatment as the experiences strip: a large bare arrow above the label. */}
+            <Icon
+              name="arrowRight"
+              size={40}
+              strokeWidth={1.75}
+              className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
+            />
+            <span className="text-h3 mt-4 block font-semibold">{t("seeAll")}</span>
           </Link>
         </li>
       </ul>
