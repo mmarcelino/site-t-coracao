@@ -63,7 +63,7 @@ export function Header() {
         className={clsx(
           "top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
           overlay ? "relative" : "sticky",
-          light ? "on-dark text-paper" : "bg-paper/95 text-ink backdrop-blur-md",
+          light ? "on-dark text-paper" : "bg-paper text-ink",
         )}
       >
         <div className="container-page flex h-full flex-col">
@@ -119,8 +119,10 @@ export function Header() {
           </div>
           {/* 2px rule along the bar's bottom, within the page margins: the same weight as the rule
               above "Book direct" at the bottom of the hero. */}
-          <div aria-hidden className={clsx("h-[2px]", light ? "bg-paper" : "bg-ink")} />
+          {light ? <div aria-hidden className="h-[2px] bg-paper" /> : null}
         </div>
+        {/* On the solid bar the black rule runs edge to edge, like the docked booking bar's. */}
+        {light ? null : <div aria-hidden className="h-[2px] bg-ink" />}
       </header>
 
       {menuOpen ? (

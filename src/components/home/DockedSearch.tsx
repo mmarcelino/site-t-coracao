@@ -58,11 +58,11 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
       <div
         inert={!shown}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 hidden border-b-2 border-ink bg-paper/95 backdrop-blur-md transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
+          "fixed inset-x-0 top-0 z-40 hidden border-b-2 border-ink bg-paper transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
           shown ? "translate-y-0" : "-translate-y-full",
         )}
       >
-        <div className="container-page flex h-16 items-center justify-between gap-6">
+        <div className="container-page flex h-20 items-center justify-between gap-6">
           <Link href="/" aria-label={t("nav.home")} className="shrink-0">
             <Wordmark />
           </Link>
