@@ -71,7 +71,7 @@ export async function ReviewsBlock({
       {/* Four quotes at a time (two on phones), in columns that page sideways. */}
       <div className="min-w-0 self-start lg:col-span-8">
         <Carousel prevLabel={t("prev")} nextLabel={t("next")}>
-          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-14 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
+          <ul className="grid auto-cols-[85%] grid-flow-col grid-rows-1 gap-x-8 gap-y-20 sm:auto-cols-[calc(50%-1rem)] sm:grid-rows-2">
             {reviews.map((review) => (
               <li key={review.id} className="snap-start border-t-2 border-ink pt-6">
                 <figure>

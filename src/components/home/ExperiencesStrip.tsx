@@ -37,9 +37,9 @@ export async function ExperiencesStrip() {
         <ul aria-label={t("experiencesLabel")} className="flex items-stretch gap-4">
           {items.map((item) => (
             <li key={item.id} className="w-[min(78vw,21rem)] shrink-0 snap-start">
-              {/* One card: a clean photo on top, the copy inside the card below it (readable on any photo). */}
-              <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-ink/10 bg-paper">
-                <div className="relative aspect-[4/3] bg-sand">
+              {/* A rounded photo, then the copy under a 2px ink rule (the page's pattern for perks, steps and quotes). */}
+              <article className="flex h-full flex-col">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-sand">
                   {item.image ? (
                     <Image
                       src={item.image.src}
@@ -50,7 +50,7 @@ export async function ExperiencesStrip() {
                     />
                   ) : null}
                 </div>
-                <div className="flex flex-1 flex-col p-5 md:p-6">
+                <div className="mt-5 flex flex-1 flex-col border-t-2 border-ink pt-4">
                   <p className="text-small text-granite">
                     {item.partner ? t("experienceWith", { partner: item.partner }) : item.category === "porto" ? t("experienceInPorto") : t("experienceBeyond")}
                   </p>
@@ -69,7 +69,7 @@ export async function ExperiencesStrip() {
           <li className="w-[min(78vw,21rem)] shrink-0 snap-start">
             <Link
               href="/experiences"
-              className="group flex h-full flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
+              className="group flex aspect-[4/3] flex-col justify-end rounded-[var(--radius-card)] bg-pop p-6 text-ink"
             >
               <Icon
                 name="arrowRight"

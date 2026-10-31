@@ -82,7 +82,7 @@ export default async function HomePage() {
 
       <BookDirect />
 
-      <section aria-labelledby="reviews-title" className="container-page section-y">
+      <section aria-labelledby="reviews-title" className="container-page section-y lg:py-[clamp(8rem,11vw,12rem)]">
         {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
         <ReviewsBlock
           overall={summary.bySource.google}
