@@ -12,6 +12,8 @@ import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
 import { Collections } from "@/components/home/Collections";
+import { DetailsStrip } from "@/components/home/DetailsStrip";
+import { FeaturedHomes } from "@/components/home/FeaturedHomes";
 import { ExperiencesStrip } from "@/components/home/ExperiencesStrip";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
@@ -80,7 +82,11 @@ export default async function HomePage() {
 
       <Collections />
 
+      <FeaturedHomes listings={listings} />
+
       <BookDirect />
+
+      <DetailsStrip />
 
       <section aria-labelledby="reviews-title" className="container-page section-y lg:py-[clamp(8rem,11vw,12rem)]">
         {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}

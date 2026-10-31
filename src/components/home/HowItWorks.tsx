@@ -21,7 +21,7 @@ export async function HowItWorks() {
         </h2>
         <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-8">
           {steps.map((step, i) => (
-            <li key={step.title} className="reveal border-t-2 border-ink pt-5">
+            <li key={step.title} className="reveal border-t border-ink pt-5">
               <p className="text-[0.8125rem] font-semibold tabular-nums">{String(i + 1).padStart(2, "0")}</p>
               <h3 className="mt-6 text-[1.375rem] leading-[1.1]">{step.title}</h3>
               <p className="mt-3 text-granite">{step.body}</p>
