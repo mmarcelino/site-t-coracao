@@ -1,20 +1,22 @@
 import { getTranslations } from "next-intl/server";
 
 /**
- * Who they are, in one sentence (the proof behind the hero's promise), before anything is for
- * sale. Set as an editorial aside (label left, statement right) so it reads as
- * a different thing from the section titles that follow. The line darkens as it scrolls into
- * place (CSS scroll-driven; static and fully dark with reduced motion).
+ * Who they are, before anything is for sale: "Since 2015" set large as the trust point, with one
+ * sentence beside it. The sentence darkens as it scrolls into place (CSS scroll-driven; static and
+ * fully dark with reduced motion).
  */
 export async function Intro() {
   const t = await getTranslations("home");
   return (
     <section className="container-page section-y">
-      {/* A centred pause between the hero and the homes: everything else on the page is left-aligned. */}
-      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <p className="label">{t("heroEyebrow")}</p>
-        <span aria-hidden className="mt-6 h-10 w-[2px] bg-ink" />
-        <p className="mt-6 text-[clamp(1.5rem,1.15rem+1.2vw,2.25rem)] leading-[1.2] font-semibold tracking-[-0.025em] text-balance">
+      <div className="grid items-end gap-6 md:grid-cols-12 md:gap-10">
+        <p className="md:col-span-5">
+          <span className="label block">{t("introSince")}</span>
+          <span className="mt-2 block text-[clamp(5rem,3rem+9vw,11rem)] leading-[0.8] font-semibold tracking-[-0.05em] tabular-nums">
+            2015
+          </span>
+        </p>
+        <p className="max-w-[28ch] text-[clamp(1.5rem,1.15rem+1.2vw,2.25rem)] leading-[1.15] font-semibold tracking-[-0.025em] md:col-span-7">
           <span className="scroll-ink">{t("intro1")}</span>
         </p>
       </div>
