@@ -53,14 +53,14 @@ export async function ReviewsBlock({
           </>
         )}
         {bySource ? (
-          <ul className="mt-10 grid grid-cols-3 gap-4">
+          <ul className="mt-8 grid grid-cols-3 gap-4">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
               <li key={source}>
                 <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-2 text-[clamp(1.75rem,1.3rem+1.6vw,2.75rem)] leading-none font-semibold tabular-nums">
+                <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
                   {score(bySource[source].score)}
                 </p>
-                <p className="mt-2 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+                <p className="mt-1.5 text-[0.8125rem] text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
               </li>
             ))}
           </ul>
