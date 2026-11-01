@@ -84,7 +84,9 @@ export function SearchBar({
   // Small sentence-case labels; values (dates and guests alike) in one size.
   const fieldLabel = clsx("block text-[0.75rem] leading-tight text-granite", !docked && "hd:text-[0.8125rem]");
   const valueText = clsx("text-[0.9375rem] leading-tight font-medium text-ink", !docked && "hd:text-[1.0625rem]");
-  const fieldValue = clsx("mt-1 block", valueText);
+  // Label-to-value gap leaves room for the guest stepper's circles, which are taller than the text line.
+  const valueGap = docked ? "mt-1.5" : "mt-2.5";
+  const fieldValue = clsx("block", valueGap, valueText);
 
   return (
     <form
@@ -128,7 +130,7 @@ export function SearchBar({
         </button>
         <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className={clsx("mt-1 flex h-[1.25em] items-center *:flex-1", valueText)}>
+          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, docked && "[&_button]:size-6")}>
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
