@@ -92,11 +92,11 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-3 sm:gap-5">
-              {/* Owners: a separate audience, set quieter than the guest links. */}
+              {/* Owners: a separate audience, so it sits with the utilities on the right (same style as the links). */}
               <Link
                 href={ownersNav.href}
                 aria-current={pathname === ownersNav.href ? "page" : undefined}
-                className="hidden py-2 text-[0.9375rem] font-medium transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-8 lg:block"
+                className="hidden py-2 text-[1.0625rem] font-semibold transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-8 lg:block"
               >
                 {t(`nav.${ownersNav.key}`)}
               </Link>
