@@ -74,15 +74,15 @@ export function Header() {
             </Link>
             {/* Desktop: the guest links, always visible. */}
             <nav aria-label={t("nav.label")} className="hidden lg:block">
-              <ul className="flex items-center gap-8">
+              <ul className="flex items-center gap-10">
                 {headerNav.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "text-[1.0625rem] font-semibold transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-8",
-                        "py-2 hover:opacity-70",
+                        "text-[0.8125rem] font-medium uppercase tracking-[0.1em] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-[6px]",
+                        "block py-2 hover:opacity-70",
                       )}
                     >
                       {t(`nav.${item.key}`)}
@@ -97,7 +97,7 @@ export function Header() {
               <Link
                 href={ownersNav.href}
                 aria-current={pathname === ownersNav.href ? "page" : undefined}
-                className="hidden py-2 text-[1.0625rem] font-semibold transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-8 lg:block"
+                className="hidden py-2 text-[0.8125rem] font-medium uppercase tracking-[0.1em] transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-[6px] lg:block"
               >
                 {t(`nav.${ownersNav.key}`)}
               </Link>
