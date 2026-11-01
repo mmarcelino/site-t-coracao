@@ -62,7 +62,7 @@ export async function Hero({
                 <DirectCard rating={rating} />
               </div>
               {/* Smaller screens: the promise as one short line (under the box, or right on laptops). */}
-              <DirectPerksLine className="lg:flex lg:max-w-[18rem] lg:flex-col lg:justify-end lg:border-t-2 lg:border-paper lg:pb-1 lg:text-right xl:hidden" />
+              <DirectPerksLine className="lg:flex lg:flex-col lg:gap-1.5 lg:justify-end lg:border-t-2 lg:border-paper lg:pb-1 lg:text-right xl:hidden" />
             </div>
           </div>
         </div>

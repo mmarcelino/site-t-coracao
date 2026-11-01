@@ -17,11 +17,11 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
   return (
     <section aria-labelledby="direct-card-title" className="flex w-max shrink-0 flex-col justify-between border-t-2 border-paper pt-4 pb-1 text-paper">
       {/* As wide as the perk line, so the rating's right edge meets the last perk's. */}
-      <div className="flex items-center justify-between gap-8 text-[0.75rem] leading-none">
+      <div className="flex items-center justify-between gap-8">
         <h2 id="direct-card-title" className="label">
           {t("home.directCardTitle")}
         </h2>
-        <p className="flex items-center gap-1.5 text-paper/90">
+        <p className="label flex items-center gap-1.5 text-paper/90">
           <Icon name="star" size={11} fill="currentColor" strokeWidth={0} className="text-paper" />
           {t("home.directCardRating", { score: rating.score, count: rating.count })}
           {rating.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
@@ -44,9 +44,15 @@ export async function DirectPerksLine({ className }: { className?: string }) {
   const t = await getTranslations("home");
   const perks = [t("directCardPerk1"), t("directCardPerk2"), t("directCardPerk3")];
   return (
-    <p className={`text-[0.8125rem] text-paper ${className ?? ""}`}>
+    <p className={`label leading-relaxed text-paper ${className ?? ""}`}>
       <span className="sr-only">{t("directCardTitle")}: </span>
-      {perks.join(" · ")}
+      {/* Each perk stays whole; the line may wrap between them (laptops stack them, without dots). */}
+      {perks.map((perk, i) => (
+        <span key={perk}>
+          {i > 0 ? <span className="lg:hidden"> · </span> : null}
+          <span className="whitespace-nowrap">{perk}</span>
+        </span>
+      ))}
     </p>
   );
 }

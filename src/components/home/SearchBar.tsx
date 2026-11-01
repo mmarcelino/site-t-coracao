@@ -81,8 +81,10 @@ export function SearchBar({
     "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:w-auto md:py-0",
     docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:h-16 hd:px-6",
   );
-  const fieldLabel = clsx("block text-[0.75rem] leading-tight text-granite", !docked && "hd:text-[0.8125rem]");
-  const fieldValue = clsx("mt-1 block text-[0.9375rem] leading-tight font-medium text-ink", !docked && "hd:text-[1.0625rem]");
+  // Labels in the site's caps style; values (dates and guests alike) in one size.
+  const fieldLabel = "label block text-granite";
+  const valueText = clsx("text-[0.9375rem] leading-tight font-medium text-ink", !docked && "hd:text-[1.0625rem]");
+  const fieldValue = clsx("mt-1 block", valueText);
 
   return (
     <form
@@ -126,7 +128,7 @@ export function SearchBar({
         </button>
         <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className="mt-0.5 text-[0.9375rem] font-medium text-ink">
+          <div className={clsx("mt-0.5", valueText)}>
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>

@@ -81,7 +81,7 @@ export function Header() {
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "text-[0.8125rem] font-medium uppercase tracking-[0.1em] transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-[6px]",
+                        "label transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-[6px]",
                         "block py-2 hover:opacity-70",
                       )}
                     >
@@ -97,7 +97,7 @@ export function Header() {
               <Link
                 href={ownersNav.href}
                 aria-current={pathname === ownersNav.href ? "page" : undefined}
-                className="hidden py-2 text-[0.8125rem] font-medium uppercase tracking-[0.1em] transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-[6px] lg:block"
+                className="label hidden py-2 transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-[6px] lg:block"
               >
                 {t(`nav.${ownersNav.key}`)}
               </Link>

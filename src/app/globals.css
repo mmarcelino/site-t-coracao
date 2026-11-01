@@ -179,15 +179,14 @@
   padding-block: var(--section-tight);
 }
 
-/* Tracked uppercase label (eyebrows, meta) */
+/* Tracked uppercase label (eyebrows, meta): the site's one caps style, shared with the header nav. */
 @utility label {
-  /* Branch ahotels: bold caps (Hanken). */
   font-family: var(--font-condensed);
   font-size: 0.8125rem;
   line-height: 1.1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Underlined text link with a calm hover */
