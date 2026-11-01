@@ -270,7 +270,13 @@
     "available": "disponíveis de {checkIn} a {checkOut}",
     "forGuests": "para {guests}",
     "none": "Nenhuma casa corresponde a esta pesquisa. Experimente outras datas ou outro filtro.",
-    "clear": "Limpar pesquisa"
+    "clear": "Limpar pesquisa",
+    "viewLabel": "Vista",
+    "viewList": "Lista",
+    "viewMap": "Mapa",
+    "mapLabel": "Mapa das nossas casas no Porto",
+    "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas. Mapa ilustrado, para orientação.",
+    "mapScale": "1 km"
   },
   "notFound": {
     "title": "Esta página ainda não existe.",

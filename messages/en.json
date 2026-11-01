@@ -270,7 +270,13 @@
     "available": "available from {checkIn} to {checkOut}",
     "forGuests": "for {guests}",
     "none": "No homes match this search. Try other dates or another filter.",
-    "clear": "Clear search"
+    "clear": "Clear search",
+    "viewLabel": "View",
+    "viewList": "List",
+    "viewMap": "Map",
+    "mapLabel": "Map of our homes in Porto",
+    "mapHint": "Each pin is a building. Choose one to see its homes. Illustrated map, for orientation.",
+    "mapScale": "1 km"
   },
   "notFound": {
     "title": "This page doesn't exist yet.",
