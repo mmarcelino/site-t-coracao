@@ -13,13 +13,12 @@ import { alternates } from "@/lib/seo";
 import { Icon } from "@/components/ui/Icon";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { MapView, type MapPin } from "@/components/listing/MapView";
-import { mapLabels } from "@/content/portoMap";
 
 /**
  * All apartments, filterable by collection tag (?tag=) and by the home search
  * (?checkIn&checkOut&guests: capacity + mock availability). Filters are links, so every
- * filtered view has a shareable URL. ?view=map shows the same results on an illustrated map, one
- * pin per building. Neighbourhood filter: later.
+ * filtered view has a shareable URL. ?view=map shows the same results on a street map, one pin
+ * per building. Neighbourhood filter: later.
  */
 export async function generateMetadata(): Promise<Metadata> {
   const locale = (await rootLocale()) as Locale;
@@ -187,11 +186,9 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
         <div className="mt-10">
           <MapView
             pins={mapPins}
-            labels={mapLabels.map((l) => ({ text: l.text[locale], lng: l.at[0], lat: l.at[1], kind: l.kind }))}
             panels={mapPanels}
             ariaLabel={t("apartments.mapLabel")}
             hint={t("apartments.mapHint")}
-            scale={t("apartments.mapScale")}
           />
         </div>
       ) : shown.length ? (

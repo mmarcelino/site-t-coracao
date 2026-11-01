@@ -428,3 +428,10 @@
   }
 }
 
+/* Apartments map: quiet, warm-grey tiles so the pins and the photos lead (development tiles only). */
+.tc-map .leaflet-tile-pane {
+  filter: grayscale(1) sepia(0.12) contrast(0.92) brightness(1.04);
+}
+.tc-map .leaflet-control-attribution {
+  font-size: 0.6875rem;
+}
