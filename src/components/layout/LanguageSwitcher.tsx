@@ -51,11 +51,11 @@ export function LanguageSwitcher({ className, tone = "dark" }: { className?: str
             aria-current={l === locale ? "true" : undefined}
             data-testid={`lang-${l}`}
             className={clsx(
-              "label py-2 transition-colors",
+              "label py-2 text-[0.875rem] transition-colors",
               l === locale
                 ? "underline decoration-[1.5px] underline-offset-[6px]"
                 : tone === "light"
-                  ? "text-paper/80 hover:text-paper"
+                  ? "text-paper/90 hover:text-paper"
                   : "text-ink-soft-text hover:text-ink",
             )}
           >

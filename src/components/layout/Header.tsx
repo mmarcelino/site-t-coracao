@@ -9,7 +9,7 @@ import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
 import { site } from "@/content/site";
-import { headerNav, menuNav } from "./navItems";
+import { headerNav, menuNav, ownersNav } from "./navItems";
 import { OPEN_MENU_EVENT } from "@/components/home/DockedSearch";
 
 /**
@@ -92,6 +92,15 @@ export function Header() {
             </nav>
 
             <div className="flex items-center gap-3 sm:gap-5">
+              {/* Owners: a separate audience, set quieter than the guest links. */}
+              <Link
+                href={ownersNav.href}
+                aria-current={pathname === ownersNav.href ? "page" : undefined}
+                className="hidden py-2 text-[0.9375rem] font-medium transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-8 lg:block"
+              >
+                {t(`nav.${ownersNav.key}`)}
+              </Link>
+              <span aria-hidden className="hidden h-5 w-px bg-current opacity-30 lg:block" />
               {/* WhatsApp concierge: icon + label on desktop, icon only on smaller screens. */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}

@@ -10,13 +10,15 @@ export const primaryNav: Array<{ href: StaticPathname; key: keyof Messages["nav"
   { href: "/property-management", key: "owners" },
 ];
 
-/** Links always visible in the desktop header (client's priority order). Others: menu + footer. */
+/** Guest links in the centre of the desktop header (client's priority order). */
 export const headerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"] }> = [
   { href: "/apartments", key: "apartments" },
   { href: "/about", key: "about" },
   { href: "/experiences", key: "experiences" },
-  { href: "/property-management", key: "owners" },
 ];
+
+/** The owners' entry point: a different audience, so it sits with the utilities on the right. */
+export const ownersNav: { href: StaticPathname; key: keyof Messages["nav"] } = { href: "/property-management", key: "owners" };
 
 /** Footer "Explore" column: the header's links plus the help pages. */
 export const footerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"] }> = [
@@ -28,4 +30,4 @@ export const footerNav: Array<{ href: StaticPathname; key: keyof Messages["nav"]
 ];
 
 /** Full-screen menu: the header's links plus the FAQ (the logo links home). */
-export const menuNav: Array<{ href: StaticPathname; key: keyof Messages["nav"] }> = [...headerNav, { href: "/faq", key: "faq" }];
+export const menuNav: Array<{ href: StaticPathname; key: keyof Messages["nav"] }> = [...headerNav, ownersNav, { href: "/faq", key: "faq" }];
