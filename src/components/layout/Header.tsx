@@ -63,7 +63,7 @@ export function Header() {
         className={clsx(
           "top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
           overlay ? "relative" : "sticky",
-          light ? "on-dark text-paper" : "bg-paper text-ink",
+          light ? "on-dark text-paper" : "border-b border-ink/10 bg-paper text-ink",
         )}
       >
         <div className="container-page flex h-full flex-col">
