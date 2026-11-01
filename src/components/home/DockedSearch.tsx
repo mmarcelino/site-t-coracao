@@ -74,7 +74,7 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
             onClick={() => window.dispatchEvent(new Event(OPEN_MENU_EVENT))}
             className="-mr-2 grid size-11 place-items-center"
           >
-            <Icon name="menu" size={24} />
+            <Icon name="menu" size={26} strokeWidth={2} />
             <span className="sr-only">{t("nav.openMenu")}</span>
           </button>
         </div>
@@ -100,7 +100,7 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
             onClick={() => window.dispatchEvent(new Event(OPEN_MENU_EVENT))}
             className="grid size-11 shrink-0 place-items-center rounded-full bg-paper/10"
           >
-            <Icon name="menu" size={20} />
+            <Icon name="menu" size={20} strokeWidth={2} />
             <span className="sr-only">{t("nav.openMenu")}</span>
           </button>
         </div>

@@ -240,10 +240,10 @@ function Hamburger() {
         x2="36"
         y2="1"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="2"
         className="origin-right scale-x-[0.55] transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:scale-x-100"
       />
-      <line x1="0" y1="13" x2="36" y2="13" stroke="currentColor" strokeWidth="1.5" />
+      <line x1="0" y1="13" x2="36" y2="13" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
 }
