@@ -44,6 +44,16 @@ export function MapView({
 }) {
   const [selected, setSelected] = useState(pins[0]?.id);
   const el = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+
+  // Choosing a pin shows its homes and glides down to them (instant with reduced motion).
+  const choose = (id: string) => {
+    setSelected(id);
+    requestAnimationFrame(() => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      panel.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    });
+  };
   const markers = useRef<Map<string, Marker>>(new Map());
   const pinsKey = pins.map((p) => `${p.id}:${p.count}`).join("|");
 
@@ -53,7 +63,8 @@ export function MapView({
     let cancelled = false;
     void import("leaflet").then((L) => {
       if (cancelled || !el.current) return;
-      map = L.map(el.current, { scrollWheelZoom: false, zoomControl: true, attributionControl: true, zoomSnap: 0.25 });
+      map = L.map(el.current, { scrollWheelZoom: false, zoomControl: false, attributionControl: true, zoomSnap: 0.25 });
+      L.control.zoom({ position: "bottomright" }).addTo(map);
       // Wheel zoom only once the visitor has clicked into the map, so page scrolling never gets stuck.
       const m = map;
       m.on("click focus", () => m.scrollWheelZoom.enable());
@@ -67,7 +78,7 @@ export function MapView({
           keyboard: true,
           riseOnHover: true,
         })
-          .on("click", () => setSelected(pin.id))
+          .on("click", () => choose(pin.id))
           .addTo(map);
         markers.current.set(pin.id, marker);
       }
@@ -124,7 +135,7 @@ export function MapView({
         className="tc-map isolate h-[26rem] overflow-hidden rounded-[var(--radius-card)] bg-[#f4f1ec] md:h-[34rem]"
       />
       <p className="mt-3 text-small text-granite">{hint}</p>
-      <div aria-live="polite" className="mt-8">
+      <div ref={panel} aria-live="polite" className="mt-8 scroll-mt-28">
         {selected ? panels[selected] : null}
       </div>
     </div>
