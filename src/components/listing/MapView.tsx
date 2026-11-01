@@ -28,8 +28,8 @@ const pinHtml = (count: number, active: boolean) =>
 
 /**
  * Street map (Leaflet) with one numbered pin per building; choosing a pin shows that building's
- * homes below. Leaflet is loaded in the browser only. Scroll-wheel zoom is off so the page scrolls
- * normally; zoom with the buttons, a pinch or a double click.
+ * homes below. Leaflet is loaded in the browser only. Zoom with the buttons, a pinch or a double
+ * click; the mouse wheel zooms only after clicking into the map (so the page scrolls normally).
  */
 export function MapView({
   pins,
@@ -53,7 +53,11 @@ export function MapView({
     let cancelled = false;
     void import("leaflet").then((L) => {
       if (cancelled || !el.current) return;
-      map = L.map(el.current, { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+      map = L.map(el.current, { scrollWheelZoom: false, zoomControl: true, attributionControl: true, zoomSnap: 0.25 });
+      // Wheel zoom only once the visitor has clicked into the map, so page scrolling never gets stuck.
+      const m = map;
+      m.on("click focus", () => m.scrollWheelZoom.enable());
+      el.current.addEventListener("mouseleave", () => m.scrollWheelZoom.disable());
       L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
       for (const pin of pins) {
         const marker = L.marker([pin.lat, pin.lng], {
@@ -79,7 +83,7 @@ export function MapView({
           const near = pins.filter((p) => map!.distance([p.lat, p.lng], [c.lat, c.lng]) < 2000);
           if (near.length) focus = near;
         }
-        map.fitBounds(L.latLngBounds(focus.map((p) => [p.lat, p.lng])), { padding: [48, 48], maxZoom: 16 });
+        map.fitBounds(L.latLngBounds(focus.map((p) => [p.lat, p.lng])), { padding: [36, 36], maxZoom: 16 });
       };
       fit();
       // Keep every pin in view when the map changes size (rotation, window resize).
