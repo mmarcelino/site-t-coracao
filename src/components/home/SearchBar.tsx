@@ -58,9 +58,6 @@ export function SearchBar({
     };
   }, [open]);
 
-  // One prompt only: "Quando?" under arrival, a quiet dash under departure until dates are set.
-  const placeholder = "text-granite";
-
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const checkIn = range?.from ? localDateToISO(range.from) : undefined;
@@ -82,11 +79,13 @@ export function SearchBar({
     docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:h-16 hd:px-6",
   );
   // Small sentence-case labels; values (dates and guests alike) in one size.
-  const fieldLabel = clsx("block text-[0.75rem] leading-tight text-granite", !docked && "hd:text-[0.8125rem]");
-  const valueText = clsx("text-[0.9375rem] leading-tight font-medium text-ink", !docked && "hd:text-[1.0625rem]");
+  const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium text-ink", !docked && "hd:text-[0.8125rem]");
+  const valueText = clsx("text-[0.9375rem] leading-tight", !docked && "hd:text-[1.0625rem]");
+  // Chosen values in ink; until dates are set, a quiet "When?" under arrival and a dash under departure.
+  const filled = (on: boolean) => (on ? "font-medium text-ink" : "text-granite");
   // Label-to-value gap leaves room for the guest stepper's circles, which are taller than the text line.
   const valueGap = docked ? "mt-1.5" : "mt-2.5";
-  const fieldValue = clsx("block", valueGap, valueText);
+  const fieldValue = (on: boolean) => clsx("block", valueGap, valueText, filled(on));
 
   return (
     <form
@@ -112,7 +111,7 @@ export function SearchBar({
           className={field}
         >
           <span className={fieldLabel}>{t("arrive")}</span>
-          <span className={clsx(fieldValue, !range?.from && placeholder)}>
+          <span className={fieldValue(!!range?.from)}>
             {range?.from ? format.dayMonth(range.from) : t("when")}
           </span>
         </button>
@@ -124,13 +123,13 @@ export function SearchBar({
           className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}
         >
           <span className={fieldLabel}>{t("depart")}</span>
-          <span className={clsx(fieldValue, !range?.to && placeholder)}>
+          <span className={fieldValue(!!range?.to)}>
             {range?.to ? format.dayMonth(range.to) : "—"}
           </span>
         </button>
         <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, docked && "[&_button]:size-6")}>
+          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, filled(true), docked && "[&_button]:size-6")}>
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
