@@ -435,13 +435,13 @@
 .tc-map .leaflet-control-attribution {
   font-size: 0.6875rem;
 }
-/* Zoom controls: two round white buttons, bottom right, in the page's 2px ink line. */
+/* Zoom controls: one slim white pill (+ over −, hairline between), soft shadow, thin symbols. */
 .tc-map .leaflet-bar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  overflow: hidden;
   border: 0;
-  box-shadow: none;
+  border-radius: 9999px;
+  background: var(--color-paper);
+  box-shadow: 0 8px 24px -12px rgb(27 26 24 / 0.35), 0 0 0 1px rgb(27 26 24 / 0.06);
   margin: 0 1rem 2rem 0;
 }
 .tc-map .leaflet-bar a,
@@ -449,22 +449,22 @@
 .tc-map .leaflet-bar a:last-child {
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 2px solid var(--color-ink);
-  border-radius: 9999px;
-  background: var(--color-paper);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--color-ink);
-  font: 400 1.5rem/1 var(--font-sans);
-  box-shadow: 0 6px 16px -8px rgb(27 26 24 / 0.5);
-  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
+  font: 300 1.375rem/1 var(--font-sans);
+  transition: background-color var(--duration-fast) ease;
+}
+.tc-map .leaflet-bar a:first-child {
+  border-bottom: 1px solid rgb(27 26 24 / 0.1);
 }
 .tc-map .leaflet-bar a:hover {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-sand);
 }
 .tc-map .leaflet-bar a.leaflet-disabled {
-  opacity: 0.35;
-  background: var(--color-paper);
-  color: var(--color-ink);
+  color: rgb(27 26 24 / 0.25);
+  background: transparent;
 }

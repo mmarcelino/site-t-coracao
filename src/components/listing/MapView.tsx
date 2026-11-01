@@ -26,6 +26,23 @@ const pinHtml = (count: number, active: boolean) =>
     active ? "bg-ink text-paper scale-110" : "bg-paper text-ink"
   }">${count}</span>`;
 
+/** Scroll the window to `to` with an ease-in-out curve; duration grows gently with distance. */
+function glide(to: number) {
+  const from = window.scrollY;
+  const distance = to - from;
+  if (Math.abs(distance) < 2) return;
+  const duration = Math.min(1400, 700 + Math.abs(distance) * 0.4);
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  const start = performance.now();
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / duration);
+    // "instant": the page sets scroll-behavior: smooth, which would fight each frame.
+    window.scrollTo({ top: from + distance * ease(t), behavior: "instant" });
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 /**
  * Street map (Leaflet) with one numbered pin per building; choosing a pin shows that building's
  * homes below. Leaflet is loaded in the browser only. Zoom with the buttons, a pinch or a double
@@ -46,12 +63,16 @@ export function MapView({
   const el = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
 
-  // Choosing a pin shows its homes and glides down to them (instant with reduced motion).
+  // Choosing a pin shows its homes and glides down to them: a slow ease-in-out (the browser's own
+  // smooth scroll is quick and abrupt). Instant with reduced motion.
   const choose = (id: string) => {
     setSelected(id);
     requestAnimationFrame(() => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      panel.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      const target = panel.current;
+      if (!target) return;
+      const to = target.getBoundingClientRect().top + window.scrollY - 112;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return window.scrollTo({ top: to, behavior: "instant" });
+      glide(to);
     });
   };
   const markers = useRef<Map<string, Marker>>(new Map());
@@ -135,7 +156,7 @@ export function MapView({
         className="tc-map isolate h-[26rem] overflow-hidden rounded-[var(--radius-card)] bg-[#f4f1ec] md:h-[34rem]"
       />
       <p className="mt-3 text-small text-granite">{hint}</p>
-      <div ref={panel} aria-live="polite" className="mt-8 scroll-mt-28">
+      <div ref={panel} aria-live="polite" className="mt-8">
         {selected ? panels[selected] : null}
       </div>
     </div>
