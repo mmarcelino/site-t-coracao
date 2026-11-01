@@ -411,7 +411,7 @@ async function ApartmentContent({ params }: { params: Params }) {
             </h2>
             <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {others.map((l) => (
-                <ListingCard key={l.id} listing={l} buildingName={building.name} />
+                <ListingCard key={l.id} listing={l} location={neighbourhood?.name ?? ""} />
               ))}
             </div>
           </div>

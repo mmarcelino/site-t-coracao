@@ -8,7 +8,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { isISODate, isoToLocalDate } from "@/lib/dates";
 import { createFormatter } from "@/lib/format";
-import { getBuildings, getListings, isRangeAvailable, listingTags, type Listing, type ListingTag } from "@/lib/data";
+import { getListings, getNeighbourhoods, isRangeAvailable, listingTags, type Listing, type ListingTag } from "@/lib/data";
 import { alternates } from "@/lib/seo";
 import { ListingCard } from "@/components/listing/ListingCard";
 
@@ -59,7 +59,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
   const t = await getTranslations();
   const format = createFormatter(locale);
   const search = parseSearch(await searchParams);
-  const [all, buildings] = await Promise.all([getListings(locale), getBuildings(locale)]);
+  const [all, neighbourhoods] = await Promise.all([getListings(locale), getNeighbourhoods(locale)]);
 
   // Capacity + dates first (they define what's bookable), then the tag on top.
   const bookable: Listing[] = [];
@@ -128,7 +128,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
             <ListingCard
               key={listing.id}
               listing={listing}
-              buildingName={buildings.find((b) => b.id === listing.buildingId)?.name ?? ""}
+              location={neighbourhoods.find((n) => n.slug === listing.neighbourhoodSlug)?.name ?? ""}
               query={toQuery(search, undefined)}
             />
           ))}

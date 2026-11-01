@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Icon } from "@/components/ui/Icon";
 import { Link } from "@/i18n/navigation";
 import type { Listing } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
@@ -10,12 +11,13 @@ import { createFormatter } from "@/lib/format";
  */
 export async function ListingCard({
   listing,
-  buildingName,
+  location,
   query,
   sizes = "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw",
 }: {
   listing: Listing;
-  buildingName: string;
+  /** Neighbourhood name: what guests understand (building names mean nothing to them yet). */
+  location: string;
   query?: Record<string, string>;
   sizes?: string;
 }) {
@@ -47,7 +49,10 @@ export async function ListingCard({
       </div>
       <div className="mt-5 flex items-start justify-between gap-4">
         <div>
-          <p className="label text-granite">{buildingName}</p>
+          <p className="flex items-center gap-1.5 text-small text-granite">
+            <Icon name="pin" size={15} strokeWidth={1.75} />
+            {location}
+          </p>
           {/* Sentence case at a calm size: the photo sells, the name labels it. */}
           <h3 className="mt-1.5 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.015em] normal-case">
             <Link
