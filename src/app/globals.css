@@ -310,7 +310,7 @@
 }
 
 .rdp-root.tc-calendar .rdp-day_button:hover:not([disabled]) {
-  background: var(--color-sand);
+  background: var(--color-limestone);
 }
 
 /* Range ends are filled circles (also on hover/focus) on a tinted band; days in between keep the tint. */
