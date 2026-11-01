@@ -276,7 +276,7 @@
   --rdp-day-width: 2.75rem;
   --rdp-day_button-height: 2.625rem;
   --rdp-day_button-width: 2.625rem;
-  --rdp-day_button-border-radius: 0;
+  --rdp-day_button-border-radius: 50%;
   --rdp-selected-border: 1px solid var(--color-ink);
   --rdp-today-color: var(--color-azulejo);
   --rdp-range_start-color: var(--color-paper);
@@ -313,9 +313,11 @@
   background: var(--color-sand);
 }
 
-/* Range ends stay filled (also on hover/focus); days in between keep the tint. */
+/* Range ends are filled circles (also on hover/focus) on a tinted band; days in between keep the tint. */
+/* An arrival chosen on its own (no departure yet) looks the same as a range end. */
 .rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button,
-.rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button:hover {
+.rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button:hover,
+.rdp-root.tc-calendar .rdp-selected:not(.rdp-range_middle) .rdp-day_button {
   background: var(--color-ink);
   color: var(--color-paper);
 }

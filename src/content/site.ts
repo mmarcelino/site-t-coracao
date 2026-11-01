@@ -31,6 +31,11 @@ export const site = {
   licencesNote: "53495/AL · 53497/AL · 79651/AL · 79658/AL · 100873/AL · 100882/AL · 100908/AL · 150447/AL · 150452/AL · 150455/AL · 167338/AL",
   /** Team availability, from Guesty listing copy ("10am to 10pm"). */
   teamHours: "10:00–22:00",
+  /**
+   * Shortest stay the calendars accept (client request, 2026-11-01). TO CONFIRM: the Guesty listings
+   * currently say 2 nights; a listing's own higher minimum still applies.
+   */
+  minNights: 3,
 } as const;
 
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";

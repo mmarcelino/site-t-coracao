@@ -96,6 +96,7 @@
     "maxGuests": "Máximo {count} hóspedes",
     "selectDates": "Escolha as datas para ver o preço total.",
     "minNightsHint": "Estadia mínima de {count} noites.",
+    "minNightsTooltip": "Mínimo de {count} noites",
     "loading": "A calcular o preço…",
     "nightlyLine": "Alojamento · {nights}",
     "lengthOfStay": "Desconto de estadia longa",

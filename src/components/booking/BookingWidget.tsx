@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { requestBlockedNights, requestQuote } from "@/lib/actions/booking";
 import { track } from "@/lib/analytics";
+import { site } from "@/content/site";
 import { isISODate, isoToLocalDate, localDateToISO, nightsBetween } from "@/lib/dates";
 import type { QuoteResult } from "@/lib/data/types";
 import { useFormat } from "@/lib/format";
@@ -187,7 +188,12 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         </button>
         {calendarOpen ? (
           <div id={`${idPrefix}-calendar`} className="animate-fade-in-fast mt-3 rounded-[var(--radius-tile)] border border-ink/10 bg-white p-3">
-            <DateRangeCalendar selected={range} onSelect={setRange} blockedNights={blocked ?? []} />
+            <DateRangeCalendar
+              selected={range}
+              onSelect={setRange}
+              blockedNights={blocked ?? []}
+              minNights={Math.max(listing.minNights, site.minNights)}
+            />
             <div className="flex items-center justify-between border-t border-ink/10 px-1 pt-3">
               <button
                 type="button"

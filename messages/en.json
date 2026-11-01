@@ -96,6 +96,7 @@
     "maxGuests": "Up to {count} guests",
     "selectDates": "Choose your dates to see the total price.",
     "minNightsHint": "Minimum stay {count} nights.",
+    "minNightsTooltip": "Minimum {count} nights",
     "loading": "Calculating your price…",
     "nightlyLine": "Accommodation · {nights}",
     "lengthOfStay": "Longer-stay rate",

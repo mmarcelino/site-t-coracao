@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
+import { site } from "@/content/site";
 import { useRouter } from "@/i18n/navigation";
 import { track } from "@/lib/analytics";
 import { localDateToISO } from "@/lib/dates";
@@ -81,11 +82,11 @@ export function SearchBar({
   // Small sentence-case labels; values (dates and guests alike) in one size.
   const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium text-ink", !docked && "hd:text-[0.8125rem]");
   const valueText = clsx("text-[0.9375rem] leading-tight", !docked && "hd:text-[1.0625rem]");
-  // Chosen values in ink; until dates are set, a quiet "When?" under arrival and a dash under departure.
-  const filled = (on: boolean) => (on ? "font-medium text-ink" : "text-granite");
+  // Values stay quiet under their ink labels: "When?" and a dash until dates are set, then the dates.
+  const quiet = "text-granite";
   // Label-to-value gap leaves room for the guest stepper's circles, which are taller than the text line.
   const valueGap = docked ? "mt-1.5" : "mt-2.5";
-  const fieldValue = (on: boolean) => clsx("block", valueGap, valueText, filled(on));
+  const fieldValue = clsx("block", valueGap, valueText, quiet);
 
   return (
     <form
@@ -111,7 +112,7 @@ export function SearchBar({
           className={field}
         >
           <span className={fieldLabel}>{t("arrive")}</span>
-          <span className={fieldValue(!!range?.from)}>
+          <span className={fieldValue}>
             {range?.from ? format.dayMonth(range.from) : t("when")}
           </span>
         </button>
@@ -123,13 +124,13 @@ export function SearchBar({
           className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}
         >
           <span className={fieldLabel}>{t("depart")}</span>
-          <span className={fieldValue(!!range?.to)}>
+          <span className={fieldValue}>
             {range?.to ? format.dayMonth(range.to) : "—"}
           </span>
         </button>
         <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, filled(true), docked && "[&_button]:size-6")}>
+          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, quiet, docked && "[&_button]:size-6")}>
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
@@ -158,7 +159,7 @@ export function SearchBar({
               calendarPlacement === "top" ? "bottom-full mb-2" : "top-full mt-2",
             )}
           >
-            <DateRangeCalendar selected={range} onSelect={setRange} months={months} />
+            <DateRangeCalendar selected={range} onSelect={setRange} months={months} minNights={site.minNights} />
             <div className="mt-2 flex items-center justify-between border-t border-ink/10 pt-4">
               <button type="button" onClick={() => setRange(undefined)} className="link-quiet text-small">
                 {t("clearDates")}
