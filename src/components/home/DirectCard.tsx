@@ -17,14 +17,14 @@ export async function DirectCard({ rating }: { rating: HeroRating }) {
   return (
     <section aria-labelledby="direct-card-title" className="flex w-max shrink-0 flex-col justify-between border-t-2 border-paper pt-4 pb-1 text-paper">
       {/* As wide as the perk line, so the rating's right edge meets the last perk's. */}
-      {/* Title and rating both bold, full white; the wider gap keeps them apart. */}
+      {/* Title and rating in the hero's one caps style; the wider gap keeps them apart. */}
       <div className="flex items-center justify-between gap-12">
         <h2 id="direct-card-title" className="label">
-          <span className="font-bold">{t("home.directCardTitle")}</span>
+          {t("home.directCardTitle")}
         </h2>
         <p className="label flex items-center gap-1.5">
           <Icon name="star" size={11} fill="currentColor" strokeWidth={0} />
-          <span className="font-bold">{t("home.directCardRating", { score: rating.score, count: rating.count })}</span>
+          {t("home.directCardRating", { score: rating.score, count: rating.count })}
           {rating.mock ? <span className="sr-only">({t("common.demo")})</span> : null}
         </p>
       </div>
