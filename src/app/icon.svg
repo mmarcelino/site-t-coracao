@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- An arched Porto doorway with its fanlight: the restored buildings the flats live in. Limestone on ink. -->
-  <rect width="64" height="64" rx="14" fill="#1b1a18"/>
-  <path d="M18 54V30a14 14 0 0 1 28 0v24z" fill="#e4dccf"/>
-  <g fill="none" stroke="#1b1a18" stroke-width="2">
-    <path d="M18 31h28M32 31v23M32 31l-8.5-11M32 31l8.5-11M32 31V16"/>
-  </g>
-</svg>
