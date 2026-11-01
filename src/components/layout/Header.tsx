@@ -130,8 +130,6 @@ export function Header() {
               above "Book direct" at the bottom of the hero. */}
           {light ? <div aria-hidden className="h-[2px] bg-paper" /> : null}
         </div>
-        {/* On the solid bar the black rule runs edge to edge, like the docked booking bar's. */}
-        {light ? null : <div aria-hidden className="h-[2px] bg-ink" />}
       </header>
 
       {menuOpen ? (
