@@ -23,7 +23,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
   });
 
   return (
-    <section aria-labelledby="collections-title" className="container-page section-y pt-0">
+    <section aria-labelledby="collections-title" className="container-page section-y">
       <h2 id="collections-title" className="text-h2 reveal">
         <span className="block">{t("home.collectionsTitle")}</span> <span className="block">{t("home.collectionsTitleCta")}</span>
       </h2>
