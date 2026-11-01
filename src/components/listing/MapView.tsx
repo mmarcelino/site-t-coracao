@@ -21,13 +21,13 @@ const ATTRIBUTION =
   process.env.NEXT_PUBLIC_MAP_TILES_ATTRIBUTION ||
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-// Pins in the branch's own palette: ink with a white ring on a pale map; the chosen one inverts
-// (white, ink ring and number) and grows.
+// Pins in the branch's own palette on a pale map: white with an ink ring and number; the chosen one
+// fills ink (with a white ring) and grows, the usual "selected" convention.
 const pinHtml = (count: number, active: boolean) =>
   `<span class="grid size-11 place-items-center rounded-full border-2 text-[0.9375rem] font-semibold tabular-nums transition-transform ${
     active
-      ? "scale-115 border-ink bg-paper text-ink shadow-[0_8px_20px_-6px_rgba(27,26,24,0.55)]"
-      : "border-paper bg-ink text-paper shadow-[0_6px_18px_-6px_rgba(27,26,24,0.55)]"
+      ? "scale-115 border-paper bg-ink text-paper shadow-[0_8px_20px_-6px_rgba(27,26,24,0.6)]"
+      : "border-ink bg-paper text-ink shadow-[0_6px_18px_-6px_rgba(27,26,24,0.45)]"
   }">${count}</span>`;
 
 /** Scroll the window to `to` with an ease-in-out curve; duration grows gently with distance. */
