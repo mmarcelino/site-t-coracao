@@ -81,8 +81,8 @@ export function SearchBar({
     "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:w-auto md:py-0",
     docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:h-16 hd:px-6",
   );
-  // Labels in the site's caps style; values (dates and guests alike) in one size.
-  const fieldLabel = "label block text-granite";
+  // Small sentence-case labels; values (dates and guests alike) in one size.
+  const fieldLabel = clsx("block text-[0.75rem] leading-tight text-granite", !docked && "hd:text-[0.8125rem]");
   const valueText = clsx("text-[0.9375rem] leading-tight font-medium text-ink", !docked && "hd:text-[1.0625rem]");
   const fieldValue = clsx("mt-1 block", valueText);
 
