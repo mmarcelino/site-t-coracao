@@ -25,7 +25,7 @@ export async function ListingCard({
 
   return (
     <article className="group reveal relative">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] bg-limestone">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-limestone">
         {cover ? (
           <Image
             src={cover.src}
@@ -48,7 +48,8 @@ export async function ListingCard({
       <div className="mt-5 flex items-start justify-between gap-4">
         <div>
           <p className="label text-granite">{buildingName}</p>
-          <h3 className="text-h3 mt-2 font-semibold">
+          {/* Sentence case at a calm size: the photo sells, the name labels it. */}
+          <h3 className="mt-1.5 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.015em] normal-case">
             <Link
               href={{ pathname: "/apartments/[slug]", params: { slug: listing.slug }, query }}
               className="after:absolute after:inset-0"
@@ -61,7 +62,7 @@ export async function ListingCard({
             {t("common.area", { count: listing.areaSqm })}
           </p>
         </div>
-        <p className="shrink-0 pt-6 text-right">
+        <p className="shrink-0 pt-5 text-right">
           <span className="block text-[0.75rem] text-granite">{t("common.from")}</span>
           <span className="font-semibold">
             {format.money(listing.price.base.amount, listing.price.base.currency)}
