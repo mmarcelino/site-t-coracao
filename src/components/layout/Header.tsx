@@ -67,11 +67,12 @@ export function Header() {
         )}
       >
         <div className="container-page flex h-full flex-col">
-          <div className="flex flex-1 items-center justify-between">
-            <Link href="/" aria-label={t("nav.home")} className="shrink-0">
+          {/* Three columns from lg: logo | guest links centred on the page | owners and utilities. */}
+          <div className="flex flex-1 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]">
+            <Link href="/" aria-label={t("nav.home")} className="shrink-0 justify-self-start">
               <Wordmark />
             </Link>
-            {/* Desktop: the key links, always visible. */}
+            {/* Desktop: the guest links, always visible. */}
             <nav aria-label={t("nav.label")} className="hidden lg:block">
               <ul className="flex items-center gap-8">
                 {headerNav.map((item) => (
@@ -91,7 +92,7 @@ export function Header() {
               </ul>
             </nav>
 
-            <div className="flex items-center gap-3 sm:gap-5">
+            <div className="flex items-center gap-3 justify-self-end sm:gap-5">
               {/* Owners: a separate audience, so it sits with the utilities on the right (same style as the links). */}
               <Link
                 href={ownersNav.href}
@@ -101,7 +102,7 @@ export function Header() {
                 {t(`nav.${ownersNav.key}`)}
               </Link>
               <span aria-hidden className="hidden h-5 w-px bg-current opacity-30 lg:block" />
-              {/* WhatsApp concierge: icon + label on desktop, icon only on smaller screens. */}
+              {/* WhatsApp concierge: icon only (named for screen readers). */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
@@ -109,8 +110,7 @@ export function Header() {
                 className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
                 <Icon name="whatsapp" size={24} strokeWidth={1.4} />
-                <span className="hidden text-[1.0625rem] font-semibold whitespace-nowrap lg:inline">{t("whatsapp.short")}</span>
-                <span className="sr-only lg:hidden">{t("whatsapp.cta")}</span>
+                <span className="sr-only">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
               <LanguageSwitcher className="hidden lg:flex" tone={light ? "light" : "dark"} />
               <button
