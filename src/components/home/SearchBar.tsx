@@ -128,7 +128,7 @@ export function SearchBar({
         </button>
         <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className={clsx("mt-0.5", valueText)}>
+          <div className={clsx("mt-1 flex h-[1.25em] items-center *:flex-1", valueText)}>
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
