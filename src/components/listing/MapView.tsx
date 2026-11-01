@@ -21,11 +21,13 @@ const ATTRIBUTION =
   process.env.NEXT_PUBLIC_MAP_TILES_ATTRIBUTION ||
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-// Pins in the azulejo blue (the brand's tile colour) so they stand out on the grey map; the chosen
-// one turns ink and grows. White ring keeps them crisp over streets.
+// Pins in the branch's own palette: ink with a white ring (clear on the grey map); the chosen one
+// grows and gets a stone halo.
 const pinHtml = (count: number, active: boolean) =>
-  `<span class="grid size-11 place-items-center rounded-full border-2 border-paper text-[0.9375rem] font-semibold text-paper tabular-nums shadow-[0_6px_18px_-6px_rgba(27,26,24,0.55)] transition-transform ${
-    active ? "bg-ink scale-115" : "bg-azulejo"
+  `<span class="grid size-11 place-items-center rounded-full border-2 border-paper bg-ink text-[0.9375rem] font-semibold text-paper tabular-nums transition-transform ${
+    active
+      ? "scale-115 shadow-[0_0_0_5px_var(--color-pop),0_8px_20px_-6px_rgba(27,26,24,0.6)]"
+      : "shadow-[0_6px_18px_-6px_rgba(27,26,24,0.55)]"
   }">${count}</span>`;
 
 /** Scroll the window to `to` with an ease-in-out curve; duration grows gently with distance. */
