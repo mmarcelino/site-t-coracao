@@ -1,6 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Tripas-Coração: the classic azulejo four-point star (concave tile motif) on a dark tile. -->
-  <rect width="64" height="64" rx="16" fill="#1b1a18"/>
-  <path d="M32 11A21 21 0 0 0 53 32A21 21 0 0 0 32 53A21 21 0 0 0 11 32A21 21 0 0 0 32 11Z" fill="#cddcef"/>
-  <circle cx="32" cy="32" r="4.5" fill="#1b1a18"/>
+  <!-- Tripas-Coração monogram: T, hyphen, C (from the wordmark), white strokes on the site's ink. -->
+  <rect width="64" height="64" rx="14" fill="#1b1a18"/>
+  <g fill="none" stroke="#ffffff" stroke-width="4.6" stroke-linecap="butt">
+    <path d="M8 21H26M17 21V44"/>
+    <path d="M28 33.5H34" stroke-width="3.6"/>
+    <path d="M55.5 25.2A10.4 10.4 0 1 0 55.5 39.8"/>
+  </g>
 </svg>
