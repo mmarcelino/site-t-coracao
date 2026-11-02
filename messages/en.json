@@ -212,13 +212,10 @@
     "lift": "Lift",
     "theBuilding": "The building",
     "aboutBuilding": "About {building}",
-    "theSpace": "The space",
-    "highlights": "Highlights",
     "amenities": "Amenities",
     "showAllAmenities": "Show all amenities ({count})",
     "location": "Location",
     "openMap": "Open in maps",
-    "nearby": "Nearby",
     "houseRules": "House rules",
     "checkInFrom": "Check-in from {time}",
     "checkOutBy": "Check-out by {time}",
@@ -230,7 +227,6 @@
     "stairsNote": "{building} is a historic building without a lift; this apartment is on the {floor}.",
     "moreInBuilding": "More homes at {building}",
     "faqTitle": "Before you book.",
-    "licence": "Alojamento Local licence no. {licence}",
     "stairsNoteHouse": "{building} is a house on three floors, with no lift."
   },
   "amenities": {

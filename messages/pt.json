@@ -212,13 +212,10 @@
     "lift": "Com elevador",
     "theBuilding": "O edifício",
     "aboutBuilding": "Sobre o {building}",
-    "theSpace": "O espaço",
-    "highlights": "Destaques",
     "amenities": "Comodidades",
     "showAllAmenities": "Ver todas as comodidades ({count})",
     "location": "Localização",
     "openMap": "Abrir no mapa",
-    "nearby": "Perto",
     "houseRules": "Regras da casa",
     "checkInFrom": "Check-in a partir das {time}",
     "checkOutBy": "Check-out até às {time}",
@@ -230,7 +227,6 @@
     "stairsNote": "O {building} é um edifício histórico sem elevador; o apartamento fica no {floor}.",
     "moreInBuilding": "Mais casas no {building}",
     "faqTitle": "Antes de reservar.",
-    "licence": "Registo de Alojamento Local n.º {licence}",
     "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador."
   },
   "amenities": {

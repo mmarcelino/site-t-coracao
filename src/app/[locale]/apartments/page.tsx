@@ -112,58 +112,45 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
     ]),
   );
 
-  const chip = (active: boolean) =>
+  // One control language below the search: text tabs on a hairline (collections left, list/map
+  // right); the chosen one is ink with an ink underline.
+  const tab = (active: boolean) =>
     clsx(
-      "inline-flex h-10 items-center gap-2 rounded-full border-[1.5px] px-4 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors",
-      active ? "border-ink bg-ink text-paper" : "border-ink/20 hover:border-ink",
+      "-mb-px inline-flex h-12 items-center gap-1.5 border-b-2 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors",
+      active ? "border-ink text-ink" : "border-transparent text-granite hover:text-ink",
     );
 
   return (
     <>
-      <nav aria-label={t("apartments.filterLabel")} className="mt-10">
-        <ul className="scrollbar-none -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] pb-1 sm:flex-wrap">
-          <li>
-            <Link href={{ pathname: "/apartments", query: toQuery(search, undefined) }} aria-current={!search.tag ? "page" : undefined} className={chip(!search.tag)}>
-              {t("apartments.all")}
-              <span className="opacity-70">{bookable.length}</span>
-            </Link>
-          </li>
-          {collections.map((c) => {
-            const count = bookable.filter((l) => l.tags.includes(c.tag)).length;
-            const active = search.tag === c.tag;
-            return (
-              <li key={c.tag}>
-                <Link
-                  href={{ pathname: "/apartments", query: toQuery(search, c.tag) }}
-                  aria-current={active ? "page" : undefined}
-                  className={chip(active)}
-                >
-                  {t(`tags.${c.tag}`)}
-                  <span className="opacity-70">{count}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-
-      <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2">
-        <div role="status" className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <p className="font-semibold">
-          {t("apartments.results", { count: shown.length })}
-          {search.checkIn && search.checkOut
-            ? ` ${t("apartments.available", { checkIn: d(search.checkIn), checkOut: d(search.checkOut) })}`
-            : null}
-          {search.guests ? ` ${t("apartments.forGuests", { guests: t("common.guests", { count: search.guests }) })}` : null}
-        </p>
-        {hasSearch || search.tag ? (
-          <Link href="/apartments" className="link-quiet text-small">
-            {t("apartments.clear")}
-          </Link>
-        ) : null}
-        </div>
-        {/* List / map switch: links, so each view has its own URL. */}
-        <div className="ml-auto flex rounded-full border-[1.5px] border-ink/20 p-1" role="group" aria-label={t("apartments.viewLabel")}>
+      <div className="mt-12 flex items-end gap-8 border-b border-ink/15">
+        <nav aria-label={t("apartments.filterLabel")} className="min-w-0 flex-1">
+          <ul className="scrollbar-none flex gap-7 overflow-x-auto">
+            <li>
+              <Link href={{ pathname: "/apartments", query: toQuery(search, undefined) }} aria-current={!search.tag ? "page" : undefined} className={tab(!search.tag)}>
+                {t("apartments.all")}
+                <span className="font-normal opacity-70">{bookable.length}</span>
+              </Link>
+            </li>
+            {collections.map((c) => {
+              const count = bookable.filter((l) => l.tags.includes(c.tag)).length;
+              const active = search.tag === c.tag;
+              return (
+                <li key={c.tag}>
+                  <Link
+                    href={{ pathname: "/apartments", query: toQuery(search, c.tag) }}
+                    aria-current={active ? "page" : undefined}
+                    className={tab(active)}
+                  >
+                    {t(`tags.${c.tag}`)}
+                    <span className="font-normal opacity-70">{count}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        {/* List / map: links, so each view has its own URL. */}
+        <div className="flex shrink-0 gap-6" role="group" aria-label={t("apartments.viewLabel")}>
           {(["list", "map"] as const).map((v) => {
             const active = (search.view ?? "list") === v;
             return (
@@ -171,21 +158,34 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
                 key={v}
                 href={{ pathname: "/apartments", query: toQuery(search, search.tag, v === "map" ? "map" : undefined) }}
                 aria-current={active ? "page" : undefined}
-                className={clsx(
-                  "inline-flex h-9 items-center gap-2 rounded-full px-4 text-[0.9375rem] font-semibold transition-colors",
-                  active ? "bg-ink text-paper" : "hover:bg-ink/5",
-                )}
+                className={tab(active)}
               >
                 <Icon name={v === "map" ? "pin" : "grid"} size={16} strokeWidth={1.75} />
-                {t(v === "map" ? "apartments.viewMap" : "apartments.viewList")}
+                <span className="sr-only sm:not-sr-only">{t(v === "map" ? "apartments.viewMap" : "apartments.viewList")}</span>
               </Link>
             );
           })}
         </div>
       </div>
 
+      {/* What's showing, quietly. */}
+      <div role="status" className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-small text-granite">
+        <p>
+          {t("apartments.results", { count: shown.length })}
+          {search.checkIn && search.checkOut
+            ? ` ${t("apartments.available", { checkIn: d(search.checkIn), checkOut: d(search.checkOut) })}`
+            : null}
+          {search.guests ? ` ${t("apartments.forGuests", { guests: t("common.guests", { count: search.guests }) })}` : null}
+        </p>
+        {hasSearch || search.tag ? (
+          <Link href="/apartments" className="link-quiet text-ink">
+            {t("apartments.clear")}
+          </Link>
+        ) : null}
+      </div>
+
       {shown.length && search.view === "map" ? (
-        <div className="mt-10">
+        <div className="mt-8">
           <MapView
             pins={mapPins}
             panels={mapPanels}
@@ -194,7 +194,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
           />
         </div>
       ) : shown.length ? (
-        <div className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((listing) => (
             <ListingCard
               key={listing.id}
@@ -249,13 +249,13 @@ export default async function ApartmentsPage({ searchParams }: PageProps<"/[loca
       {/* Filters + results read the URL, so they stream in under Suspense (Cache Components). */}
       <Suspense
         fallback={
-          <div aria-hidden className="mt-10">
-            <div className="flex gap-2">
+          <div aria-hidden className="mt-12">
+            <div className="flex h-12 items-center gap-7 border-b border-ink/15">
               {[0, 1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-10 w-28 rounded-full bg-sand" />
+                <div key={i} className="h-3 w-20 rounded-full bg-sand" />
               ))}
             </div>
-            <div className="mt-[4.5rem] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-[3.75rem] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {[0, 1, 2].map((i) => (
                 <div key={i} className="aspect-[4/5] rounded-[var(--radius-card)] bg-sand" />
               ))}
