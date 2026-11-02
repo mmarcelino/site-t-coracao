@@ -234,9 +234,12 @@ export default async function ApartmentsPage({ searchParams }: PageProps<"/[loca
 
   return (
     <section className="container-page section-y-tight">
-      {/* Title on the left, the search on the right (stacked below xl). */}
+      {/* Title and a line on the left, the search on the right (stacked below xl). */}
       <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
-        <h1 className="text-h1">{t("title")}</h1>
+        <div>
+          <h1 className="text-h1">{t("title")}</h1>
+          <p className="text-lead mt-5 max-w-2xl text-granite">{t("body")}</p>
+        </div>
         <div className="md:w-max xl:shrink-0">
           <Suspense fallback={<div aria-hidden className="h-[3.75rem] w-[36rem] max-w-full rounded-full border border-ink/15" />}>
             <Search searchParams={searchParams} />
