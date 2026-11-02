@@ -37,7 +37,7 @@ export function ReviewQuote({
       <blockquote
         ref={ref}
         lang={lang}
-        className={clsx("text-[1.1875rem] leading-[1.5] font-medium", !open && "line-clamp-5")}
+        className={clsx("text-[1.25rem] leading-[1.5]", !open && "line-clamp-5")}
       >
         “{text}”
       </blockquote>

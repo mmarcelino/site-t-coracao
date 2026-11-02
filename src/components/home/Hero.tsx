@@ -11,7 +11,8 @@ import { SearchStateProvider } from "./SearchState";
 
 /**
  * Editorial hero: a slideshow of homes behind one text stack at the bottom-left (headline, subline,
- * booking box), with the book-direct caption on the right margin. The whole hero fits the first screen.
+ * booking box), with the book-direct caption on the right margin. The whole hero fits the first screen,
+ * up to 60rem tall (very tall screens show the next section below it).
  */
 export async function Hero({
   maxGuests,
@@ -27,7 +28,7 @@ export async function Hero({
     <SearchStateProvider>
     <section
       aria-labelledby="hero-title"
-      className="on-dark relative -mt-[var(--header-h)] h-[100svh] min-h-[36rem] overflow-hidden bg-ink text-paper"
+      className="on-dark relative -mt-[var(--header-h)] h-[100svh] max-h-[60rem] min-h-[36rem] overflow-hidden bg-ink text-paper"
       data-hero-stage
     >
       <HeroSlideshow slides={slides}>

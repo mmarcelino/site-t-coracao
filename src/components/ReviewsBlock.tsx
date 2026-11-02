@@ -61,7 +61,7 @@ export async function ReviewsBlock({
                 <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
                   {score(bySource[source].score)}
                 </p>
-                <p className="mt-1.5 text-[0.8125rem] text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+                <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
               </li>
             ))}
           </ul>
