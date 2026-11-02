@@ -21,6 +21,7 @@ import { useSearchState } from "./SearchState";
 export function SearchBar({
   maxGuests,
   calendarPlacement = "bottom",
+  calendarAlign = "left",
   docked = false,
   keepQuery,
   testId = "hero-search",
@@ -28,6 +29,8 @@ export function SearchBar({
   maxGuests: number;
   /** "top" when the bar sits at the bottom of a clipped area (the hero). */
   calendarPlacement?: "top" | "bottom";
+  /** "right" when the bar sits on the right margin, so the calendar opens leftwards. */
+  calendarAlign?: "left" | "right";
   /** The slim copy docked at the top of the screen once the hero has scrolled away. */
   docked?: boolean;
   /** Query kept when searching again from the apartments page (collection, list/map view). */
@@ -162,8 +165,9 @@ export function SearchBar({
             className={clsx(
               // Sized to its content (two months side by side), anchored to the bar's left edge (the bar
               // sits on the left margin, so the calendar opens over the photo, not off-screen).
-              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:w-max md:p-6",
+              "animate-fade-in-fast absolute z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:w-max md:p-6",
               calendarPlacement === "top" ? "bottom-full mb-2" : "top-full mt-2",
+              calendarAlign === "right" ? "right-0" : "left-0",
             )}
           >
             <DateRangeCalendar selected={range} onSelect={setRange} months={months} minNights={site.minNights} />

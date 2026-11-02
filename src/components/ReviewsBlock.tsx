@@ -40,9 +40,9 @@ export async function ReviewsBlock({
         {bySource ? null : (
           <>
             <div className="mt-10 flex items-end gap-4">
-              <p className="text-mega flex items-start gap-2 leading-none font-semibold tabular-nums">
+              <p className="flex items-start gap-2 text-[4rem] leading-none font-semibold tracking-[-0.03em] tabular-nums">
                 {score(overall.score)}
-                <Icon name="star" size={32} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-2 text-pop" />
+                <Icon name="star" size={22} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-1.5 text-pop" />
               </p>
               <p className="pb-2 text-small text-granite">
                 {t("outOf", { max: overall.outOf })}

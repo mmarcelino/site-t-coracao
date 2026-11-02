@@ -190,7 +190,7 @@ async function ApartmentContent({ params }: { params: Params }) {
               <p className="label text-granite">
                 {building.name} · {neighbourhood?.name}
               </p>
-              <h1 className="text-display mt-4">{listing.title}</h1>
+              <h1 className="text-h1 mt-4">{listing.title}</h1>
               <p className="text-lead mt-5 text-granite">{listing.tagline}</p>
             </header>
 
@@ -207,7 +207,7 @@ async function ApartmentContent({ params }: { params: Params }) {
             </ul>
 
             <section className="mt-12 max-w-3xl">
-              <p className="text-lead">{listing.description.summary}</p>
+              <p className="text-[1.25rem] leading-[1.5]">{listing.description.summary}</p>
               <h2 className="sr-only">{t("listing.highlights")}</h2>
               <ul className="mt-8 grid gap-3 sm:grid-cols-3">
                 {listing.highlights.map((h) => (
@@ -220,7 +220,7 @@ async function ApartmentContent({ params }: { params: Params }) {
             </section>
 
             {/* The building's story sits above specs: "why this place" first. */}
-            <section aria-labelledby="building-title" className="mt-16 grid gap-8 rounded-[var(--radius-card)] bg-wash p-[clamp(1.5rem,4vw,3rem)] md:grid-cols-5">
+            <section aria-labelledby="building-title" className="mt-16 grid gap-8 rounded-[var(--radius-card)] bg-pop p-[clamp(1.5rem,4vw,3rem)] md:grid-cols-5">
               <div className="relative aspect-[3/2] overflow-hidden rounded-[var(--radius-tile)] bg-limestone md:col-span-2 md:aspect-[4/5]">
                 <Image
                   src={building.storyImage.src}
@@ -231,13 +231,13 @@ async function ApartmentContent({ params }: { params: Params }) {
                 />
               </div>
               <div className="md:col-span-3">
-                <p className="label text-ink-soft-text">
+                <p className="label">
                   {t("listing.theBuilding")} · {building.era}
                 </p>
                 <h2 id="building-title" className="text-h3 mt-4">
                   {building.historyLine}
                 </h2>
-                <p className="mt-5 text-ink-soft-text">{building.story}</p>
+                <p className="mt-5">{building.story}</p>
                 <Link
                   href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }}
                   className="mt-6 inline-flex items-center gap-2 link-quiet"
@@ -334,7 +334,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                 {t("listing.houseRules")}
               </h2>
               {!listing.hasLift ? (
-                <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-sand p-4 text-small">
+                <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-pop/40 p-4 text-small">
                   <Icon name="stairs" size={20} className="shrink-0" />
                   {listing.category === "house"
                     ? t("listing.stairsNoteHouse", { building: building.name })
@@ -404,7 +404,7 @@ async function ApartmentContent({ params }: { params: Params }) {
       </section>
 
       {others.length ? (
-        <section aria-labelledby="more-title" className="bg-sand">
+        <section aria-labelledby="more-title" className="border-t border-ink/10">
           <div className="container-page section-y-tight">
             <h2 id="more-title" className="text-h2">
               {t("listing.moreInBuilding", { building: building.name })}

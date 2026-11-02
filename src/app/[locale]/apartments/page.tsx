@@ -118,22 +118,9 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
       active ? "border-ink bg-ink text-paper" : "border-ink/20 hover:border-ink",
     );
 
-  const maxGuests = Math.max(...all.map((l) => l.accommodates));
-  const keep = { ...(search.tag ? { tag: search.tag } : {}), ...(search.view ? { view: search.view } : {}) };
-
   return (
     <>
-      {/* Change dates and guests here, without going back home; keyed so "Clear" resets it. */}
-      <div className="mt-10 md:w-max">
-        <SearchStateProvider
-          key={`${search.checkIn}-${search.checkOut}-${search.guests}`}
-          initial={{ checkIn: search.checkIn, checkOut: search.checkOut, guests: search.guests }}
-        >
-          <SearchBar maxGuests={maxGuests} docked keepQuery={keep} testId="apartments-search" />
-        </SearchStateProvider>
-      </div>
-
-      <nav aria-label={t("apartments.filterLabel")} className="mt-6">
+      <nav aria-label={t("apartments.filterLabel")} className="mt-10">
         <ul className="scrollbar-none -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] pb-1 sm:flex-wrap">
           <li>
             <Link href={{ pathname: "/apartments", query: toQuery(search, undefined) }} aria-current={!search.tag ? "page" : undefined} className={chip(!search.tag)}>
@@ -224,13 +211,38 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
   );
 }
 
+/** Change dates and guests in place; starts from the URL, keeps collection and view. */
+async function Search({ searchParams }: { searchParams: SearchParams }) {
+  const locale = (await rootLocale()) as Locale;
+  const search = parseSearch(await searchParams);
+  const all = await getListings(locale);
+  const maxGuests = Math.max(...all.map((l) => l.accommodates));
+  const keep = { ...(search.tag ? { tag: search.tag } : {}), ...(search.view ? { view: search.view } : {}) };
+  return (
+    // Keyed so "Clear search" resets the bar.
+    <SearchStateProvider
+      key={`${search.checkIn}-${search.checkOut}-${search.guests}`}
+      initial={{ checkIn: search.checkIn, checkOut: search.checkOut, guests: search.guests }}
+    >
+      <SearchBar maxGuests={maxGuests} docked keepQuery={keep} calendarAlign="right" testId="apartments-search" />
+    </SearchStateProvider>
+  );
+}
+
 export default async function ApartmentsPage({ searchParams }: PageProps<"/[locale]/apartments">) {
   const t = await getTranslations("apartments");
 
   return (
     <section className="container-page section-y-tight">
-      <h1 className="text-h1">{t("title")}</h1>
-      <p className="text-lead mt-5 max-w-2xl text-granite">{t("body")}</p>
+      {/* Title on the left, the search on the right (stacked below xl). */}
+      <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
+        <h1 className="text-h1">{t("title")}</h1>
+        <div className="md:w-max xl:shrink-0">
+          <Suspense fallback={<div aria-hidden className="h-[3.75rem] w-[36rem] max-w-full rounded-full border border-ink/15" />}>
+            <Search searchParams={searchParams} />
+          </Suspense>
+        </div>
+      </div>
       {/* Filters + results read the URL, so they stream in under Suspense (Cache Components). */}
       <Suspense
         fallback={

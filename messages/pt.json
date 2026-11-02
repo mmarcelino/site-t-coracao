@@ -229,7 +229,7 @@
     "guestRegistration": "Registo obrigatório de todos os hóspedes (lei portuguesa)",
     "stairsNote": "O {building} é um edifício histórico sem elevador; o apartamento fica no {floor}.",
     "moreInBuilding": "Mais casas no {building}",
-    "faqTitle": "Antes de reservar",
+    "faqTitle": "Antes de reservar.",
     "licence": "Registo de Alojamento Local n.º {licence}",
     "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador."
   },
@@ -263,7 +263,6 @@
     "metaDescription": "Estúdios, T1 e T2 em edifícios históricos do centro do Porto. Reserve diretamente.",
     "eyebrow": "Apartamentos",
     "title": "Todas as casas.",
-    "body": "Todas as nossas casas. Filtre pelo tipo de estadia ou pesquise por datas.",
     "forDates": "Disponibilidade para {checkIn} – {checkOut}, {guests}.",
     "filterLabel": "Filtrar apartamentos",
     "all": "Todos",

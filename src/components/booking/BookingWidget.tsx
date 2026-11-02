@@ -174,16 +174,16 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
           data-testid="booking-dates"
         >
           <span className="border-r border-ink/20 px-4 py-3">
-            <span className="block text-[0.6875rem] font-medium tracking-[0.12em] text-granite uppercase">
+            <span className="block text-[0.75rem] leading-tight font-medium text-ink">
               {t("booking.checkIn")}
             </span>
-            <span className="mt-0.5 block">{checkIn ? shortDate(checkIn) : t("booking.addDate")}</span>
+            <span className="mt-1 block text-granite">{checkIn ? shortDate(checkIn) : t("booking.addDate")}</span>
           </span>
           <span className="px-4 py-3">
-            <span className="block text-[0.6875rem] font-medium tracking-[0.12em] text-granite uppercase">
+            <span className="block text-[0.75rem] leading-tight font-medium text-ink">
               {t("booking.checkOut")}
             </span>
-            <span className="mt-0.5 block">{checkOut ? shortDate(checkOut) : t("booking.addDate")}</span>
+            <span className="mt-1 block text-granite">{checkOut ? shortDate(checkOut) : t("booking.addDate")}</span>
           </span>
         </button>
         {calendarOpen ? (
