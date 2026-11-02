@@ -112,21 +112,26 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
     ]),
   );
 
-  // The home page's device: a 2px ink rule with the content under it. Collections on the left,
-  // list/map on the right, as words; the chosen one in ink and semibold, the rest quieter.
-  const tab = (active: boolean) =>
+  // Under the home page's 2px ink rule: collections as pills on the left, list/map as a
+  // two-way pill on the right; the chosen one filled ink.
+  const pill = (active: boolean) =>
     clsx(
-      "inline-flex h-12 items-center gap-1.5 text-[0.9375rem] whitespace-nowrap transition-colors",
-      active ? "font-semibold text-ink" : "font-medium text-granite hover:text-ink",
+      "inline-flex h-10 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors",
+      active ? "border-ink bg-ink text-paper" : "border-ink/20 hover:border-ink",
+    );
+  const segment = (active: boolean) =>
+    clsx(
+      "inline-flex h-8 items-center gap-2 rounded-full px-3.5 text-[0.9375rem] font-semibold transition-colors",
+      active ? "bg-ink text-paper" : "hover:bg-ink/5",
     );
 
   return (
     <>
-      <div className="mt-12 flex items-center gap-8 border-t-2 border-ink pt-2">
+      <div className="mt-12 flex items-center gap-6 border-t-2 border-ink pt-6">
         <nav aria-label={t("apartments.filterLabel")} className="min-w-0 flex-1">
-          <ul className="scrollbar-none flex gap-7 overflow-x-auto">
+          <ul className="scrollbar-none -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] sm:mx-0 sm:px-0">
             <li>
-              <Link href={{ pathname: "/apartments", query: toQuery(search, undefined) }} aria-current={!search.tag ? "page" : undefined} className={tab(!search.tag)}>
+              <Link href={{ pathname: "/apartments", query: toQuery(search, undefined) }} aria-current={!search.tag ? "page" : undefined} className={pill(!search.tag)}>
                 {t("apartments.all")}
                 <span className="font-normal opacity-70">{bookable.length}</span>
               </Link>
@@ -139,7 +144,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
                   <Link
                     href={{ pathname: "/apartments", query: toQuery(search, c.tag) }}
                     aria-current={active ? "page" : undefined}
-                    className={tab(active)}
+                    className={pill(active)}
                   >
                     {t(`tags.${c.tag}`)}
                     <span className="font-normal opacity-70">{count}</span>
@@ -150,7 +155,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
           </ul>
         </nav>
         {/* List / map: links, so each view has its own URL. */}
-        <div className="flex shrink-0 gap-6" role="group" aria-label={t("apartments.viewLabel")}>
+        <div className="flex shrink-0 rounded-full border border-ink/20 p-1" role="group" aria-label={t("apartments.viewLabel")}>
           {(["list", "map"] as const).map((v) => {
             const active = (search.view ?? "list") === v;
             return (
@@ -158,7 +163,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
                 key={v}
                 href={{ pathname: "/apartments", query: toQuery(search, search.tag, v === "map" ? "map" : undefined) }}
                 aria-current={active ? "page" : undefined}
-                className={tab(active)}
+                className={segment(active)}
               >
                 <Icon name={v === "map" ? "pin" : "grid"} size={16} strokeWidth={1.75} />
                 <span className="sr-only sm:not-sr-only">{t(v === "map" ? "apartments.viewMap" : "apartments.viewList")}</span>
@@ -169,7 +174,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
       </div>
 
       {/* What's showing, quietly. */}
-      <div role="status" className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-small text-granite">
+      <div role="status" className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-small text-granite">
         <p>
           {t("apartments.results", { count: shown.length })}
           {search.checkIn && search.checkOut
@@ -250,9 +255,9 @@ export default async function ApartmentsPage({ searchParams }: PageProps<"/[loca
       <Suspense
         fallback={
           <div aria-hidden className="mt-12">
-            <div className="flex h-12 items-center gap-7 border-t-2 border-ink">
+            <div className="flex items-center gap-2 border-t-2 border-ink pt-6">
               {[0, 1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-3 w-20 rounded-full bg-sand" />
+                <div key={i} className="h-10 w-24 rounded-full bg-sand" />
               ))}
             </div>
             <div className="mt-[3.75rem] grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

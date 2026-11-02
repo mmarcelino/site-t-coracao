@@ -25,7 +25,7 @@ import { Gallery } from "@/components/listing/Gallery";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { TrackListingView } from "@/components/listing/TrackListingView";
 import { ReviewsBlock } from "@/components/ReviewsBlock";
-import { Icon, type IconName } from "@/components/ui/Icon";
+import { Icon } from "@/components/ui/Icon";
 
 export async function generateStaticParams() {
   return (await getListingSlugs()).map((slug) => ({ slug }));
@@ -146,16 +146,16 @@ async function ApartmentContent({ params }: { params: Params }) {
   ]);
   const others = siblings.filter((l) => l.id !== listing.id);
 
-  const facts: Array<{ icon: IconName; label: string }> = [
-    { icon: "guests", label: t("common.guests", { count: listing.accommodates }) },
-    { icon: "bed", label: t("common.bedrooms", { count: listing.bedrooms }) },
-    { icon: "bath", label: t("common.bathrooms", { count: Math.max(1, Math.floor(listing.bathrooms)) }) },
-    { icon: "area", label: t("common.area", { count: listing.areaSqm }) },
-    { icon: "stairs", label: `${listing.floor} · ${listing.hasLift ? t("listing.lift") : t("listing.noLift")}` },
+  const facts: Array<{ label: string; value: string; note?: string }> = [
+    { label: t("listing.factGuests"), value: String(listing.accommodates) },
+    { label: t("listing.factBedrooms"), value: listing.bedrooms ? String(listing.bedrooms) : t("listing.studio") },
+    { label: t("listing.factBathrooms"), value: String(Math.max(1, Math.floor(listing.bathrooms))) },
+    { label: t("listing.factSize"), value: t("common.area", { count: listing.areaSqm }) },
+    { label: t("listing.factFloor"), value: listing.floor, note: listing.hasLift ? t("listing.lift") : t("listing.noLift") },
   ];
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
-  const detail = "mt-12 border-t border-ink/15 pt-8";
+  const detail = "mt-14 grid gap-x-8 gap-y-5 border-t border-ink pt-5 md:grid-cols-[11rem_minmax(0,1fr)]";
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${listing.address.street}, ${listing.address.zipcode} ${listing.address.city}`)}`;
 
   return (
@@ -195,14 +195,18 @@ async function ApartmentContent({ params }: { params: Params }) {
               <p className="mt-4 text-granite">{listing.tagline}</p>
             </header>
 
-            <ul aria-label={t("listing.factsLabel")} className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-y border-ink/15 py-4 text-small">
+            {/* At a glance: the home page's rule-topped columns, label over value. */}
+            <dl aria-label={t("listing.factsLabel")} className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 xl:grid-cols-5">
               {facts.map((fact) => (
-                <li key={fact.icon} className="flex items-center gap-2.5">
-                  <Icon name={fact.icon} size={18} className="text-granite" />
-                  <span>{fact.label}</span>
-                </li>
+                <div key={fact.label} className="border-t border-ink pt-3">
+                  <dt className="label text-granite">{fact.label}</dt>
+                  <dd className="mt-2 text-[1.0625rem] leading-snug font-semibold">
+                    {fact.value}
+                    {fact.note ? <span className="block text-small font-normal text-granite">{fact.note}</span> : null}
+                  </dd>
+                </div>
               ))}
-            </ul>
+            </dl>
 
             <p className="mt-8 max-w-3xl">{listing.description.summary}</p>
 
@@ -235,60 +239,72 @@ async function ApartmentContent({ params }: { params: Params }) {
               </div>
             </section>
 
-            {/* The details, one rhythm: hairline, small heading, content. */}
+            {/* The details, one rhythm (as "Before you book." on the home page): an ink rule, the
+                heading on the left, the content on the right. */}
             <section aria-labelledby="amenities-title" className={detail}>
               <h2 id="amenities-title" className="card-title">
                 {t("listing.amenities")}
               </h2>
-              <ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                {primaryAmenities.map((a) => (
-                  <li key={a} className="flex items-center gap-3">
-                    <Icon name="check" size={16} className="text-granite" />
-                    {t(`amenities.${a}`)}
-                  </li>
-                ))}
-              </ul>
-              {restAmenities.length ? (
-                <details className="group mt-3">
-                  <summary className="link-quiet mt-3 inline-flex cursor-pointer list-none items-center gap-2 py-2 [&::-webkit-details-marker]:hidden">
-                    {t("listing.showAllAmenities", { count: listing.amenities.length })}
-                    <Icon name="chevronDown" size={16} className="transition-transform group-open:rotate-180" />
-                  </summary>
-                  <ul className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                    {restAmenities.map((a) => (
-                      <li key={a} className="flex items-center gap-3">
-                        <Icon name="check" size={16} className="text-granite" />
-                        {t(`amenities.${a}`)}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ) : null}
+              <div>
+                <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                  {primaryAmenities.map((a) => (
+                    <li key={a} className="flex items-center gap-3">
+                      <Icon name="check" size={16} className="text-granite" />
+                      {t(`amenities.${a}`)}
+                    </li>
+                  ))}
+                </ul>
+                {restAmenities.length ? (
+                  <details className="group mt-3">
+                    <summary className="link-quiet mt-3 inline-flex cursor-pointer list-none items-center gap-2 py-2 [&::-webkit-details-marker]:hidden">
+                      {t("listing.showAllAmenities", { count: listing.amenities.length })}
+                      <Icon name="chevronDown" size={16} className="transition-transform group-open:rotate-180" />
+                    </summary>
+                    <ul className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                      {restAmenities.map((a) => (
+                        <li key={a} className="flex items-center gap-3">
+                          <Icon name="check" size={16} className="text-granite" />
+                          {t(`amenities.${a}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : null}
+              </div>
             </section>
 
             {neighbourhood ? (
               <section aria-labelledby="location-title" className={detail}>
-                <h2 id="location-title" className="card-title">
-                  {t("listing.location")}
-                </h2>
-                <p className="mt-3 max-w-3xl text-granite">{neighbourhood.intro}</p>
-                <p className="mt-4 max-w-3xl">
-                  {neighbourhood.nearby.map((place, i) => (
-                    <span key={place}>
-                      {i > 0 ? " · " : null}
-                      <span className="whitespace-nowrap">{place}</span>
+                <div>
+                  <h2 id="location-title" className="card-title">
+                    {t("listing.location")}
+                  </h2>
+                  <p className="label mt-2 text-granite">{neighbourhood.name}</p>
+                </div>
+                <div>
+                  <p className="text-granite">{neighbourhood.intro}</p>
+                  <p className="label mt-8 text-granite">{t("listing.nearby")}</p>
+                  <ul className="mt-2">
+                    {neighbourhood.nearby.map((place) => {
+                      const [name, time] = place.split(" · ");
+                      return (
+                        <li key={place} className="flex items-baseline justify-between gap-6 border-b border-ink/10 py-2.5">
+                          <span>{name}</span>
+                          {time ? <span className="shrink-0 text-small text-granite">{time}</span> : null}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span className="flex items-center gap-2">
+                      <Icon name="pin" size={18} className="shrink-0 text-granite" />
+                      {listing.address.street}, {listing.address.zipcode} {listing.address.city}
                     </span>
-                  ))}
-                </p>
-                <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <span className="flex items-center gap-2">
-                    <Icon name="pin" size={18} className="shrink-0 text-granite" />
-                    {listing.address.street}, {listing.address.zipcode} {listing.address.city}
-                  </span>
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet text-small">
-                    {t("listing.openMap")}
-                  </a>
-                </p>
+                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet text-small">
+                      {t("listing.openMap")}
+                    </a>
+                  </p>
+                </div>
               </section>
             ) : null}
 
@@ -296,22 +312,41 @@ async function ApartmentContent({ params }: { params: Params }) {
               <h2 id="rules-title" className="card-title">
                 {t("listing.houseRules")}
               </h2>
-              <p className="mt-3">
-                {t("listing.checkInFrom", { time: listing.checkInTime })} · {t("listing.checkOutBy", { time: listing.checkOutTime })}
-              </p>
-              <p className="mt-2 text-granite">
-                {[t("listing.quietHours"), t("listing.noSmoking"), t("listing.noPets"), t("listing.noParties"), t("listing.guestRegistration")].join(" · ")}
-              </p>
-              {!listing.hasLift ? (
-                <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-pop/40 p-4 text-small">
-                  <Icon name="stairs" size={20} className="shrink-0" />
-                  {listing.category === "house"
-                    ? t("listing.stairsNoteHouse", { building: building.name })
-                    : t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
+              <div>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3">
+                  {[
+                    [t("listing.ruleCheckIn"), t("listing.fromTime", { time: listing.checkInTime })],
+                    [t("listing.ruleCheckOut"), t("listing.byTime", { time: listing.checkOutTime })],
+                    [t("listing.ruleQuiet"), t("listing.quietTime")],
+                  ].map(([label, value]) => (
+                    <div key={label}>
+                      <dt className="label text-granite">{label}</dt>
+                      <dd className="mt-2 text-[1.0625rem] font-semibold">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                  {[t("listing.noSmoking"), t("listing.noPets"), t("listing.noParties")].map((rule) => (
+                    <li key={rule} className="flex items-center gap-2">
+                      <Icon name="close" size={14} className="text-granite" />
+                      {rule}
+                    </li>
+                  ))}
+                </ul>
+                {!listing.hasLift ? (
+                  <p className="mt-6 flex gap-3 rounded-[var(--radius-tile)] bg-pop/40 p-4 text-small">
+                    <Icon name="stairs" size={20} className="shrink-0" />
+                    {listing.category === "house"
+                      ? t("listing.stairsNoteHouse", { building: building.name })
+                      : t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
+                  </p>
+                ) : null}
+                <p className="mt-6 text-small text-granite">
+                  {t("listing.guestRegistration")}
+                  {/* Portuguese law requires the AL registration number wherever the home is advertised. */}
+                  {listing.licence ? <span className="block">{t("listing.licence", { licence: listing.licence })}</span> : null}
                 </p>
-              ) : null}
-              {/* Portuguese law requires the AL registration number wherever the home is advertised. */}
-              {listing.licence ? <p className="mt-5 text-small text-granite">{t("listing.licence", { licence: listing.licence })}</p> : null}
+              </div>
             </section>
           </article>
 
