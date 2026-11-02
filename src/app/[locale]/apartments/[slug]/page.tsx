@@ -283,14 +283,15 @@ async function ApartmentContent({ params }: { params: Params }) {
                 </div>
                 <div>
                   <p className="text-granite">{neighbourhood.intro}</p>
-                  <p className="label mt-8 text-granite">{t("listing.nearby")}</p>
-                  <ul className="mt-2">
+                  <p className="label mt-6 text-granite">{t("listing.nearby")}</p>
+                  {/* Compact: two columns, no lines; the walk in grey after each place. */}
+                  <ul className="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
                     {neighbourhood.nearby.map((place) => {
                       const [name, time] = place.split(" · ");
                       return (
-                        <li key={place} className="flex items-baseline justify-between gap-6 border-b border-ink/10 py-2.5">
-                          <span>{name}</span>
-                          {time ? <span className="shrink-0 text-small text-granite">{time}</span> : null}
+                        <li key={place}>
+                          {name}
+                          {time ? <span className="text-small text-granite"> · {time}</span> : null}
                         </li>
                       );
                     })}
@@ -380,7 +381,7 @@ async function ApartmentContent({ params }: { params: Params }) {
 
 
       {others.length ? (
-        <section aria-labelledby="more-title" className="border-t border-ink/10">
+        <section aria-labelledby="more-title">
           <div className="container-page section-y-tight">
             <h2 id="more-title" className="text-h2">
               {t("listing.moreInBuilding", { building: building.name })}
@@ -394,7 +395,7 @@ async function ApartmentContent({ params }: { params: Params }) {
         </section>
       ) : null}
 
-      <section aria-labelledby="listing-faq-title" className="border-t border-ink/10">
+      <section aria-labelledby="listing-faq-title">
         <div className="container-page section-y-tight grid gap-10 lg:grid-cols-12">
           <h2 id="listing-faq-title" className="text-h2 lg:col-span-4">
             {t("listing.faqTitle")}
