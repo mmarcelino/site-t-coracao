@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { DateRange } from "react-day-picker";
+import { isoToLocalDate } from "@/lib/dates";
 
 interface SearchState {
   range: DateRange | undefined;
@@ -12,10 +13,21 @@ interface SearchState {
 
 const SearchContext = createContext<SearchState | null>(null);
 
-/** Shares dates and guests between the hero's booking bar and its docked copy. */
-export function SearchStateProvider({ children }: { children: ReactNode }) {
-  const [range, setRange] = useState<DateRange | undefined>();
-  const [guests, setGuests] = useState(2);
+/**
+ * Shares dates and guests between the hero's booking bar and its docked copy. On the apartments
+ * page it starts from the search in the URL (ISO dates).
+ */
+export function SearchStateProvider({
+  children,
+  initial,
+}: {
+  children: ReactNode;
+  initial?: { checkIn?: string; checkOut?: string; guests?: number };
+}) {
+  const [range, setRange] = useState<DateRange | undefined>(() =>
+    initial?.checkIn && initial.checkOut ? { from: isoToLocalDate(initial.checkIn), to: isoToLocalDate(initial.checkOut) } : undefined,
+  );
+  const [guests, setGuests] = useState(initial?.guests ?? 2);
   return <SearchContext.Provider value={{ range, setRange, guests, setGuests }}>{children}</SearchContext.Provider>;
 }
 

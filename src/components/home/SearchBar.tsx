@@ -14,11 +14,15 @@ import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { useSearchState } from "./SearchState";
 
-/** Hero search: dates + guests → apartments list. The one primary action on the home page. */
+/**
+ * Search: dates + guests → apartments list. The one primary action on the home page; also at the
+ * top of the apartments list (slim style) to change the search in place.
+ */
 export function SearchBar({
   maxGuests,
   calendarPlacement = "bottom",
   docked = false,
+  keepQuery,
   testId = "hero-search",
 }: {
   maxGuests: number;
@@ -26,6 +30,8 @@ export function SearchBar({
   calendarPlacement?: "top" | "bottom";
   /** The slim copy docked at the top of the screen once the hero has scrolled away. */
   docked?: boolean;
+  /** Query kept when searching again from the apartments page (collection, list/map view). */
+  keepQuery?: Record<string, string>;
   testId?: string;
 }) {
   const t = useTranslations("search");
@@ -67,6 +73,7 @@ export function SearchBar({
     router.push({
       pathname: "/apartments",
       query: {
+        ...keepQuery,
         ...(checkIn && checkOut ? { checkIn, checkOut } : {}),
         guests: String(guests),
       },
@@ -138,7 +145,7 @@ export function SearchBar({
           type="submit"
           aria-label={t("submit")}
           className={clsx(
-            "inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:rounded-full md:px-0",
+            "inline-flex h-14 items-center justify-center gap-3 rounded-b-[1.75rem] bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:rounded-full md:px-0",
             docked ? "md:size-11" : "md:size-14 hd:size-16",
           )}
         >

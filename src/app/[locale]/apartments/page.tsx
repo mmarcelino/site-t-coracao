@@ -13,6 +13,8 @@ import { alternates } from "@/lib/seo";
 import { Icon } from "@/components/ui/Icon";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { MapView, type MapPin } from "@/components/listing/MapView";
+import { SearchBar } from "@/components/home/SearchBar";
+import { SearchStateProvider } from "@/components/home/SearchState";
 
 /**
  * All apartments, filterable by collection tag (?tag=) and by the home search
@@ -116,9 +118,22 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
       active ? "border-ink bg-ink text-paper" : "border-ink/20 hover:border-ink",
     );
 
+  const maxGuests = Math.max(...all.map((l) => l.accommodates));
+  const keep = { ...(search.tag ? { tag: search.tag } : {}), ...(search.view ? { view: search.view } : {}) };
+
   return (
     <>
-      <nav aria-label={t("apartments.filterLabel")} className="mt-10">
+      {/* Change dates and guests here, without going back home; keyed so "Clear" resets it. */}
+      <div className="mt-10 md:w-max">
+        <SearchStateProvider
+          key={`${search.checkIn}-${search.checkOut}-${search.guests}`}
+          initial={{ checkIn: search.checkIn, checkOut: search.checkOut, guests: search.guests }}
+        >
+          <SearchBar maxGuests={maxGuests} docked keepQuery={keep} testId="apartments-search" />
+        </SearchStateProvider>
+      </div>
+
+      <nav aria-label={t("apartments.filterLabel")} className="mt-6">
         <ul className="scrollbar-none -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] pb-1 sm:flex-wrap">
           <li>
             <Link href={{ pathname: "/apartments", query: toQuery(search, undefined) }} aria-current={!search.tag ? "page" : undefined} className={chip(!search.tag)}>
