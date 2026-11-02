@@ -1,11 +1,13 @@
-import clsx from "clsx";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Icon } from "@/components/ui/Icon";
+import { ReviewQuote } from "@/components/ReviewQuote";
+import { SourceIcon } from "@/components/SourceIcon";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Rating block + excerpts (CLAUDE.md §5 trust signals). Shows source, score, count; anything
- * flagged `mock` gets a visible "demo data" note so placeholders can't be mistaken for real.
+ * Rating block + excerpts (CLAUDE.md §5 trust signals). Shows source, score, count. Placeholders
+ * stay flagged `mock: true` in the data (no visible note, at the client's request).
  */
 export async function ReviewsBlock({
   overall,
@@ -19,69 +21,71 @@ export async function ReviewsBlock({
   bySource?: Record<ReviewSource, ReviewAggregate>;
   reviews: Review[];
   heading: string;
-  eyebrow: string;
+  eyebrow?: string;
   headingId: string;
 }) {
   const t = await getTranslations("reviews");
-  const tc = await getTranslations("common");
   const format = createFormatter(await getLocale());
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const hasMock = overall.mock || reviews.some((r) => r.mock) || Object.values(bySource ?? {}).some((s) => s.mock);
 
   return (
     <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-      <div className="reveal lg:col-span-4">
-        <p className="label mb-5 text-granite">{eyebrow}</p>
+      {/* Starts on an ink rule, level with the first quote's. */}
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4">
+        {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
-        <div className="mt-10 flex items-end gap-4">
-          <p className="text-display leading-none font-light tabular-nums">{score(overall.score)}</p>
-          <p className="pb-2 text-small text-granite">
-            {t("outOf")}
-            <br />
-            {t("basedOn", { count: format.number(overall.count) })}
-          </p>
-        </div>
-        <p className="text-small mt-2 text-granite">{t(`source.${overall.source}`)}</p>
+        {/* One big score when there's a single source (apartment pages); per-platform scores otherwise. */}
+        {bySource ? null : (
+          <>
+            <div className="mt-10 flex items-end gap-4">
+              <p className="text-mega flex items-start gap-2 leading-none font-semibold tabular-nums">
+                {score(overall.score)}
+                <Icon name="star" size={32} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-2 text-pop" />
+              </p>
+              <p className="pb-2 text-small text-granite">
+                {t("outOf", { max: overall.outOf })}
+                <br />
+                {t("basedOn", { count: format.number(overall.count) })}
+              </p>
+            </div>
+            <p className="label mt-3">{t(`source.${overall.source}`)}</p>
+          </>
+        )}
         {bySource ? (
-          <ul className="mt-10 grid grid-cols-3 gap-4 border-t border-ink/15 pt-6">
+          <ul className="mt-8 grid grid-cols-3 gap-4">
             {(Object.keys(bySource) as ReviewSource[]).map((source) => (
               <li key={source}>
                 <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-2 text-lead tabular-nums">{score(bySource[source].score)}</p>
-                <p className="text-[0.75rem] text-granite">{format.number(bySource[source].count)}</p>
+                <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
+                  {score(bySource[source].score)}
+                </p>
+                <p className="mt-1.5 text-[0.8125rem] text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
               </li>
             ))}
           </ul>
         ) : null}
       </div>
 
-      <ul className="grid gap-px self-start bg-ink/10 sm:grid-cols-2 lg:col-span-8">
-        {reviews.map((review, i) => (
-          <li key={review.id} className={clsx("reveal bg-paper p-7 md:p-9", i === 0 && "sm:col-span-2")}>
-            <figure>
-              <blockquote
-                lang={review.language}
-                className={clsx(i === 0 ? "text-h3 font-light" : "text-lead font-light")}
-              >
-                “{review.text}”
-              </blockquote>
-              <figcaption className="text-small mt-6 text-granite">
-                {review.author} · {t(`source.${review.source}`)} ·{" "}
-                {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
-              </figcaption>
-            </figure>
-          </li>
-        ))}
-      </ul>
+      {/* Four quotes, fixed (no carousel); long ones are cut at five lines with "Read more". */}
+      <div className="min-w-0 self-start lg:col-span-8">
+        <ul className="grid gap-x-8 gap-y-16 sm:grid-cols-2">
+          {reviews.slice(0, 4).map((review) => (
+            <li key={review.id} className="border-t-2 border-ink pt-6">
+              <figure>
+                <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
+                <figcaption className="label mt-6 text-ink">
+                  <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
+                  {review.author} ·{" "}
+                  {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      {hasMock ? (
-        <p className="text-[0.8125rem] text-granite lg:col-span-12">
-          <span className="label mr-2 bg-azulejo-tint px-1.5 py-0.5 text-azulejo">{tc("demo")}</span>
-          {t("mockNote")}
-        </p>
-      ) : null}
     </div>
   );
 }

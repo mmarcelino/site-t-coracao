@@ -18,9 +18,11 @@ import "../globals.css";
 // Self-hosted at build time by next/font (no runtime request to Google).
 const hanken = Hanken_Grotesk({
   subsets: ["latin", "latin-ext"],
+  style: ["normal"],
   variable: "--font-hanken",
   display: "swap",
 });
+
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -37,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f6f3ee",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };

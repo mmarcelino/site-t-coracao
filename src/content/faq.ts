@@ -30,7 +30,7 @@ export const faq: FaqItem[] = [
   {
     id: "book-direct",
     topic: "booking",
-    surfaces: ["home"],
+    surfaces: [],
     toConfirm: true,
     question: {
       pt: "Porque reservar diretamente e não no Airbnb ou Booking.com?",
@@ -44,7 +44,7 @@ export const faq: FaqItem[] = [
   {
     id: "safe-direct",
     topic: "booking",
-    surfaces: ["home", "listing"],
+    surfaces: ["listing"],
     toConfirm: true,
     question: {
       pt: "É seguro reservar diretamente?",
@@ -98,7 +98,7 @@ export const faq: FaqItem[] = [
   {
     id: "luggage",
     topic: "arrival",
-    surfaces: [],
+    surfaces: ["home"],
     toConfirm: true,
     question: {
       pt: "Posso deixar as malas antes do check-in ou depois do check-out?",
@@ -138,7 +138,7 @@ export const faq: FaqItem[] = [
   {
     id: "tourist-tax",
     topic: "booking",
-    surfaces: ["listing"],
+    surfaces: ["home", "listing"],
     toConfirm: true,
     question: {
       pt: "A taxa turística está incluída?",
@@ -232,7 +232,7 @@ export const faq: FaqItem[] = [
   {
     id: "owners-what",
     topic: "owners",
-    surfaces: ["owners", "home"],
+    surfaces: ["owners"],
     question: {
       pt: "Que serviços oferecem a proprietários?",
       en: "What do you offer property owners?",

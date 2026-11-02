@@ -82,8 +82,18 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
 
 ## 7. Site map (v1)
 
-1. **Home**: hero (full-bleed photo or video) + search (dates, guests); intro line; buildings/collections; why book direct; neighbourhoods teaser; tours teaser; reviews; owners teaser; FAQ excerpt.
-2. **Apartments**: listing grid with filters (type: studio/loft, 1-bed, 2-bed, 3-bed house; guests; neighbourhood; dates). Optionally a grouped-by-building view.
+1. **Home** (revised 2026-10-26, in this order):
+   1. Hero: full-bleed photo (or slow video) of one of the buildings, one short headline, search (dates, guests) on it. No other CTAs. The whole hero stays above the fold.
+   2. Intro line: one or two sentences on who they are (restored historic buildings, local team since 2015), before anything is for sale.
+   3. Collections: 4 featured (for two, for families, by the sea, with outdoor space) + "See all" → apartments page with tag pills and filters.
+   4. Why book direct: four perks with small icons (best rate, flexible cancellation, welcome gift, local concierge). Early, because it's the main business goal.
+   5. Reviews: aggregate scores (Google now; Airbnb and Booking.com later) + 3–4 short excerpts.
+   6. How it works: compact 3 steps (book direct, self check-in, WhatsApp concierge).
+   7. Experiences: horizontal strip of partner tours, linking to the full page.
+   8. FAQ excerpt: check-in, luggage, cancellation, tourist tax, long stays, lifts; link to full FAQ.
+   9. Footer: contact, WhatsApp, address, social, language switch, legal, Livro de Reclamações, licence numbers.
+   (Neighbourhoods and owners are no longer on the home page; they get their own pages.)
+2. **Apartments**: listing grid with filters. Built: collection tags (`?tag=`), guests and dates from the home search (capacity + availability). Still to add: neighbourhood, type, optional grouped-by-building view.
 3. **Apartment detail**: gallery, story line about the building, key facts, description, amenities, location/neighbourhood, house rules, sticky booking widget with mock price breakdown, related flats in the same building.
 4. **Buildings**: one page per building with history, photos, its flats.
 5. **Neighbourhoods**: index + one page per neighbourhood (local guide: eat, drink, see, practical tips). Important for SEO and premium feel.
@@ -150,6 +160,11 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - A small set of smoke tests: each page renders in PT and EN without console errors, language switch keeps the equivalent page, booking widget opens and shows a mock quote, consent banner appears and both choices work.
 - Add basic automated accessibility checks (e.g. `@axe-core/playwright`) on key pages.
 
+**Temporary rule: visual-direction phase (from 2026-10-26, until the client approves the look).** Speed over completeness while exploring design:
+- Per round, only: `pnpm typecheck` + a few targeted screenshots of what changed (desktop + mobile, one locale), saved **outside the project** (session scratch folder), reviewed, then **deleted** once no longer needed. Nothing is left in `screenshots/` during this phase.
+- Skip until the direction is approved: full test/a11y suite, full screenshot matrix, production builds, detailed CLAUDE.md/SOURCES.md logging (one short line at most), multiple polished commits (one commit per round is enough).
+- When the look is approved, and always before merging to `main`: one full pass (lint, typecheck, `pnpm test`, `pnpm screenshots` at all widths and both locales, a11y fixes, CLAUDE.md + SOURCES.md up to date). Then this rule is removed and §12–§14 apply in full again.
+
 ## 13. Quality bars
 
 - Mobile-first; test at 375px, 768px, 1280px, 1600px+.
@@ -170,6 +185,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 
 - [ ] Access to the client's Microsoft Clarity account / project ID
 - [ ] Google Business profile for reviews, and which review sources the client wants shown
+  - Real reviews must come through **Guesty's API** (Airbnb + Booking.com, per listing) and the **Google Places API** (needs the client's Google Business profile + an API key; ~5 reviews per place, attribution rules). No scraping: Airbnb has no public API and its terms forbid it. Until then all quotes on the site are flagged mock.
 
 - [ ] Final brand name/logo treatment for the new site (keep "Tripas-Coração"?)
 - [ ] Exact number of apartments and buildings, and the building/flat mapping (site says 41–42; brief says 50+). *Research 2026-10-26: the public Guesty booking site lists 42 listings across ~10 street addresses (see §16); client to confirm.*
@@ -180,6 +196,8 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - [ ] Keep the luggage storage page/service?
 - [ ] Allow or block AI crawlers?
 - [ ] High-res photography and building history material from the client
+  - Photography needed to show the interiors well (branch `showcase`): the high-res originals (current placeholders are compressed listing photos), plus a short detail shoot per building: furniture, textiles, materials (tiles, granite, timber), light on surfaces; consistent warm, bright grading. Home collection photos (wide + detail) are set in `src/content/collections.ts`.
+- [ ] **Accessibility gap (hero slideshow, branches hero-lunevar/ahotels):** no visible pause control (client request); it pauses on booking-box hover/focus, hidden tab and reduced motion, but WCAG 2.2.2 expects an explicit control. Resolve before launch.
 - [ ] AL licence numbers per property (10 known from Guesty, see `src/content/site.ts`)
 - [ ] **Copy/facts flagged TO CONFIRM in the code** (search for `TO CONFIRM`, `INVENTED`, `toConfirm: true`, `mock: true`):
   - Cancellation terms used in copy: "free cancellation up to 14 days before arrival" (perks, FAQ, reassurance)
@@ -204,4 +222,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
   - **Booking UI seam:** the widget calls server actions in `src/lib/actions/booking.ts` (`requestQuote`, `requestBlockedNights`); these become the Guesty calls later.
   - **Phasing:** nav links to pages from later milestones render the localized 404 ("this page doesn't exist yet"). A lean `/apartments` index exists so the home search has somewhere to land.
   - **Playwright:** bundled Chromium doesn't support macOS 13, so on macOS the config uses the installed Google Chrome (`channel: "chrome"`); Linux/CI uses the bundled browser.
+- 2026-10-26 (**experiment, branch `numa-like` only**): client asked for Numa's bold agency look ("approach #2: full Numa"), which overrides §5's "big and light, not big and bold" on that branch. Changes: headings weight 600 with poster scale (`text-display`/`text-mega`/`text-h1`/`text-h2` enlarged), signature colour block `wash` `#cddcef` (text on it: ink or `ink-soft-text`, never granite), `azulejo-bright` hover accent, pill buttons, rounded cards (`--radius-card`/`--radius-tile`), ↗ arrows. Home adds Numa devices: search pill pinned under the header on desktop, scroll-darkening statement lines, giant typographic building list with hover photo, "Why book direct" stacked sticky cards, owners block with the six services as tiles (`src/content/owners.ts`), neighbourhood "story" cards, wash footer with a giant wordmark. If adopted, update §5 principles accordingly; if not, `main` keeps the light direction.
+- 2026-10-26 (`numa-like` refinement): home restructured to the 9 sections in §7.1; **white page background** (`paper` = `#ffffff`; `sand` is now a neutral mist `#f3f4f5`, no beige). Collections are driven by **listing tags** (data model addition `Listing.tags`: `couples | families | sea | outdoor | views | remote-work`; `sea/outdoor/views` are editorial `features` in `src/content/listings.ts`, the rest derived from Guesty fields) and defined in `src/content/collections.ts`. Added the client's **Casa do Farol** villa (Foz, 3-bed house for 6, licence 167338/AL, Guesty 10/10 from 32 reviews) from the public Guesty page, with building + new **Foz do Douro** neighbourhood; its tram/façade photo is the hero. Home perks are 4 (early/late check-in kept in `perks.ts` for later pages). "Self check-in" in How it works is TO CONFIRM (Guesty copy says some arrivals are met in person). Experience cards are colour tiles until per-tour photos exist.
+- 2026-11-01 (branch `showcase`): apartments page gets a map view (`?view=map`) with **Leaflet** (approved dependency) and OpenStreetMap's standard tiles, muted to greys in CSS (dev only: OSM's tile policy is for light use; image requests only, no cookies). Swap to a styled provider with a key at launch via `NEXT_PUBLIC_MAP_TILES_URL`. Mention the map provider in the Privacy page.
 - 2026-10-26 (research, not yet decisions): Numa uses **Lausanne** (commercial, Weltkern), 300/600 weights, ~100px H1 with negative tracking, so we will not copy it; free alternatives proposed. The public Guesty booking site (`tripasapartments.guestybookings.com`) exposes 42 real listings with titles, addresses, coordinates, capacities and long descriptions. Buildings inferred from addresses: Mouzinho da Silveira 32, Rua das Taipas 47, Cordoaria (Campo Mártires da Pátria 27/103), Sá da Bandeira 198, São Bento (Praça Almeida Garrett 24), Santa Catarina (Rua da Firmeza 410), Rua do Almada 505, Rua do Breiner 210, Rua de Santa Teresa 40, plus an oceanfront villa at Passeio Alegre (Foz). Many units have no lift. The current site's header shows placeholder contact details (555-555-5555, mymail@mailservice.com); the real ones are in the footer: +351 962 708 740, ola@tripas-coracao.pt, Rua do Breiner 208, 4050-124 Porto.

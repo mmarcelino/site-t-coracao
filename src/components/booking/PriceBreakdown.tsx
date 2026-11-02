@@ -34,8 +34,8 @@ export function PriceBreakdown({ quote }: { quote: Quote }) {
         ))}
       </dl>
       <div className="mt-4 flex items-baseline justify-between border-t border-ink/15 pt-4">
-        <span className="font-medium">{t("booking.total")}</span>
-        <span className="text-h3 font-normal tabular-nums" data-testid="quote-total">
+        <span className="font-semibold">{t("booking.total")}</span>
+        <span className="text-h3 font-semibold tabular-nums" data-testid="quote-total">
           {money(quote.total)}
         </span>
       </div>

@@ -5,6 +5,7 @@
 export { getListings, getListing, getListingBySlug, getListingSlugs } from "./listings";
 export { getBuildings, getBuilding, getNeighbourhoods, getNeighbourhood } from "./places";
 export { getQuote } from "./quote";
-export { getAvailability, getBlockedNights } from "./availability";
+export { getAvailability, getBlockedNights, isRangeAvailable } from "./availability";
 export { getReviews, getReviewSummary } from "./reviews";
 export type * from "./types";
+export { listingTags } from "./types";

@@ -5,16 +5,16 @@ import { faqFor } from "@/content/faq";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getBuildings, getListings, getNeighbourhoods, getReviewSummary, getReviews } from "@/lib/data";
+import { heroSlides } from "@/content/featured";
+import { getListings, getReviewSummary, getReviews } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
 import { BookDirect } from "@/components/home/BookDirect";
-import { BuildingsSection } from "@/components/home/BuildingsSection";
-import { ExperiencesTeaser } from "@/components/home/ExperiencesTeaser";
+import { Collections } from "@/components/home/Collections";
+import { ExperiencesStrip } from "@/components/home/ExperiencesStrip";
 import { Hero } from "@/components/home/Hero";
-import { NeighbourhoodsTeaser } from "@/components/home/NeighbourhoodsTeaser";
-import { OwnersTeaser } from "@/components/home/OwnersTeaser";
+import { HowItWorks } from "@/components/home/HowItWorks";
 import { ReviewsBlock } from "@/components/ReviewsBlock";
 import { Icon } from "@/components/ui/Icon";
 
@@ -31,93 +31,81 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       locale: ogLocale[locale],
       siteName: site.name,
-      images: [{ url: "/images/placeholder/cordoaria-garden-01.jpg", width: 2400, height: 1599 }],
+      images: [{ url: "/images/placeholder/casa-do-farol-09.jpg", width: 2400, height: 1602 }],
     },
   };
 }
 
+/**
+ * Home, in order: hero + search · collections · why book direct · reviews ·
+ * how it works · experiences · FAQ excerpt (footer comes from the layout).
+ */
 export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const format = createFormatter(locale);
-  const [listings, buildings, neighbourhoods, summary, reviews] = await Promise.all([
+  const tTags = await getTranslations("tags");
+  const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
-    getBuildings(locale),
-    getNeighbourhoods(locale),
     getReviewSummary(locale),
-    getReviews(locale, { limit: 3 }),
+    getReviews(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
-
-  const facts = [
-    { value: String(site.foundedYear), label: t("factSince") },
-    { value: "40+", label: t("factApartments") },
-    { value: format.number(summary.overall.score, { minimumFractionDigits: 1 }), label: t("factRating") },
-  ];
+  const format = createFormatter(locale);
+  // One slide per collection: a home that really carries the tag, shown with a fitting photo.
+  const slides = heroSlides.flatMap(({ tag, slug, image, alt }) =>
+    listings.some((l) => l.slug === slug && l.tags.includes(tag))
+      ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
+      : [],
+  );
+  // Hero: the Google rating, as shown on Google (whole business, checkable by guests).
+  // Hero: the real Google score, plus every guest review across platforms (counts add up honestly,
+  // scores on different scales don't), rounded down to the thousand. TO CONFIRM: the Airbnb and
+  // Booking.com totals are placeholders until Guesty is connected.
+  const google = summary.bySource.google;
+  const sources = Object.values(summary.bySource);
+  const totalReviews = sources.reduce((sum, s) => sum + s.count, 0);
+  const rating = {
+    score: format.number(google.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+    count: format.number(Math.floor(totalReviews / 1000) * 1000),
+    mock: sources.some((s) => s.mock),
+  };
 
   return (
     <>
-      <Hero maxGuests={maxGuests} />
+      <Hero maxGuests={maxGuests} slides={slides} rating={rating} />
 
-      <section aria-labelledby="intro-title" className="container-page section-y">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <p id="intro-title" className="label text-granite lg:col-span-3">
-            {t("introEyebrow")}
-          </p>
-          <div className="reveal lg:col-span-9">
-            <p className="text-statement max-w-[34ch] font-light">{t("intro")}</p>
-            <Link href="/about" className="text-lead mt-8 inline-flex items-center gap-3 link-quiet">
-              {t("introLink")}
-              <Icon name="arrowRight" size={20} />
-            </Link>
-          </div>
-        </div>
-        <dl className="mt-[clamp(3.5rem,7vw,6rem)] grid gap-10 border-t border-ink/15 pt-10 sm:grid-cols-3">
-          {facts.map((fact) => (
-            <div key={fact.value} className="reveal flex flex-col-reverse">
-              <dt className="mt-2 text-granite">{fact.label}</dt>
-              <dd className="text-h1 font-light tabular-nums">{fact.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <BuildingsSection buildings={buildings} listings={listings} neighbourhoods={neighbourhoods} />
+      <Collections listings={listings} />
 
       <BookDirect />
 
-      <NeighbourhoodsTeaser neighbourhoods={neighbourhoods} />
-
-      <section aria-labelledby="reviews-title" className="container-page section-y">
+      <section aria-labelledby="reviews-title" className="container-page section-y lg:py-[clamp(8rem,11vw,12rem)]">
+        {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
         <ReviewsBlock
-          overall={summary.overall}
+          overall={summary.bySource.google}
           bySource={summary.bySource}
           reviews={reviews}
-          eyebrow={tr("eyebrow")}
           heading={tr("title")}
           headingId="reviews-title"
         />
       </section>
 
-      <OwnersTeaser />
+      <HowItWorks />
 
-      <ExperiencesTeaser />
+      <ExperiencesStrip />
 
-      <section aria-labelledby="faq-title" className="border-t border-ink/10">
+      <section aria-labelledby="faq-title">
         <div className="container-page section-y grid gap-12 lg:grid-cols-12">
-          <div className="reveal lg:col-span-4">
-            <p className="label mb-5 text-granite">{t("faqEyebrow")}</p>
-            <h2 id="faq-title" className="text-h2">
-              {t("faqTitle")}
-            </h2>
-            <Link href="/faq" className="text-lead mt-8 inline-flex items-center gap-3 link-quiet">
-              {t("faqCta")}
-              <Icon name="arrowRight" size={20} />
-            </Link>
-          </div>
+          <h2 id="faq-title" className="text-h2 reveal lg:col-span-4">
+            {t("faqTitle")}
+          </h2>
           <div className="lg:col-span-8">
             <FaqList items={faqFor("home")} locale={locale} />
+            {/* The way on, after the last question. */}
+            <Link href="/faq" className="group mt-8 inline-flex items-center gap-4 font-semibold">
+              {t("faqCta")}
+              <Icon name="arrowRight" size={24} strokeWidth={1.75} className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
+            </Link>
           </div>
         </div>
       </section>

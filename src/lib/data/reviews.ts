@@ -29,7 +29,7 @@ export async function getReviewSummary(locale: Locale): Promise<{
   const count = rated.reduce((s, l) => s + (l.reviews?.count ?? 0), 0);
   const weighted = rated.reduce((s, l) => s + (l.reviews?.score ?? 0) * (l.reviews?.count ?? 0), 0);
   return {
-    overall: { source: "guesty", score: count ? Math.round((weighted / count) * 10) / 10 : 0, count, mock: true },
+    overall: { source: "guesty", outOf: 10, score: count ? Math.round((weighted / count) * 10) / 10 : 0, count, mock: true },
     bySource: mockSourceAggregates,
   };
 }

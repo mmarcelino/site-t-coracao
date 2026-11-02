@@ -4,31 +4,31 @@ import clsx from "clsx";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
-import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
-import { primaryNav } from "./navItems";
+import { site } from "@/content/site";
+import { headerNav, menuNav, ownersNav } from "./navItems";
+import { OPEN_MENU_EVENT } from "@/components/home/DockedSearch";
 
 /**
- * Sticky header. Over the home hero it starts transparent with light text and turns solid
- * once the page scrolls; everywhere else it is solid. Mobile gets a full-screen menu.
+ * Header. On the home page it sits transparent over the hero and scrolls away with it (the booking
+ * bar docks instead, see DockedSearch); everywhere else it is solid and sticky. The full-screen
+ * menu opens from the hamburger (phones) or from the docked bar (any width).
  */
 export function Header() {
   const t = useTranslations();
   const pathname = usePathname();
   const overlay = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const open = () => setMenuOpen(true);
+    window.addEventListener(OPEN_MENU_EVENT, open);
+    return () => window.removeEventListener(OPEN_MENU_EVENT, open);
   }, []);
 
   // Close the menu on navigation (render-time sync with the current path).
@@ -52,113 +52,198 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const light = overlay && !scrolled;
+  const light = overlay;
 
   return (
     <>
+      {/* Bar: wordmark, key links, WhatsApp and language
+          on desktop; WhatsApp + hamburger on smaller screens. Transparent over the home hero,
+          white once the page scrolls. */}
       <header
         className={clsx(
-          "sticky top-0 z-40 h-[var(--header-h)] transition-[background-color,color,border-color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
-          light
-            ? "on-dark border-b border-transparent text-paper"
-            : "border-b border-ink/10 bg-paper/95 text-ink backdrop-blur-md",
+          "top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
+          overlay ? "relative" : "sticky",
+          light ? "on-dark text-paper" : "bg-paper text-ink shadow-[0_8px_28px_-14px_rgba(27,26,24,0.1)]",
         )}
       >
-        <div className="container-page flex h-full items-center justify-between gap-6">
-          <Link href="/" aria-label={t("nav.home")} className="shrink-0">
-            <Wordmark />
-          </Link>
+        <div className="container-page flex h-full flex-col">
+          {/* Three columns from lg: logo | guest links centred on the page | owners and utilities. */}
+          <div className="flex flex-1 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]">
+            <Link href="/" aria-label={t("nav.home")} className="shrink-0 justify-self-start">
+              <Wordmark />
+            </Link>
+            {/* Desktop: the guest links, always visible. */}
+            <nav aria-label={t("nav.label")} className="hidden lg:block">
+              <ul className="flex items-center gap-10">
+                {headerNav.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className={clsx(
+                        "label transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-[6px]",
+                        "block py-2 hover:opacity-70",
+                      )}
+                    >
+                      {t(`nav.${item.key}`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-          <nav aria-label={t("nav.label")} className="hidden lg:block">
-            <ul className="flex items-center gap-8">
-              {primaryNav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={pathname === item.href ? "page" : undefined}
-                    className="text-small py-2 opacity-90 transition-opacity hover:opacity-100 aria-[current=page]:underline aria-[current=page]:underline-offset-8"
-                  >
-                    {t(`nav.${item.key}`)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="flex items-center gap-5">
-            <div className="hidden md:block">
+            <div className="flex items-center gap-3 justify-self-end sm:gap-5">
+              {/* Owners: a separate audience, so it sits with the utilities on the right (same style as the links). */}
+              <Link
+                href={ownersNav.href}
+                aria-current={pathname === ownersNav.href ? "page" : undefined}
+                className="label hidden py-2 transition-opacity hover:opacity-70 aria-[current=page]:underline aria-[current=page]:underline-offset-[6px] lg:block"
+              >
+                {t(`nav.${ownersNav.key}`)}
+              </Link>
+              <span aria-hidden className="hidden h-5 w-px bg-current opacity-30 lg:block" />
+              {/* WhatsApp concierge: icon only (named for screen readers). */}
               <WhatsAppLink
                 message={t("whatsapp.messageGeneric")}
                 page={pathname}
-                className="text-small inline-flex py-2 opacity-90 transition-opacity hover:opacity-100"
+                icon={false}
+                className="flex h-11 items-center gap-2 px-1 transition-opacity hover:opacity-70"
               >
-                <span className="hidden xl:inline">{t("whatsapp.cta")}</span>
-                <span className="xl:hidden">{t("whatsapp.short")}</span>
+                <Icon name="whatsapp" size={24} strokeWidth={1.4} />
+                <span className="sr-only">{t("whatsapp.cta")}</span>
               </WhatsAppLink>
+              <LanguageSwitcher className="hidden lg:flex" tone={light ? "light" : "dark"} />
+              <button
+                ref={menuButton}
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                aria-expanded={menuOpen}
+                aria-controls="site-menu"
+                className="group -mr-2 flex h-11 items-center gap-3 px-2 lg:hidden"
+              >
+                <Hamburger />
+                <span className="sr-only">{t("nav.openMenu")}</span>
+              </button>
             </div>
-            <div className="hidden sm:block">
-              <LanguageSwitcher tone={light ? "light" : "dark"} />
-            </div>
-            <div className="hidden sm:block">
-              <Link href="/apartments" className={buttonClasses(light ? "outline-light" : "primary", "sm")}>
-                {t("common.bookNow")}
-              </Link>
-            </div>
-            <button
-              ref={menuButton}
-              type="button"
-              onClick={() => setMenuOpen(true)}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              className="-mr-2 p-2 lg:hidden"
-            >
-              <Icon name="menu" size={26} />
-              <span className="sr-only">{t("nav.openMenu")}</span>
-            </button>
           </div>
+          {/* 2px rule along the bar's bottom, within the page margins: the same weight as the rule
+              above "Book direct" at the bottom of the hero. */}
+          {light ? <div aria-hidden className="h-[2px] bg-paper" /> : null}
         </div>
       </header>
 
       {menuOpen ? (
         <div
-          id="mobile-menu"
+          id="site-menu"
           role="dialog"
           aria-modal="true"
           aria-label={t("nav.label")}
-          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper lg:hidden"
+          className="on-dark animate-fade-in-fast fixed inset-0 z-50 flex flex-col overflow-y-auto bg-ink text-paper"
         >
-          <div className="container-page flex h-[var(--header-h)] shrink-0 items-center justify-between">
-            <Wordmark />
-            <button ref={closeButton} type="button" onClick={() => setMenuOpen(false)} className="-mr-2 p-2">
-              <Icon name="close" size={26} />
-              <span className="sr-only">{t("nav.closeMenu")}</span>
-            </button>
-          </div>
-          <nav aria-label={t("nav.label")} className="container-page flex-1 pt-10">
-            <ul className="space-y-1">
-              {primaryNav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-h2 block py-2">
-                    {t(`nav.${item.key}`)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="container-page space-y-6 pt-10 pb-10">
-            <WhatsAppLink message={t("whatsapp.messageGeneric")} page={pathname} className="inline-flex text-lead">
-              {t("whatsapp.cta")}
-            </WhatsAppLink>
-            <p className="text-small text-granite-light">{t("whatsapp.hours")}</p>
-            <div className="flex items-center justify-between border-t border-paper/15 pt-6">
-              <LanguageSwitcher tone="light" />
-              <Link href="/apartments" className={buttonClasses("light")}>
-                {t("common.bookNow")}
+          <div className="container-page flex h-[var(--header-h)] shrink-0 flex-col">
+            <div className="flex flex-1 items-center justify-between">
+              <Link href="/" aria-label={t("nav.home")}>
+                <Wordmark />
               </Link>
+              <button
+                ref={closeButton}
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                className="-mr-2 flex h-11 items-center gap-3 px-2 transition-opacity hover:opacity-70"
+              >
+                <span className="label hidden sm:inline">{t("common.close")}</span>
+                <Icon name="close" size={24} strokeWidth={1.4} />
+                <span className="sr-only">{t("nav.closeMenu")}</span>
+              </button>
+            </div>
+            {/* Same 2px rule as under the nav over the hero. */}
+            <div aria-hidden className="h-[2px] bg-paper" />
+          </div>
+
+          {/* The same links as the header and footer, in sentence case at section-title weight; contact
+              and booking on the right. Sized to sit calmly on a desktop screen. */}
+          <div className="container-page grid flex-1 content-start gap-14 py-10 lg:grid-cols-12 lg:gap-10 lg:py-16">
+            <nav aria-label={t("nav.label")} className="lg:col-span-7">
+              <ul className="border-b border-paper/20">
+                {menuNav.map((item) => (
+                  <li key={item.href} className="border-t border-paper/20">
+                    <Link
+                      href={item.href}
+                      aria-current={pathname === item.href ? "page" : undefined}
+                      className="group flex items-center justify-between gap-6 py-4 text-[clamp(1.75rem,1.2rem+1.8vw,2.75rem)] leading-tight font-semibold tracking-[-0.02em] lg:py-5"
+                    >
+                      <span className="transition-opacity group-hover:opacity-70 group-aria-[current=page]:opacity-60">
+                        {t(`nav.${item.key}`)}
+                      </span>
+                      <Icon name="arrowRight" size={32} strokeWidth={1.75} className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9">
+              <div>
+                <p className="label mb-5 text-paper/60">{t("footer.contact")}</p>
+                <WhatsAppLink
+                  message={t("whatsapp.messageGeneric")}
+                  page={pathname}
+                  icon={false}
+                  className="inline-flex items-center gap-3 text-lead font-semibold transition-opacity hover:opacity-70"
+                >
+                  <span className="grid size-10 place-items-center rounded-full bg-pop text-ink">
+                    <Icon name="whatsapp" size={18} strokeWidth={1.5} />
+                  </span>
+                  {t("whatsapp.short")}
+                </WhatsAppLink>
+                <p className="text-small mt-2 text-paper/60">{t("whatsapp.hoursShort")}</p>
+                <address className="text-small mt-6 space-y-1 text-paper/80 not-italic">
+                  <p>
+                    <a href={site.phoneHref} className="hover:underline">
+                      {site.phone}
+                    </a>
+                  </p>
+                  <p>
+                    <a href={`mailto:${site.email}`} className="hover:underline">
+                      {site.email}
+                    </a>
+                  </p>
+                  <p>
+                    {site.address.street}, {site.address.postalCode} {site.address.city}
+                  </p>
+                </address>
+              </div>
+              <div className="flex items-center justify-between gap-6 border-t border-paper/20 pt-6">
+                <LanguageSwitcher tone="light" className="text-paper" />
+                <Link
+                  href="/apartments"
+                  className="inline-flex h-11 items-center rounded-full bg-paper px-6 text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-pop"
+                >
+                  {t("common.bookNow")}
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       ) : null}
     </>
+  );
+}
+
+/** Two hairlines, the top one shorter; it extends to full width on hover. */
+function Hamburger() {
+  return (
+    <svg width="36" height="14" viewBox="0 0 36 14" aria-hidden focusable="false" className="overflow-visible">
+      <line
+        x1="0"
+        y1="1"
+        x2="36"
+        y2="1"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="origin-right scale-x-[0.55] transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:scale-x-100"
+      />
+      <line x1="0" y1="13" x2="36" y2="13" stroke="currentColor" strokeWidth="2" />
+    </svg>
   );
 }

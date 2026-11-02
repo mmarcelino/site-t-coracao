@@ -20,6 +20,8 @@ export function createFormatter(locale: string) {
     dateTime: (date: Date, options?: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(tag, options).format(date),
     dateTimeRange: (start: Date, end: Date, options?: Intl.DateTimeFormatOptions) =>
       new Intl.DateTimeFormat(tag, options).formatRange(start, end),
+    /** "4 dez." / "4 Dec": Intl's pt-PT short day+month is numeric ("4/12"), so build it. */
+    dayMonth: (date: Date) => `${date.getDate()} ${new Intl.DateTimeFormat(tag, { month: "short" }).format(date)}`,
     money: (amount: number, currency = "EUR") =>
       new Intl.NumberFormat(tag, { style: "currency", currency, maximumFractionDigits: 0 }).format(amount),
   };

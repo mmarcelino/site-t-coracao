@@ -16,6 +16,14 @@ const paths = {
   plus: <path d="M12 5v14M5 12h14" />,
   minus: <path d="M5 12h14" />,
   check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
+  pause: <path d="M9 6v12M15 6v12" />,
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m15.5 15.5 5 5" />
+    </>
+  ),
+  play: <path d="M8 5.5v13l10.5-6.5L8 5.5Z" />,
   calendar: (
     <>
       <rect x="3.5" y="5" width="17" height="15.5" rx="1.5" />
@@ -60,6 +68,12 @@ const paths = {
     <>
       <circle cx="12" cy="12" r="8.5" />
       <path d="M12 7.5V12l3 2" />
+    </>
+  ),
+  phone: (
+    <>
+      <rect x="6.5" y="2.5" width="11" height="19" rx="2" />
+      <path d="M10.5 18.5h3" />
     </>
   ),
   key: (

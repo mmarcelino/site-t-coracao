@@ -2,16 +2,23 @@
 
 /*
  * Design tokens — CLAUDE.md §5.
+ * Branch `numa-like` (2026-10-26): experiment with Numa's "full" agency look — semibold poster
+ * type (600), an azulejo-wash colour block as the signature colour, pill buttons, rounded cards.
  * Neutrals drawn from the buildings (granite, limestone, warm off-white, near-black)
  * plus one accent (muted azulejo blue) used sparingly: links, focus, selected dates.
- * Contrast (WCAG): ink/paper 15.7:1 · granite/paper 5.3:1 · granite/sand 4.9:1
- * · azulejo/paper 8.1:1 · granite-light/ink 6.5:1. Granite on limestone is only 4.3:1:
+ * Contrast (WCAG): ink/paper(white) 17.4:1 · granite/paper 5.9:1 · granite/sand(mist) 5.4:1
+ * · azulejo/paper 9:1 · granite-light/ink 6.5:1. Granite on limestone is only 4.3:1:
  * use ink for small text on limestone. Stone is for borders/rules only (1.6:1).
+ * Wash: ink 12.5:1 · azulejo 6.5:1 · ink-soft-text 8.1:1 · granite 4.2:1 (don't).
+ * azulejo-bright on white 6.3:1.
  */
 @theme {
+  /* Wide desktops: room for the larger hero booking bar beside the book-direct caption. */
+  --breakpoint-hd: 85rem;
   /* Colour */
-  --color-paper: #f6f3ee;
-  --color-sand: #efe9e0;
+  /* numa-like refinement: white page; "sand" is now a neutral mist (no beige). */
+  --color-paper: #ffffff;
+  --color-sand: #f3f4f5;
   --color-limestone: #e4dccf;
   --color-stone: #cbc2b4;
   --color-granite: #67645f;
@@ -20,26 +27,40 @@
   --color-ink-soft: #262422;
   --color-azulejo: #2e4a72;
   --color-azulejo-tint: #dfe5ee;
+  /* Signature colour block (Numa's pink, in tile blue). Text on it: ink or ink-soft, never granite. */
+  --color-wash: #efe5d4; /* branch ahotels: warm cream instead of the light blue */
+  --color-ink-soft-text: #3d3a36;
+  /* Hover/active accent for big type (5.7:1 on paper, 4.5:1 on wash: large text only on wash) */
+  --color-azulejo-bright: #2f5fa8;
+  /* Accent: stone (ink on it 10.1:1; never as text on white). */
+  --color-pop: #cbc2b4;
+  --color-cork: #a88b70;
   --color-white: #ffffff;
 
   /* Type */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  /* Branch ahotels: all copy in Hanken Grotesk (display and caps roles kept as tokens). */
+  --font-display: var(--font-sans);
+  --font-condensed: var(--font-sans);
 
-  --text-display: clamp(2.75rem, 1.55rem + 5.4vw, 7rem);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.04em;
-  --text-h1: clamp(2.375rem, 1.6rem + 3.4vw, 4.75rem);
-  --text-h1--line-height: 1.02;
-  --text-h1--letter-spacing: -0.035em;
-  --text-h2: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
-  --text-h2--line-height: 1.06;
-  --text-h2--letter-spacing: -0.03em;
-  --text-statement: clamp(1.625rem, 1.2rem + 1.6vw, 2.625rem);
-  --text-statement--line-height: 1.2;
-  --text-statement--letter-spacing: -0.025em;
-  --text-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
-  --text-h3--line-height: 1.15;
-  --text-h3--letter-spacing: -0.02em;
+  --text-display: clamp(3rem, 1.6rem + 6vw, 7.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.045em;
+  --text-mega: clamp(3rem, 1rem + 8.5vw, 10rem);
+  --text-mega--line-height: 0.92;
+  --text-mega--letter-spacing: -0.05em;
+  --text-h1: clamp(2.5rem, 1.5rem + 4.2vw, 6.25rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.04em;
+  --text-h2: clamp(2rem, 1.25rem + 3vw, 4.25rem);
+  --text-h2--line-height: 1;
+  --text-h2--letter-spacing: -0.035em;
+  --text-statement: clamp(2rem, 1.2rem + 3.2vw, 4.25rem);
+  --text-statement--line-height: 1.04;
+  --text-statement--letter-spacing: -0.035em;
+  --text-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-h3--line-height: 1.1;
+  --text-h3--letter-spacing: -0.025em;
   --text-lead: clamp(1.125rem, 1.02rem + 0.45vw, 1.4rem);
   --text-lead--line-height: 1.5;
   --text-body: 1.0625rem;
@@ -55,6 +76,12 @@
   --duration-fast: 200ms;
   --duration-base: 600ms;
   --duration-slow: 1000ms;
+
+  /* Shape */
+  /* Branch ahotels: one curve for every surface (cards, tiles, booking bar, panels); small
+     controls are fully round. Structure comes from the ink rules, not the corners. */
+  --radius-card: 1rem;
+  --radius-tile: 1rem;
 }
 
 :root {
@@ -63,7 +90,7 @@
   --section: clamp(5rem, 3rem + 8vw, 10rem);
   --section-tight: clamp(3.5rem, 2.4rem + 4.5vw, 6.5rem);
   --page-max: 96rem;
-  --header-h: 4.5rem;
+  --header-h: 4rem;
 }
 
 @layer base {
@@ -86,8 +113,20 @@
   }
 
   h1, h2, h3, h4 {
-    font-weight: 300;
+    font-weight: 600;
     text-wrap: balance;
+  }
+
+  /* Branch ahotels: bold display serif for headlines, compressed caps for small titles. */
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+  h3 {
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
 
   p {
@@ -140,13 +179,14 @@
   padding-block: var(--section-tight);
 }
 
-/* Tracked uppercase label (eyebrows, meta) */
+/* Tracked uppercase label (eyebrows, meta): the site's one caps style, shared with the header nav. */
 @utility label {
-  font-size: var(--text-label);
-  line-height: var(--text-label--line-height);
-  letter-spacing: var(--text-label--letter-spacing);
+  font-family: var(--font-condensed);
+  font-size: 0.8125rem;
+  line-height: 1.1;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Underlined text link with a calm hover */
@@ -227,15 +267,16 @@
   }
 }
 
-/* Calendar (react-day-picker) themed with our tokens */
-.tc-calendar {
+/* Calendar (react-day-picker) themed with our tokens. `.rdp-root.tc-calendar` outranks the
+   library's own stylesheet, which loads after ours. */
+.rdp-root.tc-calendar {
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-limestone);
   --rdp-day-height: 2.75rem;
   --rdp-day-width: 2.75rem;
   --rdp-day_button-height: 2.625rem;
   --rdp-day_button-width: 2.625rem;
-  --rdp-day_button-border-radius: 0;
+  --rdp-day_button-border-radius: 50%;
   --rdp-selected-border: 1px solid var(--color-ink);
   --rdp-today-color: var(--color-azulejo);
   --rdp-range_start-color: var(--color-paper);
@@ -246,14 +287,14 @@
   font-size: 0.9375rem;
 }
 
-.tc-calendar .rdp-month_caption {
+.rdp-root.tc-calendar .rdp-month_caption {
   font-weight: 500;
   font-size: 0.9375rem;
   letter-spacing: 0.01em;
   text-transform: capitalize;
 }
 
-.tc-calendar .rdp-weekday {
+.rdp-root.tc-calendar .rdp-weekday {
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -262,32 +303,169 @@
   opacity: 1;
 }
 
-.tc-calendar .rdp-chevron {
+.rdp-root.tc-calendar .rdp-chevron {
   fill: var(--color-ink);
   width: 1rem;
   height: 1rem;
 }
 
-.tc-calendar .rdp-day_button:hover:not([disabled]) {
-  background: var(--color-sand);
+.rdp-root.tc-calendar .rdp-day_button:hover:not([disabled]) {
+  background: var(--color-limestone);
 }
 
-.tc-calendar .rdp-selected .rdp-day_button:hover {
-  background: inherit;
+/* Range ends are filled circles (also on hover/focus) on a tinted band; days in between keep the tint. */
+/* An arrival chosen on its own (no departure yet) looks the same as a range end. */
+.rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button,
+.rdp-root.tc-calendar :is(.rdp-range_start, .rdp-range_end) .rdp-day_button:hover,
+.rdp-root.tc-calendar .rdp-selected:not(.rdp-range_middle) .rdp-day_button {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.rdp-root.tc-calendar .rdp-range_middle .rdp-day_button:hover {
+  background: transparent;
 }
 
 /* Unavailable nights: struck through, clearly not selectable, still legible */
-.tc-calendar .tc-day-unavailable {
+.rdp-root.tc-calendar .tc-day-unavailable {
   color: var(--color-granite);
   opacity: 1;
 }
 
-.tc-calendar .tc-day-unavailable .rdp-day_button {
+.rdp-root.tc-calendar .tc-day-unavailable .rdp-day_button {
   text-decoration: line-through;
   text-decoration-color: var(--color-stone);
 }
 
-.tc-calendar .rdp-day_button:focus-visible {
+.rdp-root.tc-calendar .rdp-day_button:focus-visible {
   outline: 2px solid var(--color-azulejo);
   outline-offset: 1px;
+}
+
+
+/* ------------------------------------------------------------------ numa-like devices */
+
+/* Statement lines that darken one by one as they scroll into place (CSS scroll-driven). */
+@keyframes line-ink {
+  from {
+    color: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  }
+  to {
+    color: var(--color-ink);
+  }
+}
+
+@utility scroll-ink {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: line-ink linear both;
+      animation-timeline: view();
+      animation-range: entry 60% cover 45%;
+    }
+  }
+}
+
+
+/* Featured card: story-style progress for the active item (paused via play-state). */
+@keyframes featured-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/*
+ * Hero slideshow: cross-fade + slow settle (Ken Burns). The outgoing slide keeps its transform
+ * while it fades, then resets after the fade, so nothing jumps.
+ */
+.hero-slide {
+  opacity: 0;
+  transition: opacity 1600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-slide img {
+  transform: scale(1.08);
+  transition: transform 0s linear 1700ms;
+}
+.hero-slide[data-active="true"] {
+  opacity: 1;
+}
+.hero-slide[data-active="true"] img {
+  transform: scale(1);
+  transition: transform 9000ms cubic-bezier(0.25, 0.6, 0.3, 1);
+}
+
+/* Hero glass (booking box, review card): a light tint, always over the photo. */
+.hero-glass {
+  background-color: rgb(27 26 24 / 0.28);
+}
+
+
+/* ------------------------------------------------------------------ ahotels branch devices */
+
+@utility condensed {
+  font-family: var(--font-condensed);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Photos: wipe up into view. */
+    .reveal-clip {
+      animation: clip-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+@keyframes clip-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Apartments map: a pale, washed-out backdrop so the pins and the photos lead (development tiles only). */
+.tc-map .leaflet-tile-pane {
+  filter: grayscale(1) sepia(0.08) contrast(0.62) brightness(1.18);
+}
+.tc-map .leaflet-control-attribution {
+  font-size: 0.6875rem;
+}
+/* Zoom controls: one slim white pill (+ over −, hairline between), soft shadow, thin symbols. */
+.tc-map .leaflet-bar {
+  overflow: hidden;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-paper);
+  box-shadow: 0 8px 24px -12px rgb(27 26 24 / 0.35), 0 0 0 1px rgb(27 26 24 / 0.06);
+  margin: 0 1rem 2rem 0;
+}
+.tc-map .leaflet-bar a,
+.tc-map .leaflet-bar a:first-child,
+.tc-map .leaflet-bar a:last-child {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-ink);
+  font: 300 1.375rem/1 var(--font-sans);
+  transition: background-color var(--duration-fast) ease;
+}
+.tc-map .leaflet-bar a:first-child {
+  border-bottom: 1px solid rgb(27 26 24 / 0.1);
+}
+.tc-map .leaflet-bar a:hover {
+  background: var(--color-sand);
+}
+.tc-map .leaflet-bar a.leaflet-disabled {
+  color: rgb(27 26 24 / 0.25);
+  background: transparent;
 }

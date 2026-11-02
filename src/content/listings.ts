@@ -11,6 +11,8 @@ import type { ListingCategory, Localized } from "@/lib/data/types";
  * - Copy is rewritten from the client's own Guesty descriptions.
  */
 export type RoomKey =
+  | "exterior"
+  | "terrace"
   | "living"
   | "dining"
   | "kitchen"
@@ -23,11 +25,20 @@ export type RoomKey =
   | "patio"
   | "detail";
 
+/**
+ * Editorial features behind the collections/filters. Other tags are derived from Guesty data
+ * (see `deriveTags` in src/lib/data/listings.ts).
+ */
+export type ListingFeature = "sea" | "outdoor" | "views";
+
 export interface ListingContent {
   id: string;
   slug: string;
   buildingId: string;
   category: ListingCategory;
+  features: ListingFeature[];
+  /** Overrides the floor label from Guesty (e.g. a whole house). */
+  floor?: Localized;
   areaSqm: number; // INVENTED
   title: Localized;
   tagline: Localized;
@@ -64,6 +75,7 @@ export const listingContent: ListingContent[] = [
     slug: "mouzinho-32-rooftop-e",
     buildingId: "mouzinho-32",
     category: "two-bed",
+    features: ["views"],
     areaSqm: 95,
     title: { pt: "Rooftop E", en: "Rooftop E" },
     tagline: {
@@ -89,6 +101,7 @@ export const listingContent: ListingContent[] = [
     slug: "mouzinho-32-apartment-3d",
     buildingId: "mouzinho-32",
     category: "two-bed",
+    features: ["views"],
     areaSqm: 90,
     title: { pt: "Apartamento 3D", en: "Apartment 3D" },
     tagline: {
@@ -114,6 +127,7 @@ export const listingContent: ListingContent[] = [
     slug: "mouzinho-32-apartment-2e",
     buildingId: "mouzinho-32",
     category: "one-bed",
+    features: ["views"],
     areaSqm: 52,
     title: { pt: "Apartamento 2E", en: "Apartment 2E" },
     tagline: {
@@ -139,6 +153,7 @@ export const listingContent: ListingContent[] = [
     slug: "cordoaria-river-view-studio",
     buildingId: "cordoaria",
     category: "studio",
+    features: ["outdoor", "views"],
     areaSqm: 34,
     title: { pt: "Estúdio com varanda sobre o rio", en: "River-view studio with balcony" },
     tagline: {
@@ -164,6 +179,7 @@ export const listingContent: ListingContent[] = [
     slug: "cordoaria-garden-view-studio",
     buildingId: "cordoaria",
     category: "studio",
+    features: ["views"],
     areaSqm: 32,
     title: { pt: "Estúdio sobre o jardim", en: "Garden-view studio" },
     tagline: {
@@ -189,6 +205,7 @@ export const listingContent: ListingContent[] = [
     slug: "cordoaria-mezzanine-studio",
     buildingId: "cordoaria",
     category: "studio",
+    features: ["outdoor"],
     areaSqm: 38,
     title: { pt: "Estúdio mezanino", en: "Mezzanine studio" },
     tagline: {
@@ -214,6 +231,7 @@ export const listingContent: ListingContent[] = [
     slug: "breiner-heritage-apartment",
     buildingId: "breiner-210",
     category: "two-bed",
+    features: [],
     areaSqm: 110,
     title: { pt: "Apartamento Heritage", en: "Heritage apartment" },
     tagline: {
@@ -239,6 +257,7 @@ export const listingContent: ListingContent[] = [
     slug: "breiner-skylight-apartment",
     buildingId: "breiner-210",
     category: "two-bed",
+    features: [],
     areaSqm: 110,
     title: { pt: "Apartamento Skylight", en: "Skylight apartment" },
     tagline: {
@@ -264,6 +283,7 @@ export const listingContent: ListingContent[] = [
     slug: "sao-bento-station-view-studio",
     buildingId: "sao-bento",
     category: "one-bed",
+    features: ["views"],
     areaSqm: 40,
     title: { pt: "Estúdio vista estação", en: "Station-view studio" },
     tagline: {
@@ -289,6 +309,7 @@ export const listingContent: ListingContent[] = [
     slug: "sao-bento-duplex",
     buildingId: "sao-bento",
     category: "one-bed",
+    features: ["outdoor"],
     areaSqm: 45,
     title: { pt: "Duplex São Bento", en: "São Bento duplex" },
     tagline: {
@@ -307,6 +328,37 @@ export const listingContent: ListingContent[] = [
     pictures: [
       { n: 2, room: "living" }, { n: 6, room: "patio" }, { n: 1, room: "dining" }, { n: 3, room: "bedroom" },
       { n: 5, room: "kitchen" }, { n: 7, room: "bedroom" }, { n: 4, room: "bathroom" }, { n: 8, room: "bedroom" },
+    ],
+  },
+  {
+    id: "683036ac17f8820013f84e69",
+    slug: "casa-do-farol",
+    buildingId: "casa-do-farol",
+    category: "house",
+    features: ["sea", "outdoor", "views"],
+    floor: { pt: "Moradia em 3 pisos", en: "House on 3 floors" },
+    areaSqm: 200, // current site: "3-bedroom house (200 m², up to 6 guests)"
+    title: { pt: "Casa do Farol", en: "Casa do Farol" },
+    tagline: {
+      pt: "Uma casa de azulejo verde em frente ao mar, com terraço sobre a foz do Douro.",
+      en: "A green-tiled house facing the sea, with a terrace over the mouth of the Douro.",
+    },
+    summary: {
+      pt: "Reconstruída de raiz na Foz Velha, a Casa do Farol acorda com o Atlântico à janela e termina o dia no terraço, ao pôr do sol. Três quartos para seis, cada um com casa de banho, e o centro histórico a dez minutos pela marginal ou no elétrico que para à porta.",
+      en: "Rebuilt from the ground up in Foz Velha, Casa do Farol wakes up to the Atlantic and ends the day on the terrace at sunset. Three bedrooms for six, each with its own bathroom, and the historic centre ten minutes away along the river or on the tram that stops at the door.",
+    },
+    space: {
+      pt: "No rés-do-chão, sala, zona de refeições e cozinha de chef em open space, com jogos, livros e um bar de vinhos. No primeiro piso, um escritório, um quarto e uma suite virada para a água com closet. No segundo, um recanto de leitura e a suite principal, com acesso ao terraço. Obras de Maria Souto de Moura, David Pher e David Gonçalves por toda a casa.",
+      en: "On the ground floor, an open-plan living room, dining area and chef’s kitchen, with games, books and a wine bar. On the first floor, a study, a bedroom and a waterfront suite with walk-in wardrobe. On the second, a reading nook and the main suite, opening onto the terrace. Works by Maria Souto de Moura, David Pher and David Gonçalves throughout.",
+    },
+    highlights: {
+      pt: ["Terraço com vista para o mar e o rio", "Três quartos com casa de banho", "Elétrico histórico à porta"],
+      en: ["Terrace with sea and river views", "Three bedrooms, each with a bathroom", "Vintage tram at the door"],
+    },
+    pictures: [
+      { n: 2, room: "terrace" }, { n: 1, room: "exterior" }, { n: 3, room: "living" }, { n: 4, room: "dining" },
+      { n: 5, room: "bedroom" }, { n: 7, room: "terrace" }, { n: 6, room: "view" }, { n: 8, room: "detail" },
+      { n: 9, room: "exterior" }, { n: 10, room: "view" },
     ],
   },
 ];

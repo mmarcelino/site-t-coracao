@@ -127,4 +127,30 @@ export const buildings: BuildingContent[] = [
     listingIds: ["60f82c06c8730e002dc84744", "60f828533b29f7002f8ee8dc"],
     hasLift: false, // TO CONFIRM
   },
+  {
+    id: "casa-do-farol",
+    slug: "casa-do-farol",
+    name: "Casa do Farol",
+    street: "Rua do Passeio Alegre 516",
+    neighbourhoodSlug: "foz",
+    era: { pt: "Reconstruída recentemente", en: "Newly rebuilt" },
+    historyLine: {
+      pt: "Uma casa de azulejo verde na Foz Velha, de frente para o sítio onde o Douro encontra o mar.",
+      en: "A green-tiled house in Foz Velha, facing the spot where the Douro meets the sea.",
+    },
+    story: {
+      pt: "Na Rua do Passeio Alegre, entre o jardim e o rio, a Casa do Farol foi reconstruída por inteiro por trás da sua fachada de azulejo verde. Lá dentro há soalho de carvalho, obras de Maria Souto de Moura, David Pher e David Gonçalves, e um terraço virado ao Atlântico. O elétrico histórico passa à porta e leva-o ao centro ao longo do rio.",
+      en: "On Rua do Passeio Alegre, between the garden and the river, Casa do Farol was rebuilt from the inside out behind its green azulejo façade. Inside: oak floors, works by Maria Souto de Moura, David Pher and David Gonçalves, and a terrace facing the Atlantic. The vintage tram stops at the door and runs along the river to the centre.",
+    },
+    heroImage: {
+      src: "/images/placeholder/casa-do-farol-01.jpg",
+      alt: { pt: "Fachada de azulejo verde da Casa do Farol, na Foz", en: "Green azulejo façade of Casa do Farol in Foz" },
+    },
+    storyImage: {
+      src: "/images/placeholder/casa-do-farol-09.jpg",
+      alt: { pt: "O elétrico histórico em frente à Casa do Farol", en: "The vintage tram passing Casa do Farol" },
+    },
+    listingIds: ["683036ac17f8820013f84e69"],
+    hasLift: false, // TO CONFIRM (three floors)
+  },
 ];

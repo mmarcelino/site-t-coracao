@@ -1,42 +1,75 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import {
+  HeroSlideshow,
+  HeroSlideshowBackground,
+  type HeroSlide,
+} from "./HeroSlideshow";
+import { DirectCard, DirectPerksLine, type HeroRating } from "./DirectCard";
+import { DockedSearch } from "./DockedSearch";
 import { SearchBar } from "./SearchBar";
+import { SearchStateProvider } from "./SearchState";
 
 /**
- * Full-bleed photographic hero with the search front and centre. Sits under the transparent
- * header (negative top margin). The image is the LCP element: priority + full-width sizes.
+ * Editorial hero: a slideshow of homes behind one text stack at the bottom-left (headline, subline,
+ * booking box), with the book-direct caption on the right margin. The whole hero fits the first screen.
  */
-export async function Hero({ maxGuests }: { maxGuests: number }) {
+export async function Hero({
+  maxGuests,
+  slides,
+  rating,
+}: {
+  maxGuests: number;
+  slides: HeroSlide[];
+  rating: HeroRating;
+}) {
   const t = await getTranslations("home");
   return (
+    <SearchStateProvider>
     <section
       aria-labelledby="hero-title"
-      className="on-dark relative -mt-[var(--header-h)] flex min-h-[max(40rem,100svh)] flex-col justify-end text-paper"
+      className="on-dark relative -mt-[var(--header-h)] h-[100svh] min-h-[36rem] overflow-hidden bg-ink text-paper"
+      data-hero-stage
     >
-      <div className="absolute inset-0 overflow-hidden bg-ink">
-        <Image
-          src="/images/placeholder/cordoaria-garden-01.jpg"
-          alt={t("heroImageAlt")}
-          fill
-          priority
-          sizes="100vw"
-          quality={75}
-          className="animate-hero-image object-cover object-[50%_40%]"
-        />
-        {/* Scrim: keeps type legible on any photo without flattening it */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_22%,rgba(27,26,24,0.05)_45%,rgba(27,26,24,0.75)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0)_65%)]" />
-      </div>
+      <HeroSlideshow slides={slides}>
+        {/* Six homes, cross-fading as the lines below fill up. */}
+        <HeroSlideshowBackground />
+        {/* Shade only where there's text (nav at the top, the text stack bottom-left); the rest of the
+            photo stays at full brightness. */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.4)_0%,rgba(27,26,24,0)_20%,rgba(27,26,24,0)_45%,rgba(27,26,24,0.6)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0.15)_45%,rgba(27,26,24,0)_70%)]" />
 
-      <div className="container-page relative pt-[calc(var(--header-h)+4rem)] pb-[clamp(2rem,5vw,4rem)]">
-        <p className="label animate-fade-in mb-6 text-paper/85">{t("heroEyebrow")}</p>
-        <h1 id="hero-title" className="text-display animate-fade-in max-w-[14ch] font-light">
-          {t("heroTitle")}
-        </h1>
-        <div className="mt-[clamp(2rem,5vw,3.5rem)] max-w-5xl">
-          <SearchBar maxGuests={maxGuests} />
+        {/* Two edges, one stack: headline, subline and booking box share the left margin and sit at
+            the bottom (bottom gap = side gutter); the book-direct caption ends on the right margin,
+            on the booking box's baseline. The top of the photo stays empty. */}
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <div className="container-page pb-[var(--gutter)]">
+            <h1
+              id="hero-title"
+              className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.92] font-semibold tracking-[-0.03em]"
+            >
+              <span className="block">{t("heroTitleLead")}</span>{" "}
+              <span className="block">{t("heroTitleAccent")}</span>
+            </h1>
+            {/* What this is, in plain words: apartments to book and stay in. */}
+            <p className="animate-fade-in mt-5 max-w-[48rem] text-lead text-paper">{t("heroSub")}</p>
+
+            <div className="mt-12 flex flex-col gap-4 md:mt-20 lg:flex-row lg:items-stretch lg:justify-between">
+              <div className="w-full md:w-max" data-pause-slideshow>
+                <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
+              </div>
+              {/* Same height as the booking bar: its rule on the bar's top edge, its last line on the bar's bottom. */}
+              <div className="hidden xl:flex">
+                <DirectCard rating={rating} />
+              </div>
+              {/* Smaller screens: the promise as one short line (under the box, or right on laptops). */}
+              <DirectPerksLine className="lg:flex lg:flex-col lg:gap-1.5 lg:justify-end lg:border-t-2 lg:border-paper lg:pb-1 lg:text-right xl:hidden" />
+            </div>
+          </div>
         </div>
-      </div>
+      </HeroSlideshow>
     </section>
+    {/* Booking stays in reach after the hero (shares dates and guests with the bar above). */}
+    <DockedSearch maxGuests={maxGuests} />
+    </SearchStateProvider>
   );
 }

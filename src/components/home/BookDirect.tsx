@@ -1,50 +1,42 @@
 import { getLocale, getTranslations } from "next-intl/server";
+import { Icon, type IconName } from "@/components/ui/Icon";
 import { perks, type Perk } from "@/content/perks";
 import type { Locale } from "@/i18n/routing";
-import { Icon, type IconName } from "@/components/ui/Icon";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
 
-const perkIcons: Record<Perk["id"], IconName> = {
-  "best-rate": "tag",
-  flexible: "refresh",
-  welcome: "gift",
-  concierge: "whatsapp",
-  "early-late": "key",
-};
+const homePerks: Array<{ id: Perk["id"]; icon: IconName }> = [
+  { id: "best-rate", icon: "tag" },
+  { id: "flexible", icon: "calendar" },
+  { id: "welcome", icon: "gift" },
+  { id: "secure-payment", icon: "lock" },
+];
 
-/** Why book direct, as hospitality (not discounts). Dark section for rhythm. */
+/**
+ * Why book direct: four perks framed as hospitality, never as discounts. Branch ahotels: the one
+ * yellow panel on the page (inside the margins, same curve as the cards), each perk led by its icon
+ * under an ink rule.
+ */
 export async function BookDirect() {
-  const t = await getTranslations();
+  const t = await getTranslations("home");
   const locale = (await getLocale()) as Locale;
+  const items = homePerks.flatMap(({ id, icon }) => {
+    const perk = perks.find((p) => p.id === id);
+    return perk ? [{ perk, icon }] : [];
+  });
 
   return (
-    <section aria-labelledby="direct-title" className="on-dark bg-ink text-paper">
-      <div className="container-page section-y grid gap-14 lg:grid-cols-12">
-        <div className="reveal lg:col-span-5">
-          <p className="label mb-5 text-granite-light">{t("home.directEyebrow")}</p>
-          <h2 id="direct-title" className="text-h2">
-            {t("home.directTitle")}
-          </h2>
-          <p className="text-lead mt-6 max-w-md text-paper/75">{t("home.directBody")}</p>
-          <WhatsAppLink
-            message={t("whatsapp.messageGeneric")}
-            page="home"
-            className="inline-flex text-lead mt-10 border-b border-paper/30 pb-1 transition-colors hover:border-paper"
-          >
-            {t("whatsapp.cta")}
-          </WhatsAppLink>
-        </div>
-        <ol className="lg:col-span-6 lg:col-start-7">
-          {perks.map((perk, i) => (
-            <li key={perk.id} className="reveal grid grid-cols-[2.5rem_1fr] gap-x-5 border-t border-paper/15 py-7 last:border-b">
-              <Icon name={perkIcons[perk.id]} size={24} className="mt-1 text-paper/70" />
-              <div>
-                <h3 className="text-lead font-normal">
-                  <span className="sr-only">{i + 1}. </span>
-                  {perk.title[locale]}
-                </h3>
-                <p className="mt-2 text-paper/70">{perk.body[locale]}</p>
-              </div>
+    <section aria-labelledby="direct-title" className="container-page">
+      <div className="rounded-[var(--radius-card)] bg-pop px-[var(--gutter)] py-[clamp(3rem,6vw,6rem)] text-ink">
+        <h2 id="direct-title" className="text-h2 reveal">
+          {t("directTitle")}
+        </h2>
+        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+          {items.map(({ perk, icon }) => (
+            <li key={perk.id} className="reveal border-t-2 border-ink pt-5">
+              <span className="grid size-12 place-items-center rounded-full border-2 border-ink text-ink">
+                <Icon name={icon} size={22} strokeWidth={2.2} />
+              </span>
+              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>
+              <p className="mt-3 max-w-xs">{perk.body[locale]}</p>
             </li>
           ))}
         </ol>

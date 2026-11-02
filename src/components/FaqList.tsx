@@ -10,15 +10,15 @@ import { Icon } from "./ui/Icon";
 export function FaqList({ items, locale, withJsonLd = true }: { items: FaqItem[]; locale: Locale; withJsonLd?: boolean }) {
   return (
     <>
-      <div className="border-t border-ink/15">
+      <div className="border-t-2 border-ink">
         {items.map((item) => (
           <details key={item.id} className="group border-b border-ink/15" id={`faq-${item.id}`}>
-            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-6 [&::-webkit-details-marker]:hidden">
-              <h3 className="text-lead font-normal">{item.question[locale]}</h3>
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+              <h3 className="text-[1.0625rem] leading-snug font-semibold">{item.question[locale]}</h3>
               <Icon
                 name="plus"
-                size={22}
-                className="mt-1 shrink-0 transition-transform duration-[var(--duration-base)] group-open:rotate-45"
+                size={20}
+                className="shrink-0 transition-transform duration-[var(--duration-base)] group-open:rotate-45"
               />
             </summary>
             <p className="max-w-3xl pb-7 text-granite">{item.answer[locale]}</p>

@@ -5,7 +5,9 @@ export const pages = [
   { name: "home", pt: "/pt", en: "/en" },
   { name: "apartment", pt: "/pt/apartamentos/mouzinho-32-rooftop-e", en: "/en/apartments/mouzinho-32-rooftop-e" },
   { name: "apartment-studio", pt: "/pt/apartamentos/cordoaria-river-view-studio", en: "/en/apartments/cordoaria-river-view-studio" },
+  { name: "apartment-house", pt: "/pt/apartamentos/casa-do-farol", en: "/en/apartments/casa-do-farol" },
   { name: "apartments", pt: "/pt/apartamentos", en: "/en/apartments" },
+  { name: "apartments-filtered", pt: "/pt/apartamentos?tag=outdoor", en: "/en/apartments?tag=outdoor" },
 ] as const;
 
 export const locales = ["pt", "en"] as const;

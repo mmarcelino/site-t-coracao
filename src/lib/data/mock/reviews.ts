@@ -70,7 +70,7 @@ export const mockReviews: Review[] = [
     date: "2026-04-02",
     language: "pt",
     text: "Ficámos no Breiner com dois miúdos e tínhamos berço e cadeira à nossa espera. Uma casa com alma, e uma equipa sempre disponível.",
-    listingId: "60f827e3b82a7e002f852152",
+    listingId: "60f827e57aba91002d2bdc3c",
     mock: true,
   },
   {
@@ -81,7 +81,7 @@ export const mockReviews: Review[] = [
     date: "2026-03-11",
     language: "en",
     text: "A proper home, not a rental. Timber floors, good linen, a desk by the window. I worked from here for two weeks and didn't want to leave.",
-    listingId: "60f827e57aba91002d2bdc3c",
+    listingId: "60f827e3b82a7e002f852152",
     mock: true,
   },
   {
@@ -95,11 +95,58 @@ export const mockReviews: Review[] = [
     listingId: "60f828533b29f7002f8ee8dc",
     mock: true,
   },
+  {
+    id: "mock-9",
+    source: "google",
+    rating: 5,
+    author: "Sofia",
+    date: "2026-09-02",
+    language: "pt",
+    text: "Acordar com as árvores do jardim à janela não tem preço. Pequeno, bonito e cheio de luz.",
+    listingId: "60f82c3cb82a7e002f865672",
+    mock: true,
+  },
+  {
+    id: "mock-10",
+    source: "airbnb",
+    rating: 5,
+    author: "Daniel",
+    date: "2026-08-19",
+    language: "en",
+    text: "Sunsets from the terrace, the tram at the door, and a house that feels like a gallery. We'd go back tomorrow.",
+    listingId: "683036ac17f8820013f84e69",
+    mock: true,
+  },
+  {
+    id: "mock-11",
+    source: "booking",
+    rating: 10,
+    author: "Marta",
+    date: "2026-07-05",
+    language: "pt",
+    text: "A parede de granito na casa de banho é linda. Tudo pensado ao pormenor, a dois passos dos Clérigos.",
+    listingId: "60f82cd97aba91002d2cfe72",
+    mock: true,
+  },
+  {
+    id: "mock-12",
+    source: "airbnb",
+    rating: 5,
+    author: "Lukas",
+    date: "2026-06-21",
+    language: "en",
+    text: "A proper study with a real desk, a good lamp and fast Wi-Fi. I took calls all week, then walked to the sea at six.",
+    listingId: "683036ac17f8820013f84e69",
+    mock: true,
+  },
 ];
 
 /** MOCK platform-wide aggregates. Replace with Google Business + Guesty channel data. */
 export const mockSourceAggregates: Record<ReviewSource, ReviewAggregate> = {
-  google: { source: "google", score: 9.6, count: 412, mock: true },
-  airbnb: { source: "airbnb", score: 9.6, count: 3180, mock: true },
-  booking: { source: "booking", score: 9.2, count: 2650, mock: true },
+  // Real: the client's Google Business profile ("Tripas-Coração (Office)"), read 2026-10-30.
+  // TO CONFIRM before launch, then fed by the Google Places API.
+  google: { source: "google", score: 4.9, outOf: 5, count: 516, mock: false },
+  // Placeholders until Guesty is connected (it reports per-platform totals).
+  airbnb: { source: "airbnb", score: 4.9, outOf: 5, count: 3180, mock: true },
+  booking: { source: "booking", score: 9.2, outOf: 10, count: 2650, mock: true },
 };
