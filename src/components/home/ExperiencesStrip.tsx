@@ -59,7 +59,7 @@ export async function ExperiencesStrip() {
                   ) : null}
                 </div>
                 <div className="mt-5 flex flex-1 flex-col border-t-2 border-ink pt-4">
-                  <h3 className="text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.01em]">{item.title[locale]}</h3>
+                  <h3 className="card-title">{item.title[locale]}</h3>
                   <p className="mt-2 text-granite">{item.summary[locale]}</p>
                   {item.priceFrom ? (
                     <p className="mt-auto pt-4 text-small font-semibold">
@@ -82,7 +82,7 @@ export async function ExperiencesStrip() {
                 strokeWidth={1.75}
                 className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
               />
-              <span className="mt-4 text-[1.375rem] leading-[1.2] font-semibold">{t("experiencesAll")}</span>
+              <span className="card-title mt-4">{t("experiencesAll")}</span>
             </Link>
           </li>
         </ul>

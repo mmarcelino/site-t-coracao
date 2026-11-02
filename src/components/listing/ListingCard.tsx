@@ -54,7 +54,7 @@ export async function ListingCard({
             {location}
           </p>
           {/* Sentence case at a calm size: the photo sells, the name labels it. */}
-          <h3 className="mt-1.5 text-[1.375rem] leading-[1.2] font-semibold tracking-[-0.015em]">
+          <h3 className="card-title mt-1.5">
             <Link
               href={{ pathname: "/apartments/[slug]", params: { slug: listing.slug }, query }}
               className="after:absolute after:inset-0"
