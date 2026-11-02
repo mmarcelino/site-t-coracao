@@ -4,14 +4,12 @@ import { useTranslations } from "next-intl";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 /** Quiet trust lines beside the booking widget (CLAUDE.md §5). */
-export function Reassurance({ licence }: { licence: string | null }) {
+export function Reassurance() {
   const t = useTranslations("reassurance");
   const items: Array<{ icon: IconName; text: string }> = [
     { icon: "lock", text: t("secure") },
     { icon: "refresh", text: t("cancellation") },
-    { icon: "pin", text: t("local") },
     { icon: "clock", text: t("since") },
-    ...(licence ? [{ icon: "shield" as const, text: t("licence", { licence }) }] : []),
   ];
   return (
     <ul className="space-y-2.5 text-[0.8125rem] text-granite">

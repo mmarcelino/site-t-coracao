@@ -27,7 +27,6 @@ export interface BookingListing {
   currency: string;
   minNights: number;
   accommodates: number;
-  licence: string | null;
 }
 
 type QuoteState = { status: "idle" } | { status: "loading" } | { status: "done"; result: QuoteResult };
@@ -289,7 +288,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
           >
             {t("whatsapp.cta")}
           </WhatsAppLink>
-          <Reassurance licence={listing.licence} />
+          <Reassurance />
         </div>
       </div>
 
@@ -355,7 +354,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
               <WhatsAppLink message={whatsappMessage} page="listing" listingId={listing.id} className="inline-flex font-medium">
                 {t("whatsapp.cta")}
               </WhatsAppLink>
-              <Reassurance licence={listing.licence} />
+              <Reassurance />
             </div>
           </div>
         </div>

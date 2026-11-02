@@ -43,7 +43,7 @@
     "en": "English"
   },
   "whatsapp": {
-    "cta": "Talk to our Porto team",
+    "cta": "Talk to our team",
     "short": "Talk to us",
     "hours": "Our team in Porto, 10 am to 10 pm",
     "hoursShort": "From 10 am to 10 pm",
@@ -121,10 +121,8 @@
   },
   "reassurance": {
     "secure": "Secure, encrypted payment",
-    "local": "A Porto company · Rua do Breiner 208",
     "since": "Welcoming guests since 2015",
-    "cancellation": "Free cancellation up to 14 days before",
-    "licence": "AL licence no. {licence}"
+    "cancellation": "Free cancellation up to 14 days before"
   },
   "reviews": {
     "eyebrow": "What guests say",
@@ -217,6 +215,7 @@
     "location": "Location",
     "openMap": "Open in maps",
     "houseRules": "House rules",
+    "licence": "Alojamento Local licence no. {licence}",
     "checkInFrom": "Check-in from {time}",
     "checkOutBy": "Check-out by {time}",
     "quietHours": "Quiet hours 10 pm to 8 am",

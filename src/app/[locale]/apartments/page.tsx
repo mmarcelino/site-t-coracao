@@ -112,17 +112,17 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
     ]),
   );
 
-  // One control language below the search: text tabs on a hairline (collections left, list/map
-  // right); the chosen one is ink with an ink underline.
+  // The home page's device: a 2px ink rule with the content under it. Collections on the left,
+  // list/map on the right, as words; the chosen one in ink and semibold, the rest quieter.
   const tab = (active: boolean) =>
     clsx(
-      "-mb-px inline-flex h-12 items-center gap-1.5 border-b-2 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors",
-      active ? "border-ink text-ink" : "border-transparent text-granite hover:text-ink",
+      "inline-flex h-12 items-center gap-1.5 text-[0.9375rem] whitespace-nowrap transition-colors",
+      active ? "font-semibold text-ink" : "font-medium text-granite hover:text-ink",
     );
 
   return (
     <>
-      <div className="mt-12 flex items-end gap-8 border-b border-ink/15">
+      <div className="mt-12 flex items-center gap-8 border-t-2 border-ink pt-2">
         <nav aria-label={t("apartments.filterLabel")} className="min-w-0 flex-1">
           <ul className="scrollbar-none flex gap-7 overflow-x-auto">
             <li>
@@ -169,7 +169,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
       </div>
 
       {/* What's showing, quietly. */}
-      <div role="status" className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-small text-granite">
+      <div role="status" className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-small text-granite">
         <p>
           {t("apartments.results", { count: shown.length })}
           {search.checkIn && search.checkOut
@@ -237,7 +237,7 @@ export default async function ApartmentsPage({ searchParams }: PageProps<"/[loca
       {/* Title and a line on the left, the search on the right (stacked below xl). */}
       <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
         <div>
-          <h1 className="text-h1">{t("title")}</h1>
+          <h1 className="text-h2">{t("title")}</h1>
           <p className="text-lead mt-5 max-w-2xl text-granite">{t("body")}</p>
         </div>
         <div className="md:w-max xl:shrink-0">
@@ -250,7 +250,7 @@ export default async function ApartmentsPage({ searchParams }: PageProps<"/[loca
       <Suspense
         fallback={
           <div aria-hidden className="mt-12">
-            <div className="flex h-12 items-center gap-7 border-b border-ink/15">
+            <div className="flex h-12 items-center gap-7 border-t-2 border-ink">
               {[0, 1, 2, 3, 4].map((i) => (
                 <div key={i} className="h-3 w-20 rounded-full bg-sand" />
               ))}
