@@ -52,9 +52,9 @@
   --text-h1: clamp(2.5rem, 1.5rem + 4.2vw, 6.25rem);
   --text-h1--line-height: 1;
   --text-h1--letter-spacing: -0.04em;
-  --text-h2: clamp(2rem, 1.25rem + 3vw, 4.25rem);
-  --text-h2--line-height: 1;
-  --text-h2--letter-spacing: -0.035em;
+  --text-h2: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.03em;
   --text-statement: clamp(2rem, 1.2rem + 3.2vw, 4.25rem);
   --text-statement--line-height: 1.04;
   --text-statement--letter-spacing: -0.035em;
@@ -112,21 +112,12 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Headings are light and in sentence case ("big and light"); the hero headline sets its own
+     semibold, and small caps labels stay semibold, for contrast. */
   h1, h2, h3, h4 {
-    font-weight: 600;
-    text-wrap: balance;
-  }
-
-  /* Branch ahotels: bold display serif for headlines, compressed caps for small titles. */
-  h1, h2 {
     font-family: var(--font-display);
-    font-weight: 600;
-  }
-  h3 {
-    font-family: var(--font-condensed);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    font-weight: 300;
+    text-wrap: balance;
   }
 
   p {
