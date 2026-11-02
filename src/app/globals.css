@@ -112,11 +112,11 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Headings are light and in sentence case ("big and light"); the hero headline sets its own
-     semibold, and small caps labels stay semibold, for contrast. */
+  /* Headings are regular weight and in sentence case ("big and light"); the hero headline sets its
+     own semibold, and small caps labels stay semibold, for contrast. */
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 300;
+    font-weight: 400;
     text-wrap: balance;
   }
 
