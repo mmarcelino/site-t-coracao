@@ -59,7 +59,7 @@ export async function Hero({
 
             <div className="mt-12 flex flex-col gap-4 md:mt-20 lg:flex-row lg:items-stretch lg:justify-between">
               <div className="w-full md:w-max" data-pause-slideshow>
-                <SearchBar maxGuests={maxGuests} calendarPlacement="top" />
+                <SearchBar maxGuests={maxGuests} calendarPlacement="top" glass />
               </div>
               {/* Same height as the booking bar: its rule on the bar's top edge, its last line on the bar's bottom. */}
               <div className="hidden xl:flex">

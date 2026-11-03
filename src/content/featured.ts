@@ -1,9 +1,9 @@
 import type { Localized } from "@/lib/data/types";
 
 /**
- * Hero slideshow: four interiors chosen for looks alone (magazine-worthy, calm in the lower left
- * where the copy sits), from four buildings in four palettes. Not linked to listings or collections.
- * mouzinho-1e and sao-bento-iii homes aren't in the mock set yet (they arrive with Guesty).
+ * Hero slideshow: interiors chosen for looks alone (magazine-worthy, calm in the lower left where
+ * the copy sits). Not linked to listings or collections. Full-bleed, so 2400px sources only.
+ * The mouzinho-1e home isn't in the mock set yet (it arrives with Guesty).
  */
 export const heroSlides: Array<{ key: string; image: string; alt: Localized }> = [
   {
@@ -13,17 +13,13 @@ export const heroSlides: Array<{ key: string; image: string; alt: Localized }> =
   },
   {
     key: "mouzinho-32",
-    image: "/images/placeholder/mouzinho-1e-01.jpg",
-    alt: { pt: "Sofá de veludo verde-oliva junto a uma lareira de ferro fundido e a uma janela alta, no Mouzinho 32", en: "Olive velvet sofa beside a cast-iron fireplace and a tall window, at Mouzinho 32" },
+    // Mirrored so the fireplace sits on the right, clear of the copy (flip the final original too).
+    image: "/images/placeholder/mouzinho-1e-02-flipped.jpg",
+    alt: { pt: "Sala com lareira de ferro fundido, sofá de veludo verde-oliva e duas janelas altas sobre a rua, no Mouzinho 32", en: "Living room with a cast-iron fireplace, an olive velvet sofa and two tall windows onto the street, at Mouzinho 32" },
   },
   {
-    key: "cordoaria",
-    image: "/images/placeholder/cordoaria-garden-02.jpg",
-    alt: { pt: "Sala em madeira quente com caixilhos originais e uma grande gravura botânica, na Cordoaria", en: "Warm timber living room with original window frames and a large botanical print, at Cordoaria" },
-  },
-  {
-    key: "sao-bento",
-    image: "/images/placeholder/sao-bento-iii-01.jpg",
-    alt: { pt: "Teto em estuque e uma parede de janelas altas com sol no soalho, em São Bento", en: "Stucco ceiling and a wall of tall windows with sunlight on the floor, at São Bento" },
+    key: "casa-do-farol-living",
+    image: "/images/placeholder/casa-do-farol-03.jpg",
+    alt: { pt: "Sala com sofá cinzento e três janelas altas abertas para o mar, na Casa do Farol", en: "Living room with a grey sofa and three tall windows onto the sea, at Casa do Farol" },
   },
 ];

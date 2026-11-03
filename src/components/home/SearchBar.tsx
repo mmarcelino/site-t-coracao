@@ -23,6 +23,7 @@ export function SearchBar({
   calendarPlacement = "bottom",
   calendarAlign = "left",
   docked = false,
+  glass = false,
   keepQuery,
   testId = "hero-search",
 }: {
@@ -33,6 +34,8 @@ export function SearchBar({
   calendarAlign?: "left" | "right";
   /** The slim copy docked at the top of the screen once the hero has scrolled away. */
   docked?: boolean;
+  /** Frosted glass over the hero photo (white text) instead of the solid white bar. */
+  glass?: boolean;
   /** Query kept when searching again from the apartments page (collection, list/map view). */
   keepQuery?: Record<string, string>;
   testId?: string;
@@ -90,10 +93,11 @@ export function SearchBar({
     docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:px-6",
   );
   // Small sentence-case labels; values (dates and guests alike) in one size.
-  const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium text-ink", !docked && "hd:text-[0.8125rem]");
+  const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium", glass ? "text-paper" : "text-ink", !docked && "hd:text-[0.8125rem]");
   const valueText = clsx("text-[0.9375rem] leading-tight", !docked && "hd:text-[1.0625rem]");
   // Values stay quiet under their ink labels: "When?" and a dash until dates are set, then the dates.
-  const quiet = "text-granite";
+  const quiet = glass ? "text-paper/75" : "text-granite";
+  const divider = glass ? "border-paper/30" : "border-ink/15";
   // Label-to-value gap leaves room for the guest stepper's circles, which are taller than the text line.
   // In the md+ bars the circles shrink to 24px so they clear the bottom edge as much as the label clears the top.
   const valueGap = docked ? "mt-1.5" : "mt-2.5 md:mt-1.5";
@@ -111,7 +115,8 @@ export function SearchBar({
       <div
         ref={wrapper}
         className={clsx(
-          "grid grid-cols-1 rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:pl-3",
+          "grid grid-cols-1 rounded-[1.75rem] md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:pl-3",
+          glass ? "hero-frost text-paper" : "bg-white text-ink",
           docked ? "border border-ink/15 md:p-1.5" : "overflow-hidden md:p-1 hd:grid-cols-[11.5rem_11.5rem_15rem_auto]",
         )}
       >
@@ -132,25 +137,28 @@ export function SearchBar({
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={calendarId}
-          className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}
+          className={clsx(field, "border-t md:border-t-0 md:border-l", divider)}
         >
           <span className={fieldLabel}>{t("depart")}</span>
           <span className={fieldValue}>
             {range?.to ? format.dayMonth(range.to) : "—"}
           </span>
         </button>
-        <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
+        <div className={clsx(field, "border-t md:border-t-0 md:border-l", divider)}>
           <span className={fieldLabel}>{t("guests")}</span>
           <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, quiet, docked ? "[&_button]:size-6" : "md:[&_button]:size-6")}>
-            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
+            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone={glass ? "light" : "dark"} compact />
           </div>
         </div>
         <button
           type="submit"
           aria-label={t("submit")}
           className={clsx(
-            "inline-flex h-14 items-center justify-center gap-3 rounded-b-[1.75rem] bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:rounded-full md:px-0",
-            docked ? "md:size-11" : "md:size-14",
+            "inline-flex h-14 items-center justify-center gap-3 rounded-b-[1.75rem] px-7 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors md:ml-1 md:rounded-full md:px-0",
+            // On glass the button is the one solid white shape in the hero.
+            glass ? "bg-paper text-ink hover:bg-paper/85" : "bg-ink text-paper hover:bg-ink-soft",
+            // Hero bar: a 48px button in the 56px row, with an 8px ring of glass all round it.
+            docked ? "md:size-11" : "md:mr-1 md:size-12",
           )}
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
