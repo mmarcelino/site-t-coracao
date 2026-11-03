@@ -104,7 +104,10 @@ export const collections: Collection[] = [
     tag: "remote-work",
     featured: true,
     title: { pt: "Para trabalhar", en: "For remote work" },
-    blurb: { pt: "Wi-Fi rápido e uma secretária com luz natural.", en: "Fast Wi-Fi and a desk in natural light." },
+    blurb: {
+      pt: "Um espaço de trabalho próprio e tudo o que precisa para trabalhar com conforto.",
+      en: "A dedicated workspace and everything you need to work comfortably.",
+    },
     image: {
       src: "/images/placeholder/breiner-heritage-03.jpg",
       alt: { pt: "Sala clara com sofá e mesa de trabalho, no Breiner 210", en: "A bright living room with a sofa and a work table, at Breiner 210" },
