@@ -11,8 +11,8 @@ import { footerNav } from "./navItems";
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
  * An ink panel inside the page margins: the wordmark, then three text columns whose rows share one
- * line grid (fixed row height, no extra gaps), so lines align across columns. Social icons sit under
- * the wordmark. AL licence numbers live on each apartment page.
+ * line grid (fixed row height, no extra gaps), so lines align across columns. Social icons sit in
+ * the bottom row, in outline circles. AL licence numbers live on each apartment page.
  * On phones, pages with a fixed bottom bar (home search, booking bar) mark it `data-bottom-bar`;
  * the footer then leaves room so its last line isn't hidden.
  */
@@ -27,23 +27,11 @@ export async function Footer() {
     <footer className="container-page pb-[var(--gutter)] max-lg:[body:has([data-bottom-bar])_&]:pb-28">
       <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-4">
-          {/* Brand column: wordmark, social icons right below in outline circles. */}
+          {/* Brand column: the wordmark. */}
           <div className="sm:col-span-3 lg:col-span-1">
             <Link href="/" aria-label={t("nav.home")} className="inline-block">
               <Wordmark />
             </Link>
-            <ul aria-label={t("footer.social")} className="mt-5 flex gap-3">
-              <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
-                  <Icon name="instagram" size={20} title="Instagram" />
-                </a>
-              </li>
-              <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
-                  <Icon name="facebook" size={20} title="Facebook" />
-                </a>
-              </li>
-            </ul>
           </div>
 
           <div>
@@ -125,6 +113,18 @@ export async function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-paper/25 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <ul aria-label={t("footer.social")} className="flex gap-2 text-paper">
+              <li>
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
+                  <Icon name="instagram" size={16} title="Instagram" />
+                </a>
+              </li>
+              <li>
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
+                  <Icon name="facebook" size={16} title="Facebook" />
+                </a>
+              </li>
+            </ul>
             {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
             <LanguageSwitcher tone="light" className="text-paper" />
             <a href="https://mariana-marcelino.com" target="_blank" rel="noopener" className="link-quiet text-[0.75rem] transition-colors hover:text-paper">
