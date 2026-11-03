@@ -27,8 +27,6 @@ export function PromoStrip({ promo }: { promo: Promo }) {
   return (
     <aside aria-label={t("label")} data-promo-strip className="relative z-50 h-10 bg-ink text-paper on-dark">
       <div className="container-page flex h-full items-center justify-center gap-x-3 text-[0.8125rem] leading-none sm:text-small">
-        <span className="label hidden text-granite-light md:inline">{t("label")}</span>
-        <span aria-hidden className="hidden h-3 w-px bg-paper/30 md:block" />
         <p className="truncate">
           <span className="sm:hidden">{t("short")}</span>
           <span className="hidden sm:inline">{t("text")}</span>
