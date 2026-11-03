@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -225,28 +224,35 @@ async function ApartmentContent({ params }: { params: Params }) {
               ))}
             </dl>
 
-            <p className="mt-8 max-w-3xl">{listing.description.summary}</p>
+            {/* The apartment first: its story as a lead, then the space and what stands out. */}
+            <div className="mt-10 max-w-3xl">
+              <p className="text-lead">{listing.description.summary}</p>
+              {listing.description.space ? <p className="mt-6">{listing.description.space}</p> : null}
+              {listing.highlights.length ? (
+                <ul className="mt-8 space-y-2.5">
+                  {listing.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-3 font-semibold">
+                      <Icon name="check" size={16} className="mt-1 shrink-0" />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
 
-            {/* The building's story sits above specs: "why this place" first. */}
-            <section aria-labelledby="building-title" className="mt-14 grid gap-8 rounded-[var(--radius-card)] bg-pop p-[clamp(1.5rem,4vw,2.5rem)] md:grid-cols-5">
-              <div className="relative aspect-[3/2] overflow-hidden rounded-[var(--radius-tile)] bg-limestone md:col-span-2 md:aspect-[4/5]">
-                <Image
-                  src={building.storyImage.src}
-                  alt={building.storyImage.alt}
-                  fill
-                  sizes="(min-width: 1024px) 22vw, (min-width: 768px) 35vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="md:col-span-3">
-                <p className="label">
-                  {t("listing.theBuilding")} · {building.era}
-                </p>
-                <h2 id="building-title" className="card-title mt-3">
-                  {building.historyLine}
+            {/* The building: one row in the details' rhythm, no colour block, so it supports the
+                apartment instead of competing with it. Its history line still comes before the specs. */}
+            <section aria-labelledby="building-title" className={detail}>
+              <div>
+                <h2 id="building-title" className="card-title">
+                  {t("listing.theBuilding")}
                 </h2>
-                <p className="mt-4">{building.story}</p>
-                <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                <p className="label mt-2 text-granite">{building.era}</p>
+              </div>
+              <div>
+                <p className="font-semibold">{building.historyLine}</p>
+                <p className="mt-3">{building.story}</p>
+                <p className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
                   <Link
                     href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }}
                     className="inline-flex items-center gap-2 link-quiet"
