@@ -349,7 +349,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                   ].map(([label, value]) => (
                     <div key={label}>
                       <dt className="label text-granite">{label}</dt>
-                      <dd className="mt-2 text-[1.0625rem] font-semibold">{value}</dd>
+                      <dd className="mt-2">{value}</dd>
                     </div>
                   ))}
                 </dl>
