@@ -52,7 +52,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
               <div className="mt-5 grid gap-x-8 gap-y-4 border-t-2 border-ink pt-4 sm:grid-cols-[1fr_auto]">
                 <div>
                   <h3 className="card-title">{c.title[locale]}</h3>
-                  <p className="mt-2 max-w-md text-granite">{c.blurb[locale]}</p>
+                  <p className="mt-2 max-w-md">{c.blurb[locale]}</p>
                 </div>
                 <div className="flex items-end justify-between gap-4 sm:flex-col sm:text-right">
                   <p className="text-small">
