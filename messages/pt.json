@@ -198,7 +198,8 @@
     "experiencesPrev": "Experiências anteriores",
     "experiencesNext": "Mais experiências",
     "introBody": "Só passam neste teste os edifícios reabilitados sem apagar o passado. A traça original fica, com a pedra, o azulejo e os tetos altos. O conforto é todo novo e pensado ao pormenor. E desde {year} é a nossa própria equipa no Porto que cuida de cada apartamento e recebe mais de {guests} hóspedes por ano.",
-    "introLead": "A {name} oferece apartamentos para estadias curtas e longas em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
+    "introLead": "A {name} oferece apartamentos para estadias curtas e longas em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz.",
+    "introQuestion": "Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",

@@ -38,6 +38,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
         </h2>
         <div className="reveal max-w-xl flex-[1_1_22rem] space-y-5 lg:ml-auto lg:max-w-[36rem]">
           <p>{t("home.introLead", { name: site.name })}</p>
+          <p>{t("home.introQuestion")}</p>
           <p>{t("home.introBody", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}</p>
         </div>
       </div>
