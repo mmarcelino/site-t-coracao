@@ -144,7 +144,9 @@
     "readMore": "Ler mais",
     "readLess": "Mostrar menos",
     "showMore": "Mostrar mais avaliações",
-    "showFewer": "Mostrar menos"
+    "showFewer": "Mostrar menos",
+    "since": "Desde {year}",
+    "guestsPerYear": "hóspedes por ano"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",

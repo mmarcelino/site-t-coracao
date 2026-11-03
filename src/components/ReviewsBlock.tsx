@@ -1,10 +1,12 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { ReviewList } from "@/components/ReviewList";
+import { site } from "@/content/site";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Home rating block: per-platform scores + excerpts (CLAUDE.md §5 trust signals). Placeholders
+ * Home rating block: per-platform scores, then how many guests a year (volume backs the scores),
+ * + excerpts (CLAUDE.md §5 trust signals). Placeholders
  * stay flagged `mock: true` in the data (no visible note, at the client's request).
  */
 export async function ReviewsBlock({
@@ -46,6 +48,12 @@ export async function ReviewsBlock({
             </li>
           ))}
         </ul>
+        {/* Same figure style as the scores; a hairline because it's volume, not a rating. */}
+        <div className="mt-8 border-t border-ink/15 pt-6">
+          <p className="label text-granite">{t("since", { year: String(site.foundedYear) })}</p>
+          <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{format.number(site.guestsPerYear)}+</p>
+          <p className="mt-1.5 text-small text-granite">{t("guestsPerYear")}</p>
+        </div>
       </div>
 
       {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
