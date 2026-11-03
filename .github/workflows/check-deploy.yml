@@ -1,0 +1,45 @@
+# After every successful Vercel deployment (production and previews), build the same commit
+# from scratch and check the deployment serves the same CSS (scripts/check-deploy.mjs).
+# A failure shows as a red ✗ on the commit and GitHub emails the author.
+name: Check deployment
+
+on: deployment_status
+
+jobs:
+  css-matches-fresh-build:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Fresh build
+        run: pnpm build
+
+      - name: Start the fresh build
+        run: |
+          pnpm start -p 3100 &
+          for i in $(seq 1 60); do curl -sf -o /dev/null http://localhost:3100/en && exit 0; sleep 1; done
+          echo "Server did not start"; exit 1
+
+      - name: Compare the deployment's CSS with the fresh build
+        run: |
+          url="${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}"
+          echo "Deployment: $url"
+          set +e
+          pnpm -s check:deploy "$url" http://localhost:3100
+          code=$?
+          # 2 = could not check (e.g. a password-protected preview): note it, don't fail.
+          if [ "$code" = "2" ]; then echo "::warning::Deployment could not be checked: $url"; exit 0; fi
+          exit $code
