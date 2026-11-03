@@ -55,8 +55,8 @@ export async function Collections({ listings }: { listings: Listing[] }) {
                   <p className="mt-2 max-w-md">{c.blurb[locale]}</p>
                 </div>
                 <div className="flex items-end justify-between gap-4 sm:flex-col sm:text-right">
-                  <p className="text-small">
-                    <span className="block text-granite">{t("home.collectionCount", { count })}</span>
+                  <p className="text-small text-granite">
+                    <span className="block">{t("home.collectionCount", { count })}</span>
                     <span className="block">
                       {t("common.from")} {format.money(from, currency)} {t("common.perNight")}
                     </span>
