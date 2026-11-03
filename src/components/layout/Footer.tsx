@@ -27,20 +27,20 @@ export async function Footer() {
     <footer className="container-page pb-[var(--gutter)] max-lg:[body:has([data-bottom-bar])_&]:pb-28">
       <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-4">
-          {/* Brand column: wordmark, social icons right below (bare, like the WhatsApp one). */}
+          {/* Brand column: wordmark, social icons right below in outline circles. */}
           <div className="sm:col-span-3 lg:col-span-1">
             <Link href="/" aria-label={t("nav.home")} className="inline-block">
               <Wordmark />
             </Link>
-            <ul aria-label={t("footer.social")} className="mt-4 -ml-2 flex">
+            <ul aria-label={t("footer.social")} className="mt-5 flex gap-3">
               <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={`grid size-9 place-items-center ${link}`}>
-                  <Icon name="instagram" size={20} strokeWidth={1.25} title="Instagram" />
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
+                  <Icon name="instagram" size={20} title="Instagram" />
                 </a>
               </li>
               <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={`grid size-9 place-items-center ${link}`}>
-                  <Icon name="facebook" size={20} strokeWidth={1.25} title="Facebook" />
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
+                  <Icon name="facebook" size={20} title="Facebook" />
                 </a>
               </li>
             </ul>
