@@ -1,9 +1,6 @@
-import clsx from "clsx";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
-import { ReviewQuote } from "@/components/ReviewQuote";
-import { SourceIcon } from "@/components/SourceIcon";
+import { ReviewList } from "@/components/ReviewList";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
@@ -18,7 +15,7 @@ export async function ReviewsBlock({
   heading,
   eyebrow,
   headingId,
-  more,
+  total,
 }: {
   overall: ReviewAggregate;
   bySource?: Record<ReviewSource, ReviewAggregate>;
@@ -26,8 +23,8 @@ export async function ReviewsBlock({
   heading: string;
   eyebrow?: string;
   headingId: string;
-  /** "Read all reviews" under the quotes (home page). */
-  more?: string;
+  /** How many reviews there are in all; with it, "Show more reviews" loads the rest in place. */
+  total?: number;
 }) {
   const t = await getTranslations("reviews");
   const format = createFormatter(await getLocale());
@@ -58,68 +55,25 @@ export async function ReviewsBlock({
             <p className="label mt-3">{t(`source.${overall.source}`)}</p>
           </>
         )}
-        {bySource ? <SourceScores bySource={bySource} className="mt-8" /> : null}
+        {bySource ? (
+          <ul className="mt-8 grid grid-cols-3 gap-4">
+            {(Object.keys(bySource) as ReviewSource[]).map((source) => (
+              <li key={source}>
+                <p className="label text-granite">{t(`source.${source}`)}</p>
+                <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
+                  {score(bySource[source].score)}
+                </p>
+                <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
 
-      {/* Four quotes, fixed (no carousel); long ones are cut at five lines with "Read more". */}
+      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
       <div className="min-w-0 self-start lg:col-span-8">
-        <ul className="grid gap-x-8 gap-y-16 sm:grid-cols-2">
-          {reviews.slice(0, 4).map((review) => (
-            <li key={review.id} className="border-t-2 border-ink pt-6">
-              <ReviewCard review={review} />
-            </li>
-          ))}
-        </ul>
-        {more ? (
-          <Link href="/reviews" className="group mt-12 inline-flex items-center gap-4 font-semibold">
-            {more}
-            <Icon name="arrowRight" size={24} strokeWidth={1.75} className="transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
-          </Link>
-        ) : null}
+        <ReviewList initial={reviews.slice(0, 4)} total={total} />
       </div>
-
     </div>
-  );
-}
-
-/** Score and review count per platform, side by side. */
-export async function SourceScores({ bySource, className }: { bySource: Record<ReviewSource, ReviewAggregate>; className?: string }) {
-  const t = await getTranslations("reviews");
-  const format = createFormatter(await getLocale());
-  return (
-    <ul className={clsx("grid grid-cols-3 gap-4", className)}>
-      {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-        <li key={source}>
-          <p className="label text-granite">{t(`source.${source}`)}</p>
-          <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
-            {format.number(bySource[source].score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
-          </p>
-          <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/** One quote: the text (cut at five lines), then source, name and month; optionally the home it's about. */
-export async function ReviewCard({ review, home }: { review: Review; home?: { title: string; slug: string } }) {
-  const t = await getTranslations("reviews");
-  const format = createFormatter(await getLocale());
-  return (
-    <figure>
-      <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
-      <figcaption className="label mt-6 text-ink">
-        <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
-        {review.author} · {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
-        {home ? (
-          <Link
-            href={{ pathname: "/apartments/[slug]", params: { slug: home.slug } }}
-            className="mt-2 block text-small tracking-normal normal-case text-granite underline-offset-4 hover:underline"
-          >
-            {home.title}
-          </Link>
-        ) : null}
-      </figcaption>
-    </figure>
   );
 }

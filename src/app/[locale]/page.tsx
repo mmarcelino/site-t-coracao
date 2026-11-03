@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { heroSlides } from "@/content/featured";
-import { getListings, getReviewSummary, getReviews } from "@/lib/data";
+import { getListings, getReviewPage, getReviewSummary } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
@@ -48,11 +48,8 @@ export default async function HomePage() {
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
     getReviewSummary(locale),
-    getReviews(locale),
+    getReviewPage(locale, { limit: 4 }),
   ]);
-  // Four quotes taking turns across platforms (newest, in the visitor's language, first on each).
-  const bySource = Map.groupBy(reviews, (r) => r.source);
-  const mixed = [0, 1, 2, 3].flatMap((i) => [...bySource.values()].flatMap((list) => list[i] ?? [])).slice(0, 4);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
   // One slide per collection: a home that really carries the tag, shown with a fitting photo.
@@ -87,10 +84,10 @@ export default async function HomePage() {
         <ReviewsBlock
           overall={summary.bySource.google}
           bySource={summary.bySource}
-          reviews={mixed}
+          reviews={reviews.reviews}
+          total={reviews.total}
           heading={tr("title")}
           headingId="reviews-title"
-          more={tr("seeAll")}
         />
       </section>
 

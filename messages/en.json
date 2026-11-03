@@ -35,8 +35,7 @@
     "closeMenu": "Close menu",
     "home": "Tripas-Coração, home",
     "menu": "Menu",
-    "homeShort": "Home",
-    "reviews": "Reviews"
+    "homeShort": "Home"
   },
   "language": {
     "label": "Language",
@@ -145,16 +144,7 @@
     "next": "More reviews",
     "readMore": "Read more",
     "readLess": "Show less",
-    "seeAll": "Read all reviews",
-    "metaTitle": "Guest reviews · Tripas-Coração",
-    "metaDescription": "What guests say about our apartments in historic Porto buildings, on Google, Airbnb and Booking.com.",
-    "pageTitle": "In our guests' words.",
-    "pageBody": "Reviews from Google, Airbnb and Booking.com, newest first, in your language first.",
-    "filterLabel": "Filter reviews by platform",
-    "all": "All",
-    "showMore": "Show more reviews",
-    "showing": "Showing {shown} of {total}",
-    "none": "No reviews from this platform yet."
+    "showMore": "Show more reviews"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartments in historic Porto buildings",

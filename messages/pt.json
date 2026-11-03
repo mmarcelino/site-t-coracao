@@ -35,8 +35,7 @@
     "closeMenu": "Fechar menu",
     "home": "Tripas-Coração, página inicial",
     "menu": "Menu",
-    "homeShort": "Início",
-    "reviews": "Avaliações"
+    "homeShort": "Início"
   },
   "language": {
     "label": "Idioma",
@@ -145,16 +144,7 @@
     "next": "Mais avaliações",
     "readMore": "Ler mais",
     "readLess": "Mostrar menos",
-    "seeAll": "Ler todas as avaliações",
-    "metaTitle": "Avaliações dos hóspedes · Tripas-Coração",
-    "metaDescription": "O que dizem os hóspedes dos nossos apartamentos em edifícios históricos do Porto, no Google, Airbnb e Booking.com.",
-    "pageTitle": "Nas palavras de quem ficou.",
-    "pageBody": "Avaliações do Google, Airbnb e Booking.com, das mais recentes para as mais antigas, primeiro no seu idioma.",
-    "filterLabel": "Filtrar avaliações por plataforma",
-    "all": "Todas",
-    "showMore": "Mostrar mais avaliações",
-    "showing": "A mostrar {shown} de {total}",
-    "none": "Ainda não há avaliações desta plataforma."
+    "showMore": "Mostrar mais avaliações"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",
