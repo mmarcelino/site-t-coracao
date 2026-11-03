@@ -61,7 +61,11 @@
     "cookies": "Cookies",
     "complaintsBook": "Livro de Reclamações",
     "social": "Redes sociais",
-    "rights": "© {year} Tripas-Coração. Todos os direitos reservados."
+    "rights": "© {year} Tripas-Coração. Todos os direitos reservados.",
+    "title": "Fale com a nossa equipa no Porto.",
+    "intro": "Dúvidas antes de reservar ou já durante a estadia: respondemos por WhatsApp, telefone ou email.",
+    "visit": "Visite-nos",
+    "madeBy": "Feito por MM"
   },
   "consent": {
     "title": "Cookies, com transparência",

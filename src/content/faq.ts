@@ -146,7 +146,7 @@ export const faq: FaqItem[] = [
     },
     answer: {
       pt: "A taxa turística municipal do Porto é de 3 € por hóspede e por noite, até 7 noites, para maiores de 13 anos. Aparece em separado no resumo do preço antes de confirmar a reserva.",
-      en: "Porto's municipal tourist tax is €3 per guest per night, up to 7 nights, for guests aged 13 and over. It is shown separately in the price summary before you confirm.",
+      en: "Porto's municipal tourist tax is 3 € per guest per night, up to 7 nights, for guests aged 13 and over. It is shown separately in the price summary before you confirm.",
     },
   },
   {

@@ -22,8 +22,17 @@ export function createFormatter(locale: string) {
       new Intl.DateTimeFormat(tag, options).formatRange(start, end),
     /** "4 dez." / "4 Dec": Intl's pt-PT short day+month is numeric ("4/12"), so build it. */
     dayMonth: (date: Date) => `${date.getDate()} ${new Intl.DateTimeFormat(tag, { month: "short" }).format(date)}`,
-    money: (amount: number, currency = "EUR") =>
-      new Intl.NumberFormat(tag, { style: "currency", currency, maximumFractionDigits: 0 }).format(amount),
+    /** "60 €" in every locale: the symbol always follows the number (client's style; en-GB alone would give "€60"). */
+    money: (amount: number, currency = "EUR") => {
+      const parts = new Intl.NumberFormat(tag, { style: "currency", currency, maximumFractionDigits: 0 }).formatToParts(amount);
+      const symbol = parts.find((p) => p.type === "currency")?.value ?? currency;
+      const number = parts
+        .filter((p) => p.type !== "currency")
+        .map((p) => p.value)
+        .join("")
+        .trim();
+      return `${number}\u00a0${symbol}`;
+    },
   };
 }
 
