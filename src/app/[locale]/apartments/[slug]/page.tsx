@@ -240,6 +240,15 @@ async function ApartmentContent({ params }: { params: Params }) {
               <div>
                 <p className="font-semibold">{building.historyLine}</p>
                 <p className="mt-3">{building.story}</p>
+                {/* No lift is a fact about the building, so the heads-up lives here. */}
+                {!listing.hasLift ? (
+                  <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-pop/40 p-4 text-small">
+                    <Icon name="stairs" size={20} className="shrink-0" />
+                    {listing.category === "house"
+                      ? t("listing.stairsNoteHouse", { building: building.name })
+                      : t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
+                  </p>
+                ) : null}
                 {others.length ? (
                   <p className="mt-5">
                     <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
@@ -351,19 +360,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                     </li>
                   ))}
                 </ul>
-                {!listing.hasLift ? (
-                  <p className="mt-6 flex gap-3 rounded-[var(--radius-tile)] bg-pop/40 p-4 text-small">
-                    <Icon name="stairs" size={20} className="shrink-0" />
-                    {listing.category === "house"
-                      ? t("listing.stairsNoteHouse", { building: building.name })
-                      : t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
-                  </p>
-                ) : null}
-                <p className="mt-6 text-small text-granite">
-                  {t("listing.guestRegistration")}
-                  {/* Portuguese law requires the AL registration number wherever the home is advertised. */}
-                  {listing.licence ? <span className="block">{t("listing.licence", { licence: listing.licence })}</span> : null}
-                </p>
+                <p className="mt-6 text-small text-granite">{t("listing.guestRegistration")}</p>
               </div>
             </section>
           </article>
@@ -461,6 +458,12 @@ async function ApartmentContent({ params }: { params: Params }) {
           </div>
         </div>
       </section>
+
+      {/* Portuguese law requires the AL registration number wherever the home is advertised: one
+          quiet line closing the page. */}
+      {listing.licence ? (
+        <p className="container-page pb-10 text-small text-granite">{t("listing.licence", { licence: listing.licence })}</p>
+      ) : null}
 
       {/* Room for the mobile booking bar */}
       <div className="h-20 lg:hidden" aria-hidden />
