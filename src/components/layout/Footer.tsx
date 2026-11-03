@@ -44,9 +44,9 @@ export async function Footer() {
               message={t("whatsapp.messageGeneric")}
               page="footer"
               icon={false}
-              className="group text-small mt-5 inline-flex items-center gap-2.5 font-semibold transition-colors hover:text-pop"
+              className="group text-small mt-5 inline-flex items-center gap-2.5 transition-colors hover:text-pop"
             >
-              <Icon name="whatsapp" size={18} strokeWidth={1.5} />
+              <Icon name="whatsapp" size={18} strokeWidth={1.25} />
               {t("whatsapp.short")}
             </WhatsAppLink>
           </div>
