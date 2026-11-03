@@ -25,8 +25,7 @@ import { Gallery } from "@/components/listing/Gallery";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { TrackListingView } from "@/components/listing/TrackListingView";
 import { ShareButton } from "@/components/listing/ShareButton";
-import { Carousel } from "@/components/Carousel";
-import { ReviewCard } from "@/components/ReviewCard";
+import { ReviewList } from "@/components/ReviewList";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 export async function generateStaticParams() {
@@ -144,7 +143,7 @@ async function ApartmentContent({ params }: { params: Params }) {
   const [neighbourhood, siblings, reviews] = await Promise.all([
     getNeighbourhood(locale, listing.neighbourhoodSlug),
     getListings(locale, { buildingId: listing.buildingId }),
-    getReviewPage(locale, { listingId: listing.id, limit: 12 }),
+    getReviewPage(locale, { listingId: listing.id, limit: 3 }),
   ]);
   const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
@@ -389,8 +388,8 @@ async function ApartmentContent({ params }: { params: Params }) {
         </div>
       </div>
 
-      {/* Reviews straight after the details: the score once, then the quotes as a strip (swipe on
-          phones, arrows from md up), so any number of them takes the same space. */}
+      {/* Reviews straight after the details: the score once, then three quotes; "Show more reviews"
+          loads three more at a time in place (as on the home page). */}
       {hasReviews && listing.reviews ? (
         <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
           <div className="container-page">
@@ -410,23 +409,9 @@ async function ApartmentContent({ params }: { params: Params }) {
               </p>
             </div>
           </div>
-          <Carousel
-            prevLabel={t("reviews.prev")}
-            nextLabel={t("reviews.next")}
-            scrollClassName="mt-10 px-[var(--gutter)] pb-2 [scroll-padding-inline:var(--gutter)] lg:px-[max(var(--gutter),calc((100vw-var(--page-max))/2+var(--gutter)))]"
-            controlsClassName="container-page"
-          >
-            <ul aria-label={t("reviews.listingTitle")} className="flex items-stretch gap-8">
-              {reviews.reviews.map((review) => (
-                <li key={review.id} className="w-[min(82vw,24rem)] shrink-0 snap-start">
-                  {/* No rules or boxes; quotation marks as on the home page. */}
-                  <div className="flex h-full flex-col">
-                    <ReviewCard review={review} size="md" />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </Carousel>
+          <div className="container-page mt-10">
+            <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} />
+          </div>
           {licenceLine ? <div className="container-page mt-12">{licenceLine}</div> : null}
         </section>
       ) : null}
