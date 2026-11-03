@@ -21,7 +21,7 @@ export function FaqList({ items, locale, withJsonLd = true }: { items: FaqItem[]
                 className="shrink-0 transition-transform duration-[var(--duration-base)] group-open:rotate-45"
               />
             </summary>
-            <p className="max-w-3xl pb-7 text-granite">{item.answer[locale]}</p>
+            <p className="max-w-3xl pb-7">{item.answer[locale]}</p>
           </details>
         ))}
       </div>

@@ -210,7 +210,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
           ))}
         </div>
       ) : (
-        <p className="text-lead mt-10 max-w-xl text-granite">{t("apartments.none")}</p>
+        <p className="text-lead mt-10 max-w-xl">{t("apartments.none")}</p>
       )}
     </>
   );
@@ -243,7 +243,7 @@ export default async function ApartmentsPage({ searchParams }: PageProps<"/[loca
       <div className="flex flex-col gap-8 xl:flex-row xl:items-end xl:justify-between">
         <div>
           <h1 className="text-h2">{t("title")}</h1>
-          <p className="text-lead mt-5 max-w-2xl text-granite">{t("body")}</p>
+          <p className="text-lead mt-5 max-w-2xl">{t("body")}</p>
         </div>
         <div className="md:w-max xl:shrink-0">
           <Suspense fallback={<div aria-hidden className="h-[3.75rem] w-[36rem] max-w-full rounded-full border border-ink/15" />}>

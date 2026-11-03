@@ -192,7 +192,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                 {building.name} · {neighbourhood?.name}
               </p>
               <h1 className="text-h2 mt-4">{listing.title}</h1>
-              <p className="mt-4 text-granite">{listing.tagline}</p>
+              <p className="mt-4">{listing.tagline}</p>
             </header>
 
             {/* At a glance: the home page's rule-topped columns, label over value. */}
@@ -282,7 +282,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                   <p className="label mt-2 text-granite">{neighbourhood.name}</p>
                 </div>
                 <div>
-                  <p className="text-granite">{neighbourhood.intro}</p>
+                  <p>{neighbourhood.intro}</p>
                   <p className="label mt-6 text-granite">{t("listing.nearby")}</p>
                   {/* Compact: two columns, no lines; the walk in grey after each place. */}
                   <ul className="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">

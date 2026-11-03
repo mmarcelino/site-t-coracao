@@ -60,9 +60,9 @@ export async function ExperiencesStrip() {
                 </div>
                 <div className="mt-5 flex flex-1 flex-col border-t-2 border-ink pt-4">
                   <h3 className="card-title">{item.title[locale]}</h3>
-                  <p className="mt-2 text-granite">{item.summary[locale]}</p>
+                  <p className="mt-2">{item.summary[locale]}</p>
                   {item.priceFrom ? (
-                    <p className="mt-auto pt-4 text-small font-semibold">
+                    <p className="mt-auto pt-4 text-small text-granite">
                       {t("experiencesFrom", { price: format.money(item.priceFrom.amount) })} ·{" "}
                       {item.priceFrom.per === "person" ? t("experiencesPerPerson") : t("experiencesPerGroup")}
                     </p>

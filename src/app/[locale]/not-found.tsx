@@ -9,7 +9,7 @@ export default async function NotFound() {
     <section className="container-page section-y min-h-[60vh]">
       <p className="label mb-6 text-granite">404</p>
       <h1 className="text-h1 max-w-3xl">{t("title")}</h1>
-      <p className="text-lead mt-6 max-w-xl text-granite">{t("body")}</p>
+      <p className="text-lead mt-6 max-w-xl">{t("body")}</p>
       <div className="mt-10 flex flex-wrap items-center gap-6">
         <Link href="/apartments" className={buttonClasses("primary", "lg")}>
           {t("cta")}
