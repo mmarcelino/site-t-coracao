@@ -249,8 +249,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                 {/* No lift is a fact about the building, so the heads-up lives here. */}
                 {!listing.hasLift ? (
                   // Building-level only, like the rest of this row (the flat's floor is in the facts row).
-                  <p className="mt-5 flex gap-3">
-                    <Icon name="stairs" size={20} className="mt-[0.2em] shrink-0" />
+                  <p className="mt-5">
                     {listing.category === "house"
                       ? t("listing.stairsNoteHouse", { building: building.name })
                       : t("listing.stairsNote", { building: building.name })}
