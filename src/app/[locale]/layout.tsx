@@ -10,6 +10,8 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { PromoStrip } from "@/components/layout/PromoStrip";
+import { promo } from "@/content/promo";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationJsonLd } from "@/lib/seo";
 import "../globals.css";
@@ -62,6 +64,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
             >
               {t("skipToContent")}
             </a>
+            {promo ? <PromoStrip promo={promo} /> : null}
             <Header />
             <main id="main" tabIndex={-1} className="outline-none">
               {children}

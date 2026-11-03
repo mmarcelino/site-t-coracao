@@ -299,5 +299,13 @@
     "outdoor": "Outdoor space",
     "views": "Views",
     "remote-work": "Remote work"
+  },
+  "promo": {
+    "label": "Autumn in Porto",
+    "text": "10% off stays booked direct, until 31 December.",
+    "short": "10% off when you book direct",
+    "code": "Code",
+    "copy": "Copy code",
+    "copied": "Code copied"
   }
 }

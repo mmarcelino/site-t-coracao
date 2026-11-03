@@ -28,7 +28,7 @@ export async function Hero({
     <SearchStateProvider>
     <section
       aria-labelledby="hero-title"
-      className="on-dark relative -mt-[var(--header-h)] h-[100svh] max-h-[60rem] min-h-[36rem] overflow-hidden bg-ink text-paper"
+      className="on-dark relative -mt-[var(--header-h)] h-[100svh] max-h-[60rem] [body:has([data-promo-strip])_&]:h-[calc(100svh-2.5rem)] min-h-[36rem] overflow-hidden bg-ink text-paper"
       data-hero-stage
     >
       <HeroSlideshow slides={slides}>

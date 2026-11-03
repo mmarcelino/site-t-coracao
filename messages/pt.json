@@ -299,5 +299,13 @@
     "outdoor": "Exterior",
     "views": "Com vista",
     "remote-work": "Teletrabalho"
+  },
+  "promo": {
+    "label": "Outono no Porto",
+    "text": "10% nas estadias reservadas diretamente, até 31 de dezembro.",
+    "short": "10% ao reservar diretamente",
+    "code": "Código",
+    "copy": "Copiar código",
+    "copied": "Código copiado"
   }
 }
