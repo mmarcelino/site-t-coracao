@@ -11,7 +11,7 @@ import { footerNav } from "./navItems";
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
  * An ink panel inside the page margins: the wordmark, then three text columns whose rows share one
- * line grid (fixed row height, no extra gaps), so lines align across columns. Social links sit under
+ * line grid (fixed row height, no extra gaps), so lines align across columns. Social icons sit under
  * the wordmark. AL licence numbers live on each apartment page.
  * On phones, pages with a fixed bottom bar (home search, booking bar) mark it `data-bottom-bar`;
  * the footer then leaves room so its last line isn't hidden.
@@ -27,20 +27,20 @@ export async function Footer() {
     <footer className="container-page pb-[var(--gutter)] max-lg:[body:has([data-bottom-bar])_&]:pb-28">
       <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-4">
-          {/* Brand column: wordmark on top, social links level with the last row of the lists. */}
-          <div className="flex flex-col justify-between gap-6 sm:col-span-3 lg:col-span-1">
-            <Link href="/" aria-label={t("nav.home")} className="self-start">
+          {/* Brand column: wordmark, social icons right below (bare, like the WhatsApp one). */}
+          <div className="sm:col-span-3 lg:col-span-1">
+            <Link href="/" aria-label={t("nav.home")} className="inline-block">
               <Wordmark />
             </Link>
-            <ul aria-label={t("footer.social")} className={`flex gap-6 ${list}`}>
+            <ul aria-label={t("footer.social")} className="mt-4 -ml-2 flex">
               <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={link}>
-                  Instagram
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={`grid size-9 place-items-center ${link}`}>
+                  <Icon name="instagram" size={20} strokeWidth={1.25} title="Instagram" />
                 </a>
               </li>
               <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={link}>
-                  Facebook
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={`grid size-9 place-items-center ${link}`}>
+                  <Icon name="facebook" size={20} strokeWidth={1.25} title="Facebook" />
                 </a>
               </li>
             </ul>
