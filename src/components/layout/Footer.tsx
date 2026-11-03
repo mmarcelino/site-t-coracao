@@ -113,15 +113,15 @@ export async function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-paper/25 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <ul aria-label={t("footer.social")} className="flex gap-2 text-paper">
+            <ul aria-label={t("footer.social")} className="-mx-2.5 flex text-paper">
               <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
-                  <Icon name="instagram" size={16} title="Instagram" />
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center transition-colors hover:text-pop">
+                  <Icon name="instagram" size={16} strokeWidth={1.25} title="Instagram" />
                 </a>
               </li>
               <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink">
-                  <Icon name="facebook" size={16} title="Facebook" />
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid size-9 place-items-center transition-colors hover:text-pop">
+                  <Icon name="facebook" size={16} strokeWidth={1.25} title="Facebook" />
                 </a>
               </li>
             </ul>
