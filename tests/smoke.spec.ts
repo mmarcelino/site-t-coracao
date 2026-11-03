@@ -55,7 +55,25 @@ test("collection filter shows only matching homes", async ({ page, context }) =>
   await page.goto("/en/apartments?tag=sea");
   await expect(page.getByRole("heading", { level: 3 })).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 3 })).toContainText("Casa do Farol");
-  await expect(page.getByRole("link", { name: /By the sea/ })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("link", { name: /By the sea/ })).toHaveAttribute("aria-current", "true");
+});
+
+test("collections combine as 'any of', and an empty result offers fixes", async ({ page, context }) => {
+  await dismissConsent(context);
+  await page.goto("/en/apartments?tag=sea");
+  await page.getByRole("link", { name: /For two/ }).click();
+  await expect(page).toHaveURL(/tag=sea(%2C|,)couples/);
+  // Adding a collection widens the results, and both pills stay chosen.
+  expect(await page.getByRole("heading", { level: 3 }).count()).toBeGreaterThan(1);
+  await expect(page.getByRole("link", { name: /By the sea/ })).toHaveAttribute("aria-current", "true");
+  await expect(page.getByRole("link", { name: /For two/ })).toHaveAttribute("aria-current", "true");
+
+  // The sea house isn't in São Bento: no results, and a one-tap way out with its count.
+  await page.goto("/en/apartments?tag=sea&building=sao-bento");
+  await expect(page.getByRole("heading", { level: 3 })).toHaveCount(0);
+  await page.getByRole("link", { name: /Remove “By the sea”/ }).click();
+  await expect(page).not.toHaveURL(/tag=/);
+  await expect(page.getByRole("heading", { level: 3 }).first()).toBeVisible();
 });
 
 test("date search carries through to the apartment's booking widget", async ({ page, context }) => {

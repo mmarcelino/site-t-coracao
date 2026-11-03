@@ -18,9 +18,10 @@ import { SearchBar } from "@/components/home/SearchBar";
 import { SearchStateProvider } from "@/components/home/SearchState";
 
 /**
- * All apartments, filterable by collection tag (?tag=), by building (?building=<slug>) and by
- * the home search (?checkIn&checkOut&guests: capacity + mock availability). Filters are links, so
- * every filtered view has a shareable URL. ?view=map shows the same results on a street map, one
+ * All apartments, filterable by collection tags (?tag=couples,views), by building (?building=<slug>)
+ * and by the home search (?checkIn&checkOut&guests: capacity + mock availability). Collections are
+ * multi-select and widen the results (homes in any of them); every other filter narrows them (and).
+ * Filters are links, so every filtered view has a shareable URL. ?view=map shows the same results on a street map, one
  * pin per building. Neighbourhood filter: later.
  */
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,7 +34,8 @@ type SearchParams = PageProps<"/[locale]/apartments">["searchParams"];
 
 interface Search {
   view?: "map";
-  tag?: ListingTag;
+  /** Collections; a home matches if it is in any of them. Empty = all. */
+  tags: ListingTag[];
   /** Building slug; checked against the buildings in Results. */
   building?: string;
   checkIn?: string;
@@ -43,26 +45,28 @@ interface Search {
 
 function parseSearch(sp: Awaited<SearchParams>): Search {
   const str = (v: unknown) => (typeof v === "string" ? v : undefined);
-  const tag = str(sp.tag);
+  // `tag` is a comma list (?tag=couples,views); repeated params (?tag=a&tag=b) work too.
+  const tagParam = Array.isArray(sp.tag) ? sp.tag.join(",") : (str(sp.tag) ?? "");
+  const tags = listingTags.filter((t) => tagParam.split(",").includes(t));
   const checkIn = str(sp.checkIn);
   const checkOut = str(sp.checkOut);
   const guests = Number(sp.guests);
   const datesOk = isISODate(checkIn) && isISODate(checkOut) && checkOut > checkIn;
   return {
     view: str(sp.view) === "map" ? "map" : undefined,
-    tag: listingTags.includes(tag as ListingTag) ? (tag as ListingTag) : undefined,
+    tags,
     building: str(sp.building),
     ...(datesOk ? { checkIn, checkOut } : {}),
     guests: Number.isInteger(guests) && guests > 0 ? guests : undefined,
   };
 }
 
-/** The current search as a query, with some filters changed (pass `undefined` to drop one). */
-function toQuery(search: Search, patch: Partial<Pick<Search, "view" | "tag" | "building">> = {}) {
-  const { view, tag, building } = { ...search, ...patch };
+/** The current search as a query, with some filters changed (pass `undefined` / `[]` to drop one). */
+function toQuery(search: Search, patch: Partial<Pick<Search, "view" | "tags" | "building">> = {}) {
+  const { view, tags, building } = { ...search, ...patch };
   return {
     ...(view ? { view } : {}),
-    ...(tag ? { tag } : {}),
+    ...(tags.length ? { tag: tags.join(",") } : {}),
     ...(building ? { building } : {}),
     ...(search.checkIn && search.checkOut ? { checkIn: search.checkIn, checkOut: search.checkOut } : {}),
     ...(search.guests ? { guests: String(search.guests) } : {}),
@@ -78,20 +82,39 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
   const building = buildings.find((b) => b.slug === parsed.building);
   const search: Search = { ...parsed, building: building?.slug };
   // Only what each card should carry to the apartment page: dates and guests.
-  const cardQuery = toQuery(search, { view: undefined, tag: undefined, building: undefined });
+  const cardQuery = toQuery(search, { view: undefined, tags: [], building: undefined });
 
-  // Capacity + dates first (they define what's bookable), then tag and building on top. Each
-  // filter's counts take the other filter into account.
+  // Capacity + dates first (they define what's bookable), then collections and building on top.
+  // Each filter's counts take the other filter into account.
   const bookable: Listing[] = [];
   for (const l of all) {
     if (search.guests && l.accommodates < search.guests) continue;
     if (search.checkIn && search.checkOut && !(await isRangeAvailable(l.id, search.checkIn, search.checkOut))) continue;
     bookable.push(l);
   }
+  const inAnyTag = (tags: ListingTag[]) => (l: Listing) => !tags.length || tags.some((tag) => l.tags.includes(tag));
   const inBuilding = building ? bookable.filter((l) => l.buildingId === building.id) : bookable;
-  const inTag = search.tag ? bookable.filter((l) => l.tags.includes(search.tag!)) : bookable;
+  const inTag = bookable.filter(inAnyTag(search.tags));
   const shown = building ? inTag.filter((l) => l.buildingId === building.id) : inTag;
   const hasSearch = Boolean(search.checkIn || search.guests);
+  const tagName = (tag: ListingTag) => t(`tags.${tag}`);
+
+  // Nothing matches: offer the filters that would bring homes back, one tap each, with their
+  // counts. Collections and building only; dates and guests are the stay itself.
+  const fixes = shown.length
+    ? []
+    : [
+        ...(search.tags.length
+          ? [{
+              label: search.tags.length === 1 ? t("apartments.remove", { filter: tagName(search.tags[0]!) }) : t("apartments.removeCollections"),
+              count: inBuilding.length,
+              query: toQuery(search, { tags: [] }),
+            }]
+          : []),
+        ...(building
+          ? [{ label: t("apartments.remove", { filter: building.name }), count: inTag.length, query: toQuery(search, { building: undefined }) }]
+          : []),
+      ].filter((f) => f.count > 0);
   const d = (iso: string) => format.dateTime(isoToLocalDate(iso), { day: "numeric", month: "long" });
 
   // Map view: one pin per building that has homes in the current results.
@@ -148,8 +171,9 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
   ];
 
   // Under the home page's 2px ink rule: collections as pills on the left, then the building
-  // menu and list/map as a two-way pill on the right; the chosen one filled ink. On phones the
-  // building menu and list/map come first, so the pills get the full width.
+  // menu and list/map as a two-way pill on the right; chosen ones filled ink. Collection pills
+  // toggle (a chosen one shows × and removes itself); "All" clears them. On phones the building
+  // menu and list/map come first, so the pills get the full width.
   const pill = (active: boolean) =>
     clsx(
       "inline-flex h-10 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors",
@@ -167,23 +191,25 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
         <nav aria-label={t("apartments.filterLabel")} className="order-last min-w-0 sm:order-none sm:flex-1">
           <ul className="scrollbar-none -mx-[var(--gutter)] flex gap-2 overflow-x-auto px-[var(--gutter)] sm:mx-0 sm:px-0">
             <li>
-              <Link href={{ pathname: "/apartments", query: toQuery(search, { tag: undefined }) }} aria-current={!search.tag ? "page" : undefined} className={pill(!search.tag)}>
+              <Link href={{ pathname: "/apartments", query: toQuery(search, { tags: [] }) }} aria-current={!search.tags.length ? "true" : undefined} className={pill(!search.tags.length)}>
                 {t("apartments.all")}
                 <span className="font-normal opacity-70">{inBuilding.length}</span>
               </Link>
             </li>
             {collections.map((c) => {
               const count = inBuilding.filter((l) => l.tags.includes(c.tag)).length;
-              const active = search.tag === c.tag;
+              const active = search.tags.includes(c.tag);
+              const tags = active ? search.tags.filter((tag) => tag !== c.tag) : [...search.tags, c.tag];
               return (
                 <li key={c.tag}>
                   <Link
-                    href={{ pathname: "/apartments", query: toQuery(search, { tag: c.tag }) }}
-                    aria-current={active ? "page" : undefined}
+                    href={{ pathname: "/apartments", query: toQuery(search, { tags }) }}
+                    aria-current={active ? "true" : undefined}
                     className={pill(active)}
                   >
-                    {t(`tags.${c.tag}`)}
+                    {tagName(c.tag)}
                     <span className="font-normal opacity-70">{count}</span>
+                    {active ? <Icon name="close" size={14} strokeWidth={2} className="-mr-1" /> : null}
                   </Link>
                 </li>
               );
@@ -228,7 +254,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
             : null}
           {search.guests ? ` ${t("apartments.forGuests", { guests: t("common.guests", { count: search.guests }) })}` : null}
         </p>
-        {hasSearch || search.tag || building ? (
+        {hasSearch || search.tags.length || building ? (
           <Link href="/apartments" className="link-quiet text-ink">
             {t("apartments.clear")}
           </Link>
@@ -256,7 +282,21 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
           ))}
         </div>
       ) : (
-        <p className="text-lead mt-10 max-w-xl">{t("apartments.none")}</p>
+        <div className="mt-10 max-w-xl">
+          <p className="text-lead">{t("apartments.none")}</p>
+          {fixes.length ? (
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {fixes.map((f) => (
+                <li key={f.label}>
+                  <Link href={{ pathname: "/apartments", query: f.query }} className={pill(false)}>
+                    {f.label}
+                    <span className="font-normal opacity-70">{f.count}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
       )}
     </>
   );
@@ -269,7 +309,7 @@ async function Search({ searchParams }: { searchParams: SearchParams }) {
   const all = await getListings(locale);
   const maxGuests = Math.max(...all.map((l) => l.accommodates));
   const keep = {
-    ...(search.tag ? { tag: search.tag } : {}),
+    ...(search.tags.length ? { tag: search.tags.join(",") } : {}),
     ...(search.building ? { building: search.building } : {}),
     ...(search.view ? { view: search.view } : {}),
   };

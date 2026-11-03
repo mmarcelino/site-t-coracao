@@ -284,7 +284,9 @@
     "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas.",
     "buildingLabel": "Edifício",
     "allBuildings": "Todos os edifícios",
-    "backToList": "Ver todas em lista"
+    "backToList": "Ver todas em lista",
+    "remove": "Remover “{filter}”",
+    "removeCollections": "Remover as coleções"
   },
   "notFound": {
     "label": "Página não encontrada",

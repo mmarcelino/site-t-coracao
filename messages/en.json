@@ -284,7 +284,9 @@
     "mapHint": "Each pin is a building. Choose one to see its homes.",
     "buildingLabel": "Building",
     "allBuildings": "All buildings",
-    "backToList": "See all as a list"
+    "backToList": "See all as a list",
+    "remove": "Remove “{filter}”",
+    "removeCollections": "Remove the collections"
   },
   "notFound": {
     "label": "Page not found",
