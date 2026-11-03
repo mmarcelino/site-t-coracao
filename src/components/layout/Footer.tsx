@@ -35,8 +35,11 @@ export async function Footer() {
             <h2 className={heading}>{t("footer.contact")}</h2>
             <address className="not-italic">
               <ul className={list}>
-                <li>{site.address.street}</li>
-                <li>
+                {/* One block, set tight, but still two rows tall (pt + 24px lines + pb = 72px) so the
+                    lines below stay on the shared grid. */}
+                <li className="pt-1.5 pb-4.5 leading-6">
+                  {site.address.street}
+                  <br />
                   {site.address.postalCode} {site.address.city}, {site.address.country}
                 </li>
                 <li>
@@ -106,14 +109,14 @@ export async function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-paper/25 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <ul aria-label={t("footer.social")} className="flex gap-5">
+            <ul aria-label={t("footer.social")} className="flex gap-5 text-paper">
               <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-paper">
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-pop">
                   Instagram
                 </a>
               </li>
               <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-paper">
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-pop">
                   Facebook
                 </a>
               </li>
