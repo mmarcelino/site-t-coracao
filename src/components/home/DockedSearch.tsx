@@ -54,11 +54,11 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
 
   return (
     <>
-      {/* Desktop: docked at the top, with the same stone hairline as the scrolled header. */}
+      {/* Desktop: docked at the top, with the same hairline as the scrolled header. */}
       <div
         inert={!shown}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 hidden border-b border-stone bg-paper transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
+          "fixed inset-x-0 top-0 z-40 hidden border-b border-ink/15 bg-paper transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
           shown ? "translate-y-0" : "-translate-y-full",
         )}
       >

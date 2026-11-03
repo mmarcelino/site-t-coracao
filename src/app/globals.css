@@ -263,8 +263,9 @@
 }
 
 /*
- * Sticky header: one surface with the page at the top; a stone hairline fades in over the first
- * scroll (CSS scroll-driven, no JS). Without support, or with reduced motion, the line is always on.
+ * Sticky header: one surface with the page at the top; a hairline (ink at 15%, like the site's other
+ * thin rules and the booking box's outline) fades in over the first scroll (CSS scroll-driven, no
+ * JS). Without support, or with reduced motion, the line is always on.
  */
 @keyframes header-rule-in {
   from {
@@ -277,7 +278,7 @@
   inset-inline: 0;
   bottom: 0;
   height: 1px;
-  background: var(--color-stone);
+  background: color-mix(in srgb, var(--color-ink) 15%, transparent);
   pointer-events: none;
 }
 @supports (animation-timeline: scroll()) {
