@@ -87,7 +87,7 @@ export function SearchBar({
   // The docked copy stays slim at every width (no larger "hd" sizes).
   const field = clsx(
     "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:w-auto md:py-0",
-    docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:h-16 hd:px-6",
+    docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:px-6",
   );
   // Small sentence-case labels; values (dates and guests alike) in one size.
   const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium text-ink", !docked && "hd:text-[0.8125rem]");
@@ -95,7 +95,8 @@ export function SearchBar({
   // Values stay quiet under their ink labels: "When?" and a dash until dates are set, then the dates.
   const quiet = "text-granite";
   // Label-to-value gap leaves room for the guest stepper's circles, which are taller than the text line.
-  const valueGap = docked ? "mt-1.5" : "mt-2.5";
+  // In the md+ bars the circles shrink to 24px so they clear the bottom edge as much as the label clears the top.
+  const valueGap = docked ? "mt-1.5" : "mt-2.5 md:mt-1.5";
   const fieldValue = clsx("block", valueGap, valueText, quiet);
 
   return (
@@ -110,8 +111,8 @@ export function SearchBar({
       <div
         ref={wrapper}
         className={clsx(
-          "grid grid-cols-1 rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3",
-          docked ? "border border-ink/15 md:p-1.5" : "overflow-hidden hd:grid-cols-[11.5rem_11.5rem_15rem_auto]",
+          "grid grid-cols-1 rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:pl-3",
+          docked ? "border border-ink/15 md:p-1.5" : "overflow-hidden md:p-1 hd:grid-cols-[11.5rem_11.5rem_15rem_auto]",
         )}
       >
         <button
@@ -140,7 +141,7 @@ export function SearchBar({
         </button>
         <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, quiet, docked && "[&_button]:size-6")}>
+          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, quiet, docked ? "[&_button]:size-6" : "md:[&_button]:size-6")}>
             <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
           </div>
         </div>
@@ -149,7 +150,7 @@ export function SearchBar({
           aria-label={t("submit")}
           className={clsx(
             "inline-flex h-14 items-center justify-center gap-3 rounded-b-[1.75rem] bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:rounded-full md:px-0",
-            docked ? "md:size-11" : "md:size-14 hd:size-16",
+            docked ? "md:size-11" : "md:size-14",
           )}
         >
           <Icon name="search" size={20} strokeWidth={1.75} />

@@ -44,7 +44,6 @@ export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const tTags = await getTranslations("tags");
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
     getReviewSummary(locale),
@@ -52,12 +51,7 @@ export default async function HomePage() {
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
-  // One slide per collection: a home that really carries the tag, shown with a fitting photo.
-  const slides = heroSlides.flatMap(({ tag, slug, image, alt }) =>
-    listings.some((l) => l.slug === slug && l.tags.includes(tag))
-      ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
-      : [],
-  );
+  const slides = heroSlides.map(({ key, image, alt }) => ({ key, image: { src: image, alt: alt[locale] } }));
   // Hero: the Google rating, as shown on Google (whole business, checkable by guests).
   // Hero: the real Google score, plus every guest review across platforms (counts add up honestly,
   // scores on different scales don't), rounded down to the thousand. TO CONFIRM: the Airbnb and

@@ -32,10 +32,11 @@ export async function Hero({
       data-hero-stage
     >
       <HeroSlideshow slides={slides}>
-        {/* Six homes, cross-fading as the lines below fill up. */}
+        {/* Four interiors, cross-fading. */}
         <HeroSlideshowBackground />
-        {/* Shade only where there's text (nav at the top, the text stack bottom-left); the rest of the
-            photo stays at full brightness. */}
+        {/* A light veil over the whole photo (stronger on phones, where the text stack covers most of
+            it), then shade where there's text: nav at the top, the text stack bottom-left. */}
+        <div className="absolute inset-0 bg-ink/25 md:bg-ink/10" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,26,24,0.4)_0%,rgba(27,26,24,0)_20%,rgba(27,26,24,0)_45%,rgba(27,26,24,0.6)_100%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,26,24,0.45)_0%,rgba(27,26,24,0.15)_45%,rgba(27,26,24,0)_70%)]" />
 
@@ -46,13 +47,15 @@ export async function Hero({
           <div className="container-page pb-[var(--gutter)]">
             <h1
               id="hero-title"
-              className="animate-fade-in text-[min(clamp(3rem,1.4rem+6.2vw,8.5rem),max(3rem,11.5vh))] leading-[0.92] font-semibold tracking-[-0.03em]"
+              className="animate-fade-in text-[min(clamp(2.6rem,1.2rem+5.3vw,7.25rem),max(2.6rem,9.8vh))] leading-[0.95] font-normal tracking-[-0.025em]"
             >
               <span className="block">{t("heroTitleLead")}</span>{" "}
               <span className="block">{t("heroTitleAccent")}</span>
             </h1>
             {/* What this is, in plain words: apartments to book and stay in. */}
-            <p className="animate-fade-in mt-5 max-w-[48rem] text-lead text-paper">{t("heroSub")}</p>
+            <p className="animate-fade-in mt-5 max-w-[40rem] text-body text-paper md:text-[1.25rem]/[1.5]">
+              {t.rich("heroSub", { br: () => <br className="hidden md:inline" /> })}
+            </p>
 
             <div className="mt-12 flex flex-col gap-4 md:mt-20 lg:flex-row lg:items-stretch lg:justify-between">
               <div className="w-full md:w-max" data-pause-slideshow>
