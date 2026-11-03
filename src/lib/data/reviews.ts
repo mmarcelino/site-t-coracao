@@ -11,13 +11,27 @@ export async function getReviews(
   locale: Locale,
   opts: { listingId?: string; limit?: number } = {},
 ): Promise<Review[]> {
-  const pool = opts.listingId ? mockReviews.filter((r) => r.listingId === opts.listingId) : mockReviews;
+  return (await getReviewPage(locale, opts)).reviews;
+}
+
+/**
+ * One page of reviews plus the total that matches, for "Show more". Shaped for the real sources,
+ * which page by offset (Guesty) or return a handful per place (Google).
+ */
+export async function getReviewPage(
+  locale: Locale,
+  opts: { listingId?: string; source?: ReviewSource; offset?: number; limit?: number } = {},
+): Promise<{ reviews: Review[]; total: number }> {
+  const pool = mockReviews.filter(
+    (r) => (!opts.listingId || r.listingId === opts.listingId) && (!opts.source || r.source === opts.source),
+  );
   // Prefer reviews in the visitor's language, then the rest; keep the newest first within each.
   const sorted = [...pool].sort((a, b) => {
     const lang = Number(b.language === locale) - Number(a.language === locale);
     return lang !== 0 ? lang : b.date.localeCompare(a.date);
   });
-  return sorted.slice(0, opts.limit ?? sorted.length);
+  const offset = opts.offset ?? 0;
+  return { reviews: sorted.slice(offset, offset + (opts.limit ?? sorted.length)), total: sorted.length };
 }
 
 export async function getReviewSummary(locale: Locale): Promise<{

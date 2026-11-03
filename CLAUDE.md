@@ -102,6 +102,7 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
 8. **About**
 9. **FAQ**: full page, grouped by topic (see §10).
 10. **Contact**
+10a. **Reviews** (`/pt/avaliacoes` / `/en/reviews`, added 2026-11-03): all guest reviews, filter by platform (`?source=`), "Show more" in pages of 8 (`?n=`); linked from the home reviews block and the footer.
 11. **Legal**: Terms, Privacy, Cookies.
 12. **Book direct / checkout**: UI only, mock flow ending on a clearly-marked demo confirmation.
 

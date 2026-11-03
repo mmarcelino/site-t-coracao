@@ -29,6 +29,7 @@ export const routing = defineRouting({
     "/property-management": { pt: "/gestao-alojamento-local", en: "/property-management" },
     "/about": { pt: "/sobre-nos", en: "/about" },
     "/faq": { pt: "/perguntas-frequentes", en: "/faq" },
+    "/reviews": { pt: "/avaliacoes", en: "/reviews" },
     "/contact": { pt: "/contactos", en: "/contact" },
     "/terms": { pt: "/termos-e-condicoes", en: "/terms" },
     "/privacy": { pt: "/politica-de-privacidade", en: "/privacy" },

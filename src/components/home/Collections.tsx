@@ -65,7 +65,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
                   />
                 </div>
                 <p className="mt-2 max-w-md text-granite">{c.blurb[locale]}</p>
-                <p className="mt-3 text-small font-semibold">
+                <p className="mt-3 text-small text-granite">
                   {t("common.from")} {format.money(from, currency)} {t("common.perNight")}
                 </p>
               </div>
