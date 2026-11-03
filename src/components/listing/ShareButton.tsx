@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
 /**
@@ -38,10 +37,13 @@ export function ShareButton({ title }: { title: string }) {
   }
 
   return (
-    // The site's outline button, small: clearly an action, and nothing like the photo controls.
-    <button type="button" onClick={share} className={buttonClasses("secondary", "sm", "shrink-0")}>
-      <Icon name={copied ? "check" : "share"} size={16} />
-      <span role="status">{copied ? t("shareCopied") : t("share")}</span>
+    <button type="button" onClick={share} className="-m-2 inline-flex shrink-0 items-center gap-2 p-2 text-small font-semibold">
+      <Icon name="share" size={18} strokeWidth={1.5} />
+      {/* Icon alone on phones, so a long title keeps the width; the word from sm up. */}
+      <span className="sr-only sm:not-sr-only sm:link-quiet">{t("share")}</span>
+      <span role="status" className="font-normal text-granite">
+        {copied ? `· ${t("shareCopied")}` : ""}
+      </span>
     </button>
   );
 }

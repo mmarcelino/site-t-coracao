@@ -192,14 +192,14 @@ async function ApartmentContent({ params }: { params: Params }) {
         <div className="grid gap-x-[clamp(2rem,5vw,6rem)] lg:grid-cols-[minmax(0,1fr)_24rem]">
           <article className="min-w-0">
             <header className="max-w-3xl">
-              {/* Share sits on the eyebrow's line, at the end of the column: by the title, off the photos. */}
-              <div className="flex items-center justify-between gap-6">
-                <p className="label text-granite">
-                  {building.name} · {neighbourhood?.name}
-                </p>
+              <p className="label text-granite">
+                {building.name} · {neighbourhood?.name}
+              </p>
+              {/* Share on the title's line, at the end of the column (off the photos). */}
+              <div className="mt-4 flex items-baseline justify-between gap-4 sm:gap-6">
+                <h1 className="text-h2">{listing.title}</h1>
                 <ShareButton title={`${listing.title}, ${building.name}`} />
               </div>
-              <h1 className="text-h2 mt-4">{listing.title}</h1>
               <p className="mt-4">{listing.tagline}</p>
             </header>
 
