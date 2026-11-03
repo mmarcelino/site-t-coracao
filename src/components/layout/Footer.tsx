@@ -9,13 +9,13 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * An ink panel inside the page margins; each column sits under a rule, like the book-direct
+ * An ink panel inside the page margins; each column sits under a hairline, echoing the book-direct
  * perks. AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
-  const column = "border-t-2 border-paper pt-5";
+  const column = "border-t border-paper/25 pt-5";
   const heading = "label mb-5 text-paper/60";
 
   return (
