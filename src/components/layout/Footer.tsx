@@ -27,11 +27,13 @@ export async function Footer() {
     <footer className="container-page pb-[var(--gutter)] max-lg:[body:has([data-bottom-bar])_&]:pb-28">
       <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-4">
-          {/* Brand column: the wordmark. */}
+          {/* Brand column: the wordmark and one line on who we are. */}
           <div className="sm:col-span-3 lg:col-span-1">
             <Link href="/" aria-label={t("nav.home")} className="inline-block">
               <Wordmark />
             </Link>
+            {/* A sentence, so full paper (CLAUDE.md text colour rule), at the small size to stay quiet. */}
+            <p className="text-small mt-4 max-w-[16rem]">{t("footer.tagline")}</p>
           </div>
 
           <div>
