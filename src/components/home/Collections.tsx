@@ -37,11 +37,7 @@ export async function Collections({ listings }: { listings: Listing[] }) {
           <span className="block lg:whitespace-nowrap">{t("home.collectionsTitleLine2")}</span>
         </h2>
         <div className="reveal max-w-xl flex-[1_1_23rem] space-y-5 text-lead lg:ml-auto lg:max-w-[38rem]">
-          {/* The question on its own line, right under what we do (no paragraph gap). */}
-          <div>
-            <p>{t("home.introLead", { name: site.name })}</p>
-            <p>{t("home.introQuestion")}</p>
-          </div>
+          <p>{t("home.introLead", { name: site.name })}</p>
           <p>{t("home.introBody", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}</p>
         </div>
       </div>
