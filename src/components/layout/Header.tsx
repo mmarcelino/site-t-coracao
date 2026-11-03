@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { ContactDetails, SocialLinks } from "./ContactDetails";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Wordmark } from "./Wordmark";
-import { site } from "@/content/site";
 import { headerNav, menuNav, ownersNav } from "./navItems";
 import { OPEN_MENU_EVENT } from "@/components/home/DockedSearch";
 
@@ -175,18 +175,18 @@ export function Header() {
           </div>
 
           {/* The same links as the header and footer, in sentence case at section-title weight; contact
-              and booking on the right. Sized to sit calmly on a desktop screen. */}
+              on the right, laid out like the footer's. Sized to sit calmly on a desktop screen. */}
           <div className="container-page grid flex-1 content-start gap-14 py-10 lg:grid-cols-12 lg:gap-10 lg:py-16">
             <nav aria-label={t("nav.label")} className="lg:col-span-7">
-              <ul className="border-b border-paper/20">
+              <ul className="border-b border-paper/25">
                 {menuNav.map((item) => (
-                  <li key={item.href} className="border-t border-paper/20">
+                  <li key={item.href} className="border-t border-paper/25">
                     <Link
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className="group flex items-center justify-between gap-6 py-4 text-[clamp(1.75rem,1.2rem+1.8vw,2.75rem)] leading-tight font-semibold tracking-[-0.02em] lg:py-5"
                     >
-                      <span className="transition-opacity group-hover:opacity-70 group-aria-[current=page]:opacity-60">
+                      <span className="transition-colors group-hover:text-pop group-aria-[current=page]:opacity-60">
                         {t(`nav.${item.key}`)}
                       </span>
                       <Icon name="arrowRight" size={32} strokeWidth={1.75} className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2" />
@@ -196,45 +196,13 @@ export function Header() {
               </ul>
             </nav>
 
-            <div className="flex flex-col gap-10 lg:col-span-4 lg:col-start-9">
-              <div>
-                <p className="label mb-5 text-paper/60">{t("footer.contact")}</p>
-                <WhatsAppLink
-                  message={t("whatsapp.messageGeneric")}
-                  page={pathname}
-                  icon={false}
-                  className="inline-flex items-center gap-3 text-lead font-semibold transition-opacity hover:opacity-70"
-                >
-                  <span className="grid size-10 place-items-center rounded-full bg-pop text-ink">
-                    <Icon name="whatsapp" size={18} strokeWidth={1.5} />
-                  </span>
-                  {t("whatsapp.short")}
-                </WhatsAppLink>
-                <p className="text-small mt-2 text-paper/60">{t("whatsapp.hoursShort")}</p>
-                <address className="text-small mt-6 space-y-1 text-paper/80 not-italic">
-                  <p>
-                    <a href={site.phoneHref} className="hover:underline">
-                      {site.phone}
-                    </a>
-                  </p>
-                  <p>
-                    <a href={`mailto:${site.email}`} className="hover:underline">
-                      {site.email}
-                    </a>
-                  </p>
-                  <p>
-                    {site.address.street}, {site.address.postalCode} {site.address.city}
-                  </p>
-                </address>
-              </div>
-              <div className="flex items-center justify-between gap-6 border-t border-paper/20 pt-6">
+            {/* Contact as in the footer: the same column, line grid and bottom row (social + language). */}
+            <div className="lg:col-span-4 lg:col-start-9">
+              <h2 className="label mb-4 text-paper/60">{t("footer.contact")}</h2>
+              <ContactDetails page={pathname} />
+              <div className="mt-10 flex items-center gap-x-6 border-t border-paper/25 pt-6 text-[0.8125rem]">
+                <SocialLinks />
                 <LanguageSwitcher tone="light" className="text-paper" />
-                <Link
-                  href="/apartments"
-                  className="inline-flex h-11 items-center rounded-full bg-paper px-6 text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-pop"
-                >
-                  {t("common.bookNow")}
-                </Link>
               </div>
             </div>
           </div>
