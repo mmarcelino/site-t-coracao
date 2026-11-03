@@ -60,7 +60,7 @@ export async function ListingCard({
             {listing.title}
           </Link>
         </h3>
-        <p className="col-start-1 row-start-2 mt-2 text-small">
+        <p className="col-start-1 row-start-2 mt-1 text-small">
           {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })} ·{" "}
           {t("common.area", { count: listing.areaSqm })}
         </p>
