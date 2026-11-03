@@ -15,7 +15,7 @@ export function Reassurance() {
     { icon: "clock", text: t("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) }) },
   ];
   return (
-    <ul className="space-y-2.5 text-[0.8125rem]">
+    <ul className="space-y-2.5">
       {items.map((item) => (
         <li key={item.text} className="flex items-start gap-3">
           <Icon name={item.icon} size={16} className="mt-0.5 shrink-0" />

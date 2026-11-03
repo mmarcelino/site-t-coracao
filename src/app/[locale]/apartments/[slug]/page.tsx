@@ -26,8 +26,9 @@ import { Gallery } from "@/components/listing/Gallery";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { TrackListingView } from "@/components/listing/TrackListingView";
 import { ShareButton } from "@/components/listing/ShareButton";
-import { ReviewList } from "@/components/ReviewList";
-import { Icon } from "@/components/ui/Icon";
+import { Carousel } from "@/components/Carousel";
+import { ReviewCard } from "@/components/ReviewCard";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 export async function generateStaticParams() {
   return (await getListingSlugs()).map((slug) => ({ slug }));
@@ -144,17 +145,17 @@ async function ApartmentContent({ params }: { params: Params }) {
   const [neighbourhood, siblings, reviews] = await Promise.all([
     getNeighbourhood(locale, listing.neighbourhoodSlug),
     getListings(locale, { buildingId: listing.buildingId }),
-    getReviewPage(locale, { listingId: listing.id, limit: 3 }),
+    getReviewPage(locale, { listingId: listing.id, limit: 12 }),
   ]);
   const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
 
-  const facts: Array<{ label: string; value: string; note?: string }> = [
-    { label: t("listing.factGuests"), value: String(listing.accommodates) },
-    { label: t("listing.factBedrooms"), value: listing.bedrooms ? String(listing.bedrooms) : t("listing.studio") },
-    { label: t("listing.factBathrooms"), value: String(Math.max(1, Math.floor(listing.bathrooms))) },
-    { label: t("listing.factSize"), value: t("common.area", { count: listing.areaSqm }) },
-    { label: t("listing.factFloor"), value: listing.floor, note: listing.hasLift ? t("listing.lift") : t("listing.noLift") },
+  const facts: Array<{ icon: IconName; label: string; value: string; note?: string }> = [
+    { icon: "guests", label: t("listing.factGuests"), value: String(listing.accommodates) },
+    { icon: "bed", label: t("listing.factBedrooms"), value: listing.bedrooms ? String(listing.bedrooms) : t("listing.studio") },
+    { icon: "bath", label: t("listing.factBathrooms"), value: String(Math.max(1, Math.floor(listing.bathrooms))) },
+    { icon: "area", label: t("listing.factSize"), value: t("common.area", { count: listing.areaSqm }) },
+    { icon: "stairs", label: t("listing.factFloor"), value: listing.floor, note: listing.hasLift ? t("listing.lift") : t("listing.noLift") },
   ];
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
@@ -165,30 +166,31 @@ async function ApartmentContent({ params }: { params: Params }) {
     <>
       <TrackListingView listingId={listing.id} buildingId={listing.buildingId} />
 
-      <div className="container-page flex items-center justify-between gap-6 pt-6 pb-5">
-        <nav aria-label={t("listing.breadcrumbLabel")}>
-          <ol className="text-small flex flex-wrap items-center gap-2 text-granite">
-            <li>
-              <Link href="/apartments" className="link-quiet">
-                {t("listing.breadcrumbApartments")}
-              </Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li>
-              <Link href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }} className="link-quiet">
-                {building.name}
-              </Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li aria-current="page" className="text-ink">
-              {listing.title}
-            </li>
-          </ol>
-        </nav>
-        <ShareButton title={`${listing.title}, ${building.name}`} />
-      </div>
+      <nav aria-label={t("listing.breadcrumbLabel")} className="container-page pt-6 pb-5">
+        <ol className="text-small flex flex-wrap items-center gap-2 text-granite">
+          <li>
+            <Link href="/apartments" className="link-quiet">
+              {t("listing.breadcrumbApartments")}
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li>
+            <Link href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }} className="link-quiet">
+              {building.name}
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li aria-current="page" className="text-ink">
+            {listing.title}
+          </li>
+        </ol>
+      </nav>
 
-      <Gallery pictures={listing.pictures} title={`${listing.title}, ${building.name}`} />
+      <Gallery
+        pictures={listing.pictures}
+        title={`${listing.title}, ${building.name}`}
+        actions={<ShareButton title={`${listing.title}, ${building.name}`} />}
+      />
 
       <div className="container-page pt-10 md:pt-14">
         <div className="grid gap-x-[clamp(2rem,5vw,6rem)] lg:grid-cols-[minmax(0,1fr)_24rem]">
@@ -201,15 +203,21 @@ async function ApartmentContent({ params }: { params: Params }) {
               <p className="mt-4">{listing.tagline}</p>
             </header>
 
-            {/* At a glance: the home page's rule-topped columns, label over value. */}
-            <dl aria-label={t("listing.factsLabel")} className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 xl:grid-cols-5">
+            {/* At a glance: one mist tile, no rules; each fact led by its icon, the value first and
+                the label under it (dt follows dd visually only, so screen readers still hear label → value). */}
+            <dl
+              aria-label={t("listing.factsLabel")}
+              className="mt-10 grid grid-cols-2 gap-x-6 gap-y-7 rounded-[var(--radius-tile)] bg-sand p-6 sm:grid-cols-3 xl:grid-cols-5"
+            >
               {facts.map((fact) => (
-                <div key={fact.label} className="border-t-2 border-ink pt-3">
-                  <dt className="label text-granite">{fact.label}</dt>
-                  <dd className="mt-2 text-[1.0625rem] leading-snug font-semibold">
-                    {fact.value}
-                    {fact.note ? <span className="block text-small font-normal text-granite">{fact.note}</span> : null}
-                  </dd>
+                <div key={fact.label} className="flex flex-col">
+                  <Icon name={fact.icon} size={22} strokeWidth={1.5} />
+                  {/* The note (lift or not) goes under the label, so the value stays one short line. */}
+                  <dt className="order-last mt-1 text-small text-granite">
+                    {fact.label}
+                    {fact.note ? <span className="block">{fact.note}</span> : null}
+                  </dt>
+                  <dd className="mt-3 text-[1.0625rem] leading-snug font-semibold">{fact.value}</dd>
                 </div>
               ))}
             </dl>
@@ -286,28 +294,6 @@ async function ApartmentContent({ params }: { params: Params }) {
                 ) : null}
               </div>
             </section>
-
-            {/* Reviews in the same rhythm as the details: the score where the heading sits, then the
-                quotes one under another, as on the home page; "Show more" pages through the rest. */}
-            {listing.reviews && reviews.total ? (
-              <section aria-labelledby="reviews-title" className={detail}>
-                <div>
-                  <h2 id="reviews-title" className="card-title">
-                    {t("reviews.listingTitle")}
-                  </h2>
-                  <p className="label mt-5 text-granite">{t(`reviews.source.${listing.reviews.source}`)}</p>
-                  <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
-                    {format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
-                  </p>
-                  <p className="mt-1.5 text-small text-granite">
-                    {t("reviews.basedOn", { count: format.number(listing.reviews.count) })}
-                  </p>
-                </div>
-                <div className="min-w-0">
-                  <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} columns={1} />
-                </div>
-              </section>
-            ) : null}
 
             {neighbourhood ? (
               <section aria-labelledby="location-title" className={detail}>
@@ -403,6 +389,12 @@ async function ApartmentContent({ params }: { params: Params }) {
                 currency: listing.price.base.currency,
                 minNights: listing.minNights,
                 accommodates: listing.accommodates,
+                rating: listing.reviews
+                  ? {
+                      score: format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+                      count: format.number(listing.reviews.count),
+                    }
+                  : undefined,
               }}
             />
           </aside>
@@ -439,6 +431,46 @@ async function ApartmentContent({ params }: { params: Params }) {
           </div>
         </div>
       </section>
+
+      {/* Reviews close the page: the score once, then the quotes as a strip of cards (swipe on
+          phones, arrows from md up), so any number of them takes the same space. */}
+      {listing.reviews && reviews.reviews.length ? (
+        <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
+          <div className="container-page">
+            <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t-2 border-ink pt-6">
+              <h2 id="reviews-title" className="text-h2">
+                {t("reviews.listingTitle")}
+              </h2>
+              <p className="flex items-baseline gap-3">
+                <span className="inline-flex items-center gap-2 text-[1.75rem] leading-none font-semibold tabular-nums">
+                  <Icon name="star" size={18} fill="currentColor" strokeWidth={0} />
+                  {format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+                </span>
+                <span className="text-small text-granite">
+                  {t("reviews.basedOn", { count: format.number(listing.reviews.count) })} ·{" "}
+                  {t(`reviews.source.${listing.reviews.source}`)}
+                </span>
+              </p>
+            </div>
+          </div>
+          <Carousel
+            prevLabel={t("reviews.prev")}
+            nextLabel={t("reviews.next")}
+            scrollClassName="mt-10 px-[var(--gutter)] pb-2 [scroll-padding-inline:var(--gutter)] lg:px-[max(var(--gutter),calc((100vw-var(--page-max))/2+var(--gutter)))]"
+            controlsClassName="container-page"
+          >
+            <ul aria-label={t("reviews.listingTitle")} className="flex items-stretch gap-4">
+              {reviews.reviews.map((review) => (
+                <li key={review.id} className="w-[min(82vw,24rem)] shrink-0 snap-start">
+                  <div className="flex h-full flex-col rounded-[var(--radius-card)] bg-sand p-7">
+                    <ReviewCard review={review} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Carousel>
+        </section>
+      ) : null}
 
       {/* Room for the mobile booking bar */}
       <div className="h-20 lg:hidden" aria-hidden />

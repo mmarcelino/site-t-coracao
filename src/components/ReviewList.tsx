@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { ReviewCard } from "@/components/ReviewCard";
@@ -8,23 +7,12 @@ import { requestReviews } from "@/lib/actions/reviews";
 import type { Review } from "@/lib/data";
 
 /**
- * Quotes in two columns (one with `columns={1}`). With a `total`, "Show more reviews" loads the next four in
+ * Quotes in two columns. With a `total` (home page), "Show more reviews" loads the next four in
  * place and moves focus to the first new one, so keyboard and screen-reader users land on it.
  * "Show fewer" folds back to the first four and returns to the top of the list; reviews already
  * loaded are kept, so opening again doesn't refetch.
  */
-export function ReviewList({
-  initial,
-  total,
-  listingId,
-  columns = 2,
-}: {
-  initial: Review[];
-  total?: number;
-  /** Page through one apartment's reviews only. */
-  listingId?: string;
-  columns?: 1 | 2;
-}) {
+export function ReviewList({ initial, total }: { initial: Review[]; total?: number }) {
   const t = useTranslations("reviews");
   const locale = useLocale();
   const [loaded, setLoaded] = useState(initial);
@@ -41,7 +29,7 @@ export function ReviewList({
       return;
     }
     startTransition(async () => {
-      const page = await requestReviews(locale, loaded.length, listingId);
+      const page = await requestReviews(locale, loaded.length);
       focusId.current = page[0]?.id ?? null;
       setLoaded((r) => [...r, ...page]);
       setShown(loaded.length + page.length);
@@ -58,7 +46,7 @@ export function ReviewList({
   return (
     <>
       {/* scroll-mt clears the booking bar that docks at the top of the home page. */}
-      <ul ref={list} className={clsx("grid scroll-mt-32 gap-x-8", columns === 2 ? "gap-y-16 sm:grid-cols-2" : "gap-y-10")}>
+      <ul ref={list} className="grid scroll-mt-32 gap-x-8 gap-y-16 sm:grid-cols-2">
         {loaded.slice(0, shown).map((review) => (
           <li
             key={review.id}
@@ -69,19 +57,14 @@ export function ReviewList({
                 el.focus();
               }
             }}
-            // One column sits inside a section that already starts on an ink rule: hairlines between
-            // quotes, none on top.
-            className={clsx(
-              "animate-fade-in-fast pt-6 outline-none",
-              columns === 2 ? "border-t-2 border-ink" : "border-t border-ink/15 first:border-t-0 first:pt-0",
-            )}
+            className="animate-fade-in-fast border-t-2 border-ink pt-6 outline-none"
           >
             <ReviewCard review={review} />
           </li>
         ))}
       </ul>
       {total !== undefined && total > initial.length ? (
-        <div className={clsx("flex flex-wrap items-center gap-x-8 gap-y-4", columns === 2 ? "mt-14" : "mt-10")}>
+        <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
           {shown < total ? (
             <button
               type="button"

@@ -37,12 +37,14 @@ export function ShareButton({ title }: { title: string }) {
   }
 
   return (
-    <button type="button" onClick={share} className="inline-flex shrink-0 items-center gap-2 text-small font-semibold">
-      <Icon name="share" size={18} strokeWidth={1.5} />
-      <span className="link-quiet">{t("share")}</span>
-      <span role="status" className="font-normal text-granite">
-        {copied ? `· ${t("shareCopied")}` : ""}
-      </span>
+    // A white pill on the photos, like "View all photos": hard to miss, no extra chrome on the page.
+    <button
+      type="button"
+      onClick={share}
+      className="text-small inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 font-semibold text-ink shadow-sm transition-colors hover:bg-white"
+    >
+      <Icon name={copied ? "check" : "share"} size={16} />
+      <span role="status">{copied ? t("shareCopied") : t("share")}</span>
     </button>
   );
 }
