@@ -103,7 +103,7 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
 9. **FAQ**: full page, grouped by topic (see §10).
 10. **Contact**
 11. **Legal**: Terms, Privacy, Cookies.
-12. **Book direct / checkout**: UI only, mock flow ending on a clearly-marked demo confirmation.
+12. **Book direct / checkout**: UI only, mock flow ending on a clearly-marked demo confirmation. When building it: put the booking card's reassurance (secure payment, cancellation, "since 2015, 6 000+ guests a year") beside the payment step, where guests leaving Airbnb need it most.
 
 **Footer must include:** contact (phone, email, address, WhatsApp), social links, the **Livro de Reclamações** link (legally required in Portugal), and space for the AL licence numbers.
 
