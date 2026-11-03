@@ -412,7 +412,7 @@ async function ApartmentContent({ params }: { params: Params }) {
           <div className="container-page mt-10">
             <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} />
           </div>
-          {licenceLine ? <div className="container-page mt-20 md:mt-28">{licenceLine}</div> : null}
+          {licenceLine ? <div className="container-page mt-16 md:mt-20">{licenceLine}</div> : null}
         </section>
       ) : null}
 
@@ -422,7 +422,7 @@ async function ApartmentContent({ params }: { params: Params }) {
       {/* The other homes in this building: a band of its own after the reviews, so it reads as
           the next step rather than an afterthought. */}
       {others.length ? (
-        <section id="more-homes" aria-labelledby="more-title" className="mt-[var(--section-tight)] scroll-mt-24 bg-sand">
+        <section id="more-homes" aria-labelledby="more-title" className="scroll-mt-24 bg-sand">
           <div className="container-page section-y-tight">
             <div>
               <h2 id="more-title" className="text-h2">
