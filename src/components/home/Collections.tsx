@@ -11,7 +11,7 @@ import { Icon } from "@/components/ui/Icon";
 /**
  * Opens with the collections heading and, beside it, who we are (CLAUDE.md §7.1, intro line): what
  * Tripas-Coração is and does, before anything is for sale. Then the featured collections, two per row: a wide room shot and a detail side by side, then under an ink
- * rule the title and a line about it, with the count and from-price beside them. Each opens the
+ * rule the title (arrow beside it) and a line about it, with the count and from-price ending level with it. Each opens the
  * apartments list filtered by tag.
  */
 export async function Collections({ listings }: { listings: Listing[] }) {
@@ -60,27 +60,24 @@ export async function Collections({ listings }: { listings: Listing[] }) {
                   <Image src={c.detail.src} alt={c.detail.alt[locale]} fill sizes="(min-width: 768px) 19vw, 40vw" className="object-cover" />
                 </div>
               </div>
-              {/* Story on the left, facts on the right above the arrow. On phones the facts drop
-                  under the line about it, so it keeps the full width. */}
-              <div className="mt-5 grid gap-x-8 gap-y-4 border-t-2 border-ink pt-4 sm:grid-cols-[1fr_auto]">
-                <div>
-                  <h3 className="card-title">{c.title[locale]}</h3>
-                  <p className="mt-2 max-w-md">{c.blurb[locale]}</p>
-                </div>
-                <div className="flex items-end justify-between gap-4 sm:flex-col sm:text-right">
-                  <p className="text-small text-granite">
-                    <span className="block">{t("home.collectionCount", { count })}</span>
-                    <span className="block">
-                      {t("common.from")} {format.money(from, currency)} {t("common.perNight")}
-                    </span>
-                  </p>
-                  <Icon
-                    name="arrowRight"
-                    size={32}
-                    strokeWidth={1.75}
-                    className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
-                  />
-                </div>
+              {/* As on the listing cards: the arrow level with the title, the facts ending level
+                  with the line about it. On phones the facts drop under that line, so it keeps the
+                  full width. */}
+              <div className="mt-5 grid grid-cols-[1fr_auto] gap-x-8 border-t-2 border-ink pt-4">
+                <h3 className="card-title col-start-1 row-start-1">{c.title[locale]}</h3>
+                <Icon
+                  name="arrowRight"
+                  size={32}
+                  strokeWidth={1.75}
+                  className="col-start-2 row-start-1 -my-1 shrink-0 self-center justify-self-end transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
+                />
+                <p className="col-span-2 row-start-2 mt-2 max-w-md sm:col-span-1">{c.blurb[locale]}</p>
+                <p className="col-span-2 row-start-3 mt-4 text-small text-granite sm:col-span-1 sm:col-start-2 sm:row-start-2 sm:mt-0 sm:self-end sm:text-right">
+                  <span className="block">{t("home.collectionCount", { count })}</span>
+                  <span className="block">
+                    {t("common.from")} {format.money(from, currency)} {t("common.perNight")}
+                  </span>
+                </p>
               </div>
             </Link>
           </li>
