@@ -12,7 +12,7 @@ export async function Intro() {
   const format = createFormatter(await getLocale());
 
   return (
-    <section aria-labelledby="intro-title" className="container-page section-y">
+    <section aria-labelledby="intro-title" className="container-page pt-[var(--section)] pb-[var(--section-tight)]">
       <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-10">
         <div className="reveal lg:col-span-7">
           <p className="label text-granite">{t("introLabel")}</p>

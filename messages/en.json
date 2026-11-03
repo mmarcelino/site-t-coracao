@@ -163,7 +163,7 @@
     "experiencesPerGroup": "private",
     "faqTitle": "Before you book.",
     "faqCta": "All questions",
-    "collectionsTitle": "Homes you could live in.",
+    "collectionsTitle": "A home for every kind of stay.",
     "collectionsTitleCta": "Find yours.",
     "collectionCount": "{count, plural, one {# home} other {# homes}}",
     "seeAll": "See all apartments",
@@ -199,7 +199,7 @@
     "experiencesNext": "More experiences",
     "introLabel": "Who we are",
     "introStatement": "We choose every home with one simple question: would we live here?",
-    "introBody": "The answer is a collection of historic buildings in Porto’s most storied neighbourhoods, restored with care and respect for the original architecture. Granite, tiles and high ceilings outside; inside, comfortable, design-led interiors made for living in, not just sleeping.",
+    "introBody": "The answer is a collection of historic buildings in Porto’s most storied neighbourhoods, restored with care and respect for the original architecture. Granite, tiles and high ceilings outside; inside, comfortable, design-led interiors where nothing is there just for show.",
     "introTeam": "Since {year}, our own team in Porto has looked after every home, welcoming more than {guests} guests a year."
   },
   "listing": {

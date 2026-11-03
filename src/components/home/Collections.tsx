@@ -24,8 +24,9 @@ export async function Collections({ listings }: { listings: Listing[] }) {
   });
 
   return (
-    <section aria-labelledby="collections-title" className="container-page section-y">
-      <h2 id="collections-title" className="text-h2 reveal">
+    // No top padding: the intro above ends with the gap, and the 2px ink rule opens the chapter.
+    <section aria-labelledby="collections-title" className="container-page pb-[var(--section)]">
+      <h2 id="collections-title" className="text-h2 reveal border-t-2 border-ink pt-6">
         <span className="block">{t("home.collectionsTitle")}</span> <span className="block">{t("home.collectionsTitleCta")}</span>
       </h2>
       <ul className="mt-[clamp(2rem,4vw,3.5rem)] grid gap-x-6 gap-y-14 md:grid-cols-2">
