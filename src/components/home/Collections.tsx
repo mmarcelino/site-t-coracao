@@ -27,16 +27,16 @@ export async function Collections({ listings }: { listings: Listing[] }) {
 
   return (
     <section aria-labelledby="collections-title" className="container-page section-y">
-      {/* No ink rule: the hero's bottom edge closes the section above. The heading takes the width
-          its two lines need (one line each, never wrapping) and who we are fills the rest beside it;
-          stacked below xl. */}
-      <div className="grid gap-8 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-16">
+      {/* No ink rule: the hero's bottom edge closes the section above. The heading keeps its two
+          lines (from lg, one line each) and who we are sits beside it when there's room for a
+          26rem column; otherwise it drops below, on the right. */}
+      <div className="flex flex-wrap items-start gap-x-16 gap-y-8">
         <h2 id="collections-title" className="text-h2 reveal">
-          <span className="block xl:whitespace-nowrap">{t("home.collectionsTitle")}</span>{" "}
+          <span className="block lg:whitespace-nowrap">{t("home.collectionsTitle")}</span>{" "}
           <span className="block">{t("home.collectionsTitleCta")}</span>
         </h2>
-        <div className="reveal max-w-xl space-y-5 xl:max-w-none xl:pt-2">
-          <p className="text-lead">{t("home.introLead", { name: site.name, count: format.number(site.apartmentsMin) })}</p>
+        <div className="reveal max-w-xl flex-[1_1_26rem] space-y-5 lg:ml-auto lg:max-w-[40rem] lg:pt-2">
+          <p className="text-lead">{t("home.introLead", { name: site.name })}</p>
           <p>{t("home.introBody", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}</p>
         </div>
       </div>

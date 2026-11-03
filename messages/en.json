@@ -163,7 +163,7 @@
     "experiencesPerGroup": "private",
     "faqTitle": "Before you book.",
     "faqCta": "All questions",
-    "collectionsTitle": "A home for every stay.",
+    "collectionsTitle": "A home for every kind of stay.",
     "collectionsTitleCta": "Find yours.",
     "collectionCount": "{count, plural, one {# home} other {# homes}}",
     "seeAll": "See all apartments",
@@ -197,8 +197,8 @@
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm.",
     "experiencesPrev": "Previous experiences",
     "experiencesNext": "More experiences",
-    "introBody": "We only choose buildings restored without erasing their past. The original character stays, with its stone, tiles and generous proportions; everything you touch is new, comfortable and designed down to the detail. And since {year}, our own team in Porto has looked after every apartment, welcoming more than {guests} guests a year.",
-    "introLead": "{name} offers more than {count} holiday apartments in restored historic buildings across Porto, from the city centre to the sea at Foz. We choose each one with a simple question: would we live here?"
+    "introBody": "We only choose buildings restored without erasing their past. The original character stays, with its stone, tiles and high ceilings, and everything you sleep on, sit on and cook with is new, comfortable and designed down to the detail. And since {year}, our own team in Porto has looked after every apartment, welcoming more than {guests} guests a year.",
+    "introLead": "{name} offers holiday apartments in restored historic buildings across Porto, from the city centre to the sea at Foz. We choose each one with a simple question: would we live here?"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",

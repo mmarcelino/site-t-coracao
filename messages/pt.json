@@ -163,7 +163,7 @@
     "experiencesPerGroup": "privado",
     "faqTitle": "Antes de reservar.",
     "faqCta": "Todas as perguntas",
-    "collectionsTitle": "Uma casa para cada estadia.",
+    "collectionsTitle": "Uma casa para cada tipo de estadia.",
     "collectionsTitleCta": "Escolha a sua.",
     "collectionCount": "{count, plural, one {# casa} other {# casas}}",
     "seeAll": "Ver todos os apartamentos",
@@ -197,8 +197,8 @@
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h.",
     "experiencesPrev": "Experiências anteriores",
     "experiencesNext": "Mais experiências",
-    "introBody": "Só escolhemos edifícios reabilitados sem apagar o passado. A traça original fica, com a pedra, o azulejo e as proporções de sempre; tudo aquilo em que toca é novo, confortável e pensado ao pormenor. E desde {year} é a nossa própria equipa no Porto que cuida de cada apartamento e recebe mais de {guests} hóspedes por ano.",
-    "introLead": "A {name} oferece mais de {count} apartamentos de férias em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
+    "introBody": "Só escolhemos edifícios reabilitados sem apagar o passado. A traça original fica, com a pedra, o azulejo e os tetos altos, e tudo aquilo em que dorme, se senta e cozinha é novo, confortável e pensado ao pormenor. E desde {year} é a nossa própria equipa no Porto que cuida de cada apartamento e recebe mais de {guests} hóspedes por ano.",
+    "introLead": "A {name} oferece apartamentos de férias em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
