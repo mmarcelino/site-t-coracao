@@ -307,18 +307,15 @@ async function ApartmentContent({ params }: { params: Params }) {
                   <p className="label mt-2 text-granite">{neighbourhood.name}</p>
                 </div>
                 <div>
-                  <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <span className="flex items-start gap-2 font-semibold">
-                      <Icon name="pin" size={18} className="mt-[0.2em] shrink-0" />
-                      <span>
-                        {listing.address.street},{" "}
-                        <span className="whitespace-nowrap">
-                          {listing.address.zipcode} {listing.address.city}
-                        </span>
+                  {/* The address is the map link (opens Google Maps in a new tab). */}
+                  <p className="flex items-start gap-2 text-small">
+                    <Icon name="pin" size={18} className="mt-[0.1em] shrink-0" />
+                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet">
+                      {listing.address.street},{" "}
+                      <span className="whitespace-nowrap">
+                        {listing.address.zipcode} {listing.address.city}
                       </span>
-                    </span>
-                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet text-small">
-                      {t("listing.openMap")}
+                      <span className="sr-only"> ({t("listing.openMap")})</span>
                     </a>
                   </p>
                   <p className="mt-5">{neighbourhood.intro}</p>
