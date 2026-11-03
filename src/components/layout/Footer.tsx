@@ -9,20 +9,19 @@ import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * An ink panel inside the page margins; each column sits under a hairline, echoing the book-direct
- * perks. AL licence numbers live on each apartment page.
+ * An ink panel inside the page margins; text links only (social included), the one icon being
+ * WhatsApp's, in an outline circle. AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
-  const column = "border-t border-paper/25 pt-5";
   const heading = "label mb-5 text-paper/60";
 
   return (
     <footer className="container-page pb-[var(--gutter)]">
-      <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(3rem,5vw,4.5rem)] pb-8 text-paper">
+      <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className={column}>
+          <div>
             <h2 className={heading}>{t("footer.contact")}</h2>
             <address className="text-small space-y-3 not-italic">
               <p>
@@ -47,14 +46,14 @@ export async function Footer() {
               icon={false}
               className="group text-small mt-5 inline-flex items-center gap-2.5 font-semibold transition-colors hover:text-pop"
             >
-              <span className="grid size-8 place-items-center rounded-full bg-pop text-ink">
+              <span className="grid size-8 place-items-center rounded-full border border-paper/40 transition-colors group-hover:border-pop">
                 <Icon name="whatsapp" size={16} strokeWidth={1.5} />
               </span>
               {t("whatsapp.short")}
             </WhatsAppLink>
           </div>
 
-          <nav aria-label={t("footer.explore")} className={column}>
+          <nav aria-label={t("footer.explore")}>
             <h2 className={heading}>{t("footer.explore")}</h2>
             <ul className="text-small space-y-3">
               {footerNav.map((item) => (
@@ -67,7 +66,7 @@ export async function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label={t("footer.legal")} className={column}>
+          <nav aria-label={t("footer.legal")}>
             <h2 className={heading}>{t("footer.legal")}</h2>
             <ul className="text-small space-y-3">
               <li>
@@ -101,27 +100,17 @@ export async function Footer() {
             </ul>
           </nav>
 
-          <div className={column}>
+          <div>
             <h2 className={heading}>{t("footer.social")}</h2>
-            <ul className="flex gap-3">
+            <ul className="text-small space-y-3">
               <li>
-                <a
-                  href={site.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
-                >
-                  <Icon name="instagram" size={20} title="Instagram" />
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-pop">
+                  Instagram
                 </a>
               </li>
               <li>
-                <a
-                  href={site.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
-                >
-                  <Icon name="facebook" size={20} title="Facebook" />
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-pop">
+                  Facebook
                 </a>
               </li>
             </ul>
