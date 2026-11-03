@@ -60,7 +60,7 @@ export async function ListingCard({
               {listing.title}
             </Link>
           </h3>
-          <p className="mt-2 text-small text-granite">
+          <p className="mt-2 text-small">
             {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })} ·{" "}
             {t("common.area", { count: listing.areaSqm })}
           </p>
@@ -70,7 +70,7 @@ export async function ListingCard({
           </p>
         </div>
         <div className="flex flex-col items-end justify-between gap-4 text-right">
-          <p className="text-small">
+          <p className="text-small text-granite">
             <span className="block">{t("common.from")}</span>
             <span className="block">
               {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
