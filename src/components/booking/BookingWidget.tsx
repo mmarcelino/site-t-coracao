@@ -160,7 +160,6 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   const body = (idPrefix: string, calendarOpen: boolean, setCalendarOpen: (fn: (v: boolean) => boolean) => void) => (
     <div className="space-y-6">
       <div>
-        <p className="label mb-3 text-granite">{t("booking.dates")}</p>
         <button
           type="button"
           aria-expanded={calendarOpen}
@@ -176,13 +175,13 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
             <span className="block text-[0.75rem] leading-tight font-medium text-ink">
               {t("booking.checkIn")}
             </span>
-            <span className="mt-1 block text-granite">{checkIn ? shortDate(checkIn) : t("booking.addDate")}</span>
+            <span className={clsx("mt-1 block", !checkIn && "text-granite")}>{checkIn ? shortDate(checkIn) : t("booking.addDate")}</span>
           </span>
           <span className="px-4 py-3">
             <span className="block text-[0.75rem] leading-tight font-medium text-ink">
               {t("booking.checkOut")}
             </span>
-            <span className="mt-1 block text-granite">{checkOut ? shortDate(checkOut) : t("booking.addDate")}</span>
+            <span className={clsx("mt-1 block", !checkOut && "text-granite")}>{checkOut ? shortDate(checkOut) : t("booking.addDate")}</span>
           </span>
         </button>
         {calendarOpen ? (
@@ -221,7 +220,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
       <div className="min-h-[1.5rem]">
         {quote.status === "idle" ? (
           <p className="text-small text-granite">
-            {t("booking.selectDates")} {t("booking.minNightsHint", { count: listing.minNights })}
+            {t("booking.minNightsHint", { count: listing.minNights })}
           </p>
         ) : quote.status === "loading" ? (
           <p className="text-small text-granite" aria-live="polite">

@@ -101,6 +101,7 @@ const paths = {
       <circle cx="8" cy="8" r="1.5" />
     </>
   ),
+  share: <path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M8 11.5H5.5v9h13v-9H16" />,
   refresh: <path d="M19.5 8A8 8 0 0 0 5 7.5M4.5 4v3.5H8M4.5 16a8 8 0 0 0 14.5.5M19.5 20v-3.5H16" />,
   grid: (
     <>

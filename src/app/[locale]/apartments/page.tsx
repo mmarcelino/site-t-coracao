@@ -112,11 +112,21 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
     groups.map(({ b, homes }) => [
       b.id,
       <div key={b.id}>
-        <p className="flex items-center gap-2 font-semibold">
-          <Icon name="pin" size={16} strokeWidth={1.75} />
-          {area(b.neighbourhoodSlug)}
-          <span className="font-normal text-granite">· {b.street.replace(/\s\d+$/, "")}</span>
-        </p>
+        {/* Choosing a pin scrolls down to here, away from the list/map switch: a way back. */}
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <p className="flex items-center gap-2 font-semibold">
+            <Icon name="pin" size={16} strokeWidth={1.75} />
+            {area(b.neighbourhoodSlug)}
+            <span className="font-normal text-granite">· {b.street.replace(/\s\d+$/, "")}</span>
+          </p>
+          <Link
+            href={{ pathname: "/apartments", query: toQuery(search, { view: undefined }) }}
+            className="inline-flex items-center gap-2 text-small font-semibold"
+          >
+            <Icon name="grid" size={16} strokeWidth={1.75} />
+            <span className="link-quiet">{t("apartments.backToList")}</span>
+          </Link>
+        </div>
         <div className="mt-6 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {homes.map((listing) => (
             <ListingCard key={listing.id} listing={listing} location={area(listing.neighbourhoodSlug)} query={cardQuery} />

@@ -14,9 +14,10 @@ import {
   getListingSlugs,
   getListings,
   getNeighbourhood,
-  getReviews,
+  getReviewPage,
   type Listing,
 } from "@/lib/data";
+import { createFormatter } from "@/lib/format";
 import { absoluteUrl, alternates, ogLocale } from "@/lib/seo";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 import { FaqList } from "@/components/FaqList";
@@ -24,7 +25,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { Gallery } from "@/components/listing/Gallery";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { TrackListingView } from "@/components/listing/TrackListingView";
-import { ReviewsBlock } from "@/components/ReviewsBlock";
+import { ShareButton } from "@/components/listing/ShareButton";
+import { ReviewList } from "@/components/ReviewList";
 import { Icon } from "@/components/ui/Icon";
 
 export async function generateStaticParams() {
@@ -142,8 +144,9 @@ async function ApartmentContent({ params }: { params: Params }) {
   const [neighbourhood, siblings, reviews] = await Promise.all([
     getNeighbourhood(locale, listing.neighbourhoodSlug),
     getListings(locale, { buildingId: listing.buildingId }),
-    getReviews(locale, { listingId: listing.id, limit: 3 }),
+    getReviewPage(locale, { listingId: listing.id, limit: 3 }),
   ]);
+  const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
 
   const facts: Array<{ label: string; value: string; note?: string }> = [
@@ -162,25 +165,28 @@ async function ApartmentContent({ params }: { params: Params }) {
     <>
       <TrackListingView listingId={listing.id} buildingId={listing.buildingId} />
 
-      <nav aria-label={t("listing.breadcrumbLabel")} className="container-page pt-6 pb-5">
-        <ol className="text-small flex flex-wrap items-center gap-2 text-granite">
-          <li>
-            <Link href="/apartments" className="link-quiet">
-              {t("listing.breadcrumbApartments")}
-            </Link>
-          </li>
-          <li aria-hidden>/</li>
-          <li>
-            <Link href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }} className="link-quiet">
-              {building.name}
-            </Link>
-          </li>
-          <li aria-hidden>/</li>
-          <li aria-current="page" className="text-ink">
-            {listing.title}
-          </li>
-        </ol>
-      </nav>
+      <div className="container-page flex items-center justify-between gap-6 pt-6 pb-5">
+        <nav aria-label={t("listing.breadcrumbLabel")}>
+          <ol className="text-small flex flex-wrap items-center gap-2 text-granite">
+            <li>
+              <Link href="/apartments" className="link-quiet">
+                {t("listing.breadcrumbApartments")}
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li>
+              <Link href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }} className="link-quiet">
+                {building.name}
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li aria-current="page" className="text-ink">
+              {listing.title}
+            </li>
+          </ol>
+        </nav>
+        <ShareButton title={`${listing.title}, ${building.name}`} />
+      </div>
 
       <Gallery pictures={listing.pictures} title={`${listing.title}, ${building.name}`} />
 
@@ -229,13 +235,21 @@ async function ApartmentContent({ params }: { params: Params }) {
                   {building.historyLine}
                 </h2>
                 <p className="mt-4">{building.story}</p>
-                <Link
-                  href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }}
-                  className="mt-6 inline-flex items-center gap-2 link-quiet"
-                >
-                  {t("listing.aboutBuilding", { building: building.name })}
-                  <Icon name="arrowRight" size={18} />
-                </Link>
+                <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                  <Link
+                    href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }}
+                    className="inline-flex items-center gap-2 link-quiet"
+                  >
+                    {t("listing.aboutBuilding", { building: building.name })}
+                    <Icon name="arrowRight" size={18} />
+                  </Link>
+                  {others.length ? (
+                    <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
+                      {t("listing.moreHomesLink", { count: others.length })}
+                      <Icon name="chevronDown" size={18} />
+                    </a>
+                  ) : null}
+                </p>
               </div>
             </section>
 
@@ -249,7 +263,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                 <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
                   {primaryAmenities.map((a) => (
                     <li key={a} className="flex items-center gap-3">
-                      <Icon name="check" size={16} className="text-granite" />
+                      <Icon name="check" size={16} />
                       {t(`amenities.${a}`)}
                     </li>
                   ))}
@@ -263,7 +277,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                     <ul className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                       {restAmenities.map((a) => (
                         <li key={a} className="flex items-center gap-3">
-                          <Icon name="check" size={16} className="text-granite" />
+                          <Icon name="check" size={16} />
                           {t(`amenities.${a}`)}
                         </li>
                       ))}
@@ -272,6 +286,28 @@ async function ApartmentContent({ params }: { params: Params }) {
                 ) : null}
               </div>
             </section>
+
+            {/* Reviews in the same rhythm as the details: the score where the heading sits, then the
+                quotes one under another, as on the home page; "Show more" pages through the rest. */}
+            {listing.reviews && reviews.total ? (
+              <section aria-labelledby="reviews-title" className={detail}>
+                <div>
+                  <h2 id="reviews-title" className="card-title">
+                    {t("reviews.listingTitle")}
+                  </h2>
+                  <p className="label mt-5 text-granite">{t(`reviews.source.${listing.reviews.source}`)}</p>
+                  <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
+                    {format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+                  </p>
+                  <p className="mt-1.5 text-small text-granite">
+                    {t("reviews.basedOn", { count: format.number(listing.reviews.count) })}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} columns={1} />
+                </div>
+              </section>
+            ) : null}
 
             {neighbourhood ? (
               <section aria-labelledby="location-title" className={detail}>
@@ -282,7 +318,21 @@ async function ApartmentContent({ params }: { params: Params }) {
                   <p className="label mt-2 text-granite">{neighbourhood.name}</p>
                 </div>
                 <div>
-                  <p>{neighbourhood.intro}</p>
+                  <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span className="flex items-start gap-2 font-semibold">
+                      <Icon name="pin" size={18} className="mt-[0.2em] shrink-0" />
+                      <span>
+                        {listing.address.street},{" "}
+                        <span className="whitespace-nowrap">
+                          {listing.address.zipcode} {listing.address.city}
+                        </span>
+                      </span>
+                    </span>
+                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet text-small">
+                      {t("listing.openMap")}
+                    </a>
+                  </p>
+                  <p className="mt-5">{neighbourhood.intro}</p>
                   <p className="label mt-6 text-granite">{t("listing.nearby")}</p>
                   {/* Compact: two columns, no lines; the walk in grey after each place. */}
                   <ul className="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
@@ -296,15 +346,6 @@ async function ApartmentContent({ params }: { params: Params }) {
                       );
                     })}
                   </ul>
-                  <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <span className="flex items-center gap-2">
-                      <Icon name="pin" size={18} className="shrink-0 text-granite" />
-                      {listing.address.street}, {listing.address.zipcode} {listing.address.city}
-                    </span>
-                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet text-small">
-                      {t("listing.openMap")}
-                    </a>
-                  </p>
                 </div>
               </section>
             ) : null}
@@ -329,7 +370,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                 <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
                   {[t("listing.noSmoking"), t("listing.noPets"), t("listing.noParties")].map((rule) => (
                     <li key={rule} className="flex items-center gap-2">
-                      <Icon name="close" size={14} className="text-granite" />
+                      <Icon name="close" size={14} />
                       {rule}
                     </li>
                   ))}
@@ -368,25 +409,18 @@ async function ApartmentContent({ params }: { params: Params }) {
         </div>
       </div>
 
-      {listing.reviews ? (
-        <section aria-labelledby="listing-reviews-title" className="container-page section-y">
-          <ReviewsBlock
-            overall={listing.reviews}
-            reviews={reviews}
-            heading={t("reviews.listingTitle")}
-            headingId="listing-reviews-title"
-          />
-        </section>
-      ) : null}
-
-
+      {/* The other homes in this building: a band of its own straight after the details, so it
+          reads as the next step rather than an afterthought. */}
       {others.length ? (
-        <section aria-labelledby="more-title">
+        <section id="more-homes" aria-labelledby="more-title" className="mt-[var(--section-tight)] scroll-mt-24 bg-sand">
           <div className="container-page section-y-tight">
-            <h2 id="more-title" className="text-h2">
-              {t("listing.moreInBuilding", { building: building.name })}
-            </h2>
-            <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="border-t-2 border-ink pt-6">
+              <h2 id="more-title" className="text-h2">
+                {t("listing.moreInBuilding", { building: building.name })}
+              </h2>
+              <p className="mt-4 max-w-2xl">{t("listing.moreInBuildingIntro")}</p>
+            </div>
+            <div className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {others.map((l) => (
                 <ListingCard key={l.id} listing={l} location={neighbourhood?.name ?? ""} />
               ))}

@@ -1,15 +1,13 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { Icon } from "@/components/ui/Icon";
 import { ReviewList } from "@/components/ReviewList";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Rating block + excerpts (CLAUDE.md §5 trust signals). Shows source, score, count. Placeholders
+ * Home rating block: per-platform scores + excerpts (CLAUDE.md §5 trust signals). Placeholders
  * stay flagged `mock: true` in the data (no visible note, at the client's request).
  */
 export async function ReviewsBlock({
-  overall,
   bySource,
   reviews,
   heading,
@@ -17,8 +15,7 @@ export async function ReviewsBlock({
   headingId,
   total,
 }: {
-  overall: ReviewAggregate;
-  bySource?: Record<ReviewSource, ReviewAggregate>;
+  bySource: Record<ReviewSource, ReviewAggregate>;
   reviews: Review[];
   heading: string;
   eyebrow?: string;
@@ -38,36 +35,17 @@ export async function ReviewsBlock({
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
-        {/* One big score when there's a single source (apartment pages); per-platform scores otherwise. */}
-        {bySource ? null : (
-          <>
-            <div className="mt-10 flex items-end gap-4">
-              <p className="flex items-start gap-2 text-[4rem] leading-none font-semibold tracking-[-0.03em] tabular-nums">
-                {score(overall.score)}
-                <Icon name="star" size={22} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-1.5 text-pop" />
+        <ul className="mt-8 grid grid-cols-3 gap-4">
+          {(Object.keys(bySource) as ReviewSource[]).map((source) => (
+            <li key={source}>
+              <p className="label text-granite">{t(`source.${source}`)}</p>
+              <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
+                {score(bySource[source].score)}
               </p>
-              <p className="pb-2 text-small text-granite">
-                {t("outOf", { max: overall.outOf })}
-                <br />
-                {t("basedOn", { count: format.number(overall.count) })}
-              </p>
-            </div>
-            <p className="label mt-3">{t(`source.${overall.source}`)}</p>
-          </>
-        )}
-        {bySource ? (
-          <ul className="mt-8 grid grid-cols-3 gap-4">
-            {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-              <li key={source}>
-                <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
-                  {score(bySource[source].score)}
-                </p>
-                <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+              <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}

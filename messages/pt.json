@@ -89,13 +89,11 @@
   },
   "booking": {
     "title": "Reserve diretamente",
-    "dates": "Datas",
     "checkIn": "Chegada",
     "checkOut": "Partida",
     "addDate": "Adicionar",
     "guests": "Hóspedes",
     "maxGuests": "Máximo {count} hóspedes",
-    "selectDates": "Escolha as datas para ver o preço total.",
     "minNightsHint": "Estadia mínima de {count} noites.",
     "minNightsTooltip": "Mínimo de {count} noites",
     "loading": "A calcular o preço…",
@@ -122,7 +120,7 @@
   },
   "reassurance": {
     "secure": "Pagamento seguro e encriptado",
-    "since": "A receber hóspedes desde 2015",
+    "since": "A receber mais de 6000 hóspedes por ano desde 2015",
     "cancellation": "Cancelamento gratuito até 14 dias antes"
   },
   "reviews": {
@@ -241,7 +239,12 @@
     "stairsNote": "O {building} é um edifício histórico sem elevador; o apartamento fica no {floor}.",
     "moreInBuilding": "Mais casas no {building}",
     "faqTitle": "Antes de reservar.",
-    "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador."
+    "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador.",
+    "share": "Partilhar",
+    "shareCopied": "Link copiado",
+    "shareText": "Veja esta casa no Porto: {title}",
+    "moreHomesLink": "{count, plural, one {Mais # casa neste edifício} other {Mais # casas neste edifício}}",
+    "moreInBuildingIntro": "O mesmo edifício, a mesma equipa. Para outro tamanho ou outras datas."
   },
   "amenities": {
     "wifi": "Wi-Fi",
@@ -288,7 +291,8 @@
     "mapLabel": "Mapa das nossas casas no Porto",
     "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas.",
     "buildingLabel": "Edifício",
-    "allBuildings": "Todos os edifícios"
+    "allBuildings": "Todos os edifícios",
+    "backToList": "Ver todas em lista"
   },
   "notFound": {
     "title": "Esta página ainda não existe.",

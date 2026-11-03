@@ -89,13 +89,11 @@
   },
   "booking": {
     "title": "Book direct",
-    "dates": "Dates",
     "checkIn": "Check-in",
     "checkOut": "Check-out",
     "addDate": "Add",
     "guests": "Guests",
     "maxGuests": "Up to {count} guests",
-    "selectDates": "Choose your dates to see the total price.",
     "minNightsHint": "Minimum stay {count} nights.",
     "minNightsTooltip": "Minimum {count} nights",
     "loading": "Calculating your price…",
@@ -122,7 +120,7 @@
   },
   "reassurance": {
     "secure": "Secure, encrypted payment",
-    "since": "Welcoming guests since 2015",
+    "since": "Welcoming 6000+ guests every year since 2015",
     "cancellation": "Free cancellation up to 14 days before"
   },
   "reviews": {
@@ -241,7 +239,12 @@
     "stairsNote": "{building} is a historic building without a lift; this apartment is on the {floor}.",
     "moreInBuilding": "More homes at {building}",
     "faqTitle": "Before you book.",
-    "stairsNoteHouse": "{building} is a house on three floors, with no lift."
+    "stairsNoteHouse": "{building} is a house on three floors, with no lift.",
+    "share": "Share",
+    "shareCopied": "Link copied",
+    "shareText": "Have a look at this home in Porto: {title}",
+    "moreHomesLink": "{count, plural, one {# more home in this building} other {# more homes in this building}}",
+    "moreInBuildingIntro": "Same building, same team. For another size or other dates."
   },
   "amenities": {
     "wifi": "Wi-Fi",
@@ -288,7 +291,8 @@
     "mapLabel": "Map of our homes in Porto",
     "mapHint": "Each pin is a building. Choose one to see its homes.",
     "buildingLabel": "Building",
-    "allBuildings": "All buildings"
+    "allBuildings": "All buildings",
+    "backToList": "See all as a list"
   },
   "notFound": {
     "title": "This page doesn't exist yet.",
