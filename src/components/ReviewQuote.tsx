@@ -13,7 +13,6 @@ export function ReviewQuote({
   moreLabel,
   lessLabel,
   size = "lg",
-  marks = true,
 }: {
   text: string;
   lang: string;
@@ -21,8 +20,6 @@ export function ReviewQuote({
   lessLabel: string;
   /** lg: the home page's big quotes; md: body size (apartment pages). */
   size?: "lg" | "md";
-  /** Inline “ ” around the text; off when the layout sets its own big opening mark. */
-  marks?: boolean;
 }) {
   const ref = useRef<HTMLQuoteElement>(null);
   const [open, setOpen] = useState(false);
@@ -45,7 +42,7 @@ export function ReviewQuote({
         lang={lang}
         className={clsx(size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body", !open && "line-clamp-5")}
       >
-        {marks ? `“${text}”` : text}
+        “{text}”
       </blockquote>
       {clamped || open ? (
         <button

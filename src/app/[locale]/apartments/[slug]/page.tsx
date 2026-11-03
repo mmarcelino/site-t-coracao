@@ -419,10 +419,9 @@ async function ApartmentContent({ params }: { params: Params }) {
             <ul aria-label={t("reviews.listingTitle")} className="flex items-stretch gap-8">
               {reviews.reviews.map((review) => (
                 <li key={review.id} className="w-[min(82vw,24rem)] shrink-0 snap-start">
-                  {/* No rules or boxes: a large opening mark anchors each quote. */}
+                  {/* No rules or boxes; quotation marks as on the home page. */}
                   <div className="flex h-full flex-col">
-                    <Icon name="quote" size={28} fill="currentColor" strokeWidth={0} className="mb-4" />
-                    <ReviewCard review={review} size="md" marks={false} />
+                    <ReviewCard review={review} size="md" />
                   </div>
                 </li>
               ))}
