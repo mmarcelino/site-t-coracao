@@ -240,21 +240,14 @@ async function ApartmentContent({ params }: { params: Params }) {
               <div>
                 <p className="font-semibold">{building.historyLine}</p>
                 <p className="mt-3">{building.story}</p>
-                <p className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
-                  <Link
-                    href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }}
-                    className="inline-flex items-center gap-2 link-quiet"
-                  >
-                    {t("listing.aboutBuilding", { building: building.name })}
-                    <Icon name="arrowRight" size={18} />
-                  </Link>
-                  {others.length ? (
+                {others.length ? (
+                  <p className="mt-5">
                     <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
                       {t("listing.moreHomesLink", { count: others.length })}
                       <Icon name="chevronDown" size={18} />
                     </a>
-                  ) : null}
-                </p>
+                  </p>
+                ) : null}
               </div>
             </section>
 

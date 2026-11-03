@@ -209,7 +209,6 @@
     "noLift": "Sem elevador",
     "lift": "Com elevador",
     "theBuilding": "O edifício",
-    "aboutBuilding": "Sobre o {building}",
     "amenities": "Comodidades",
     "showAllAmenities": "Ver todas as comodidades ({count})",
     "location": "Localização",
