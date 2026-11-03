@@ -1,46 +1,25 @@
-import type { ListingTag, Localized } from "@/lib/data/types";
+import type { Localized } from "@/lib/data/types";
 
 /**
- * Hero slideshow: one slide per collection. The photo must show the collection's word at a
- * glance. The page checks the home really carries the tag.
- * cordoaria-river-balcony-03 is only 1024px wide (soft full-bleed): replace when hi-res arrive.
+ * Hero slideshow: interiors chosen for looks alone (magazine-worthy, calm in the lower left where
+ * the copy sits). Not linked to listings or collections. Full-bleed, so 2400px sources only.
+ * The mouzinho-1e home isn't in the mock set yet (it arrives with Guesty).
  */
-export const heroSlides: Array<{ tag: ListingTag; slug: string; image: string; alt: Localized}> = [
+export const heroSlides: Array<{ key: string; image: string; alt: Localized }> = [
   {
-    // First slide: architecture before interiors (azulejo façade + tram says "Porto" at a glance).
-    tag: "sea",
-    slug: "casa-do-farol",
-    image: "/images/placeholder/casa-do-farol-09.jpg",
-    alt: { pt: "Fachadas de azulejo verde e varandas de ferro junto à linha do elétrico, na Foz", en: "Green-tiled façades and iron balconies along the tram line, in Foz" },
+    key: "casa-do-farol",
+    image: "/images/placeholder/casa-do-farol-05.jpg",
+    alt: { pt: "Suite no sótão com vigas brancas e três portas abertas para o mar, na Casa do Farol", en: "Attic suite with white beams and three French windows onto the sea, at Casa do Farol" },
   },
   {
-    tag: "families",
-    slug: "breiner-skylight-apartment",
-    image: "/images/placeholder/breiner-skylight-02.jpg",
-    alt: { pt: "Sofá fundo com almofadas verdes, tapete verde e luz quente no Breiner 210", en: "Deep sofa with green cushions, a green rug and warm light at Breiner 210" },
+    key: "mouzinho-32",
+    // Mirrored so the fireplace sits on the right, clear of the copy (flip the final original too).
+    image: "/images/placeholder/mouzinho-1e-02-flipped.jpg",
+    alt: { pt: "Sala com lareira de ferro fundido, sofá de veludo verde-oliva e duas janelas altas sobre a rua, no Mouzinho 32", en: "Living room with a cast-iron fireplace, an olive velvet sofa and two tall windows onto the street, at Mouzinho 32" },
   },
   {
-    tag: "couples",
-    slug: "sao-bento-station-view-studio",
-    image: "/images/placeholder/sao-bento-ii-01.jpg",
-    alt: { pt: "Cama de casal virada para três janelas de sacada, em São Bento", en: "Double bed facing three French windows, at São Bento" },
-  },
-  {
-    tag: "outdoor",
-    slug: "cordoaria-river-view-studio",
-    image: "/images/placeholder/cordoaria-river-balcony-03.jpg",
-    alt: { pt: "Varanda com espreguiçadeira e vista para o rio, na Cordoaria", en: "Balcony with a deckchair and a river view, at Cordoaria" },
-  },
-  {
-    tag: "views",
-    slug: "cordoaria-garden-view-studio",
-    image: "/images/placeholder/cordoaria-garden-06.jpg",
-    alt: { pt: "Janelas abertas sobre as árvores do Jardim da Cordoaria", en: "Windows open onto the trees of the Cordoaria gardens" },
-  },
-  {
-    tag: "remote-work",
-    slug: "casa-do-farol",
-    image: "/images/placeholder/casa-do-farol-11.jpg",
-    alt: { pt: "Escritório com secretária, candeeiro e janela, na Casa do Farol", en: "Study with a desk, lamp and window, at Casa do Farol" },
+    key: "casa-do-farol-living",
+    image: "/images/placeholder/casa-do-farol-03.jpg",
+    alt: { pt: "Sala com sofá cinzento e três janelas altas abertas para o mar, na Casa do Farol", en: "Living room with a grey sofa and three tall windows onto the sea, at Casa do Farol" },
   },
 ];

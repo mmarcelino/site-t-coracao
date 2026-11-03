@@ -14,7 +14,6 @@ import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { DateRangeCalendar } from "./DateRangeCalendar";
-import { GuestsStepper } from "./GuestsStepper";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { Reassurance } from "./Reassurance";
 
@@ -27,7 +26,8 @@ export interface BookingListing {
   currency: string;
   minNights: number;
   accommodates: number;
-  licence: string | null;
+  /** Formatted on the server ("9,7", "110"). */
+  rating?: { score: string; count: string };
 }
 
 type QuoteState = { status: "idle" } | { status: "loading" } | { status: "done"; result: QuoteResult };
@@ -158,34 +158,67 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
     }
   }
 
+  // One field group, one label style: dates on the first row, guests on the second, every value
+  // starting on the same left edge. Helper text and the total follow on that edge too.
+  const field = "block text-[0.75rem] leading-tight font-medium text-ink";
+  const stepButton =
+    "grid size-8 place-items-center rounded-full border border-ink/25 transition-colors hover:border-ink disabled:opacity-30 disabled:hover:border-ink/25";
+
   const body = (idPrefix: string, calendarOpen: boolean, setCalendarOpen: (fn: (v: boolean) => boolean) => void) => (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
-        <p className="label mb-3 text-granite">{t("booking.dates")}</p>
-        <button
-          type="button"
-          aria-expanded={calendarOpen}
-          aria-controls={`${idPrefix}-calendar`}
-          onClick={() => {
-            ensureOpened();
-            setCalendarOpen((v) => !v);
-          }}
-          className="grid w-full grid-cols-2 overflow-hidden rounded-[var(--radius-tile)] border border-ink/20 text-left transition-colors hover:border-ink/60"
-          data-testid="booking-dates"
-        >
-          <span className="border-r border-ink/20 px-4 py-3">
-            <span className="block text-[0.6875rem] font-medium tracking-[0.12em] text-granite uppercase">
-              {t("booking.checkIn")}
+        <div className="overflow-hidden rounded-[var(--radius-tile)] border border-ink/20">
+          <button
+            type="button"
+            aria-expanded={calendarOpen}
+            aria-controls={`${idPrefix}-calendar`}
+            onClick={() => {
+              ensureOpened();
+              setCalendarOpen((v) => !v);
+            }}
+            className="grid w-full grid-cols-2 text-left transition-colors hover:bg-sand"
+            data-testid="booking-dates"
+          >
+            <span className="border-r border-ink/20 px-4 py-3">
+              <span className={field}>{t("booking.checkIn")}</span>
+              <span className={clsx("mt-1 block", !checkIn && "text-granite")}>{checkIn ? shortDate(checkIn) : t("booking.addDate")}</span>
             </span>
-            <span className="mt-0.5 block">{checkIn ? shortDate(checkIn) : t("booking.addDate")}</span>
-          </span>
-          <span className="px-4 py-3">
-            <span className="block text-[0.6875rem] font-medium tracking-[0.12em] text-granite uppercase">
-              {t("booking.checkOut")}
+            <span className="px-4 py-3">
+              <span className={field}>{t("booking.checkOut")}</span>
+              <span className={clsx("mt-1 block", !checkOut && "text-granite")}>{checkOut ? shortDate(checkOut) : t("booking.addDate")}</span>
             </span>
-            <span className="mt-0.5 block">{checkOut ? shortDate(checkOut) : t("booking.addDate")}</span>
-          </span>
-        </button>
+          </button>
+          <div className="flex items-center justify-between gap-4 border-t border-ink/20 px-4 py-3">
+            <div>
+              <span id={`${idPrefix}-guests`} className={field}>
+                {t("booking.guests")}
+              </span>
+              <output aria-labelledby={`${idPrefix}-guests`} aria-live="polite" className="mt-1 block tabular-nums">
+                {t("common.guests", { count: guests })}
+              </output>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setGuests(Math.max(1, guests - 1))}
+                disabled={guests <= 1}
+                aria-label={t("search.fewerGuests")}
+                className={stepButton}
+              >
+                <Icon name="minus" size={14} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setGuests(Math.min(listing.accommodates, guests + 1))}
+                disabled={guests >= listing.accommodates}
+                aria-label={t("search.moreGuests")}
+                className={stepButton}
+              >
+                <Icon name="plus" size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
         {calendarOpen ? (
           <div id={`${idPrefix}-calendar`} className="animate-fade-in-fast mt-3 rounded-[var(--radius-tile)] border border-ink/10 bg-white p-3">
             <DateRangeCalendar
@@ -211,18 +244,10 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         ) : null}
       </div>
 
-      <div>
-        <p className="label mb-3 flex items-center justify-between text-granite">
-          <span>{t("booking.guests")}</span>
-          <span className="normal-case tracking-normal">{t("booking.maxGuests", { count: listing.accommodates })}</span>
-        </p>
-        <GuestsStepper value={guests} onChange={setGuests} max={listing.accommodates} />
-      </div>
-
       <div className="min-h-[1.5rem]">
         {quote.status === "idle" ? (
           <p className="text-small text-granite">
-            {t("booking.selectDates")} {t("booking.minNightsHint", { count: listing.minNights })}
+            {t("booking.minNightsHint", { count: listing.minNights })} {t("booking.maxGuests", { count: listing.accommodates })}.
           </p>
         ) : quote.status === "loading" ? (
           <p className="text-small text-granite" aria-live="polite">
@@ -261,40 +286,55 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
     </div>
   );
 
-  const priceFrom = (
+  // "from 300 € / night" on one baseline, the rating on the right edge (links to the reviews).
+  const price = (
     <p className="whitespace-nowrap">
       <span className="text-small text-granite">{t("common.from")} </span>
       <span className="text-h3 font-semibold">{money(listing.basePrice)}</span>
       <span className="text-small text-granite"> {t("common.perNight")}</span>
     </p>
   );
+  const priceFrom = (
+    <div className="flex items-baseline justify-between gap-4">
+      {price}
+      {listing.rating ? (
+        <a href="#reviews" className="inline-flex items-center gap-1.5 text-small whitespace-nowrap">
+          <Icon name="star" size={13} fill="currentColor" strokeWidth={0} />
+          <span className="font-semibold">{listing.rating.score}</span>
+          <span className="link-quiet text-granite">{t("reviews.basedOn", { count: listing.rating.count })}</span>
+        </a>
+      ) : null}
+    </div>
+  );
+
+  // Concierge + trust lines, inside the card under a hairline: one icon column, one text size.
+  const extras = (
+    <div className="space-y-2.5 border-t border-ink/10 pt-5 text-[0.8125rem]">
+      <WhatsAppLink message={whatsappMessage} page="listing" listingId={listing.id} icon={false} className="flex items-start gap-3 font-semibold">
+        <Icon name="whatsapp" size={16} className="mt-0.5 shrink-0" />
+        <span className="link-quiet">{t("whatsapp.cta")}</span>
+      </WhatsAppLink>
+      <Reassurance />
+    </div>
+  );
 
   return (
     <>
       {/* Desktop: sticky card */}
       <div className="sticky top-[calc(var(--header-h)+2rem)] hidden lg:block" data-testid="booking-widget">
-        <div className="rounded-[var(--radius-card)] border border-ink/10 bg-white p-7 shadow-[0_1px_0_rgba(27,26,24,0.04),0_24px_60px_-30px_rgba(27,26,24,0.25)]">
-          <div className="mb-6 border-b border-ink/10 pb-6">
+        <div className="space-y-6 rounded-[var(--radius-card)] border border-ink/10 bg-white p-6 shadow-[0_1px_0_rgba(27,26,24,0.04),0_24px_60px_-30px_rgba(27,26,24,0.25)]">
+          <div>
             <p className="label mb-2 text-granite">{t("booking.title")}</p>
             {priceFrom}
           </div>
           {body("desktop", cardCalendar, setCardCalendar)}
-        </div>
-        <div className="mt-6 space-y-6 px-1">
-          <WhatsAppLink
-            message={whatsappMessage}
-            page="listing"
-            listingId={listing.id}
-            className="inline-flex text-small border-b border-ink/30 pb-0.5 transition-colors hover:border-ink"
-          >
-            {t("whatsapp.cta")}
-          </WhatsAppLink>
-          <Reassurance licence={listing.licence} />
+          {extras}
         </div>
       </div>
 
       {/* Mobile: compact bar + sheet */}
       <div
+        data-bottom-bar
         className="fixed inset-x-0 bottom-0 z-30 border-t border-ink/10 bg-paper/95 backdrop-blur-md lg:hidden"
         data-testid="booking-bar"
       >
@@ -309,7 +349,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
                 </span>
               </p>
             ) : (
-              priceFrom
+              price
             )}
             <p className="text-[0.75rem] text-granite">{t("booking.bestRate")}</p>
           </div>
@@ -349,14 +389,9 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
             </button>
           </div>
           <div className="container-page max-w-lg py-8">
-            <div className="mb-6">{priceFrom}</div>
+            <div className="mb-6">{price}</div>
             {body("sheet", sheetCalendar, setSheetCalendar)}
-            <div className={clsx("mt-10 space-y-6 border-t border-ink/10 pt-8")}>
-              <WhatsAppLink message={whatsappMessage} page="listing" listingId={listing.id} className="inline-flex font-medium">
-                {t("whatsapp.cta")}
-              </WhatsAppLink>
-              <Reassurance licence={listing.licence} />
-            </div>
+            <div className="mt-8">{extras}</div>
           </div>
         </div>
       ) : null}

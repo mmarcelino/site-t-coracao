@@ -6,6 +6,9 @@ export const site = {
   name: "Tripas-Coração",
   legalName: "Tripas-Coração", // TO CONFIRM: registered company name for legal pages/JSON-LD
   foundedYear: 2015,
+  /** Shown as "more than 50" in copy (figure given 2026-11-03; the public Guesty site lists 42 listings). */
+  apartmentsMin: 50,
+  guestsPerYear: 6000, // confirmed by the client (2026-11-03); shown as "6 000+" / "mais de 6 000"
   phone: "+351 962 708 740",
   phoneHref: "tel:+351962708740",
   whatsappNumber: "351962708740",

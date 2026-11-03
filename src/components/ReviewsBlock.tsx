@@ -1,28 +1,29 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { Icon } from "@/components/ui/Icon";
-import { ReviewQuote } from "@/components/ReviewQuote";
-import { SourceIcon } from "@/components/SourceIcon";
+import { ReviewList } from "@/components/ReviewList";
+import { site } from "@/content/site";
 import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Rating block + excerpts (CLAUDE.md §5 trust signals). Shows source, score, count. Placeholders
+ * Home rating block: per-platform scores, then how many guests a year (volume backs the scores),
+ * + excerpts (CLAUDE.md §5 trust signals). Placeholders
  * stay flagged `mock: true` in the data (no visible note, at the client's request).
  */
 export async function ReviewsBlock({
-  overall,
   bySource,
   reviews,
   heading,
   eyebrow,
   headingId,
+  total,
 }: {
-  overall: ReviewAggregate;
-  bySource?: Record<ReviewSource, ReviewAggregate>;
+  bySource: Record<ReviewSource, ReviewAggregate>;
   reviews: Review[];
   heading: string;
   eyebrow?: string;
   headingId: string;
+  /** How many reviews there are in all; with it, "Show more reviews" loads the rest in place. */
+  total?: number;
 }) {
   const t = await getTranslations("reviews");
   const format = createFormatter(await getLocale());
@@ -36,56 +37,29 @@ export async function ReviewsBlock({
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
-        {/* One big score when there's a single source (apartment pages); per-platform scores otherwise. */}
-        {bySource ? null : (
-          <>
-            <div className="mt-10 flex items-end gap-4">
-              <p className="text-mega flex items-start gap-2 leading-none font-semibold tabular-nums">
-                {score(overall.score)}
-                <Icon name="star" size={32} fill="currentColor" stroke="var(--color-ink)" strokeWidth={1.25} className="mt-2 text-pop" />
+        <ul className="mt-8 grid grid-cols-3 gap-4">
+          {(Object.keys(bySource) as ReviewSource[]).map((source) => (
+            <li key={source}>
+              <p className="label text-granite">{t(`source.${source}`)}</p>
+              <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
+                {score(bySource[source].score)}
               </p>
-              <p className="pb-2 text-small text-granite">
-                {t("outOf", { max: overall.outOf })}
-                <br />
-                {t("basedOn", { count: format.number(overall.count) })}
-              </p>
-            </div>
-            <p className="label mt-3">{t(`source.${overall.source}`)}</p>
-          </>
-        )}
-        {bySource ? (
-          <ul className="mt-8 grid grid-cols-3 gap-4">
-            {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-              <li key={source}>
-                <p className="label text-granite">{t(`source.${source}`)}</p>
-                <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
-                  {score(bySource[source].score)}
-                </p>
-                <p className="mt-1.5 text-[0.8125rem] text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
-
-      {/* Four quotes, fixed (no carousel); long ones are cut at five lines with "Read more". */}
-      <div className="min-w-0 self-start lg:col-span-8">
-        <ul className="grid gap-x-8 gap-y-16 sm:grid-cols-2">
-          {reviews.slice(0, 4).map((review) => (
-            <li key={review.id} className="border-t-2 border-ink pt-6">
-              <figure>
-                <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
-                <figcaption className="label mt-6 text-ink">
-                  <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
-                  {review.author} ·{" "}
-                  {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
-                </figcaption>
-              </figure>
+              <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
             </li>
           ))}
         </ul>
+        {/* Same figure style as the scores; a hairline because it's volume, not a rating. */}
+        <div className="mt-8 border-t border-ink/15 pt-6">
+          <p className="label text-granite">{t("since", { year: String(site.foundedYear) })}</p>
+          <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{format.number(site.guestsPerYear)}+</p>
+          <p className="mt-1.5 text-small text-granite">{t("guestsPerYear")}</p>
+        </div>
       </div>
 
+      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
+      <div className="min-w-0 self-start lg:col-span-8">
+        <ReviewList initial={reviews.slice(0, 4)} total={total} />
+      </div>
     </div>
   );
 }

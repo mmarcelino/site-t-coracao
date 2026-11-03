@@ -2,63 +2,48 @@ import { getTranslations } from "next-intl/server";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import { CookiePreferencesButton } from "@/components/consent/ConsentBanner";
-import { Icon } from "@/components/ui/Icon";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { ContactDetails, SocialLinks } from "./ContactDetails";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Wordmark } from "./Wordmark";
 import { footerNav } from "./navItems";
 
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
- * Branch yellow-accent: an ink panel inside the page margins (same curve as the yellow
- * book-direct panel). AL licence numbers live on each apartment page.
+ * An ink panel inside the page margins: the wordmark, then three text columns whose rows share one
+ * line grid (fixed row height, no extra gaps), so lines align across columns. Social icons sit in
+ * the bottom row, in outline circles. AL licence numbers live on each apartment page.
+ * On phones, pages with a fixed bottom bar (home search, booking bar) mark it `data-bottom-bar`;
+ * the footer then leaves room so its last line isn't hidden.
  */
 export async function Footer() {
   const t = await getTranslations();
   const year = 2026; // Static on purpose: avoids a time dependency in the prerendered shell.
-  const heading = "label mb-5 text-paper/60";
+  const heading = "label mb-4 text-paper/60";
+  const list = "text-small leading-9"; // same line grid as ContactDetails
+  const link = "transition-colors hover:text-pop";
 
   return (
-    <footer className="container-page pb-[var(--gutter)]">
+    <footer className="container-page pb-[var(--gutter)] max-lg:[body:has([data-bottom-bar])_&]:pb-28">
       <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-4">
+          {/* Brand column: the wordmark alone; the space below is deliberate. */}
+          <div className="sm:col-span-3 lg:col-span-1">
+            <Link href="/" aria-label={t("nav.home")} className="inline-block">
+              <Wordmark />
+            </Link>
+          </div>
+
           <div>
             <h2 className={heading}>{t("footer.contact")}</h2>
-            <address className="text-small space-y-3 not-italic">
-              <p>
-                {site.address.street}
-                <br />
-                {site.address.postalCode} {site.address.city}, {site.address.country}
-              </p>
-              <p>
-                <a href={site.phoneHref} className="link-quiet">
-                  {site.phone}
-                </a>
-              </p>
-              <p>
-                <a href={`mailto:${site.email}`} className="link-quiet">
-                  {site.email}
-                </a>
-              </p>
-            </address>
-            <WhatsAppLink
-              message={t("whatsapp.messageGeneric")}
-              page="footer"
-              icon={false}
-              className="group text-small mt-5 inline-flex items-center gap-2.5 font-semibold transition-colors hover:text-pop"
-            >
-              <span className="grid size-8 place-items-center rounded-full bg-pop text-ink">
-                <Icon name="whatsapp" size={16} strokeWidth={1.5} />
-              </span>
-              {t("whatsapp.short")}
-            </WhatsAppLink>
+            <ContactDetails page="footer" />
           </div>
 
           <nav aria-label={t("footer.explore")}>
             <h2 className={heading}>{t("footer.explore")}</h2>
-            <ul className="text-small space-y-3">
+            <ul className={list}>
               {footerNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="transition-colors hover:text-pop">
+                  <Link href={item.href} className={link}>
                     {t(`nav.${item.key}`)}
                   </Link>
                 </li>
@@ -68,69 +53,40 @@ export async function Footer() {
 
           <nav aria-label={t("footer.legal")}>
             <h2 className={heading}>{t("footer.legal")}</h2>
-            <ul className="text-small space-y-3">
+            <ul className={list}>
               <li>
-                <Link href="/terms" className="transition-colors hover:text-pop">
+                <Link href="/terms" className={link}>
                   {t("footer.terms")}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="transition-colors hover:text-pop">
+                <Link href="/privacy" className={link}>
                   {t("footer.privacy")}
                 </Link>
               </li>
               <li>
                 {/* One cookie entry: reopens the consent choices, which link to the cookie policy. */}
-                <CookiePreferencesButton
-                  label={t("footer.cookies")}
-                  className="cursor-pointer text-left transition-colors hover:text-pop"
-                />
+                <CookiePreferencesButton label={t("footer.cookies")} className={`cursor-pointer text-left ${link}`} />
               </li>
               <li>
-                <a
-                  href={site.complaintsBookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-pop"
-                  lang="pt"
-                >
+                <a href={site.complaintsBookUrl} target="_blank" rel="noopener noreferrer" className={link} lang="pt">
                   {t("footer.complaintsBook")}
                 </a>
               </li>
             </ul>
           </nav>
-
-          <div>
-            <h2 className={heading}>{t("footer.social")}</h2>
-            <ul className="flex gap-3">
-              <li>
-                <a
-                  href={site.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
-                >
-                  <Icon name="instagram" size={20} title="Instagram" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid size-11 place-items-center rounded-full border border-paper/30 transition-colors hover:border-pop hover:bg-pop hover:text-ink"
-                >
-                  <Icon name="facebook" size={20} title="Facebook" />
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 pt-6 text-[0.8125rem] text-paper/60">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-paper/25 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
-          {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
-          <LanguageSwitcher tone="light" className="text-paper" />
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <SocialLinks />
+            {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
+            <LanguageSwitcher tone="light" className="text-paper" />
+            <a href="https://mariana-marcelino.com" target="_blank" rel="noopener" className="link-quiet text-[0.75rem] transition-colors hover:text-paper">
+              {t("footer.madeBy")}
+            </a>
+          </div>
         </div>
       </div>
     </footer>

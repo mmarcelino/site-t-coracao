@@ -14,18 +14,30 @@ import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { useSearchState } from "./SearchState";
 
-/** Hero search: dates + guests → apartments list. The one primary action on the home page. */
+/**
+ * Search: dates + guests → apartments list. The one primary action on the home page; also at the
+ * top of the apartments list (slim style) to change the search in place.
+ */
 export function SearchBar({
   maxGuests,
   calendarPlacement = "bottom",
+  calendarAlign = "left",
   docked = false,
+  glass = false,
+  keepQuery,
   testId = "hero-search",
 }: {
   maxGuests: number;
   /** "top" when the bar sits at the bottom of a clipped area (the hero). */
   calendarPlacement?: "top" | "bottom";
+  /** "right" when the bar sits on the right margin, so the calendar opens leftwards. */
+  calendarAlign?: "left" | "right";
   /** The slim copy docked at the top of the screen once the hero has scrolled away. */
   docked?: boolean;
+  /** Frosted glass over the hero photo (white text) instead of the solid white bar. */
+  glass?: boolean;
+  /** Query kept when searching again from the apartments page (collection, list/map view). */
+  keepQuery?: Record<string, string>;
   testId?: string;
 }) {
   const t = useTranslations("search");
@@ -67,6 +79,7 @@ export function SearchBar({
     router.push({
       pathname: "/apartments",
       query: {
+        ...keepQuery,
         ...(checkIn && checkOut ? { checkIn, checkOut } : {}),
         guests: String(guests),
       },
@@ -77,15 +90,17 @@ export function SearchBar({
   // The docked copy stays slim at every width (no larger "hd" sizes).
   const field = clsx(
     "flex min-h-14 w-full flex-col justify-center px-5 py-2.5 text-left md:w-auto md:py-0",
-    docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:h-16 hd:px-6",
+    docked ? "md:h-11 md:min-h-0" : "md:h-14 hd:px-6",
   );
   // Small sentence-case labels; values (dates and guests alike) in one size.
-  const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium text-ink", !docked && "hd:text-[0.8125rem]");
+  const fieldLabel = clsx("block text-[0.75rem] leading-tight font-medium", glass ? "text-paper" : "text-ink", !docked && "hd:text-[0.8125rem]");
   const valueText = clsx("text-[0.9375rem] leading-tight", !docked && "hd:text-[1.0625rem]");
   // Values stay quiet under their ink labels: "When?" and a dash until dates are set, then the dates.
-  const quiet = "text-granite";
+  const quiet = glass ? "text-paper/75" : "text-granite";
+  const divider = glass ? "border-paper/30" : "border-ink/15";
   // Label-to-value gap leaves room for the guest stepper's circles, which are taller than the text line.
-  const valueGap = docked ? "mt-1.5" : "mt-2.5";
+  // In the md+ bars the circles shrink to 24px so they clear the bottom edge as much as the label clears the top.
+  const valueGap = docked ? "mt-1.5" : "mt-2.5 md:mt-1.5";
   const fieldValue = clsx("block", valueGap, valueText, quiet);
 
   return (
@@ -100,8 +115,9 @@ export function SearchBar({
       <div
         ref={wrapper}
         className={clsx(
-          "grid grid-cols-1 rounded-[1.75rem] bg-white text-ink md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:p-2 md:pl-3",
-          docked ? "border border-ink/15 md:p-1.5" : "overflow-hidden hd:grid-cols-[11.5rem_11.5rem_15rem_auto]",
+          "grid grid-cols-1 rounded-[1.75rem] md:grid-cols-[9rem_9rem_13rem_auto] md:items-center md:rounded-full md:pl-3",
+          glass ? "hero-frost text-paper" : "bg-white text-ink",
+          docked ? "border border-ink/15 md:p-1.5" : "overflow-hidden md:p-1 hd:grid-cols-[11.5rem_11.5rem_15rem_auto]",
         )}
       >
         <button
@@ -121,25 +137,28 @@ export function SearchBar({
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={calendarId}
-          className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}
+          className={clsx(field, "border-t md:border-t-0 md:border-l", divider)}
         >
           <span className={fieldLabel}>{t("depart")}</span>
           <span className={fieldValue}>
             {range?.to ? format.dayMonth(range.to) : "—"}
           </span>
         </button>
-        <div className={clsx(field, "border-t border-ink/15 md:border-t-0 md:border-l")}>
+        <div className={clsx(field, "border-t md:border-t-0 md:border-l", divider)}>
           <span className={fieldLabel}>{t("guests")}</span>
-          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, quiet, docked && "[&_button]:size-6")}>
-            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} compact />
+          <div className={clsx("flex h-[1.25em] items-center *:flex-1", valueGap, valueText, quiet, docked ? "[&_button]:size-6" : "md:[&_button]:size-6")}>
+            <GuestsStepper value={guests} onChange={setGuests} max={maxGuests} tone={glass ? "light" : "dark"} compact />
           </div>
         </div>
         <button
           type="submit"
           aria-label={t("submit")}
           className={clsx(
-            "inline-flex h-14 items-center justify-center gap-3 bg-ink px-7 text-[0.9375rem] font-semibold whitespace-nowrap text-paper transition-colors hover:bg-ink-soft md:ml-1 md:rounded-full md:px-0",
-            docked ? "md:size-11" : "md:size-14 hd:size-16",
+            "inline-flex h-14 items-center justify-center gap-3 rounded-b-[1.75rem] px-7 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors md:ml-1 md:rounded-full md:px-0",
+            // On glass the button is the one solid white shape in the hero.
+            glass ? "bg-paper text-ink hover:bg-paper/85" : "bg-ink text-paper hover:bg-ink-soft",
+            // Hero bar: a 48px button in the 56px row, with an 8px ring of glass all round it.
+            docked ? "md:size-11" : "md:mr-1 md:size-12",
           )}
         >
           <Icon name="search" size={20} strokeWidth={1.75} />
@@ -155,8 +174,9 @@ export function SearchBar({
             className={clsx(
               // Sized to its content (two months side by side), anchored to the bar's left edge (the bar
               // sits on the left margin, so the calendar opens over the photo, not off-screen).
-              "animate-fade-in-fast absolute left-0 z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:w-max md:p-6",
+              "animate-fade-in-fast absolute z-30 rounded-[var(--radius-card)] bg-white p-4 text-ink shadow-2xl md:w-max md:p-6",
               calendarPlacement === "top" ? "bottom-full mb-2" : "top-full mt-2",
+              calendarAlign === "right" ? "right-0" : "left-0",
             )}
           >
             <DateRangeCalendar selected={range} onSelect={setRange} months={months} minNights={site.minNights} />

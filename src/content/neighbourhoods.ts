@@ -60,7 +60,7 @@ export const neighbourhoods: NeighbourhoodContent[] = [
       en: ["São Bento station · 1 min", "Porto Cathedral · 5 min", "Bolhão Market · 8 min", "Avenida dos Aliados · 3 min"],
     },
     guide: [
-      { category: "see", name: "Estação de São Bento", note: { pt: "Cerca de 20 000 azulejos de Jorge Colaço contam a história do país no átrio.", en: "Around 20,000 tiles by Jorge Colaço tell Portugal's story across the main hall." } },
+      { category: "see", name: "Estação de São Bento", note: { pt: "Cerca de 20\u00a0000 azulejos de Jorge Colaço contam a história do país no átrio.", en: "Around 20\u00a0000 tiles by Jorge Colaço tell Portugal's story across the main hall." } },
       { category: "eat", name: "Mercado do Bolhão", note: { pt: "Renovado, mas ainda de bancas: fruta, peixe, flores e petiscos ao balcão.", en: "Renovated but still a market of stalls: fruit, fish, flowers and snacks at the counter." } },
       { category: "drink", name: "Café Majestic", note: { pt: "Art nouveau de 1921 na Rua de Santa Catarina. Vá cedo.", en: "1921 art nouveau on Rua de Santa Catarina. Go early." } },
       { category: "practical", name: "Comboio para o Douro", note: { pt: "Linhas para a Régua e o Pinhão saem de São Bento: o vale sem carro.", en: "Trains to Régua and Pinhão leave from São Bento: the valley, no car needed." } },

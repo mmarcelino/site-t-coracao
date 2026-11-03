@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -14,9 +13,10 @@ import {
   getListingSlugs,
   getListings,
   getNeighbourhood,
-  getReviews,
+  getReviewPage,
   type Listing,
 } from "@/lib/data";
+import { createFormatter } from "@/lib/format";
 import { absoluteUrl, alternates, ogLocale } from "@/lib/seo";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 import { FaqList } from "@/components/FaqList";
@@ -24,7 +24,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { Gallery } from "@/components/listing/Gallery";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { TrackListingView } from "@/components/listing/TrackListingView";
-import { ReviewsBlock } from "@/components/ReviewsBlock";
+import { ShareButton } from "@/components/listing/ShareButton";
+import { ReviewList } from "@/components/ReviewList";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 export async function generateStaticParams() {
@@ -142,19 +143,31 @@ async function ApartmentContent({ params }: { params: Params }) {
   const [neighbourhood, siblings, reviews] = await Promise.all([
     getNeighbourhood(locale, listing.neighbourhoodSlug),
     getListings(locale, { buildingId: listing.buildingId }),
-    getReviews(locale, { listingId: listing.id, limit: 3 }),
+    getReviewPage(locale, { listingId: listing.id, limit: 3 }),
   ]);
+  const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
 
-  const facts: Array<{ icon: IconName; label: string }> = [
-    { icon: "guests", label: t("common.guests", { count: listing.accommodates }) },
-    { icon: "bed", label: t("common.bedrooms", { count: listing.bedrooms }) },
-    { icon: "bath", label: t("common.bathrooms", { count: Math.max(1, Math.floor(listing.bathrooms)) }) },
-    { icon: "area", label: t("common.area", { count: listing.areaSqm }) },
-    { icon: "stairs", label: `${listing.floor} · ${listing.hasLift ? t("listing.lift") : t("listing.noLift")}` },
+  // Each fact reads on its own ("2 guests", "1 bathroom"), so no labels are needed.
+  const facts: Array<{ icon: IconName; text: string }> = [
+    { icon: "guests", text: t("common.guests", { count: listing.accommodates }) },
+    { icon: "bed", text: t("common.bedrooms", { count: listing.bedrooms }) },
+    { icon: "bath", text: t("common.bathrooms", { count: Math.max(1, Math.floor(listing.bathrooms)) }) },
+    { icon: "area", text: t("common.area", { count: listing.areaSqm }) },
+    {
+      icon: "stairs",
+      text: `${listing.floor}, ${(listing.hasLift ? t("listing.lift") : t("listing.noLift")).toLocaleLowerCase(locale)}`,
+    },
   ];
-  const primaryAmenities = listing.amenities.slice(0, 10);
-  const restAmenities = listing.amenities.slice(10);
+  const primaryAmenities = listing.amenities.slice(0, 8);
+  const restAmenities = listing.amenities.slice(8);
+  const detail = "mt-14 grid gap-x-8 gap-y-5 border-t-2 border-ink pt-5 md:grid-cols-[11rem_minmax(0,1fr)]";
+  const hasReviews = Boolean(listing.reviews && reviews.reviews.length);
+  // Portuguese law requires the AL registration number wherever the home is advertised: one quiet
+  // line closing this home's own content (after its reviews), before the sections shared with other pages.
+  const licenceLine = listing.licence ? (
+    <p className="text-small text-granite">{t("listing.licence", { licence: listing.licence })}</p>
+  ) : null;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${listing.address.street}, ${listing.address.zipcode} ${listing.address.city}`)}`;
 
   return (
@@ -187,178 +200,168 @@ async function ApartmentContent({ params }: { params: Params }) {
         <div className="grid gap-x-[clamp(2rem,5vw,6rem)] lg:grid-cols-[minmax(0,1fr)_24rem]">
           <article className="min-w-0">
             <header className="max-w-3xl">
-              <p className="label text-granite">
-                {building.name} · {neighbourhood?.name}
-              </p>
-              <h1 className="text-display mt-4">{listing.title}</h1>
-              <p className="text-lead mt-5 text-granite">{listing.tagline}</p>
+              <p className="label text-granite">{building.name}</p>
+              {/* Share runs inline after the title's last word, on its baseline, so it sits in the
+                  same place whether the title takes one line or two. */}
+              <div className="mt-4 text-balance">
+                <h1 className="text-h2 inline">{listing.title}</h1>
+                <span className="ml-5 inline-block whitespace-nowrap sm:ml-7">
+                  <ShareButton title={`${listing.title}, ${building.name}`} />
+                </span>
+              </div>
+              <p className="text-lead mt-4 font-medium">{listing.tagline}</p>
             </header>
 
+            {/* At a glance: one row between hairlines, icon + plain text, the body size throughout. */}
             <ul
               aria-label={t("listing.factsLabel")}
-              className="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-y border-ink/15 py-6"
+              className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-y border-ink/10 py-5"
             >
               {facts.map((fact) => (
-                <li key={fact.icon} className="flex items-center gap-3">
-                  <Icon name={fact.icon} size={22} className="text-granite" />
-                  <span>{fact.label}</span>
+                <li key={fact.icon} className="flex items-center gap-2.5 whitespace-nowrap">
+                  <Icon name={fact.icon} size={20} strokeWidth={1.5} className="shrink-0" />
+                  {fact.text}
                 </li>
               ))}
             </ul>
 
-            <section className="mt-12 max-w-3xl">
-              <p className="text-lead">{listing.description.summary}</p>
-              <h2 className="sr-only">{t("listing.highlights")}</h2>
-              <ul className="mt-8 grid gap-3 sm:grid-cols-3">
-                {listing.highlights.map((h) => (
-                  <li key={h} className="flex gap-3 border-t border-ink/15 pt-4 text-small">
-                    <Icon name="check" size={18} className="mt-0.5 shrink-0 text-azulejo" />
-                    {h}
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {/* The apartment's story: two paragraphs, body text only. */}
+            <div className="mt-8 max-w-2xl space-y-5">
+              <p>{listing.description.summary}</p>
+              {listing.description.space ? <p>{listing.description.space}</p> : null}
+            </div>
 
-            {/* The building's story sits above specs: "why this place" first. */}
-            <section aria-labelledby="building-title" className="mt-16 grid gap-8 rounded-[var(--radius-card)] bg-wash p-[clamp(1.5rem,4vw,3rem)] md:grid-cols-5">
-              <div className="relative aspect-[3/2] overflow-hidden rounded-[var(--radius-tile)] bg-limestone md:col-span-2 md:aspect-[4/5]">
-                <Image
-                  src={building.storyImage.src}
-                  alt={building.storyImage.alt}
-                  fill
-                  sizes="(min-width: 1024px) 22vw, (min-width: 768px) 35vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="md:col-span-3">
-                <p className="label text-ink-soft-text">
-                  {t("listing.theBuilding")} · {building.era}
-                </p>
-                <h2 id="building-title" className="text-h3 mt-4">
-                  {building.historyLine}
+            {/* The building: one row in the details' rhythm, no colour block, so it supports the
+                apartment instead of competing with it. Its history line still comes before the specs. */}
+            <section aria-labelledby="building-title" className={detail}>
+              <div>
+                <h2 id="building-title" className="card-title">
+                  {t("listing.theBuilding")}
                 </h2>
-                <p className="mt-5 text-ink-soft-text">{building.story}</p>
-                <Link
-                  href={{ pathname: "/buildings/[slug]", params: { slug: building.slug } }}
-                  className="mt-6 inline-flex items-center gap-2 link-quiet"
-                >
-                  {t("listing.aboutBuilding", { building: building.name })}
-                  <Icon name="arrowRight" size={18} />
-                </Link>
+                <p className="label mt-2 text-granite">{building.era}</p>
+              </div>
+              <div>
+                <p className="font-semibold">{building.historyLine}</p>
+                <p className="mt-3">{building.story}</p>
+                {/* No lift is a fact about the building, so the heads-up lives here. */}
+                {!listing.hasLift ? (
+                  // Building-level only, like the rest of this row (the flat's floor is in the facts row).
+                  <p className="mt-5">
+                    {listing.category === "house"
+                      ? t("listing.stairsNoteHouse", { building: building.name })
+                      : t("listing.stairsNote", { building: building.name })}
+                  </p>
+                ) : null}
+                {others.length ? (
+                  <p className="mt-5">
+                    <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
+                      {t("listing.moreHomesLink", { count: others.length })}
+                      <Icon name="chevronDown" size={18} />
+                    </a>
+                  </p>
+                ) : null}
               </div>
             </section>
 
-            <section aria-labelledby="space-title" className="mt-16 max-w-3xl">
-              <h2 id="space-title" className="text-h3">
-                {t("listing.theSpace")}
-              </h2>
-              <p className="mt-5 text-ink/80">{listing.description.space}</p>
-            </section>
-
-            <section aria-labelledby="amenities-title" className="mt-16">
-              <h2 id="amenities-title" className="text-h3">
+            {/* The details, one rhythm (as "Before you book." on the home page): an ink rule, the
+                heading on the left, the content on the right. */}
+            <section aria-labelledby="amenities-title" className={detail}>
+              <h2 id="amenities-title" className="card-title">
                 {t("listing.amenities")}
               </h2>
-              <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                {primaryAmenities.map((a) => (
-                  <li key={a} className="flex items-center gap-3 border-b border-ink/10 py-2.5">
-                    <Icon name="check" size={16} className="text-granite" />
-                    {t(`amenities.${a}`)}
-                  </li>
-                ))}
-              </ul>
-              {restAmenities.length ? (
-                <details className="group mt-4">
-                  <summary className="link-quiet inline-flex cursor-pointer list-none items-center gap-2 py-2 [&::-webkit-details-marker]:hidden">
-                    {t("listing.showAllAmenities", { count: listing.amenities.length })}
-                    <Icon name="chevronDown" size={16} className="transition-transform group-open:rotate-180" />
-                  </summary>
-                  <ul className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                    {restAmenities.map((a) => (
-                      <li key={a} className="flex items-center gap-3 border-b border-ink/10 py-2.5">
-                        <Icon name="check" size={16} className="text-granite" />
-                        {t(`amenities.${a}`)}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ) : null}
-            </section>
-
-            {neighbourhood ? (
-              <section aria-labelledby="location-title" className="mt-16">
-                <h2 id="location-title" className="text-h3">
-                  {t("listing.location")}
-                </h2>
-                <div className="mt-6 grid gap-8 md:grid-cols-2">
-                  <div>
-                    <p className="label text-granite">{neighbourhood.name}</p>
-                    <p className="mt-3 text-ink/80">{neighbourhood.intro}</p>
-                    <Link
-                      href={{ pathname: "/neighbourhoods/[slug]", params: { slug: neighbourhood.slug } }}
-                      className="mt-5 inline-flex items-center gap-2 link-quiet"
-                    >
-                      {neighbourhood.name}
-                      <Icon name="arrowRight" size={18} />
-                    </Link>
-                  </div>
-                  <div>
-                    <p className="label text-granite">{t("listing.nearby")}</p>
-                    <ul className="mt-3">
-                      {neighbourhood.nearby.map((place) => (
-                        <li key={place} className="border-b border-ink/10 py-2.5">
-                          {place}
+              <div>
+                <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                  {primaryAmenities.map((a) => (
+                    <li key={a} className="flex items-center gap-3">
+                      <Icon name="check" size={16} />
+                      {t(`amenities.${a}`)}
+                    </li>
+                  ))}
+                </ul>
+                {restAmenities.length ? (
+                  <details className="group mt-3">
+                    <summary className="link-quiet mt-3 inline-flex cursor-pointer list-none items-center gap-2 py-2 [&::-webkit-details-marker]:hidden">
+                      {t("listing.showAllAmenities", { count: listing.amenities.length })}
+                      <Icon name="chevronDown" size={16} className="transition-transform group-open:rotate-180" />
+                    </summary>
+                    <ul className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                      {restAmenities.map((a) => (
+                        <li key={a} className="flex items-center gap-3">
+                          <Icon name="check" size={16} />
+                          {t(`amenities.${a}`)}
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-5 flex items-start gap-3">
-                      <Icon name="pin" size={20} className="mt-0.5 shrink-0 text-granite" />
-                      <span>
-                        {listing.address.street},{" "}
-                        <span className="whitespace-nowrap">
-                          {listing.address.zipcode} {listing.address.city}
-                        </span>
-                        <br />
-                        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet text-small">
-                          {t("listing.openMap")}
-                        </a>
+                  </details>
+                ) : null}
+              </div>
+            </section>
+
+            {neighbourhood ? (
+              <section aria-labelledby="location-title" className={detail}>
+                <div>
+                  <h2 id="location-title" className="card-title">
+                    {t("listing.location")}
+                  </h2>
+                  <p className="label mt-2 text-granite">{neighbourhood.name}</p>
+                </div>
+                <div>
+                  {/* The address is the map link (opens Google Maps in a new tab). */}
+                  <p className="flex items-start gap-2 text-small">
+                    <Icon name="pin" size={18} className="mt-[0.1em] shrink-0" />
+                    <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="link-quiet">
+                      {listing.address.street},{" "}
+                      <span className="whitespace-nowrap">
+                        {listing.address.zipcode} {listing.address.city}
                       </span>
-                    </p>
-                  </div>
+                      <span className="sr-only"> ({t("listing.openMap")})</span>
+                    </a>
+                  </p>
+                  <p className="mt-5">{neighbourhood.intro}</p>
+                  <p className="label mt-6 text-granite">{t("listing.nearby")}</p>
+                  {/* Compact: two columns, no lines; the walk in grey after each place. */}
+                  <ul className="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
+                    {neighbourhood.nearby.map((place) => {
+                      const [name, time] = place.split(" · ");
+                      return (
+                        <li key={place}>
+                          {name}
+                          {time ? <span className="text-small text-granite"> · {time}</span> : null}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </section>
             ) : null}
 
-            <section aria-labelledby="rules-title" className="mt-16">
-              <h2 id="rules-title" className="text-h3">
+            <section aria-labelledby="rules-title" className={detail}>
+              <h2 id="rules-title" className="card-title">
                 {t("listing.houseRules")}
               </h2>
-              {!listing.hasLift ? (
-                <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-sand p-4 text-small">
-                  <Icon name="stairs" size={20} className="shrink-0" />
-                  {listing.category === "house"
-                    ? t("listing.stairsNoteHouse", { building: building.name })
-                    : t("listing.stairsNote", { building: building.name, floor: listing.floor.toLowerCase() })}
-                </p>
-              ) : null}
-              <ul className="mt-6 grid gap-x-8 sm:grid-cols-2">
-                {[
-                  t("listing.checkInFrom", { time: listing.checkInTime }),
-                  t("listing.checkOutBy", { time: listing.checkOutTime }),
-                  t("listing.quietHours"),
-                  t("listing.noSmoking"),
-                  t("listing.noPets"),
-                  t("listing.noParties"),
-                  t("listing.guestRegistration"),
-                ].map((rule) => (
-                  <li key={rule} className="border-b border-ink/10 py-2.5">
-                    {rule}
-                  </li>
-                ))}
-              </ul>
-              {listing.licence ? (
-                <p className="text-small mt-6 text-granite">{t("listing.licence", { licence: listing.licence })}</p>
-              ) : null}
+              <div>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3">
+                  {[
+                    [t("listing.ruleCheckIn"), t("listing.fromTime", { time: listing.checkInTime })],
+                    [t("listing.ruleCheckOut"), t("listing.byTime", { time: listing.checkOutTime })],
+                    [t("listing.ruleQuiet"), t("listing.quietTime")],
+                  ].map(([label, value]) => (
+                    <div key={label}>
+                      <dt className="label text-granite">{label}</dt>
+                      <dd className="mt-2">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+                  {[t("listing.noSmoking"), t("listing.noPets"), t("listing.noParties")].map((rule) => (
+                    <li key={rule} className="flex items-center gap-2">
+                      <Icon name="close" size={14} />
+                      {rule}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 text-small text-granite">{t("listing.guestRegistration")}</p>
+              </div>
             </section>
           </article>
 
@@ -373,43 +376,61 @@ async function ApartmentContent({ params }: { params: Params }) {
                 currency: listing.price.base.currency,
                 minNights: listing.minNights,
                 accommodates: listing.accommodates,
-                licence: listing.licence,
+                rating: listing.reviews
+                  ? {
+                      score: format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+                      count: format.number(listing.reviews.count),
+                    }
+                  : undefined,
               }}
             />
           </aside>
         </div>
       </div>
 
-      {listing.reviews ? (
-        <section aria-labelledby="listing-reviews-title" className="container-page section-y">
-          <ReviewsBlock
-            overall={listing.reviews}
-            reviews={reviews}
-            eyebrow={t("reviews.listingTitle")}
-            heading={t("reviews.title")}
-            headingId="listing-reviews-title"
-          />
+      {/* Reviews straight after the details: the score once, then three quotes; "Show more reviews"
+          loads three more at a time in place (as on the home page). */}
+      {hasReviews && listing.reviews ? (
+        <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
+          <div className="container-page">
+            <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t-2 border-ink pt-6">
+              <h2 id="reviews-title" className="text-h2">
+                {t("reviews.listingTitle")}
+              </h2>
+              <p className="flex items-baseline gap-3">
+                <span className="inline-flex items-center gap-2 text-[1.75rem] leading-none font-semibold tabular-nums">
+                  <Icon name="star" size={18} fill="currentColor" strokeWidth={0} />
+                  {format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+                </span>
+                <span className="text-small text-granite">
+                  {t("reviews.basedOn", { count: format.number(listing.reviews.count) })} ·{" "}
+                  {t(`reviews.source.${listing.reviews.source}`)}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="container-page mt-10">
+            <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} />
+          </div>
+          {licenceLine ? <div className="container-page mt-16 md:mt-20">{licenceLine}</div> : null}
         </section>
       ) : null}
 
-      <section aria-labelledby="listing-faq-title" className="border-t border-ink/10">
-        <div className="container-page section-y-tight grid gap-10 lg:grid-cols-12">
-          <h2 id="listing-faq-title" className="text-h2 lg:col-span-4">
-            {t("listing.faqTitle")}
-          </h2>
-          <div className="lg:col-span-8">
-            <FaqList items={faqFor("listing")} locale={locale} />
-          </div>
-        </div>
-      </section>
+      {/* Without reviews, the licence line closes the details on its own. */}
+      {licenceLine && !hasReviews ? <div className="container-page pb-10">{licenceLine}</div> : null}
 
+      {/* The other homes in this building: a band of its own after the reviews, so it reads as
+          the next step rather than an afterthought. */}
       {others.length ? (
-        <section aria-labelledby="more-title" className="bg-sand">
+        <section id="more-homes" aria-labelledby="more-title" className="scroll-mt-24 bg-sand">
           <div className="container-page section-y-tight">
-            <h2 id="more-title" className="text-h2">
-              {t("listing.moreInBuilding", { building: building.name })}
-            </h2>
-            <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <h2 id="more-title" className="text-h2">
+                {t("listing.moreInBuilding", { building: building.name })}
+              </h2>
+              <p className="mt-4 max-w-2xl">{t("listing.moreInBuildingIntro")}</p>
+            </div>
+            <div className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {others.map((l) => (
                 <ListingCard key={l.id} listing={l} location={neighbourhood?.name ?? ""} />
               ))}
@@ -417,6 +438,17 @@ async function ApartmentContent({ params }: { params: Params }) {
           </div>
         </section>
       ) : null}
+
+      <section aria-labelledby="listing-faq-title">
+        <div className="container-page section-y-tight grid gap-10 lg:grid-cols-12">
+          <h2 id="listing-faq-title" className="text-h2 lg:col-span-4">
+            {t("listing.faqTitle")}
+          </h2>
+          <div className="lg:col-span-8">
+            <FaqList items={faqFor("listing").slice(0, 5)} locale={locale} />
+          </div>
+        </div>
+      </section>
 
       {/* Room for the mobile booking bar */}
       <div className="h-20 lg:hidden" aria-hidden />

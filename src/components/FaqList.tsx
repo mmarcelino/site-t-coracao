@@ -14,14 +14,14 @@ export function FaqList({ items, locale, withJsonLd = true }: { items: FaqItem[]
         {items.map((item) => (
           <details key={item.id} className="group border-b border-ink/15" id={`faq-${item.id}`}>
             <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
-              <h3 className="text-[1.0625rem] leading-snug font-semibold">{item.question[locale]}</h3>
+              <h3 className="text-[1.25rem] leading-snug font-medium">{item.question[locale]}</h3>
               <Icon
                 name="plus"
                 size={20}
                 className="shrink-0 transition-transform duration-[var(--duration-base)] group-open:rotate-45"
               />
             </summary>
-            <p className="max-w-3xl pb-7 text-granite">{item.answer[locale]}</p>
+            <p className="max-w-3xl pb-7">{item.answer[locale]}</p>
           </details>
         ))}
       </div>

@@ -5,7 +5,6 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 
 export interface HeroSlide {
   key: string;
-  label: string; // collection name above the line, e.g. "Junto ao mar"
   image: { src: string; alt: string };
 }
 
@@ -29,8 +28,7 @@ function useSlideshow() {
 }
 
 /**
- * One controller for the hero: background photo and progress lines always show the same
- * collection. A line filling up = time until the next photo (Delta Cafés-style).
+ * One controller for the hero's background photos, cross-fading every SLIDE_MS.
  * Pausable (WCAG 2.2.2); starts paused for reduced motion.
  */
 export function HeroSlideshow({ slides, children }: { slides: HeroSlide[]; children: ReactNode }) {
@@ -123,7 +121,8 @@ export function HeroSlideshowBackground() {
               src={slide.image.src}
               alt={i === index ? slide.image.alt : ""}
               fill
-              sizes="100vw"
+              // Cover crop: on screens taller than the photo's 3:2, the height sets the width.
+              sizes="(max-aspect-ratio: 3/2) 150vh, 100vw"
               quality={75}
               priority={i === 0}
               fetchPriority={i === 0 ? "high" : "low"}

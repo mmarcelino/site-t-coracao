@@ -54,16 +54,17 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
 
   return (
     <>
-      {/* Desktop: docked at the top. */}
+      {/* Desktop: docked at the top, with the same hairline as the scrolled header. */}
       <div
         inert={!shown}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 hidden bg-paper shadow-[0_8px_28px_-14px_rgba(27,26,24,0.1)] transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
+          "fixed inset-x-0 top-0 z-40 hidden border-b border-ink/15 bg-paper transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] md:block",
           shown ? "translate-y-0" : "-translate-y-full",
         )}
       >
         <div className="container-page flex h-20 items-center justify-between gap-6">
-          <Link href="/" aria-label={t("nav.home")} className="shrink-0">
+          {/* Already on the home page, so the link alone would do nothing: back to the top. */}
+          <Link href="/" onClick={() => window.scrollTo({ top: 0 })} aria-label={t("nav.home")} className="shrink-0">
             <Wordmark />
           </Link>
           <div className="w-max">
@@ -82,6 +83,7 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
 
       {/* Phones: a compact button at the bottom. */}
       <div
+        data-bottom-bar
         inert={!shown}
         className={clsx(
           "fixed inset-x-3 bottom-3 z-40 transition-[transform,opacity] duration-[var(--duration-base)] ease-[var(--ease-soft)] md:hidden",

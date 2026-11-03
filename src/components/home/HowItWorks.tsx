@@ -29,8 +29,8 @@ export async function HowItWorks() {
             >
               {String(i + 1).padStart(2, "0")}
             </span>
-            <h3 className="text-[1.375rem] leading-[1.1]">{step.title}</h3>
-            <p className="mt-3 max-w-xs text-granite">{step.body}</p>
+            <h3 className="card-title">{step.title}</h3>
+            <p className="mt-3 max-w-xs">{step.body}</p>
           </li>
         ))}
       </ol>

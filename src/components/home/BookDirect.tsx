@@ -35,7 +35,7 @@ export async function BookDirect() {
               <span className="grid size-12 place-items-center rounded-full border-2 border-ink text-ink">
                 <Icon name={icon} size={22} strokeWidth={2.2} />
               </span>
-              <h3 className="mt-8 text-[1.375rem] leading-[1.1]">{perk.title[locale]}</h3>
+              <h3 className="card-title mt-8">{perk.title[locale]}</h3>
               <p className="mt-3 max-w-xs">{perk.body[locale]}</p>
             </li>
           ))}

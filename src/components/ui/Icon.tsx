@@ -101,6 +101,7 @@ const paths = {
       <circle cx="8" cy="8" r="1.5" />
     </>
   ),
+  share: <path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M8 11.5H5.5v9h13v-9H16" />,
   refresh: <path d="M19.5 8A8 8 0 0 0 5 7.5M4.5 4v3.5H8M4.5 16a8 8 0 0 0 14.5.5M19.5 20v-3.5H16" />,
   grid: (
     <>
@@ -117,7 +118,8 @@ const paths = {
       <circle cx="17.25" cy="6.75" r="0.6" fill="currentColor" />
     </>
   ),
-  facebook: <path d="M14.5 8.5H16V5h-2a4 4 0 0 0-4 4v2H8v3.5h2V21h3.5v-6.5h2.25L16 11h-2.5V9.5a1 1 0 0 1 1-1Z" />,
+  /** Centred vertically in the 24 box (y 4–20), so it lines up beside the Instagram glyph. */
+  facebook: <path d="M14.5 7.5H16V4h-2a4 4 0 0 0-4 4v2H8v3.5h2V20h3.5v-6.5h2.25L16 10h-2.5V8.5a1 1 0 0 1 1-1Z" />,
   /** WhatsApp glyph drawn as an outline so it sits with the rest of the set (no green bubble). */
   whatsapp: (
     <>

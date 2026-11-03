@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { heroSlides } from "@/content/featured";
-import { getListings, getReviewSummary, getReviews } from "@/lib/data";
+import { getListings, getReviewPage, getReviewSummary } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates, ogLocale } from "@/lib/seo";
 import { FaqList } from "@/components/FaqList";
@@ -37,27 +37,21 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Home, in order: hero + search · collections · why book direct · reviews ·
+ * Home, in order: hero + search · collections (opening with who we are) · why book direct · reviews ·
  * how it works · experiences · FAQ excerpt (footer comes from the layout).
  */
 export default async function HomePage() {
   const locale = (await rootLocale()) as Locale;
   const t = await getTranslations("home");
   const tr = await getTranslations("reviews");
-  const tTags = await getTranslations("tags");
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
     getReviewSummary(locale),
-    getReviews(locale, { limit: 4 }),
+    getReviewPage(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
-  // One slide per collection: a home that really carries the tag, shown with a fitting photo.
-  const slides = heroSlides.flatMap(({ tag, slug, image, alt }) =>
-    listings.some((l) => l.slug === slug && l.tags.includes(tag))
-      ? [{ key: tag, label: tTags(tag), image: { src: image, alt: alt[locale] } }]
-      : [],
-  );
+  const slides = heroSlides.map(({ key, image, alt }) => ({ key, image: { src: image, alt: alt[locale] } }));
   // Hero: the Google rating, as shown on Google (whole business, checkable by guests).
   // Hero: the real Google score, plus every guest review across platforms (counts add up honestly,
   // scores on different scales don't), rounded down to the thousand. TO CONFIRM: the Airbnb and
@@ -82,9 +76,9 @@ export default async function HomePage() {
       <section aria-labelledby="reviews-title" className="container-page section-y lg:py-[clamp(8rem,11vw,12rem)]">
         {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
         <ReviewsBlock
-          overall={summary.bySource.google}
           bySource={summary.bySource}
-          reviews={reviews}
+          reviews={reviews.reviews}
+          total={reviews.total}
           heading={tr("title")}
           headingId="reviews-title"
         />

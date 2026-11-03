@@ -43,7 +43,7 @@
     "en": "English"
   },
   "whatsapp": {
-    "cta": "Talk to our Porto team",
+    "cta": "Talk to our team",
     "short": "Talk to us",
     "hours": "Our team in Porto, 10 am to 10 pm",
     "hoursShort": "From 10 am to 10 pm",
@@ -61,7 +61,8 @@
     "cookies": "Cookies",
     "complaintsBook": "Complaints Book",
     "social": "Social",
-    "rights": "© {year} Tripas-Coração. All rights reserved."
+    "rights": "© {year} Tripas-Coração. All rights reserved.",
+    "madeBy": "Made by MM"
   },
   "consent": {
     "title": "Cookies, plainly",
@@ -88,13 +89,11 @@
   },
   "booking": {
     "title": "Book direct",
-    "dates": "Dates",
     "checkIn": "Check-in",
     "checkOut": "Check-out",
     "addDate": "Add",
     "guests": "Guests",
     "maxGuests": "Up to {count} guests",
-    "selectDates": "Choose your dates to see the total price.",
     "minNightsHint": "Minimum stay {count} nights.",
     "minNightsTooltip": "Minimum {count} nights",
     "loading": "Calculating your price…",
@@ -121,10 +120,8 @@
   },
   "reassurance": {
     "secure": "Secure, encrypted payment",
-    "local": "A Porto company · Rua do Breiner 208",
-    "since": "Welcoming guests since 2015",
-    "cancellation": "Free cancellation up to 14 days before",
-    "licence": "AL licence no. {licence}"
+    "since": "Since {year}, hosting {guests}+ guests a year",
+    "cancellation": "Free cancellation up to 14 days before"
   },
   "reviews": {
     "eyebrow": "What guests say",
@@ -145,7 +142,11 @@
     "prev": "Previous reviews",
     "next": "More reviews",
     "readMore": "Read more",
-    "readLess": "Show less"
+    "readLess": "Show less",
+    "showMore": "Show more reviews",
+    "showFewer": "Show fewer",
+    "since": "Since {year}",
+    "guestsPerYear": "guests a year"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartments in historic Porto buildings",
@@ -162,8 +163,8 @@
     "experiencesPerGroup": "private",
     "faqTitle": "Before you book.",
     "faqCta": "All questions",
-    "collectionsTitle": "Homes you could live in.",
-    "collectionsTitleCta": "Find yours.",
+    "collectionsTitleLine1": "A home for every",
+    "collectionsTitleLine2": "kind of stay. Find yours.",
     "collectionCount": "{count, plural, one {# home} other {# homes}}",
     "seeAll": "See all apartments",
     "howTitle": "How it works.",
@@ -191,11 +192,13 @@
     "directCardPerk2": "Free cancellation",
     "directCardPerk3": "Welcome gift",
     "directCardRating": "{score} on Google · {count}+ reviews",
-    "heroSub": "Historic façades and curated interiors, the best of the city at your door, and a stay that feels like home.",
+    "heroSub": "Historic façades and curated interiors, the best of the city<br></br> at your door, and a stay that feels like home.",
     "how4Title": "A concierge on WhatsApp",
     "how4Body": "For what no guide can cover, from a special dinner to a favourite local shop, our team answers from 10 am to 10 pm.",
     "experiencesPrev": "Previous experiences",
-    "experiencesNext": "More experiences"
+    "experiencesNext": "More experiences",
+    "introBody": "Only homes that have kept their history make the cut. The comfort is new by design, while the original character stays. And since {year}, more than {guests} guests a year have added to that story.",
+    "introLead": "{name} offers apartments for short and long stays in restored historic buildings across Porto. We choose each one with a simple question: would we live here?"
   },
   "listing": {
     "breadcrumbLabel": "Breadcrumb",
@@ -207,31 +210,37 @@
     "previous": "Previous",
     "next": "Next",
     "factsLabel": "At a glance",
-    "floor": "Floor",
     "noLift": "No lift",
     "lift": "Lift",
     "theBuilding": "The building",
-    "aboutBuilding": "About {building}",
-    "theSpace": "The space",
-    "highlights": "Highlights",
     "amenities": "Amenities",
     "showAllAmenities": "Show all amenities ({count})",
     "location": "Location",
     "openMap": "Open in maps",
-    "nearby": "Nearby",
     "houseRules": "House rules",
+    "nearby": "Nearby",
+    "ruleCheckIn": "Check-in",
+    "ruleCheckOut": "Check-out",
+    "ruleQuiet": "Quiet hours",
+    "fromTime": "From {time}",
+    "byTime": "By {time}",
+    "quietTime": "10 pm – 8 am",
+    "licence": "Alojamento Local licence no. {licence}",
     "checkInFrom": "Check-in from {time}",
     "checkOutBy": "Check-out by {time}",
-    "quietHours": "Quiet hours 10 pm to 8 am",
     "noSmoking": "No smoking",
     "noPets": "No pets",
     "noParties": "No parties or events",
     "guestRegistration": "All guests must be registered (Portuguese law)",
-    "stairsNote": "{building} is a historic building without a lift; this apartment is on the {floor}.",
+    "stairsNote": "{building} is a historic building without a lift, so you'll need to be comfortable with stairs.",
     "moreInBuilding": "More homes at {building}",
-    "faqTitle": "Before you book",
-    "licence": "Alojamento Local licence no. {licence}",
-    "stairsNoteHouse": "{building} is a house on three floors, with no lift."
+    "faqTitle": "Before you book.",
+    "stairsNoteHouse": "{building} is a house on three floors with no lift, so you'll need to be comfortable with stairs.",
+    "share": "Share",
+    "shareCopied": "Link copied",
+    "shareText": "Have a look at this home in Porto: {title}",
+    "moreHomesLink": "{count, plural, one {# more home in this building} other {# more homes in this building}}",
+    "moreInBuildingIntro": "Same building, same team. For another size or other dates."
   },
   "amenities": {
     "wifi": "Wi-Fi",
@@ -263,7 +272,7 @@
     "metaDescription": "Studios, one- and two-bedroom apartments in historic buildings in central Porto. Book direct.",
     "eyebrow": "Apartments",
     "title": "All homes.",
-    "body": "All our homes. Filter by the kind of stay, or search by dates.",
+    "body": "Your own front door in Porto, from the old town to the sea at Foz.",
     "forDates": "Availability for {checkIn} – {checkOut}, {guests}.",
     "filterLabel": "Filter apartments",
     "all": "All",
@@ -276,13 +285,20 @@
     "viewList": "List",
     "viewMap": "Map",
     "mapLabel": "Map of our homes in Porto",
-    "mapHint": "Each pin is a building. Choose one to see its homes."
+    "mapHint": "Each pin is a building. Choose one to see its homes.",
+    "buildingLabel": "Building",
+    "allBuildings": "All buildings",
+    "backToList": "See all as a list",
+    "remove": "Remove “{filter}”",
+    "removeCollections": "Remove the collections"
   },
   "notFound": {
-    "title": "This page doesn't exist yet.",
-    "body": "We're building the new site in phases. In the meantime, the apartments are waiting.",
-    "cta": "See apartments",
-    "home": "Back to home"
+    "label": "Page not found",
+    "title": "This door doesn’t open onto anything.",
+    "body": "The page you were looking for has moved, or never existed.",
+    "apartments": "See the apartments",
+    "home": "Back to the home page",
+    "imageAlt": "A closed wooden door on a quiet landing with grey plaster walls"
   },
   "tags": {
     "couples": "For two",

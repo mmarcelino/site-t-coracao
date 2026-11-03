@@ -61,7 +61,8 @@
     "cookies": "Cookies",
     "complaintsBook": "Livro de Reclamações",
     "social": "Redes sociais",
-    "rights": "© {year} Tripas-Coração. Todos os direitos reservados."
+    "rights": "© {year} Tripas-Coração. Todos os direitos reservados.",
+    "madeBy": "Feito por MM"
   },
   "consent": {
     "title": "Cookies, com transparência",
@@ -88,13 +89,11 @@
   },
   "booking": {
     "title": "Reserve diretamente",
-    "dates": "Datas",
     "checkIn": "Chegada",
     "checkOut": "Partida",
     "addDate": "Adicionar",
     "guests": "Hóspedes",
     "maxGuests": "Máximo {count} hóspedes",
-    "selectDates": "Escolha as datas para ver o preço total.",
     "minNightsHint": "Estadia mínima de {count} noites.",
     "minNightsTooltip": "Mínimo de {count} noites",
     "loading": "A calcular o preço…",
@@ -121,10 +120,8 @@
   },
   "reassurance": {
     "secure": "Pagamento seguro e encriptado",
-    "local": "Empresa do Porto · Rua do Breiner 208",
-    "since": "A receber hóspedes desde 2015",
-    "cancellation": "Cancelamento gratuito até 14 dias antes",
-    "licence": "Registo AL n.º {licence}"
+    "since": "Desde {year}, com mais de {guests} hóspedes por ano",
+    "cancellation": "Cancelamento gratuito até 14 dias antes"
   },
   "reviews": {
     "eyebrow": "O que dizem os hóspedes",
@@ -145,7 +142,11 @@
     "prev": "Avaliações anteriores",
     "next": "Mais avaliações",
     "readMore": "Ler mais",
-    "readLess": "Mostrar menos"
+    "readLess": "Mostrar menos",
+    "showMore": "Mostrar mais avaliações",
+    "showFewer": "Mostrar menos",
+    "since": "Desde {year}",
+    "guestsPerYear": "hóspedes por ano"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartamentos em edifícios históricos no Porto",
@@ -162,8 +163,8 @@
     "experiencesPerGroup": "privado",
     "faqTitle": "Antes de reservar.",
     "faqCta": "Todas as perguntas",
-    "collectionsTitle": "Casas onde podia viver.",
-    "collectionsTitleCta": "Escolha a sua.",
+    "collectionsTitleLine1": "Uma casa para cada",
+    "collectionsTitleLine2": "tipo de estadia. Escolha a sua.",
     "collectionCount": "{count, plural, one {# casa} other {# casas}}",
     "seeAll": "Ver todos os apartamentos",
     "howTitle": "Como funciona.",
@@ -191,11 +192,13 @@
     "directCardPerk2": "Cancelamento grátis",
     "directCardPerk3": "Oferta de boas-vindas",
     "directCardRating": "{score} no Google · mais de {count} avaliações",
-    "heroSub": "Fachadas históricas e interiores com curadoria, o melhor da cidade à porta e uma estadia que sabe a casa.",
+    "heroSub": "Fachadas históricas e interiores com curadoria, o melhor da cidade<br></br> à porta e uma estadia que sabe a casa.",
     "how4Title": "Concierge no WhatsApp",
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h.",
     "experiencesPrev": "Experiências anteriores",
-    "experiencesNext": "Mais experiências"
+    "experiencesNext": "Mais experiências",
+    "introBody": "Só passam neste teste as casas que guardaram a sua história. O conforto é pensado ao pormenor, enquanto a traça original se mantém. E desde {year}, mais de {guests} hóspedes por ano escrevem nelas um novo capítulo.",
+    "introLead": "A {name} oferece apartamentos para estadias curtas e longas em edifícios históricos reabilitados no Porto. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
@@ -207,31 +210,37 @@
     "previous": "Anterior",
     "next": "Seguinte",
     "factsLabel": "Em resumo",
-    "floor": "Piso",
     "noLift": "Sem elevador",
     "lift": "Com elevador",
     "theBuilding": "O edifício",
-    "aboutBuilding": "Sobre o {building}",
-    "theSpace": "O espaço",
-    "highlights": "Destaques",
     "amenities": "Comodidades",
     "showAllAmenities": "Ver todas as comodidades ({count})",
     "location": "Localização",
     "openMap": "Abrir no mapa",
-    "nearby": "Perto",
     "houseRules": "Regras da casa",
+    "nearby": "Perto",
+    "ruleCheckIn": "Check-in",
+    "ruleCheckOut": "Check-out",
+    "ruleQuiet": "Silêncio",
+    "fromTime": "A partir das {time}",
+    "byTime": "Até às {time}",
+    "quietTime": "22h00 – 8h00",
+    "licence": "Registo de Alojamento Local n.º {licence}",
     "checkInFrom": "Check-in a partir das {time}",
     "checkOutBy": "Check-out até às {time}",
-    "quietHours": "Silêncio entre as 22h00 e as 8h00",
     "noSmoking": "Proibido fumar",
     "noPets": "Não são aceites animais",
     "noParties": "Não são permitidas festas",
     "guestRegistration": "Registo obrigatório de todos os hóspedes (lei portuguesa)",
-    "stairsNote": "O {building} é um edifício histórico sem elevador; o apartamento fica no {floor}.",
+    "stairsNote": "O {building} é um edifício histórico sem elevador, por isso é preciso estar à vontade com escadas.",
     "moreInBuilding": "Mais casas no {building}",
-    "faqTitle": "Antes de reservar",
-    "licence": "Registo de Alojamento Local n.º {licence}",
-    "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador."
+    "faqTitle": "Antes de reservar.",
+    "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador, por isso é preciso estar à vontade com escadas.",
+    "share": "Partilhar",
+    "shareCopied": "Link copiado",
+    "shareText": "Veja esta casa no Porto: {title}",
+    "moreHomesLink": "{count, plural, one {Mais # casa neste edifício} other {Mais # casas neste edifício}}",
+    "moreInBuildingIntro": "O mesmo edifício, a mesma equipa. Para outro tamanho ou outras datas."
   },
   "amenities": {
     "wifi": "Wi-Fi",
@@ -263,7 +272,7 @@
     "metaDescription": "Estúdios, T1 e T2 em edifícios históricos do centro do Porto. Reserve diretamente.",
     "eyebrow": "Apartamentos",
     "title": "Todas as casas.",
-    "body": "Todas as nossas casas. Filtre pelo tipo de estadia ou pesquise por datas.",
+    "body": "A sua porta no Porto, da Baixa ao mar da Foz.",
     "forDates": "Disponibilidade para {checkIn} – {checkOut}, {guests}.",
     "filterLabel": "Filtrar apartamentos",
     "all": "Todos",
@@ -276,13 +285,20 @@
     "viewList": "Lista",
     "viewMap": "Mapa",
     "mapLabel": "Mapa das nossas casas no Porto",
-    "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas."
+    "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas.",
+    "buildingLabel": "Edifício",
+    "allBuildings": "Todos os edifícios",
+    "backToList": "Ver todas em lista",
+    "remove": "Remover “{filter}”",
+    "removeCollections": "Remover as coleções"
   },
   "notFound": {
-    "title": "Esta página ainda não existe.",
-    "body": "Estamos a construir o novo site por fases. Entretanto, os apartamentos estão à sua espera.",
-    "cta": "Ver apartamentos",
-    "home": "Voltar ao início"
+    "label": "Página não encontrada",
+    "title": "Esta porta não dá para lado nenhum.",
+    "body": "A página que procurava mudou de lugar, ou nunca existiu.",
+    "apartments": "Ver os apartamentos",
+    "home": "Voltar à página inicial",
+    "imageAlt": "Uma porta de madeira fechada num patamar tranquilo de paredes cinzentas"
   },
   "tags": {
     "couples": "Para dois",

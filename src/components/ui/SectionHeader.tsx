@@ -36,7 +36,7 @@ export function SectionHeader({
       {children ? (
         <div
           className={clsx(
-            "text-lead text-granite",
+            "text-lead",
             align === "split" ? "md:col-span-5 md:col-start-8" : "mt-6 max-w-2xl",
           )}
         >

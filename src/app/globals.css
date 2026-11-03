@@ -49,16 +49,16 @@
   --text-mega: clamp(3rem, 1rem + 8.5vw, 10rem);
   --text-mega--line-height: 0.92;
   --text-mega--letter-spacing: -0.05em;
-  --text-h1: clamp(2.5rem, 1.5rem + 4.2vw, 6.25rem);
+  --text-h1: clamp(2.5rem, 1.5rem + 3.4vw, 5rem);
   --text-h1--line-height: 1;
   --text-h1--letter-spacing: -0.04em;
-  --text-h2: clamp(2rem, 1.25rem + 3vw, 4.25rem);
-  --text-h2--line-height: 1;
-  --text-h2--letter-spacing: -0.035em;
+  --text-h2: clamp(2.25rem, 1.35rem + 3vw, 4.25rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.03em;
   --text-statement: clamp(2rem, 1.2rem + 3.2vw, 4.25rem);
   --text-statement--line-height: 1.04;
   --text-statement--letter-spacing: -0.035em;
-  --text-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-h3: clamp(1.375rem, 1.15rem + 0.6vw, 1.75rem);
   --text-h3--line-height: 1.1;
   --text-h3--letter-spacing: -0.025em;
   --text-lead: clamp(1.125rem, 1.02rem + 0.45vw, 1.4rem);
@@ -112,21 +112,12 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Headings are regular weight and in sentence case ("big and light"); the hero headline sets its
+     own semibold, and small caps labels stay semibold, for contrast. */
   h1, h2, h3, h4 {
-    font-weight: 600;
-    text-wrap: balance;
-  }
-
-  /* Branch ahotels: bold display serif for headlines, compressed caps for small titles. */
-  h1, h2 {
     font-family: var(--font-display);
-    font-weight: 600;
-  }
-  h3 {
-    font-family: var(--font-condensed);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    font-weight: 400;
+    text-wrap: balance;
   }
 
   p {
@@ -189,6 +180,15 @@
   font-weight: 600;
 }
 
+/* Card titles everywhere (apartments, collections, perks, steps, experiences): sentence case,
+   semibold, a calm size; the photo or body text does the rest. */
+@utility card-title {
+  font-size: 1.375rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
 /* Underlined text link with a calm hover */
 @utility link-quiet {
   text-decoration-line: underline;
@@ -231,6 +231,63 @@
   }
   to {
     transform: scale(1);
+  }
+}
+
+/*
+ * Page transitions (template.tsx): a plain fade, no movement. The old page fades out, the new one
+ * fades in just behind it. The rest of the page (header, footer) fades on the same timing, so
+ * nothing changes ahead of the content. Clicks pass through to the live page meanwhile.
+ */
+::view-transition {
+  pointer-events: none;
+}
+/* The page's snapshots fade in place; the browser's default would also move/resize them. */
+::view-transition-group(*) {
+  animation: none;
+}
+::view-transition-old(.page-exit),
+::view-transition-old(root) {
+  animation: fade-in 350ms ease-out both reverse;
+}
+::view-transition-new(.page-enter),
+::view-transition-new(root) {
+  animation: fade-in 500ms ease-in-out 150ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/*
+ * Sticky header: one surface with the page at the top; a hairline (ink at 15%, like the site's other
+ * thin rules and the booking box's outline) fades in over the first scroll (CSS scroll-driven, no
+ * JS). Without support, or with reduced motion, the line is always on.
+ */
+@keyframes header-rule-in {
+  from {
+    opacity: 0;
+  }
+}
+.header-rule::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-ink) 15%, transparent);
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .header-rule::after {
+      animation: header-rule-in linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 3rem;
+    }
   }
 }
 
@@ -393,6 +450,15 @@
 .hero-slide[data-active="true"] img {
   transform: scale(1);
   transition: transform 9000ms cubic-bezier(0.25, 0.6, 0.3, 1);
+}
+
+/* Hero booking bar as frosted glass: a faint white pane, blurred photo behind, and a barely-there
+   edge (same strength as the inner dividers), so it reads as a pane, not a drawn box competing with
+   the hero's solid white rules. */
+.hero-frost {
+  background-color: rgb(255 255 255 / 0.14);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3);
+  backdrop-filter: blur(18px) saturate(1.2);
 }
 
 /* Hero glass (booking box, review card): a light tint, always over the photo. */
