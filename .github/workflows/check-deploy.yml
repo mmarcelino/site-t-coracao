@@ -1,45 +1,67 @@
-# After every successful Vercel deployment (production and previews), build the same commit
-# from scratch and check the deployment serves the same CSS (scripts/check-deploy.mjs).
+# After Vercel reports a successful production deployment, build the same commit from scratch
+# and check the live site serves the same CSS (scripts/check-deploy.mjs).
 # A failure shows as a red ✗ on the commit and GitHub emails the author.
+#
+# Vercel reports deploys as commit statuses (context "Vercel"), not GitHub deployments, so this
+# listens to `status`. GitHub runs `status` workflows from the default branch (main) only.
 name: Check deployment
 
-on: deployment_status
+on:
+  status:
+  # Also a "Run workflow" button in the Actions tab, to check production any time.
+  workflow_dispatch:
+
+env:
+  PRODUCTION_URL: https://site-tripas.vercel.app
 
 jobs:
   css-matches-fresh-build:
-    if: github.event.deployment_status.state == 'success'
+    if: github.event_name == 'workflow_dispatch' || (github.event.context == 'Vercel' && github.event.state == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      # Only production is checked: previews have no fixed URL in the status (and may be
+      # password-protected). Production is the commit at the head of main.
+      - name: Is this the production deployment?
+        id: target
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          head=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
+          if [ "$head" = "${{ github.event.sha || github.sha }}" ]; then echo "check=true" >> "$GITHUB_OUTPUT"; else echo "Not main's head (a preview), skipping."; fi
+
       - uses: actions/checkout@v4
+        if: steps.target.outputs.check == 'true'
         with:
-          ref: ${{ github.event.deployment.sha }}
+          ref: ${{ github.event.sha || github.sha }}
 
       - uses: actions/setup-node@v4
+        if: steps.target.outputs.check == 'true'
         with:
           node-version: 24
 
       - name: Install
+        if: steps.target.outputs.check == 'true'
         run: |
           corepack enable
           pnpm install --frozen-lockfile
 
       - name: Fresh build
+        if: steps.target.outputs.check == 'true'
         run: pnpm build
 
       - name: Start the fresh build
+        if: steps.target.outputs.check == 'true'
         run: |
           pnpm start -p 3100 &
           for i in $(seq 1 60); do curl -sf -o /dev/null http://localhost:3100/en && exit 0; sleep 1; done
           echo "Server did not start"; exit 1
 
-      - name: Compare the deployment's CSS with the fresh build
+      - name: Compare production's CSS with the fresh build
+        if: steps.target.outputs.check == 'true'
         run: |
-          url="${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}"
-          echo "Deployment: $url"
           set +e
-          pnpm -s check:deploy "$url" http://localhost:3100
+          pnpm -s check:deploy "$PRODUCTION_URL" http://localhost:3100
           code=$?
-          # 2 = could not check (e.g. a password-protected preview): note it, don't fail.
-          if [ "$code" = "2" ]; then echo "::warning::Deployment could not be checked: $url"; exit 0; fi
+          if [ "$code" = "2" ]; then echo "::warning::Production could not be checked"; exit 0; fi
           exit $code
