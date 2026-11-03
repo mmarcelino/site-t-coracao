@@ -235,32 +235,24 @@
 }
 
 /*
- * Page transitions (template.tsx): the old page fades out quickly, the new one fades in more
- * slowly with a slight rise. The rest of the page (header, footer) cross-fades on the same timing,
- * so nothing changes ahead of the content. Clicks pass through to the live page meanwhile.
+ * Page transitions (template.tsx): a plain fade, no movement. The old page fades out, the new one
+ * fades in just behind it. The rest of the page (header, footer) fades on the same timing, so
+ * nothing changes ahead of the content. Clicks pass through to the live page meanwhile.
  */
 ::view-transition {
   pointer-events: none;
 }
+/* The page's snapshots fade in place; the browser's default would also move/resize them. */
+::view-transition-group(*) {
+  animation: none;
+}
 ::view-transition-old(.page-exit),
 ::view-transition-old(root) {
-  animation: fade-in 280ms ease-out both reverse;
+  animation: fade-in 350ms ease-out both reverse;
 }
-::view-transition-new(.page-enter) {
-  animation:
-    fade-in var(--duration-base) var(--ease-soft) 120ms both,
-    page-rise var(--duration-slow) var(--ease-soft) both;
-}
+::view-transition-new(.page-enter),
 ::view-transition-new(root) {
-  animation: fade-in var(--duration-base) var(--ease-soft) 120ms both;
-}
-@keyframes page-rise {
-  from {
-    translate: 0 0.75rem;
-  }
-  to {
-    translate: 0;
-  }
+  animation: fade-in 500ms ease-in-out 150ms both;
 }
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
