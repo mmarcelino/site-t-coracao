@@ -50,9 +50,11 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   const t = await getTranslations("common");
 
   return (
+    // data-scroll-behavior: globals.css sets smooth scrolling (for in-page anchors); this tells Next
+    // to turn it off while it scrolls to the top on navigation, so page changes don't scroll visibly.
     // suppressHydrationWarning: browser extensions (ColorZilla, Grammarly, password managers…)
     // inject attributes on <html>/<body>. It only ignores attribute diffs on these two elements.
-    <html lang={locale === "pt" ? "pt-PT" : "en"} className={hanken.variable} suppressHydrationWarning>
+    <html lang={locale === "pt" ? "pt-PT" : "en"} className={hanken.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="min-h-dvh" suppressHydrationWarning>
         <NextIntlClientProvider>
           <ConsentProvider>
