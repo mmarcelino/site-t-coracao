@@ -288,12 +288,9 @@
   },
   "notFound": {
     "label": "Page not found",
-    "title": "This door doesn't open onto anything.",
-    "body": "The page you were looking for has moved, or never existed. These ones lead somewhere better.",
-    "next": "Where to next",
-    "apartments": "All apartments",
-    "apartmentsSub": "Restored homes in central Porto and by the sea in Foz.",
-    "collections": "Collections",
+    "title": "This door doesn’t open onto anything.",
+    "body": "The page you were looking for has moved, or never existed.",
+    "apartments": "See the apartments",
     "home": "Back to the home page",
     "imageAlt": "A closed wooden door on a quiet landing with grey plaster walls"
   },

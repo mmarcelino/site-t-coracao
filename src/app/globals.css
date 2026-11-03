@@ -262,6 +262,34 @@
   }
 }
 
+/*
+ * Sticky header: one surface with the page at the top; a stone hairline fades in over the first
+ * scroll (CSS scroll-driven, no JS). Without support, or with reduced motion, the line is always on.
+ */
+@keyframes header-rule-in {
+  from {
+    opacity: 0;
+  }
+}
+.header-rule::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-stone);
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .header-rule::after {
+      animation: header-rule-in linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 3rem;
+    }
+  }
+}
+
 @utility reveal {
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {

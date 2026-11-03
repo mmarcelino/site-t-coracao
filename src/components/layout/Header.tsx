@@ -71,13 +71,14 @@ export function Header() {
     <>
       {/* Bar: wordmark, key links, WhatsApp and language
           on desktop; WhatsApp + hamburger on smaller screens. Transparent over the home hero,
-          solid elsewhere. No colour transitions: the header persists across navigations, so a
+          solid elsewhere, one surface with the page until it scrolls (then a hairline, see
+          `header-rule`). No colour transitions: the header persists across navigations, so a
           fade would show the previous page's colours for a moment. */}
       <header
         className={clsx(
           "top-0 z-40 h-[var(--header-h)]",
           overlay ? "relative" : "sticky",
-          light ? "on-dark text-paper" : "bg-paper text-ink shadow-[0_8px_28px_-14px_rgba(27,26,24,0.1)]",
+          light ? "on-dark text-paper" : "header-rule bg-paper text-ink",
         )}
       >
         <div className="container-page flex h-full flex-col">

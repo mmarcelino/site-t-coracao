@@ -289,11 +289,8 @@
   "notFound": {
     "label": "Página não encontrada",
     "title": "Esta porta não dá para lado nenhum.",
-    "body": "A página que procurava mudou de lugar, ou nunca existiu. Estas levam a melhor sítio.",
-    "next": "Para onde a seguir",
-    "apartments": "Todos os apartamentos",
-    "apartmentsSub": "Casas recuperadas no centro do Porto e junto ao mar, na Foz.",
-    "collections": "Coleções",
+    "body": "A página que procurava mudou de lugar, ou nunca existiu.",
+    "apartments": "Ver os apartamentos",
     "home": "Voltar à página inicial",
     "imageAlt": "Uma porta de madeira fechada num patamar tranquilo de paredes cinzentas"
   },
