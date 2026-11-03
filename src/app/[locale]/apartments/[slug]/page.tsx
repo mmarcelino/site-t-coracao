@@ -163,6 +163,12 @@ async function ApartmentContent({ params }: { params: Params }) {
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
   const detail = "mt-14 grid gap-x-8 gap-y-5 border-t-2 border-ink pt-5 md:grid-cols-[11rem_minmax(0,1fr)]";
+  const hasReviews = Boolean(listing.reviews && reviews.reviews.length);
+  // Portuguese law requires the AL registration number wherever the home is advertised: one quiet
+  // line closing this home's own content (after its reviews), before the sections shared with other pages.
+  const licenceLine = listing.licence ? (
+    <p className="text-small text-granite">{t("listing.licence", { licence: listing.licence })}</p>
+  ) : null;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${listing.address.street}, ${listing.address.zipcode} ${listing.address.city}`)}`;
 
   return (
@@ -242,7 +248,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                 <p className="mt-3">{building.story}</p>
                 {/* No lift is a fact about the building, so the heads-up lives here. */}
                 {!listing.hasLift ? (
-                  <p className="mt-5 flex gap-3 rounded-[var(--radius-tile)] bg-pop/40 p-4 text-small">
+                  <p className="mt-5 flex gap-3 text-small">
                     <Icon name="stairs" size={20} className="shrink-0" />
                     {listing.category === "house"
                       ? t("listing.stairsNoteHouse", { building: building.name })
@@ -390,7 +396,7 @@ async function ApartmentContent({ params }: { params: Params }) {
 
       {/* Reviews straight after the details: the score once, then the quotes as a strip of cards
           (swipe on phones, arrows from md up), so any number of them takes the same space. */}
-      {listing.reviews && reviews.reviews.length ? (
+      {hasReviews && listing.reviews ? (
         <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
           <div className="container-page">
             <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t-2 border-ink pt-6">
@@ -425,8 +431,12 @@ async function ApartmentContent({ params }: { params: Params }) {
               ))}
             </ul>
           </Carousel>
+          {licenceLine ? <div className="container-page mt-12">{licenceLine}</div> : null}
         </section>
       ) : null}
+
+      {/* Without reviews, the licence line closes the details on its own. */}
+      {licenceLine && !hasReviews ? <div className="container-page pb-10">{licenceLine}</div> : null}
 
       {/* The other homes in this building: a band of its own after the reviews, so it reads as
           the next step rather than an afterthought. */}
@@ -458,12 +468,6 @@ async function ApartmentContent({ params }: { params: Params }) {
           </div>
         </div>
       </section>
-
-      {/* Portuguese law requires the AL registration number wherever the home is advertised: one
-          quiet line closing the page. */}
-      {listing.licence ? (
-        <p className="container-page pb-10 text-small text-granite">{t("listing.licence", { licence: listing.licence })}</p>
-      ) : null}
 
       {/* Room for the mobile booking bar */}
       <div className="h-20 lg:hidden" aria-hidden />
