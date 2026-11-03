@@ -60,15 +60,18 @@ export async function ListingCard({
               {listing.title}
             </Link>
           </h3>
-          <p className="mt-2 text-granite">{location}</p>
-          <p className="mt-1 text-small text-granite">
+          <p className="mt-2 text-small text-granite">
             {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })} ·{" "}
             {t("common.area", { count: listing.areaSqm })}
+          </p>
+          <p className="mt-1.5 flex items-center gap-1.5 text-small text-granite">
+            <Icon name="pin" size={14} strokeWidth={1.75} className="shrink-0" />
+            {location}
           </p>
         </div>
         <div className="flex flex-col items-end justify-between gap-4 text-right">
           <p className="text-small">
-            <span className="block text-granite">{t("common.from")}</span>
+            <span className="block">{t("common.from")}</span>
             <span className="block">
               {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
             </span>
