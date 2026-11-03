@@ -149,12 +149,16 @@ async function ApartmentContent({ params }: { params: Params }) {
   const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
 
-  const facts: Array<{ icon: IconName; label: string; value: string; note?: string }> = [
-    { icon: "guests", label: t("listing.factGuests"), value: String(listing.accommodates) },
-    { icon: "bed", label: t("listing.factBedrooms"), value: listing.bedrooms ? String(listing.bedrooms) : t("listing.studio") },
-    { icon: "bath", label: t("listing.factBathrooms"), value: String(Math.max(1, Math.floor(listing.bathrooms))) },
-    { icon: "area", label: t("listing.factSize"), value: t("common.area", { count: listing.areaSqm }) },
-    { icon: "stairs", label: t("listing.factFloor"), value: listing.floor, note: listing.hasLift ? t("listing.lift") : t("listing.noLift") },
+  // Each fact reads on its own ("2 guests", "1 bathroom"), so no labels are needed.
+  const facts: Array<{ icon: IconName; text: string }> = [
+    { icon: "guests", text: t("common.guests", { count: listing.accommodates }) },
+    { icon: "bed", text: t("common.bedrooms", { count: listing.bedrooms }) },
+    { icon: "bath", text: t("common.bathrooms", { count: Math.max(1, Math.floor(listing.bathrooms)) }) },
+    { icon: "area", text: t("common.area", { count: listing.areaSqm }) },
+    {
+      icon: "stairs",
+      text: `${listing.floor}, ${(listing.hasLift ? t("listing.lift") : t("listing.noLift")).toLocaleLowerCase(locale)}`,
+    },
   ];
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
@@ -205,39 +209,23 @@ async function ApartmentContent({ params }: { params: Params }) {
               <p className="mt-4">{listing.tagline}</p>
             </header>
 
-            {/* At a glance: one mist tile, no rules; each fact led by its icon, the value first and
-                the label under it (dt follows dd visually only, so screen readers still hear label → value). */}
-            <dl
+            {/* At a glance: one row between hairlines, icon + plain text, the body size throughout. */}
+            <ul
               aria-label={t("listing.factsLabel")}
-              className="mt-10 grid grid-cols-2 gap-x-6 gap-y-7 rounded-[var(--radius-tile)] bg-sand p-6 sm:grid-cols-3 xl:grid-cols-5"
+              className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-y border-ink/10 py-5"
             >
               {facts.map((fact) => (
-                <div key={fact.label} className="flex flex-col">
-                  <Icon name={fact.icon} size={22} strokeWidth={1.5} />
-                  {/* The note (lift or not) goes under the label, so the value stays one short line. */}
-                  <dt className="order-last mt-1 text-small text-granite">
-                    {fact.label}
-                    {fact.note ? <span className="block">{fact.note}</span> : null}
-                  </dt>
-                  <dd className="mt-3 text-[1.0625rem] leading-snug font-semibold">{fact.value}</dd>
-                </div>
+                <li key={fact.icon} className="flex items-center gap-2.5 whitespace-nowrap">
+                  <Icon name={fact.icon} size={20} strokeWidth={1.5} className="shrink-0" />
+                  {fact.text}
+                </li>
               ))}
-            </dl>
+            </ul>
 
-            {/* The apartment first: its story as a lead, then the space and what stands out. */}
-            <div className="mt-10 max-w-3xl">
-              <p className="text-lead">{listing.description.summary}</p>
-              {listing.description.space ? <p className="mt-6">{listing.description.space}</p> : null}
-              {listing.highlights.length ? (
-                <ul className="mt-8 space-y-2.5">
-                  {listing.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-3 font-semibold">
-                      <Icon name="check" size={16} className="mt-1 shrink-0" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+            {/* The apartment's story: two paragraphs, body text only. */}
+            <div className="mt-8 max-w-2xl space-y-5">
+              <p>{listing.description.summary}</p>
+              {listing.description.space ? <p>{listing.description.space}</p> : null}
             </div>
 
             {/* The building: one row in the details' rhythm, no colour block, so it supports the
