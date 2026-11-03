@@ -155,7 +155,7 @@ async function ApartmentContent({ params }: { params: Params }) {
   ];
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
-  const detail = "mt-14 grid gap-x-8 gap-y-5 border-t border-ink pt-5 md:grid-cols-[11rem_minmax(0,1fr)]";
+  const detail = "mt-14 grid gap-x-8 gap-y-5 border-t-2 border-ink pt-5 md:grid-cols-[11rem_minmax(0,1fr)]";
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${listing.address.street}, ${listing.address.zipcode} ${listing.address.city}`)}`;
 
   return (
@@ -198,7 +198,7 @@ async function ApartmentContent({ params }: { params: Params }) {
             {/* At a glance: the home page's rule-topped columns, label over value. */}
             <dl aria-label={t("listing.factsLabel")} className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 xl:grid-cols-5">
               {facts.map((fact) => (
-                <div key={fact.label} className="border-t border-ink pt-3">
+                <div key={fact.label} className="border-t-2 border-ink pt-3">
                   <dt className="label text-granite">{fact.label}</dt>
                   <dd className="mt-2 text-[1.0625rem] leading-snug font-semibold">
                     {fact.value}
