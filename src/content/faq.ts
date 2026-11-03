@@ -6,7 +6,7 @@ import type { Localized } from "@/lib/data/types";
  * `toConfirm: true` marks answers that depend on client decisions not yet made
  * (see CLAUDE.md §15). Facts without the flag come from the client's Guesty listings.
  */
-export type FaqTopic = "booking" | "arrival" | "stay" | "practical" | "owners";
+export type FaqTopic = "about" | "booking" | "arrival" | "stay" | "practical" | "owners";
 export type FaqSurface = "home" | "listing" | "owners" | "experiences";
 
 export interface FaqItem {
@@ -19,6 +19,7 @@ export interface FaqItem {
 }
 
 export const faqTopics: Record<FaqTopic, Localized> = {
+  about: { pt: "Sobre nós e o Porto", en: "About us and Porto" },
   booking: { pt: "Reservar", en: "Booking" },
   arrival: { pt: "Chegada e partida", en: "Arrival and departure" },
   stay: { pt: "Durante a estadia", en: "During your stay" },
@@ -27,6 +28,73 @@ export const faqTopics: Record<FaqTopic, Localized> = {
 };
 
 export const faq: FaqItem[] = [
+  // "About" answers are written to be quoted as-is by search engines and AI assistants
+  // (who we are, where, which area to choose), so each one names Porto and Tripas-Coração.
+  {
+    id: "who",
+    topic: "about",
+    surfaces: [],
+    question: {
+      pt: "O que é a Tripas-Coração?",
+      en: "What is Tripas-Coração?",
+    },
+    answer: {
+      pt: "A Tripas-Coração é uma empresa do Porto que gere apartamentos de alojamento local desde 2015. São mais de 40 apartamentos, de estúdios a uma moradia junto ao mar, quase todos em edifícios históricos recuperados no centro da cidade, com uma equipa local que recebe os hóspedes e os acompanha durante a estadia.",
+      en: "Tripas-Coração is a Porto company that has managed short-term rental apartments since 2015. It has more than 40 apartments, from studios to a seafront house, almost all in restored historic buildings in the city centre, with a local team that welcomes guests and looks after them during their stay.",
+    },
+  },
+  {
+    id: "where",
+    topic: "about",
+    surfaces: [],
+    question: {
+      pt: "Onde ficam os apartamentos no Porto?",
+      en: "Where in Porto are the apartments?",
+    },
+    answer: {
+      pt: "No centro histórico do Porto, a pé dos principais pontos da cidade: Ribeira, Baixa e São Bento, Cordoaria e Clérigos, Aliados e Santa Catarina. A Casa do Farol, a moradia de três quartos, fica na Foz do Douro, em frente ao mar.",
+      en: "In Porto's historic centre, within walking distance of the city's main sights: Ribeira, Baixa and São Bento, Cordoaria and Clérigos, Aliados and Santa Catarina. Casa do Farol, the three-bedroom house, is in Foz do Douro, facing the sea.",
+    },
+  },
+  {
+    id: "best-area",
+    topic: "about",
+    surfaces: [],
+    question: {
+      pt: "Qual é a melhor zona para ficar no Porto?",
+      en: "What is the best area to stay in Porto?",
+    },
+    answer: {
+      pt: "Para uma primeira visita, a Ribeira e a Baixa: tudo se faz a pé, do rio às caves do vinho do Porto em Gaia. A Cordoaria e Cedofeita são mais calmas e locais, com galerias, livrarias e cafés. A Foz do Douro é para quem quer mar e passeios à beira-rio, a cerca de 20 minutos do centro de elétrico ou autocarro.",
+      en: "For a first visit, Ribeira and Baixa: everything is walkable, from the river to the port wine cellars in Gaia. Cordoaria and Cedofeita are calmer and more local, with galleries, bookshops and cafés. Foz do Douro is for the sea and riverside walks, about 20 minutes from the centre by tram or bus.",
+    },
+  },
+  {
+    id: "licensed",
+    topic: "about",
+    surfaces: [],
+    question: {
+      pt: "Os apartamentos são licenciados?",
+      en: "Are the apartments licensed?",
+    },
+    answer: {
+      pt: "Sim, todos os apartamentos têm registo de Alojamento Local (AL) no Registo Nacional de Turismo. O número de registo de cada um aparece na página do apartamento.",
+      en: "Yes, every apartment is registered as Alojamento Local (AL), Portugal's licence for short-term rentals, in the national tourism register. Each apartment's registration number is shown on its page.",
+    },
+  },
+  {
+    id: "groups",
+    topic: "about",
+    surfaces: [],
+    question: {
+      pt: "Podem receber grupos ou famílias grandes?",
+      en: "Can you host groups or large families?",
+    },
+    answer: {
+      pt: "Sim. A Casa do Farol recebe até 6 pessoas, e vários edifícios, como o Mouzinho 32 e a Cordoaria, têm mais de um apartamento, que pode reservar em conjunto para ficarem lado a lado. Fale connosco e organizamos a combinação certa.",
+      en: "Yes. Casa do Farol sleeps up to 6, and several buildings, such as Mouzinho 32 and Cordoaria, have more than one apartment, which you can book together to stay side by side. Talk to us and we'll put the right combination together.",
+    },
+  },
   {
     id: "book-direct",
     topic: "booking",
@@ -53,6 +121,61 @@ export const faq: FaqItem[] = [
     answer: {
       pt: "Sim. O pagamento é processado por um fornecedor de pagamentos certificado e os dados do cartão nunca passam pelos nossos servidores. Somos uma empresa do Porto, com escritório na Rua do Breiner, e gerimos alojamento local desde 2015; todos os apartamentos têm registo de Alojamento Local.",
       en: "Yes. Payment is handled by a certified payment provider and card details never touch our servers. We are a Porto company with an office on Rua do Breiner, managing short-term rentals since 2015, and every apartment holds an Alojamento Local licence.",
+    },
+  },
+  {
+    id: "discounts",
+    topic: "booking",
+    surfaces: [],
+    toConfirm: true,
+    question: {
+      pt: "Fazem descontos?",
+      en: "Do you offer discounts?",
+    },
+    answer: {
+      pt: "O preço no nosso site já é o melhor disponível para cada apartamento, sem comissões de plataforma. As estadias de uma semana ou mais têm um preço por noite mais baixo, e de vez em quando há um código sazonal para reservas diretas. Para estadias longas ou grupos, fale connosco e preparamos uma proposta.",
+      en: "The price on our site is already the best available rate for each apartment, with no platform fees. Stays of a week or more have a lower nightly rate, and from time to time there is a seasonal code for direct bookings. For long stays or groups, talk to us and we'll put together an offer.",
+    },
+  },
+  {
+    id: "min-stay",
+    topic: "booking",
+    surfaces: [],
+    question: {
+      pt: "Qual é a estadia mínima?",
+      en: "What is the minimum stay?",
+    },
+    answer: {
+      pt: "A estadia mínima é de duas noites em todos os apartamentos.",
+      en: "The minimum stay is two nights in every apartment.",
+    },
+  },
+  {
+    id: "payment",
+    topic: "booking",
+    surfaces: [],
+    toConfirm: true,
+    question: {
+      pt: "Como se paga a reserva?",
+      en: "How do I pay for my booking?",
+    },
+    answer: {
+      pt: "Com cartão de crédito ou débito, no momento da reserva, através de um fornecedor de pagamentos certificado. A taxa turística está incluída no total que vê antes de confirmar.",
+      en: "By credit or debit card when you book, through a certified payment provider. The tourist tax is included in the total you see before confirming.",
+    },
+  },
+  {
+    id: "invoice",
+    topic: "booking",
+    surfaces: [],
+    toConfirm: true,
+    question: {
+      pt: "Emitem fatura com NIF?",
+      en: "Can I get an invoice for my company?",
+    },
+    answer: {
+      pt: "Sim, emitimos fatura em nome de particular ou empresa, com o NIF que nos indicar. Basta enviar os dados antes do check-out.",
+      en: "Yes, we issue an invoice to a person or a company, with the VAT number you give us. Just send us the details before check-out.",
     },
   },
   {
@@ -87,12 +210,40 @@ export const faq: FaqItem[] = [
     topic: "arrival",
     surfaces: ["listing"],
     question: {
-      pt: "Como funciona a chegada? Há self check-in?",
-      en: "How does arrival work? Is there self check-in?",
+      pt: "Como funciona o check-in?",
+      en: "How does check-in work?",
     },
     answer: {
-      pt: "Combinamos consigo uma hora para o receber no edifício ou, em alguns casos, enviamos instruções de self check-in. Antes da chegada recebe um link para registar os dados dos hóspedes, como exige a lei portuguesa.",
-      en: "We agree a time to welcome you at the building or, in some cases, send self check-in instructions. Before arrival you'll receive a link to register guest details, as Portuguese law requires.",
+      pt: "Combinamos consigo uma hora para o receber no edifício ou, em alguns apartamentos, enviamos instruções de self check-in. Antes da chegada recebe um link para registar os dados dos hóspedes, como exige a lei portuguesa, e a morada exata com indicações para chegar.",
+      en: "We agree a time to welcome you at the building or, for some apartments, send self check-in instructions. Before arrival you'll receive a link to register guest details, as Portuguese law requires, plus the exact address and directions.",
+    },
+  },
+  {
+    id: "early-check-in",
+    topic: "arrival",
+    surfaces: ["listing"],
+    toConfirm: true,
+    question: {
+      pt: "Posso fazer o check-in mais cedo?",
+      en: "Can I check in early?",
+    },
+    answer: {
+      pt: "Sim, sempre que o apartamento esteja pronto. Diga-nos a hora de chegada ao reservar ou por WhatsApp; confirmamos no dia anterior e, se não for possível, guardamos as malas até às 15h00. As reservas diretas têm prioridade.",
+      en: "Yes, whenever the apartment is ready. Tell us your arrival time when you book or on WhatsApp; we confirm the day before and, if it isn't possible, we keep your luggage until 3 pm. Direct bookings get priority.",
+    },
+  },
+  {
+    id: "late-check-out",
+    topic: "arrival",
+    surfaces: [],
+    toConfirm: true,
+    question: {
+      pt: "Posso fazer o check-out mais tarde?",
+      en: "Can I check out late?",
+    },
+    answer: {
+      pt: "Sim, quando não há outra chegada nesse dia. Peça-nos até à véspera da partida e confirmamos a hora; se o apartamento estiver reservado, guardamos as malas para aproveitar o último dia no Porto.",
+      en: "Yes, when no other guest arrives that day. Ask us by the day before you leave and we'll confirm the time; if the apartment is booked, we keep your luggage so you can enjoy your last day in Porto.",
     },
   },
   {
@@ -127,12 +278,25 @@ export const faq: FaqItem[] = [
     topic: "practical",
     surfaces: ["listing"],
     question: {
-      pt: "Há estacionamento?",
-      en: "Is there parking?",
+      pt: "Onde posso estacionar o carro?",
+      en: "Where can I park my car?",
     },
     answer: {
-      pt: "Os apartamentos não têm estacionamento próprio, mas há parques pagos perto de todos os edifícios. O centro histórico vive-se melhor a pé, e o metro e os comboios estão a poucos minutos.",
-      en: "The apartments have no private parking, but there are paid car parks near every building. The historic centre is best explored on foot, and the metro and trains are a few minutes away.",
+      pt: "Num parque de estacionamento pago perto do edifício: os apartamentos não têm lugar próprio. Com as indicações de chegada enviamos o parque mais próximo do seu apartamento. No centro histórico o estacionamento na rua é escasso e muitas ruas têm acesso condicionado, por isso aconselhamos deixar o carro no parque e explorar a pé.",
+      en: "In a paid car park near the building: the apartments have no private parking. With your arrival details we send the car park closest to your apartment. On-street parking in the historic centre is scarce and many streets have restricted access, so we suggest leaving the car in the car park and exploring on foot.",
+    },
+  },
+  {
+    id: "floor",
+    topic: "practical",
+    surfaces: ["listing"],
+    question: {
+      pt: "Em que andar fica o apartamento?",
+      en: "Which floor is the apartment on?",
+    },
+    answer: {
+      pt: "O andar de cada apartamento aparece nas informações principais da sua página, junto ao número de hóspedes e casas de banho, com a indicação de haver ou não elevador. Se preferir um piso baixo, diga-nos e sugerimos opções.",
+      en: "Each apartment's floor is shown in the key facts on its page, next to guests and bathrooms, together with whether there is a lift. If you'd prefer a lower floor, tell us and we'll suggest options.",
     },
   },
   {
@@ -180,13 +344,67 @@ export const faq: FaqItem[] = [
     topic: "stay",
     surfaces: ["listing"],
     question: {
-      pt: "Posso levar o meu animal de estimação?",
-      en: "Can I bring my pet?",
+      pt: "São permitidos cães ou outros animais?",
+      en: "Are dogs or other pets allowed?",
     },
     answer: {
-      pt: "Não, de momento não aceitamos animais de estimação nos apartamentos.",
-      en: "No, pets are not allowed in the apartments at the moment.",
+      pt: "Não, de momento não aceitamos cães nem outros animais de estimação nos apartamentos. Os cães de assistência são sempre bem-vindos, como prevê a lei.",
+      en: "No, dogs and other pets are not allowed in the apartments at the moment. Assistance dogs are always welcome, as the law provides.",
     },
+  },
+  {
+    id: "air-conditioning",
+    topic: "stay",
+    surfaces: ["listing"],
+    question: {
+      pt: "Os apartamentos têm ar condicionado?",
+      en: "Do the apartments have air conditioning?",
+    },
+    answer: {
+      pt: "Alguns têm, e está indicado nos equipamentos de cada apartamento. Quase todos têm aquecimento para o inverno; as paredes de granito dos edifícios antigos ajudam a manter o interior fresco no verão.",
+      en: "Some do, and it is listed in each apartment's amenities. Almost all have heating for winter; the granite walls of the old buildings help keep the inside cool in summer.",
+    },
+  },
+  {
+    id: "included",
+    topic: "stay",
+    surfaces: [],
+    question: {
+      pt: "O que está incluído no apartamento?",
+      en: "What is included in the apartment?",
+    },
+    answer: {
+      pt: "Roupa de cama, toalhas, Wi-Fi, cozinha equipada com loiça e utensílios, máquina de café, secador de cabelo e produtos de higiene básicos. A maioria tem também máquina de lavar roupa; a lista completa está na página de cada apartamento.",
+      en: "Bed linen, towels, Wi-Fi, a fully equipped kitchen with crockery and cookware, a coffee maker, a hair dryer and basic toiletries. Most also have a washing machine; the full list is on each apartment's page.",
+    },
+  },
+  {
+    id: "house-rules",
+    topic: "stay",
+    surfaces: [],
+    question: {
+      pt: "Posso fumar ou fazer festas no apartamento?",
+      en: "Can I smoke or hold parties in the apartment?",
+    },
+    answer: {
+      pt: "Não: é proibido fumar dentro dos apartamentos e não são permitidas festas nem eventos. São edifícios residenciais onde também vivem vizinhos, por isso pedimos silêncio a partir das 22h00.",
+      en: "No: smoking is not allowed inside the apartments, and parties or events are not permitted. These are residential buildings shared with neighbours, so we ask for quiet from 10 pm.",
+    },
+    toConfirm: true,
+  },
+  {
+    id: "contact-during-stay",
+    topic: "stay",
+    surfaces: [],
+    question: {
+      pt: "Como falo com a equipa durante a estadia?",
+      en: "How do I reach the team during my stay?",
+    },
+    answer: {
+      pt: "Por WhatsApp, no +351 962 708 740, das 10h às 22h; a nossa equipa está no Porto e responde em português, inglês, francês e espanhol. Para urgências fora deste horário, o mesmo número indica o contacto de emergência.",
+      en: "On WhatsApp, at +351 962 708 740, from 10 am to 10 pm; our team is in Porto and replies in English, Portuguese, French and Spanish. For urgent issues outside those hours, the same number gives the emergency contact.",
+    },
+    toConfirm: true,
   },
   {
     id: "wifi",

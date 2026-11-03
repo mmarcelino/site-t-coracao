@@ -71,10 +71,11 @@ export function Header() {
     <>
       {/* Bar: wordmark, key links, WhatsApp and language
           on desktop; WhatsApp + hamburger on smaller screens. Transparent over the home hero,
-          white once the page scrolls. */}
+          solid elsewhere. No colour transitions: the header persists across navigations, so a
+          fade would show the previous page's colours for a moment. */}
       <header
         className={clsx(
-          "top-0 z-40 h-[var(--header-h)] transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-soft)]",
+          "top-0 z-40 h-[var(--header-h)]",
           overlay ? "relative" : "sticky",
           light ? "on-dark text-paper" : "bg-paper text-ink shadow-[0_8px_28px_-14px_rgba(27,26,24,0.1)]",
         )}
@@ -94,7 +95,7 @@ export function Header() {
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className={clsx(
-                        "label transition-[opacity,background-color,color] aria-[current=page]:underline aria-[current=page]:underline-offset-[6px]",
+                        "label transition-opacity aria-[current=page]:underline aria-[current=page]:underline-offset-[6px]",
                         "block py-2 hover:opacity-70",
                       )}
                     >
