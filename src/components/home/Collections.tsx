@@ -3,12 +3,15 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { collections } from "@/content/collections";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { site } from "@/content/site";
 import type { Listing } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * Featured collections, two per row: a wide room shot and a detail side by side, then under an ink
+ * Opens with who we are (CLAUDE.md §7.1, intro line), as this section's own lead: the collections
+ * heading on the left, what Tripas-Coração is and does on the right, in the same heading + text
+ * split as the reviews and FAQ. Then the featured collections, two per row: a wide room shot and a detail side by side, then under an ink
  * rule the title and a line about it, with the count and from-price beside them. Each opens the
  * apartments list filtered by tag.
  */
@@ -24,11 +27,16 @@ export async function Collections({ listings }: { listings: Listing[] }) {
   });
 
   return (
-    // No top padding: the intro above ends with the gap, and the 2px ink rule opens the chapter.
-    <section aria-labelledby="collections-title" className="container-page pb-[var(--section)]">
-      <h2 id="collections-title" className="text-h2 reveal border-t-2 border-ink pt-6">
-        <span className="block">{t("home.collectionsTitle")}</span> <span className="block">{t("home.collectionsTitleCta")}</span>
-      </h2>
+    <section aria-labelledby="collections-title" className="container-page section-y">
+      <div className="grid gap-8 border-t-2 border-ink pt-6 lg:grid-cols-12 lg:gap-10">
+        <h2 id="collections-title" className="text-h2 reveal lg:col-span-7">
+          <span className="block">{t("home.collectionsTitle")}</span> <span className="block">{t("home.collectionsTitleCta")}</span>
+        </h2>
+        <div className="reveal max-w-xl space-y-5 lg:col-span-5 lg:pt-2">
+          <p className="text-lead">{t("home.introLead", { name: site.name, count: format.number(site.apartmentsMin) })}</p>
+          <p>{t("home.introBody", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}</p>
+        </div>
+      </div>
       <ul className="mt-[clamp(2rem,4vw,3.5rem)] grid gap-x-6 gap-y-14 md:grid-cols-2">
         {items.map(({ c, count, from, currency }) => (
           <li key={c.tag} className="reveal">

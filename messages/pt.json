@@ -197,9 +197,8 @@
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h.",
     "experiencesPrev": "Experiências anteriores",
     "experiencesNext": "Mais experiências",
-    "introBody": "Os edifícios mantêm a arquitetura original: granito, azulejo, tetos altos. Os interiores são confortáveis e com design, e nada neles está lá só para enfeitar.",
-    "introTeam": "Desde {year}, é a nossa própria equipa no Porto que cuida de cada apartamento e recebe mais de {guests} hóspedes por ano.",
-    "introLead": "A {name} é uma empresa do Porto que arrenda mais de {count} apartamentos de férias em edifícios históricos reabilitados, no centro da cidade e junto ao mar, na Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
+    "introBody": "Os edifícios mantêm a arquitetura original e os interiores são confortáveis e com design. Desde {year}, é a nossa própria equipa no Porto que cuida de cada apartamento e recebe mais de {guests} hóspedes por ano.",
+    "introLead": "A {name} oferece mais de {count} apartamentos de férias em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
