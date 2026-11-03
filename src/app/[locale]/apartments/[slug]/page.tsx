@@ -195,10 +195,13 @@ async function ApartmentContent({ params }: { params: Params }) {
               <p className="label text-granite">
                 {building.name} · {neighbourhood?.name}
               </p>
-              {/* Share on the title's line, at the end of the column (off the photos). */}
-              <div className="mt-4 flex items-baseline justify-between gap-4 sm:gap-6">
-                <h1 className="text-h2">{listing.title}</h1>
-                <ShareButton title={`${listing.title}, ${building.name}`} />
+              {/* Share runs inline after the title's last word, on its baseline, so it sits in the
+                  same place whether the title takes one line or two. */}
+              <div className="mt-4 text-balance">
+                <h1 className="text-h2 inline">{listing.title}</h1>
+                <span className="ml-5 inline-block whitespace-nowrap sm:ml-7">
+                  <ShareButton title={`${listing.title}, ${building.name}`} />
+                </span>
               </div>
               <p className="mt-4">{listing.tagline}</p>
             </header>

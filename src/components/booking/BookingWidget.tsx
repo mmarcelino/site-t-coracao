@@ -265,13 +265,8 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
       <div>
         <button
           type="button"
-          // Always ink (never a greyed-out button): without a valid quote it opens the dates instead.
-          onClick={() => {
-            if (okQuote) return onReserve();
-            ensureOpened();
-            setCalendarOpen(() => true);
-          }}
-          aria-controls={okQuote ? undefined : `${idPrefix}-calendar`}
+          onClick={onReserve}
+          disabled={!okQuote}
           className={buttonClasses("primary", "lg", "w-full")}
           data-testid="booking-reserve"
         >
