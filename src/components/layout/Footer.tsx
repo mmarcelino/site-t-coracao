@@ -11,8 +11,8 @@ import { footerNav } from "./navItems";
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
  * An ink panel inside the page margins: the wordmark, then three text columns whose rows share one
- * line grid (fixed row height, no extra gaps), so lines align across columns. Social links sit in
- * the bottom row. AL licence numbers live on each apartment page.
+ * line grid (fixed row height, no extra gaps), so lines align across columns. Social links sit under
+ * the wordmark. AL licence numbers live on each apartment page.
  * On phones, pages with a fixed bottom bar (home search, booking bar) mark it `data-bottom-bar`;
  * the footer then leaves room so its last line isn't hidden.
  */
@@ -27,9 +27,24 @@ export async function Footer() {
     <footer className="container-page pb-[var(--gutter)] max-lg:[body:has([data-bottom-bar])_&]:pb-28">
       <div className="on-dark rounded-[var(--radius-card)] bg-ink px-[var(--gutter)] pt-[clamp(2.5rem,5vw,4rem)] pb-8 text-paper">
         <div className="grid gap-10 sm:grid-cols-3 lg:grid-cols-4">
-          <Link href="/" aria-label={t("nav.home")} className="self-start sm:col-span-3 lg:col-span-1">
-            <Wordmark />
-          </Link>
+          {/* Brand column: wordmark on top, social links level with the last row of the lists. */}
+          <div className="flex flex-col justify-between gap-6 sm:col-span-3 lg:col-span-1">
+            <Link href="/" aria-label={t("nav.home")} className="self-start">
+              <Wordmark />
+            </Link>
+            <ul aria-label={t("footer.social")} className={`flex gap-6 ${list}`}>
+              <li>
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={link}>
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={link}>
+                  Facebook
+                </a>
+              </li>
+            </ul>
+          </div>
 
           <div>
             <h2 className={heading}>{t("footer.contact")}</h2>
@@ -52,7 +67,8 @@ export async function Footer() {
                     {site.email}
                   </a>
                 </li>
-                <li>
+                {/* Flex row of the grid's height: an inline-flex link would make the line box taller. */}
+                <li className="flex h-9 items-center">
                   <WhatsAppLink
                     message={t("whatsapp.messageGeneric")}
                     page="footer"
@@ -109,18 +125,6 @@ export async function Footer() {
         <div className="mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-paper/25 pt-6 text-[0.8125rem] text-paper/60">
           <p>{t("footer.rights", { year })}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <ul aria-label={t("footer.social")} className="flex gap-5 text-paper">
-              <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-pop">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-pop">
-                  Facebook
-                </a>
-              </li>
-            </ul>
             {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
             <LanguageSwitcher tone="light" className="text-paper" />
             <a href="https://mariana-marcelino.com" target="_blank" rel="noopener" className="link-quiet text-[0.75rem] transition-colors hover:text-paper">
