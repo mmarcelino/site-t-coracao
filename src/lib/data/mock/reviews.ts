@@ -7,7 +7,7 @@ import type { Review, ReviewAggregate, ReviewSource } from "../types";
  *
  * Per-listing aggregates are NOT here: those are real figures from the Guesty snapshot.
  */
-export const mockReviews: Review[] = [
+const handwrittenReviews: Review[] = [
   {
     id: "mock-1",
     source: "airbnb",
@@ -381,6 +381,61 @@ export const mockReviews: Review[] = [
     mock: true,
   },
 ];
+
+/**
+ * MOCK fill so every apartment has enough quotes to page through ("Show more reviews"): generic
+ * comments that fit any of the flats, spread across listings deterministically. Airbnb and
+ * Booking.com only, the channels Guesty reports per listing. Remove with the rest of the mocks.
+ */
+const fillPool: Array<{ language: "pt" | "en"; text: string }> = [
+  { language: "en", text: "Exactly as the photos show, and spotless. The team was quick to answer every question." },
+  { language: "pt", text: "Casa muito bem cuidada e com tudo o que precisávamos. Voltaremos de certeza." },
+  { language: "en", text: "Quiet, comfortable bed and a great shower. Everything we wanted within a short walk." },
+  { language: "pt", text: "A equipa foi impecável, sempre disponível no WhatsApp. Recomendo sem reservas." },
+  { language: "en", text: "Thoughtful touches everywhere, from the coffee to the local tips. Felt like staying with friends." },
+  { language: "en", text: "Check-in was easy and the flat felt calm the moment we walked in. Lovely Portuguese details." },
+  { language: "pt", text: "Decoração bonita, cozinha completa e uma localização que permite fazer tudo a pé." },
+  { language: "en", text: "We stayed a week and never wanted for anything. Would book direct again." },
+  { language: "pt", text: "Limpo, confortável e silencioso à noite. Uma ótima base para conhecer o Porto." },
+  { language: "en", text: "Beautifully restored and very well equipped. The recommendations for dinner were excellent." },
+  { language: "en", text: "Bright, clean and really comfortable. Communication before arrival was clear and friendly." },
+  { language: "pt", text: "Fomos muito bem recebidos. O apartamento é ainda melhor do que nas fotografias." },
+];
+const fillAuthors = ["Anna", "Pedro", "Hannah", "Sofia", "Tom", "Beatriz", "Luca", "Clara", "Jan", "Marta", "Owen", "Rita"];
+const fillListings = [
+  "64de2984ec3b510037fc32c1",
+  "64de2984ec3b510037fc32a0",
+  "60f82c3d7aba91002d2ccd0f",
+  "60f82c3cb82a7e002f865672",
+  "60f82cd97aba91002d2cfe72",
+  "60f827e3b82a7e002f852152",
+  "60f827e57aba91002d2bdc3c",
+  "60f82c06c8730e002dc84744",
+  "60f828533b29f7002f8ee8dc",
+  "683036ac17f8820013f84e69",
+];
+const FILL_PER_LISTING = 6;
+const fillReviews: Review[] = fillListings.flatMap((listingId, l) =>
+  Array.from({ length: FILL_PER_LISTING }, (_, i): Review => {
+    const k = (l * 5 + i) % fillPool.length;
+    const pick = fillPool[k]!;
+    const source = i % 2 === 0 ? "airbnb" : "booking";
+    return {
+      id: `mock-fill-${l}-${i}`,
+      source,
+      rating: source === "airbnb" ? 5 : 9,
+      author: fillAuthors[(l * 3 + i) % fillAuthors.length]!,
+      // Older than the hand-written ones, a month apart: March 2026 back to October 2025.
+      date: new Date(Date.UTC(2026, 2 - i, 10 + l)).toISOString().slice(0, 10),
+      language: pick.language,
+      text: pick.text,
+      listingId,
+      mock: true,
+    };
+  }),
+);
+
+export const mockReviews: Review[] = [...handwrittenReviews, ...fillReviews];
 
 /** MOCK platform-wide aggregates. Replace with Google Business + Guesty channel data. */
 export const mockSourceAggregates: Record<ReviewSource, ReviewAggregate> = {

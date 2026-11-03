@@ -412,7 +412,7 @@ async function ApartmentContent({ params }: { params: Params }) {
           <div className="container-page mt-10">
             <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} />
           </div>
-          {licenceLine ? <div className="container-page mt-12">{licenceLine}</div> : null}
+          {licenceLine ? <div className="container-page mt-20 md:mt-28">{licenceLine}</div> : null}
         </section>
       ) : null}
 
