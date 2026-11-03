@@ -389,8 +389,8 @@ async function ApartmentContent({ params }: { params: Params }) {
         </div>
       </div>
 
-      {/* Reviews straight after the details: the score once, then the quotes as a strip of cards
-          (swipe on phones, arrows from md up), so any number of them takes the same space. */}
+      {/* Reviews straight after the details: the score once, then the quotes as a strip (swipe on
+          phones, arrows from md up), so any number of them takes the same space. */}
       {hasReviews && listing.reviews ? (
         <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
           <div className="container-page">
@@ -416,11 +416,12 @@ async function ApartmentContent({ params }: { params: Params }) {
             scrollClassName="mt-10 px-[var(--gutter)] pb-2 [scroll-padding-inline:var(--gutter)] lg:px-[max(var(--gutter),calc((100vw-var(--page-max))/2+var(--gutter)))]"
             controlsClassName="container-page"
           >
-            <ul aria-label={t("reviews.listingTitle")} className="flex items-stretch gap-4">
+            <ul aria-label={t("reviews.listingTitle")} className="flex items-stretch gap-8">
               {reviews.reviews.map((review) => (
                 <li key={review.id} className="w-[min(82vw,24rem)] shrink-0 snap-start">
-                  <div className="flex h-full flex-col rounded-[var(--radius-card)] bg-sand p-7">
-                    <ReviewCard review={review} />
+                  {/* As on the home page: an ink rule over each quote, no box. */}
+                  <div className="flex h-full flex-col border-t-2 border-ink pt-6">
+                    <ReviewCard review={review} size="md" />
                   </div>
                 </li>
               ))}
