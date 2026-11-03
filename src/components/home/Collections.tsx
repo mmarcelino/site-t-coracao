@@ -9,8 +9,8 @@ import { createFormatter } from "@/lib/format";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * Opens with who we are (CLAUDE.md §7.1, intro line): what Tripas-Coração is and does, before
- * anything is for sale. Then the collections heading, right above the featured collections, two per row: a wide room shot and a detail side by side, then under an ink
+ * Opens with the collections heading and, beside it, who we are (CLAUDE.md §7.1, intro line): what
+ * Tripas-Coração is and does, before anything is for sale. Then the featured collections, two per row: a wide room shot and a detail side by side, then under an ink
  * rule the title and a line about it, with the count and from-price beside them. Each opens the
  * apartments list filtered by tag.
  */
@@ -27,20 +27,19 @@ export async function Collections({ listings }: { listings: Listing[] }) {
 
   return (
     <section aria-labelledby="collections-title" className="container-page section-y">
-      {/* Who we are first (no ink rule: the hero's bottom edge closes the section above): the lead
-          on the left, the second paragraph in a narrower column beside it, both from the top. */}
-      <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
-        <p className="reveal text-lead lg:col-span-7">
-          {t("home.introLead", { name: site.name, count: format.number(site.apartmentsMin) })}
-        </p>
-        <p className="reveal lg:col-span-4 lg:col-start-9">
-          {t("home.introBody", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
-        </p>
+      {/* No ink rule: the hero's bottom edge closes the section above. The heading takes the width
+          its two lines need (one line each, never wrapping) and who we are fills the rest beside it;
+          stacked below xl. */}
+      <div className="grid gap-8 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-16">
+        <h2 id="collections-title" className="text-h2 reveal">
+          <span className="block xl:whitespace-nowrap">{t("home.collectionsTitle")}</span>{" "}
+          <span className="block">{t("home.collectionsTitleCta")}</span>
+        </h2>
+        <div className="reveal max-w-xl space-y-5 xl:max-w-none xl:pt-2">
+          <p className="text-lead">{t("home.introLead", { name: site.name, count: format.number(site.apartmentsMin) })}</p>
+          <p>{t("home.introBody", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}</p>
+        </div>
       </div>
-      {/* Then the heading, right above the collections it names. */}
-      <h2 id="collections-title" className="text-h2 reveal mt-[var(--section-tight)]">
-        <span className="block">{t("home.collectionsTitle")}</span> <span className="block">{t("home.collectionsTitleCta")}</span>
-      </h2>
       <ul className="mt-[clamp(2rem,4vw,3.5rem)] grid gap-x-6 gap-y-14 md:grid-cols-2">
         {items.map(({ c, count, from, currency }) => (
           <li key={c.tag} className="reveal">
