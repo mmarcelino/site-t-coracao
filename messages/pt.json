@@ -286,7 +286,9 @@
     "viewList": "Lista",
     "viewMap": "Mapa",
     "mapLabel": "Mapa das nossas casas no Porto",
-    "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas."
+    "mapHint": "Cada marcador é um edifício. Escolha um para ver as casas.",
+    "buildingLabel": "Edifício",
+    "allBuildings": "Todos os edifícios"
   },
   "notFound": {
     "title": "Esta página ainda não existe.",

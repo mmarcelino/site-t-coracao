@@ -93,7 +93,7 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
    8. FAQ excerpt: check-in, luggage, cancellation, tourist tax, long stays, lifts; link to full FAQ.
    9. Footer: contact, WhatsApp, address, social, language switch, legal, Livro de Reclamações, licence numbers.
    (Neighbourhoods and owners are no longer on the home page; they get their own pages.)
-2. **Apartments**: listing grid with filters. Built: collection tags (`?tag=`), guests and dates from the home search (capacity + availability). Still to add: neighbourhood, type, optional grouped-by-building view.
+2. **Apartments**: listing grid with filters. Built: collection tags (`?tag=`), building (`?building=<slug>`, a dropdown next to list/map), guests and dates from the home search (capacity + availability). Still to add: neighbourhood, type.
 3. **Apartment detail**: gallery, story line about the building, key facts, description, amenities, location/neighbourhood, house rules, sticky booking widget with mock price breakdown, related flats in the same building.
 4. **Buildings**: one page per building with history, photos, its flats.
 5. **Neighbourhoods**: index + one page per neighbourhood (local guide: eat, drink, see, practical tips). Important for SEO and premium feel.

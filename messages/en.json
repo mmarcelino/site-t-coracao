@@ -286,7 +286,9 @@
     "viewList": "List",
     "viewMap": "Map",
     "mapLabel": "Map of our homes in Porto",
-    "mapHint": "Each pin is a building. Choose one to see its homes."
+    "mapHint": "Each pin is a building. Choose one to see its homes.",
+    "buildingLabel": "Building",
+    "allBuildings": "All buildings"
   },
   "notFound": {
     "title": "This page doesn't exist yet.",
