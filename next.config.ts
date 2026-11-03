@@ -16,12 +16,6 @@ const nextConfig: NextConfig = {
   // Keep the dev badge out of Playwright screenshots.
   devIndicators: false,
   turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
     resolveAlias: {
       "next-intl/config": intlRequestConfig,
     },
