@@ -10,7 +10,7 @@ import { footerNav } from "./navItems";
 /**
  * Footer with every legally and commercially required item (CLAUDE.md §7).
  * An ink panel inside the page margins; text links only (social included), the one icon being
- * WhatsApp's, in an outline circle. AL licence numbers live on each apartment page.
+ * WhatsApp's, bare. AL licence numbers live on each apartment page.
  */
 export async function Footer() {
   const t = await getTranslations();
@@ -30,12 +30,12 @@ export async function Footer() {
                 {site.address.postalCode} {site.address.city}, {site.address.country}
               </p>
               <p>
-                <a href={site.phoneHref} className="link-quiet">
+                <a href={site.phoneHref} className="transition-colors hover:text-pop">
                   {site.phone}
                 </a>
               </p>
               <p>
-                <a href={`mailto:${site.email}`} className="link-quiet">
+                <a href={`mailto:${site.email}`} className="transition-colors hover:text-pop">
                   {site.email}
                 </a>
               </p>
@@ -46,9 +46,7 @@ export async function Footer() {
               icon={false}
               className="group text-small mt-5 inline-flex items-center gap-2.5 font-semibold transition-colors hover:text-pop"
             >
-              <span className="grid size-8 place-items-center rounded-full border border-paper/40 transition-colors group-hover:border-pop">
-                <Icon name="whatsapp" size={16} strokeWidth={1.5} />
-              </span>
+              <Icon name="whatsapp" size={18} strokeWidth={1.5} />
               {t("whatsapp.short")}
             </WhatsAppLink>
           </div>
@@ -122,7 +120,7 @@ export async function Footer() {
           <div className="flex items-center gap-6">
             {/* Own colour, so the current language reads brightest (not the row's muted grey). */}
             <LanguageSwitcher tone="light" className="text-paper" />
-            <a href="https://mariana-marcelino.com" target="_blank" rel="noopener" className="text-[0.75rem] transition-colors hover:text-paper">
+            <a href="https://mariana-marcelino.com" target="_blank" rel="noopener" className="link-quiet text-[0.75rem] transition-colors hover:text-paper">
               {t("footer.madeBy")}
             </a>
           </div>
