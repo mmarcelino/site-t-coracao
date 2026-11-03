@@ -163,8 +163,8 @@
     "experiencesPerGroup": "privado",
     "faqTitle": "Antes de reservar.",
     "faqCta": "Todas as perguntas",
-    "collectionsTitle": "Uma casa para cada tipo de estadia.",
-    "collectionsTitleCta": "Escolha a sua.",
+    "collectionsTitleLine1": "Uma casa para cada",
+    "collectionsTitleLine2": "tipo de estadia. Escolha a sua.",
     "collectionCount": "{count, plural, one {# casa} other {# casas}}",
     "seeAll": "Ver todos os apartamentos",
     "howTitle": "Como funciona.",
@@ -198,7 +198,7 @@
     "experiencesPrev": "Experiências anteriores",
     "experiencesNext": "Mais experiências",
     "introBody": "Só escolhemos edifícios reabilitados sem apagar o passado. A traça original fica, com a pedra, o azulejo e os tetos altos; o conforto é todo novo e pensado ao pormenor. E desde {year} é a nossa própria equipa no Porto que cuida de cada apartamento e recebe mais de {guests} hóspedes por ano.",
-    "introLead": "A {name} oferece apartamentos de férias em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
+    "introLead": "A {name} oferece apartamentos para estadias curtas e longas em edifícios históricos reabilitados no Porto, do centro da cidade ao mar da Foz. Escolhemos cada um com uma pergunta simples: viveríamos aqui?"
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
