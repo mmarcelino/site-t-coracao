@@ -206,7 +206,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                   <ShareButton title={`${listing.title}, ${building.name}`} />
                 </span>
               </div>
-              <p className="mt-4">{listing.tagline}</p>
+              <p className="text-lead mt-4 font-medium">{listing.tagline}</p>
             </header>
 
             {/* At a glance: one row between hairlines, icon + plain text, the body size throughout. */}
