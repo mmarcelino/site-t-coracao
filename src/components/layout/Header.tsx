@@ -52,6 +52,19 @@ export function Header() {
     };
   }, [menuOpen]);
 
+  // The wordmark always lands at the top of the home page: on the home page itself the link is a
+  // no-op, and arriving from another page Next may only scroll the page segment (below the header) into view.
+  const toTop = useRef(false);
+  useEffect(() => {
+    if (pathname === "/" && toTop.current) window.scrollTo({ top: 0, behavior: "instant" });
+    toTop.current = false;
+  }, [pathname]);
+  const goHome = () => {
+    setMenuOpen(false);
+    if (pathname === "/") window.scrollTo({ top: 0 });
+    else toTop.current = true;
+  };
+
   const light = overlay;
 
   return (
@@ -69,7 +82,7 @@ export function Header() {
         <div className="container-page flex h-full flex-col">
           {/* Three columns from lg: logo | guest links centred on the page | owners and utilities. */}
           <div className="flex flex-1 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]">
-            <Link href="/" aria-label={t("nav.home")} className="shrink-0 justify-self-start">
+            <Link href="/" onClick={goHome} aria-label={t("nav.home")} className="shrink-0 justify-self-start">
               <Wordmark />
             </Link>
             {/* Desktop: the guest links, always visible. */}
@@ -142,7 +155,7 @@ export function Header() {
         >
           <div className="container-page flex h-[var(--header-h)] shrink-0 flex-col">
             <div className="flex flex-1 items-center justify-between">
-              <Link href="/" aria-label={t("nav.home")}>
+              <Link href="/" onClick={goHome} aria-label={t("nav.home")}>
                 <Wordmark />
               </Link>
               <button

@@ -19,7 +19,10 @@ export const collections: Collection[] = [
     tag: "couples",
     featured: true,
     title: { pt: "Para dois", en: "For two" },
-    blurb: { pt: "Estúdios e T1 para viajar a sós ou a dois.", en: "Studios and one-bedrooms for one or two." },
+    blurb: {
+      pt: "Estúdios e T1 acolhedores, perfeitos para descobrir o Porto a dois.",
+      en: "Cosy studios and one-bedrooms, perfect for exploring Porto together.",
+    },
     image: {
       src: "/images/placeholder/sao-bento-ii-01.jpg",
       alt: { pt: "Estúdio com janelas de sacada viradas para a estação de São Bento", en: "Studio with French windows facing São Bento station" },
@@ -32,8 +35,11 @@ export const collections: Collection[] = [
   {
     tag: "families",
     featured: true,
-    title: { pt: "Para famílias", en: "For families" },
-    blurb: { pt: "Dois quartos ou mais, com berço e cadeira de bebé a pedido.", en: "Two bedrooms or more, with a cot and high chair on request." },
+    title: { pt: "Para famílias e amigos", en: "For families & friends" },
+    blurb: {
+      pt: "Casas amplas com dois ou mais quartos, ideais para grupos.",
+      en: "Spacious homes with two or more bedrooms, ideal for groups.",
+    },
     image: {
       src: "/images/placeholder/breiner-skylight-02.jpg",
       alt: { pt: "Sala ampla com sofá e mesa de jantar no Breiner 210", en: "Spacious living room with sofa and dining table at Breiner 210" },
@@ -44,24 +50,30 @@ export const collections: Collection[] = [
     },
   },
   {
-    tag: "sea",
+    tag: "views",
     featured: true,
-    title: { pt: "Junto ao mar", en: "By the sea" },
-    blurb: { pt: "A Foz, onde o Douro encontra o Atlântico.", en: "Foz, where the Douro meets the Atlantic." },
+    title: { pt: "Com vista", en: "With a view" },
+    blurb: {
+      pt: "Acorde com vista para o rio, o mar, jardins ou a histórica estação de São Bento.",
+      en: "Wake up to the river, sea, gardens or historic São Bento station.",
+    },
     image: {
-      src: "/images/placeholder/casa-do-farol-02.jpg",
-      alt: { pt: "Terraço com vista para o mar e o rio na Casa do Farol", en: "Terrace with sea and river views at Casa do Farol" },
+      src: "/images/placeholder/mouzinho-rooftop-e-01.jpg",
+      alt: { pt: "Sala com janelas em arco sobre a Praça do Infante, no Mouzinho 32", en: "A living room with arched windows over Praça do Infante, at Mouzinho 32" },
     },
     detail: {
-      src: "/images/placeholder/casa-do-farol-07.jpg",
-      alt: { pt: "Cadeirões no terraço sobre o mar, na Casa do Farol", en: "Armchairs on the terrace over the sea, at Casa do Farol" },
+      src: "/images/placeholder/cordoaria-garden-06.jpg",
+      alt: { pt: "Janelas abertas sobre as árvores do Jardim da Cordoaria", en: "Windows open onto the trees of the Cordoaria gardens" },
     },
   },
   {
     tag: "outdoor",
     featured: true,
     title: { pt: "Com espaço exterior", en: "With outdoor space" },
-    blurb: { pt: "Varandas, um pátio de azulejo e um terraço sobre o mar.", en: "Balconies, a tiled patio and a terrace over the sea." },
+    blurb: {
+      pt: "Varandas e terraços para o café de manhã e os fins de tarde longos.",
+      en: "Balconies and terraces for morning coffees and long evenings.",
+    },
     image: {
       src: "/images/placeholder/cordoaria-river-balcony-03.jpg",
       alt: { pt: "Varanda com espreguiçadeira e vista para o Douro", en: "Balcony with a deckchair and a view of the Douro" },
@@ -72,17 +84,20 @@ export const collections: Collection[] = [
     },
   },
   {
-    tag: "views",
+    tag: "sea",
     featured: true,
-    title: { pt: "Com vista", en: "With a view" },
-    blurb: { pt: "Rio, mar, jardins ou a estação de São Bento.", en: "River, sea, gardens or São Bento station." },
+    title: { pt: "Junto ao mar", en: "By the sea" },
+    blurb: {
+      pt: "Casas na Foz, perto do Atlântico e de um outro lado do Porto.",
+      en: "Homes in Foz, close to the Atlantic and a different side of Porto.",
+    },
     image: {
-      src: "/images/placeholder/mouzinho-rooftop-e-01.jpg",
-      alt: { pt: "Sala com janelas em arco sobre a Praça do Infante, no Mouzinho 32", en: "A living room with arched windows over Praça do Infante, at Mouzinho 32" },
+      src: "/images/placeholder/casa-do-farol-02.jpg",
+      alt: { pt: "Terraço com vista para o mar e o rio na Casa do Farol", en: "Terrace with sea and river views at Casa do Farol" },
     },
     detail: {
-      src: "/images/placeholder/cordoaria-garden-06.jpg",
-      alt: { pt: "Janelas abertas sobre as árvores do Jardim da Cordoaria", en: "Windows open onto the trees of the Cordoaria gardens" },
+      src: "/images/placeholder/casa-do-farol-07.jpg",
+      alt: { pt: "Cadeirões no terraço sobre o mar, na Casa do Farol", en: "Armchairs on the terrace over the sea, at Casa do Farol" },
     },
   },
   {

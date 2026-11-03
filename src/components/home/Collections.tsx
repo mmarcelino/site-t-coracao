@@ -48,11 +48,12 @@ export async function Collections({ listings }: { listings: Listing[] }) {
               </div>
               <div className="mt-5 border-t-2 border-ink pt-4">
                 <div className="flex items-start justify-between gap-6">
-                  {/* Name, then the count: smaller, quiet, after a small dot. */}
-                  <div className="flex flex-wrap items-center gap-x-2.5">
+                  {/* Name, then the count: smaller, quiet, after a small dot. On phones the count sits
+                      under the name on every card, so long names never leave a stray dot on its own line. */}
+                  <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2.5">
                     <h3 className="card-title">{c.title[locale]}</h3>
                     <p className="flex items-center gap-2.5 text-small text-granite">
-                      <span aria-hidden className="size-1 rounded-full bg-current" />
+                      <span aria-hidden className="hidden size-1 rounded-full bg-current sm:block" />
                       {t("home.collectionCount", { count })}
                     </p>
                   </div>

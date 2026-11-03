@@ -63,7 +63,8 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
         )}
       >
         <div className="container-page flex h-20 items-center justify-between gap-6">
-          <Link href="/" aria-label={t("nav.home")} className="shrink-0">
+          {/* Already on the home page, so the link alone would do nothing: back to the top. */}
+          <Link href="/" onClick={() => window.scrollTo({ top: 0 })} aria-label={t("nav.home")} className="shrink-0">
             <Wordmark />
           </Link>
           <div className="w-max">
