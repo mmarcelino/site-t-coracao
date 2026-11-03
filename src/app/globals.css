@@ -234,6 +234,42 @@
   }
 }
 
+/*
+ * Page transitions (template.tsx): the old page fades out quickly, the new one fades in more
+ * slowly with a slight rise. The rest of the page (header, footer) cross-fades on the same timing,
+ * so nothing changes ahead of the content. Clicks pass through to the live page meanwhile.
+ */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(.page-exit),
+::view-transition-old(root) {
+  animation: fade-in 280ms ease-out both reverse;
+}
+::view-transition-new(.page-enter) {
+  animation:
+    fade-in var(--duration-base) var(--ease-soft) 120ms both,
+    page-rise var(--duration-slow) var(--ease-soft) both;
+}
+::view-transition-new(root) {
+  animation: fade-in var(--duration-base) var(--ease-soft) 120ms both;
+}
+@keyframes page-rise {
+  from {
+    translate: 0 0.75rem;
+  }
+  to {
+    translate: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 @utility reveal {
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {

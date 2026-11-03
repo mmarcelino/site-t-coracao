@@ -287,10 +287,18 @@
     "backToList": "Ver todas em lista"
   },
   "notFound": {
-    "title": "Esta página ainda não existe.",
-    "body": "Estamos a construir o novo site por fases. Entretanto, os apartamentos estão à sua espera.",
-    "cta": "Ver apartamentos",
-    "home": "Voltar ao início"
+    "label": "Página não encontrada",
+    "title": "Esta porta não dá para lado nenhum.",
+    "body": "A página que procurava mudou de lugar, ou nunca existiu. Estas levam a melhor sítio.",
+    "next": "Para onde a seguir",
+    "apartments": "Todos os apartamentos",
+    "apartmentsSub": "Casas recuperadas no centro do Porto e junto ao mar, na Foz.",
+    "collections": "Coleções",
+    "team": "Fale com a nossa equipa no Porto",
+    "teamSub": "No WhatsApp, das 10h às 22h.",
+    "whatsappMessage": "Olá! Procurava uma página no vosso site que não encontrei. Podem ajudar?",
+    "home": "Voltar à página inicial",
+    "imageAlt": "Uma porta de madeira fechada num patamar tranquilo de paredes cinzentas"
   },
   "tags": {
     "couples": "Para dois",

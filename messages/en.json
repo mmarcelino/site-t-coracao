@@ -287,10 +287,18 @@
     "backToList": "See all as a list"
   },
   "notFound": {
-    "title": "This page doesn't exist yet.",
-    "body": "We're building the new site in phases. In the meantime, the apartments are waiting.",
-    "cta": "See apartments",
-    "home": "Back to home"
+    "label": "Page not found",
+    "title": "This door doesn't open onto anything.",
+    "body": "The page you were looking for has moved, or never existed. These ones lead somewhere better.",
+    "next": "Where to next",
+    "apartments": "All apartments",
+    "apartmentsSub": "Restored homes in central Porto and by the sea in Foz.",
+    "collections": "Collections",
+    "team": "Ask our Porto team",
+    "teamSub": "On WhatsApp, from 10 am to 10 pm.",
+    "whatsappMessage": "Hello! I was looking for a page on your website that I couldn't find. Can you help?",
+    "home": "Back to the home page",
+    "imageAlt": "A closed wooden door on a quiet landing with grey plaster walls"
   },
   "tags": {
     "couples": "For two",
