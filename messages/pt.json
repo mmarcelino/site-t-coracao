@@ -196,7 +196,11 @@
     "how4Title": "Concierge no WhatsApp",
     "how4Body": "Para o que não cabe num guia, de um jantar especial a uma loja local, a nossa equipa responde das 10h às 22h.",
     "experiencesPrev": "Experiências anteriores",
-    "experiencesNext": "Mais experiências"
+    "experiencesNext": "Mais experiências",
+    "introLabel": "Quem somos",
+    "introStatement": "Escolhemos cada casa com uma pergunta simples: viveríamos aqui?",
+    "introBody": "A resposta é uma coleção de edifícios históricos nos bairros mais emblemáticos do Porto, reabilitados com cuidado e respeito pela arquitetura original. Granito, azulejo e tetos altos por fora; por dentro, interiores confortáveis e com design, pensados para viver, não só para dormir.",
+    "introTeam": "Desde {year}, é a nossa própria equipa no Porto que cuida de cada casa e recebe mais de {guests} hóspedes por ano."
   },
   "listing": {
     "breadcrumbLabel": "Navegação estrutural",
