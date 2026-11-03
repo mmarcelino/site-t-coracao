@@ -48,41 +48,38 @@ export async function ListingCard({
         ) : null}
       </div>
       {/* Same anatomy as the home collection cards: under an ink rule, the name and what it is on
-          the left, the arrow on the right with the from-price under it. */}
+          the left; on the right the arrow level with the name and the from-price ending on the
+          location line (one grid, so both columns share rows). */}
       <div className="mt-5 grid grid-cols-[1fr_auto] gap-x-6 border-t-2 border-ink pt-4">
-        <div>
-          {/* Sentence case at a calm size: the photo sells, the name labels it. */}
-          <h3 className="card-title">
-            <Link
-              href={{ pathname: "/apartments/[slug]", params: { slug: listing.slug }, query }}
-              className="after:absolute after:inset-0"
-            >
-              {listing.title}
-            </Link>
-          </h3>
-          <p className="mt-2 text-small">
-            {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })} ·{" "}
-            {t("common.area", { count: listing.areaSqm })}
-          </p>
-          <p className="mt-1.5 flex items-center gap-1.5 text-small text-granite">
-            <Icon name="pin" size={14} strokeWidth={1.75} className="shrink-0" />
-            {location}
-          </p>
-        </div>
-        <div className="flex flex-col items-end justify-between gap-4 text-right">
-          <Icon
-            name="arrowRight"
-            size={32}
-            strokeWidth={1.75}
-            className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
-          />
-          <p className="text-small text-granite">
-            <span className="block">{t("common.from")}</span>
-            <span className="block">
-              {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
-            </span>
-          </p>
-        </div>
+        {/* Sentence case at a calm size: the photo sells, the name labels it. */}
+        <h3 className="card-title col-start-1 row-start-1">
+          <Link
+            href={{ pathname: "/apartments/[slug]", params: { slug: listing.slug }, query }}
+            className="after:absolute after:inset-0"
+          >
+            {listing.title}
+          </Link>
+        </h3>
+        <p className="col-start-1 row-start-2 mt-2 text-small">
+          {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })} ·{" "}
+          {t("common.area", { count: listing.areaSqm })}
+        </p>
+        <p className="col-start-1 row-start-3 mt-1.5 flex items-center gap-1.5 text-small text-granite">
+          <Icon name="pin" size={14} strokeWidth={1.75} className="shrink-0" />
+          {location}
+        </p>
+        <Icon
+          name="arrowRight"
+          size={32}
+          strokeWidth={1.75}
+          className="col-start-2 row-start-1 -my-1 shrink-0 self-center justify-self-end transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
+        />
+        <p className="col-start-2 row-span-2 row-start-2 self-end text-right text-small text-granite">
+          <span className="block">{t("common.from")}</span>
+          <span className="block">
+            {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
+          </span>
+        </p>
       </div>
     </article>
   );
