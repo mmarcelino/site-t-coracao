@@ -419,9 +419,10 @@ async function ApartmentContent({ params }: { params: Params }) {
             <ul aria-label={t("reviews.listingTitle")} className="flex items-stretch gap-8">
               {reviews.reviews.map((review) => (
                 <li key={review.id} className="w-[min(82vw,24rem)] shrink-0 snap-start">
-                  {/* As on the home page: an ink rule over each quote, no box. */}
-                  <div className="flex h-full flex-col border-t-2 border-ink pt-6">
-                    <ReviewCard review={review} size="md" />
+                  {/* No rules or boxes: a large opening mark anchors each quote. */}
+                  <div className="flex h-full flex-col">
+                    <Icon name="quote" size={28} fill="currentColor" strokeWidth={0} className="mb-4" />
+                    <ReviewCard review={review} size="md" marks={false} />
                   </div>
                 </li>
               ))}
@@ -439,7 +440,7 @@ async function ApartmentContent({ params }: { params: Params }) {
       {others.length ? (
         <section id="more-homes" aria-labelledby="more-title" className="mt-[var(--section-tight)] scroll-mt-24 bg-sand">
           <div className="container-page section-y-tight">
-            <div className="border-t-2 border-ink pt-6">
+            <div>
               <h2 id="more-title" className="text-h2">
                 {t("listing.moreInBuilding", { building: building.name })}
               </h2>
