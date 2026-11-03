@@ -83,6 +83,7 @@ export function DockedSearch({ maxGuests }: { maxGuests: number }) {
 
       {/* Phones: a compact button at the bottom. */}
       <div
+        data-bottom-bar
         inert={!shown}
         className={clsx(
           "fixed inset-x-3 bottom-3 z-40 transition-[transform,opacity] duration-[var(--duration-base)] ease-[var(--ease-soft)] md:hidden",

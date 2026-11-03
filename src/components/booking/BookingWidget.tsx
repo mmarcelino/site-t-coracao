@@ -294,6 +294,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
 
       {/* Mobile: compact bar + sheet */}
       <div
+        data-bottom-bar
         className="fixed inset-x-0 bottom-0 z-30 border-t border-ink/10 bg-paper/95 backdrop-blur-md lg:hidden"
         data-testid="booking-bar"
       >
