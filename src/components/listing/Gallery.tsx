@@ -3,16 +3,15 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Picture } from "@/lib/data/types";
 import { Icon } from "@/components/ui/Icon";
 
 /**
  * Listing gallery. Desktop: editorial mosaic (one large + four). Mobile: full-bleed swipe strip.
- * Both open a keyboard-navigable lightbox (←/→, Esc; focus returns to the trigger). `actions`
- * (e.g. Share) sit on the photos, top right.
+ * Both open a keyboard-navigable lightbox (←/→, Esc; focus returns to the trigger).
  */
-export function Gallery({ pictures, title, actions }: { pictures: Picture[]; title: string; actions?: ReactNode }) {
+export function Gallery({ pictures, title }: { pictures: Picture[]; title: string }) {
   const t = useTranslations("listing");
   const tc = useTranslations("common");
   const [index, setIndex] = useState<number | null>(null);
@@ -77,7 +76,6 @@ export function Gallery({ pictures, title, actions }: { pictures: Picture[]; tit
             </li>
           ))}
         </ul>
-        {actions ? <div className="absolute top-4 right-4">{actions}</div> : null}
         <p className="label absolute right-4 bottom-4 bg-ink/70 px-2.5 py-1.5 text-paper tabular-nums" aria-hidden>
           {stripIndex + 1} / {total}
         </p>
@@ -116,7 +114,6 @@ export function Gallery({ pictures, title, actions }: { pictures: Picture[]; tit
             <Icon name="grid" size={16} />
             {t("showAllPhotos", { count: total })}
           </button>
-          {actions ? <div className="absolute top-4 right-4">{actions}</div> : null}
         </div>
       </div>
 

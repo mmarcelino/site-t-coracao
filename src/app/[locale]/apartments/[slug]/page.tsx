@@ -186,19 +186,19 @@ async function ApartmentContent({ params }: { params: Params }) {
         </ol>
       </nav>
 
-      <Gallery
-        pictures={listing.pictures}
-        title={`${listing.title}, ${building.name}`}
-        actions={<ShareButton title={`${listing.title}, ${building.name}`} />}
-      />
+      <Gallery pictures={listing.pictures} title={`${listing.title}, ${building.name}`} />
 
       <div className="container-page pt-10 md:pt-14">
         <div className="grid gap-x-[clamp(2rem,5vw,6rem)] lg:grid-cols-[minmax(0,1fr)_24rem]">
           <article className="min-w-0">
             <header className="max-w-3xl">
-              <p className="label text-granite">
-                {building.name} · {neighbourhood?.name}
-              </p>
+              {/* Share sits on the eyebrow's line, at the end of the column: by the title, off the photos. */}
+              <div className="flex items-center justify-between gap-6">
+                <p className="label text-granite">
+                  {building.name} · {neighbourhood?.name}
+                </p>
+                <ShareButton title={`${listing.title}, ${building.name}`} />
+              </div>
               <h1 className="text-h2 mt-4">{listing.title}</h1>
               <p className="mt-4">{listing.tagline}</p>
             </header>
@@ -401,39 +401,8 @@ async function ApartmentContent({ params }: { params: Params }) {
         </div>
       </div>
 
-      {/* The other homes in this building: a band of its own straight after the details, so it
-          reads as the next step rather than an afterthought. */}
-      {others.length ? (
-        <section id="more-homes" aria-labelledby="more-title" className="mt-[var(--section-tight)] scroll-mt-24 bg-sand">
-          <div className="container-page section-y-tight">
-            <div className="border-t-2 border-ink pt-6">
-              <h2 id="more-title" className="text-h2">
-                {t("listing.moreInBuilding", { building: building.name })}
-              </h2>
-              <p className="mt-4 max-w-2xl">{t("listing.moreInBuildingIntro")}</p>
-            </div>
-            <div className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-              {others.map((l) => (
-                <ListingCard key={l.id} listing={l} location={neighbourhood?.name ?? ""} />
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      <section aria-labelledby="listing-faq-title">
-        <div className="container-page section-y-tight grid gap-10 lg:grid-cols-12">
-          <h2 id="listing-faq-title" className="text-h2 lg:col-span-4">
-            {t("listing.faqTitle")}
-          </h2>
-          <div className="lg:col-span-8">
-            <FaqList items={faqFor("listing").slice(0, 5)} locale={locale} />
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews close the page: the score once, then the quotes as a strip of cards (swipe on
-          phones, arrows from md up), so any number of them takes the same space. */}
+      {/* Reviews straight after the details: the score once, then the quotes as a strip of cards
+          (swipe on phones, arrows from md up), so any number of them takes the same space. */}
       {listing.reviews && reviews.reviews.length ? (
         <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
           <div className="container-page">
@@ -471,6 +440,37 @@ async function ApartmentContent({ params }: { params: Params }) {
           </Carousel>
         </section>
       ) : null}
+
+      {/* The other homes in this building: a band of its own after the reviews, so it reads as
+          the next step rather than an afterthought. */}
+      {others.length ? (
+        <section id="more-homes" aria-labelledby="more-title" className="mt-[var(--section-tight)] scroll-mt-24 bg-sand">
+          <div className="container-page section-y-tight">
+            <div className="border-t-2 border-ink pt-6">
+              <h2 id="more-title" className="text-h2">
+                {t("listing.moreInBuilding", { building: building.name })}
+              </h2>
+              <p className="mt-4 max-w-2xl">{t("listing.moreInBuildingIntro")}</p>
+            </div>
+            <div className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+              {others.map((l) => (
+                <ListingCard key={l.id} listing={l} location={neighbourhood?.name ?? ""} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <section aria-labelledby="listing-faq-title">
+        <div className="container-page section-y-tight grid gap-10 lg:grid-cols-12">
+          <h2 id="listing-faq-title" className="text-h2 lg:col-span-4">
+            {t("listing.faqTitle")}
+          </h2>
+          <div className="lg:col-span-8">
+            <FaqList items={faqFor("listing").slice(0, 5)} locale={locale} />
+          </div>
+        </div>
+      </section>
 
       {/* Room for the mobile booking bar */}
       <div className="h-20 lg:hidden" aria-hidden />

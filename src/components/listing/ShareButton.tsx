@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { buttonClasses } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
 /**
@@ -37,12 +38,8 @@ export function ShareButton({ title }: { title: string }) {
   }
 
   return (
-    // A white pill on the photos, like "View all photos": hard to miss, no extra chrome on the page.
-    <button
-      type="button"
-      onClick={share}
-      className="text-small inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 font-semibold text-ink shadow-sm transition-colors hover:bg-white"
-    >
+    // The site's outline button, small: clearly an action, and nothing like the photo controls.
+    <button type="button" onClick={share} className={buttonClasses("secondary", "sm", "shrink-0")}>
       <Icon name={copied ? "check" : "share"} size={16} />
       <span role="status">{copied ? t("shareCopied") : t("share")}</span>
     </button>
