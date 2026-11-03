@@ -48,7 +48,7 @@ export async function ListingCard({
         ) : null}
       </div>
       {/* Same anatomy as the home collection cards: under an ink rule, the name and what it is on
-          the left, the from-price stacked on the right above the arrow. */}
+          the left, the arrow on the right with the from-price under it. */}
       <div className="mt-5 grid grid-cols-[1fr_auto] gap-x-6 border-t-2 border-ink pt-4">
         <div>
           {/* Sentence case at a calm size: the photo sells, the name labels it. */}
@@ -70,18 +70,18 @@ export async function ListingCard({
           </p>
         </div>
         <div className="flex flex-col items-end justify-between gap-4 text-right">
-          <p className="text-small text-granite">
-            <span className="block">{t("common.from")}</span>
-            <span className="block">
-              {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
-            </span>
-          </p>
           <Icon
             name="arrowRight"
             size={32}
             strokeWidth={1.75}
             className="shrink-0 transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)] group-hover:translate-x-2"
           />
+          <p className="text-small text-granite">
+            <span className="block">{t("common.from")}</span>
+            <span className="block">
+              {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
+            </span>
+          </p>
         </div>
       </div>
     </article>
