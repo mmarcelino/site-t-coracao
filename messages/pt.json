@@ -228,7 +228,7 @@
     "noPets": "Não são aceites animais",
     "noParties": "Não são permitidas festas",
     "guestRegistration": "Registo obrigatório de todos os hóspedes (lei portuguesa)",
-    "stairsNote": "O {building} é um edifício histórico sem elevador; o apartamento fica no {floor}.",
+    "stairsNote": "O {building} é um edifício histórico sem elevador.",
     "moreInBuilding": "Mais casas no {building}",
     "faqTitle": "Antes de reservar.",
     "stairsNoteHouse": "A {building} é uma casa em três pisos, sem elevador.",
