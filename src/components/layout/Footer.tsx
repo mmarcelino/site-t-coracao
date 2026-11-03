@@ -115,13 +115,13 @@ export async function Footer() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <ul aria-label={t("footer.social")} className="-mx-0.75 flex text-paper">
               <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid h-9 w-6 place-items-center transition-colors hover:text-pop">
-                  <Icon name="instagram" size={18} strokeWidth={1.25} title="Instagram" />
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="grid h-9 w-6.5 place-items-center transition-colors hover:text-pop">
+                  <Icon name="instagram" size={20} strokeWidth={1.25} title="Instagram" />
                 </a>
               </li>
               <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid h-9 w-6 place-items-center transition-colors hover:text-pop">
-                  <Icon name="facebook" size={18} strokeWidth={1.25} title="Facebook" />
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className="grid h-9 w-6.5 place-items-center transition-colors hover:text-pop">
+                  <Icon name="facebook" size={20} strokeWidth={1.25} title="Facebook" />
                 </a>
               </li>
             </ul>

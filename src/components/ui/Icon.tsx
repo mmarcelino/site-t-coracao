@@ -117,7 +117,8 @@ const paths = {
       <circle cx="17.25" cy="6.75" r="0.6" fill="currentColor" />
     </>
   ),
-  facebook: <path d="M14.5 8.5H16V5h-2a4 4 0 0 0-4 4v2H8v3.5h2V21h3.5v-6.5h2.25L16 11h-2.5V9.5a1 1 0 0 1 1-1Z" />,
+  /** Centred vertically in the 24 box (y 4–20), so it lines up beside the Instagram glyph. */
+  facebook: <path d="M14.5 7.5H16V4h-2a4 4 0 0 0-4 4v2H8v3.5h2V20h3.5v-6.5h2.25L16 10h-2.5V8.5a1 1 0 0 1 1-1Z" />,
   /** WhatsApp glyph drawn as an outline so it sits with the rest of the set (no green bubble). */
   whatsapp: (
     <>
