@@ -120,7 +120,7 @@
   },
   "reassurance": {
     "secure": "Secure, encrypted payment",
-    "since": "Welcoming 6000+ guests every year since 2015",
+    "since": "Since {year}, now hosting {guests}+ guests a year",
     "cancellation": "Free cancellation up to 14 days before"
   },
   "reviews": {

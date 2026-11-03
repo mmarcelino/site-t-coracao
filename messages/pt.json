@@ -120,7 +120,7 @@
   },
   "reassurance": {
     "secure": "Pagamento seguro e encriptado",
-    "since": "A receber mais de 6000 hóspedes por ano desde 2015",
+    "since": "Desde {year}, hoje com mais de {guests} hóspedes por ano",
     "cancellation": "Cancelamento gratuito até 14 dias antes"
   },
   "reviews": {
