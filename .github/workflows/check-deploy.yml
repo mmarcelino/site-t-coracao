@@ -30,12 +30,12 @@ jobs:
           head=$(gh api "repos/${{ github.repository }}/commits/main" --jq .sha)
           if [ "$head" = "${{ github.event.sha || github.sha }}" ]; then echo "check=true" >> "$GITHUB_OUTPUT"; else echo "Not main's head (a preview), skipping."; fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.target.outputs.check == 'true'
         with:
           ref: ${{ github.event.sha || github.sha }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: steps.target.outputs.check == 'true'
         with:
           node-version: 24
