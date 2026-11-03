@@ -201,9 +201,7 @@ async function ApartmentContent({ params }: { params: Params }) {
         <div className="grid gap-x-[clamp(2rem,5vw,6rem)] lg:grid-cols-[minmax(0,1fr)_24rem]">
           <article className="min-w-0">
             <header className="max-w-3xl">
-              <p className="label text-granite">
-                {building.name} · {neighbourhood?.name}
-              </p>
+              <p className="label text-granite">{building.name}</p>
               {/* Share runs inline after the title's last word, on its baseline, so it sits in the
                   same place whether the title takes one line or two. */}
               <div className="mt-4 text-balance">
