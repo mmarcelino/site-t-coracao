@@ -83,9 +83,6 @@ export async function LegalPage({ doc }: { doc: LegalDoc }) {
     <article className="container-page max-w-3xl pt-[clamp(3rem,7vw,6rem)] pb-[clamp(4rem,9vw,8rem)]">
       <h1 className="text-h1">{doc.title[locale]}</h1>
       <p className="text-small mt-5 text-granite">{t("updated", { date: updated })}</p>
-      {doc.draft ? (
-        <p className="text-small mt-4 inline-block rounded-[var(--radius-tile)] bg-azulejo-tint px-3 py-2">{t("draft")}</p>
-      ) : null}
       <p className="text-lead mt-10">{withLinks(doc.intro[locale])}</p>
       {doc.sections.map((section) => (
         <section key={section.heading.en} className="mt-12 border-t-2 border-ink pt-5">

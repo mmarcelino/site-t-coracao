@@ -204,7 +204,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - [ ] AL licence numbers per property (10 known from Guesty, see `src/content/site.ts`)
 - [ ] **Copy/facts flagged TO CONFIRM in the code** (search for `TO CONFIRM`, `INVENTED`, `toConfirm: true`, `mock: true`):
   - Cancellation terms used in copy: "free cancellation up to 14 days before arrival" (perks, FAQ, reassurance). **Conflicts with the client's published terms** (5 days short stays / 30 days for 1 month+), which the new Terms page follows (2026-11-04); tourist tax: their terms say paid at check-in, Guesty includes it in the total
-  - Legal pages (`src/content/legal.ts`, `draft: true`): rewritten from the client's current pages for the new site; company name/NIF, payment provider and retention periods to confirm
+  - **Legal pages must be reviewed by the client before launch** (`src/content/legal.ts`; no draft note on the pages, by choice): rewritten from the client's current pages for the new site; company name/NIF, payment provider and retention periods to confirm
   - Book-direct perks wording, incl. "find it for less and we'll match it", welcome gift contents
   - FAQ answers for luggage storage, mid-stay cleaning, airport transfer, payment provider, owner fees
   - Building eras (`era`), lifts at Breiner 210 and São Bento, floor areas (`areaSqm`) for all 10 flats

@@ -5,8 +5,8 @@ import type { Localized } from "@/lib/data/types";
  * current pages (tripas-coracao.pt/pt/newpage and /pt/privacy-policy, read 2026-11-04) and updated
  * for the new site (Guesty bookings, card payments through the provider, Microsoft Clarity instead
  * of Google Analytics/Ads, Vercel hosting, OpenStreetMap). The cookie policy is new: the old site
- * mixed it into the privacy policy. All three are DRAFTS for the client to review (`draft: true`
- * shows a note on the page).
+ * mixed it into the privacy policy. All three still need the client's review before launch
+ * (tracked in CLAUDE.md §15, not shown on the pages).
  *
  * TO CONFIRM with the client (also in their questions doc):
  * - Cancellation: their published terms say 5 days (short stays) / 30 days (1 month+); the rest of
@@ -28,7 +28,6 @@ export interface LegalDoc {
   intro: Localized;
   /** YYYY-MM-DD */
   updated: string;
-  draft: boolean;
   sections: Array<{ heading: Localized; blocks: LegalBlock[] }>;
 }
 
@@ -42,7 +41,6 @@ export const terms: LegalDoc = {
     en: "These terms apply to bookings made directly on this website. Please read them before you book: confirming a booking means you accept them. Bookings made on Airbnb, Booking.com, Plum Guide or VRBO follow those platforms' own terms and cancellation policies.",
   },
   updated: "2026-11-04",
-  draft: true,
   sections: [
     {
       heading: { pt: "Quem somos", en: "Who we are" },
@@ -214,7 +212,6 @@ export const privacy: LegalDoc = {
     en: "We only process the personal data we need to host you well, and we never sell it or share it with other brands for marketing. This policy explains what data we process, why, with whom, and your rights under the General Data Protection Regulation (GDPR, Regulation (EU) 2016/679).",
   },
   updated: "2026-11-04",
-  draft: true,
   sections: [
     {
       heading: { pt: "Responsável pelo tratamento", en: "Who is responsible" },
@@ -380,7 +377,6 @@ export const cookies: LegalDoc = {
     en: "We keep cookies to a minimum. The necessary ones make the site work; statistics cookies only switch on if you accept them. We don't use advertising or remarketing cookies.",
   },
   updated: "2026-11-04",
-  draft: true,
   sections: [
     {
       heading: { pt: "O que são cookies", en: "What cookies are" },
