@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { track } from "@/lib/analytics";
 import { buttonClasses } from "@/components/ui/Button";
 import { Reassurance } from "@/components/booking/Reassurance";
+import { RateChooser, useRateLabel, useRateSelection } from "./RateSelection";
 
 /**
  * Checkout form (DEMO). Nothing typed here is sent or stored: the submit handler only checks the
@@ -13,8 +14,11 @@ import { Reassurance } from "@/components/booking/Reassurance";
  * secure card fields (GuestyPay or Stripe), and the server books with Guesty using its token.
  * `data-clarity-mask` is belt and braces: analytics never loads on checkout anyway.
  */
-export function CheckoutForm({ listingId, total }: { listingId: string; total: number }) {
+export function CheckoutForm({ listingId }: { listingId: string }) {
   const t = useTranslations("checkout");
+  const { selected } = useRateSelection();
+  const rateLabel = useRateLabel();
+  const total = selected.total;
   const [reference, setReference] = useState<string | null>(null);
   const confirmation = useRef<HTMLHeadingElement>(null);
 
@@ -52,7 +56,11 @@ export function CheckoutForm({ listingId, total }: { listingId: string; total: n
 
   return (
     <form onSubmit={onSubmit} data-clarity-mask="true" className="max-w-2xl space-y-12">
-      <Step number={1} title={t("detailsTitle")}>
+      <Step number={1} title={t("rateTitle")}>
+        <RateChooser />
+      </Step>
+
+      <Step number={2} title={t("detailsTitle")}>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label={t("firstName")} name="firstName" autoComplete="given-name" required />
           <Field label={t("lastName")} name="lastName" autoComplete="family-name" required />
@@ -68,7 +76,7 @@ export function CheckoutForm({ listingId, total }: { listingId: string; total: n
       </Step>
 
       {/* Reassurance sits here, at the payment step, where guests leaving Airbnb need it most. */}
-      <Step number={2} title={t("paymentTitle")}>
+      <Step number={3} title={t("paymentTitle")}>
         <p className="text-small">{t("cardSecureNote")}</p>
         {/* Stand-in for the payment provider's secure card fields (GuestyPay or Stripe), which go
             exactly here in production. Read-only on purpose: a demo must never take a real card. */}
@@ -82,11 +90,11 @@ export function CheckoutForm({ listingId, total }: { listingId: string; total: n
           </div>
         </div>
         <div className="mt-5 text-[0.8125rem]">
-          <Reassurance />
+          <Reassurance cancellation={rateLabel(selected)} />
         </div>
       </Step>
 
-      <Step number={3} title={t("confirmTitle")}>
+      <Step number={4} title={t("confirmTitle")}>
         <div className="space-y-3">
           <Check name="terms" required>
             {t.rich("termsConsent", {

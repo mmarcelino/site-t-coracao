@@ -239,6 +239,23 @@ export interface QuoteNight {
   price: number;
 }
 
+/** One bookable rate for a stay (a Guesty rate plan), with its own price and cancellation terms. */
+export interface RateOption {
+  ratePlanId: string;
+  /** Guesty's internal plan name (e.g. "Daily custom"); not shown to guests. */
+  name: string;
+  nonRefundable: boolean;
+  /** Last day (YYYY-MM-DD, exclusive) to cancel for free; null when non-refundable. */
+  freeCancellationUntil: string | null;
+  accommodation: number;
+  lengthOfStayAdjustment: number;
+  extraGuestFee: number;
+  otherFees: number;
+  cleaningFee: number;
+  touristTax: number;
+  total: number;
+}
+
 export interface Quote {
   id: string;
   listingId: string;
@@ -263,6 +280,8 @@ export interface Quote {
   ratePlanName: string;
   /** Expiry of the Guesty quote (24 h). */
   expiresAt: string;
+  /** Every rate the guest can choose, most flexible first (the fields above = the first one). */
+  options: RateOption[];
   mock: boolean;
 }
 

@@ -18,6 +18,7 @@ import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { DateRangeCalendar } from "./DateRangeCalendar";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { Reassurance } from "./Reassurance";
+import { useRateLabel } from "@/components/checkout/RateSelection";
 
 export interface BookingListing {
   id: string;
@@ -127,6 +128,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   }, [sheetOpen]);
 
   const okQuote = quote.status === "done" && quote.result.ok ? quote.result.quote : null;
+  const rateLabel = useRateLabel();
 
   function onReserve() {
     if (!okQuote) return;
@@ -320,7 +322,8 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         <Icon name="whatsapp" size={16} className="mt-0.5 shrink-0" />
         <span className="link-quiet">{t("whatsapp.cta")}</span>
       </WhatsAppLink>
-      <Reassurance />
+      {/* With a price on screen, the real cancellation terms of that rate replace the generic line. */}
+      <Reassurance cancellation={okQuote?.options[0] ? rateLabel(okQuote.options[0]) : undefined} />
     </div>
   );
 

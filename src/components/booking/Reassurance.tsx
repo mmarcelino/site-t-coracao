@@ -5,13 +5,16 @@ import { site } from "@/content/site";
 import { useFormat } from "@/lib/format";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
-/** Quiet trust lines beside the booking widget (CLAUDE.md §5). */
-export function Reassurance() {
+/**
+ * Quiet trust lines beside the booking widget (CLAUDE.md §5). `cancellation` replaces the generic
+ * cancellation line with the real terms of the rate being shown (from the Guesty quote).
+ */
+export function Reassurance({ cancellation }: { cancellation?: string } = {}) {
   const t = useTranslations("reassurance");
   const format = useFormat();
   const items: Array<{ icon: IconName; text: string }> = [
     { icon: "lock", text: t("secure") },
-    { icon: "refresh", text: t("cancellation") },
+    { icon: "refresh", text: cancellation ?? t("cancellation") },
     { icon: "clock", text: t("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) }) },
   ];
   return (

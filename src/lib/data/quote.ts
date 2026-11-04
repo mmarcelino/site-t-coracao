@@ -1,9 +1,9 @@
-import { eachNight, isISODate, nightsBetween, parseISODate } from "@/lib/dates";
+import { addDays, eachNight, isISODate, localDateToISO, nightsBetween, parseISODate } from "@/lib/dates";
 import { isRangeAvailable } from "./availability";
 import { isGuestyConfigured } from "./guesty/client";
 import { fetchGuestyQuote } from "./guesty/quotes";
 import { getRawListing } from "./listings";
-import type { GuestyListing, GuestyQuote, Quote, QuoteRequest, QuoteResult } from "./types";
+import type { GuestyListing, GuestyQuote, Quote, QuoteRequest, QuoteResult, RateOption } from "./types";
 
 /**
  * Quotes: live from Guesty's Booking Engine API when keys are set (`guesty/quotes.ts`), else this
@@ -90,31 +90,67 @@ function buildGuestyQuote(listing: GuestyListing, req: QuoteRequest): GuestyQuot
   };
 }
 
-/** Guesty's cancellation policies, most lenient first (unknown ones count as strict). */
-const POLICY_ORDER = ["flexible", "semi_flexible", "moderate", "semi_moderate", "strict", "super_strict"];
-
-function leniency(policy: string): number {
-  const i = POLICY_ORDER.indexOf(policy);
-  return i === -1 ? POLICY_ORDER.indexOf("strict") : i;
-}
-
 /**
- * Guesty BE quote → our Quote. A listing can have several rate plans (e.g. Daily, Early Book,
- * Non-Refundable): we show the most lenient one, matching the "flexible cancellation" perk
- * (TO CONFIRM with the client which plans the site should offer).
+ * Guesty's standard cancellation policies: free cancellation until this many days before arrival
+ * ([Guesty help: cancellation policies](https://help.guesty.com/hc/en-gb/articles/18564288423965),
+ * read 2026-11-04). An unknown policy is treated as non-refundable, so we never promise a refund
+ * Guesty wouldn't give.
  */
-export function fromGuestyQuote(raw: GuestyQuote, req: QuoteRequest, mock: boolean): Quote {
-  const plan = [...raw.rates.ratePlans].sort(
-    (a, b) => leniency(a.ratePlan.cancellationPolicy) - leniency(b.ratePlan.cancellationPolicy),
-  )[0];
-  if (!plan) throw new Error("Quote has no rate plans");
+const FREE_CANCELLATION_DAYS: Record<string, number> = {
+  flexible: 1,
+  semi_flexible: 2,
+  semi_moderate: 5,
+  moderate: 7,
+  firm: 14,
+  semi_strict: 30,
+  strict: 60,
+  super_strict: 90,
+};
+
+type GuestyRatePlan = GuestyQuote["rates"]["ratePlans"][number];
+
+function toOption(plan: GuestyRatePlan, checkIn: string, today: string): RateOption {
   const { money } = plan.ratePlan;
   const sum = (match: (item: (typeof money.invoiceItems)[number]) => boolean) =>
     money.invoiceItems.filter(match).reduce((s, i) => s + i.amount, 0);
   const lengthOfStayAdjustment = sum((i) => i.type === "DISCOUNT");
   const extraGuestFee = sum((i) => i.normalType === "EGF");
   const otherFees = money.totalFees - money.fareCleaning;
-  const rank = leniency(plan.ratePlan.cancellationPolicy);
+  const days = FREE_CANCELLATION_DAYS[plan.ratePlan.cancellationPolicy];
+  const until = days === undefined || /non.?refundable/i.test(plan.ratePlan.name) ? null : addDays(checkIn, -days);
+  // A deadline already past (a last-minute stay) means no free cancellation either.
+  const freeCancellationUntil = until && until > today ? until : null;
+  return {
+    ratePlanId: plan.ratePlan._id,
+    name: plan.ratePlan.name,
+    nonRefundable: freeCancellationUntil === null,
+    freeCancellationUntil,
+    // Whatever Guesty itemises, the lines must add up to its total: the stay is the remainder.
+    accommodation: money.subTotalPrice - money.fareCleaning - otherFees - extraGuestFee - lengthOfStayAdjustment,
+    lengthOfStayAdjustment,
+    extraGuestFee,
+    otherFees,
+    cleaningFee: money.fareCleaning,
+    touristTax: money.totalTaxes,
+    total: money.subTotalPrice + money.totalTaxes,
+  };
+}
+
+/**
+ * Guesty BE quote → our Quote, with every rate plan as an option (e.g. Daily, Early Book,
+ * Non-Refundable). Most flexible first; an option is dropped when a more flexible one costs the
+ * same or less (it would never be the better choice). The first option is the default
+ * (TO CONFIRM with the client: preselect the most flexible or the cheapest).
+ */
+export function fromGuestyQuote(raw: GuestyQuote, req: QuoteRequest, mock: boolean, today: string): Quote {
+  const all = raw.rates.ratePlans
+    .map((plan) => toOption(plan, req.checkIn, today))
+    .sort((a, b) => (b.freeCancellationUntil ?? "").localeCompare(a.freeCancellationUntil ?? "") || a.total - b.total);
+  const options = all.filter((option, i) => !all.slice(0, i).some((better) => better.total <= option.total));
+  const best = options[0];
+  const plan = raw.rates.ratePlans.find((p) => p.ratePlan._id === best?.ratePlanId);
+  if (!best || !plan) throw new Error("Quote has no rate plans");
+  const daysBefore = best.freeCancellationUntil ? nightsBetween(best.freeCancellationUntil, req.checkIn) : 0;
 
   return {
     id: raw._id,
@@ -123,20 +159,20 @@ export function fromGuestyQuote(raw: GuestyQuote, req: QuoteRequest, mock: boole
     checkOut: req.checkOut,
     guests: req.guests,
     nights: nightsBetween(req.checkIn, req.checkOut),
-    currency: money.currency,
+    currency: plan.ratePlan.money.currency,
     nightly: plan.days.map((d) => ({ date: d.date, price: d.price })),
-    // Whatever Guesty itemises, the lines must add up to its total: the stay is the remainder.
-    accommodation: money.subTotalPrice - money.fareCleaning - otherFees - extraGuestFee - lengthOfStayAdjustment,
-    lengthOfStayAdjustment,
-    cleaningFee: money.fareCleaning,
-    extraGuestFee,
-    otherFees,
-    touristTax: money.totalTaxes,
-    total: money.subTotalPrice + money.totalTaxes,
-    cancellationPolicy: rank <= 1 ? "flexible" : rank <= 3 ? "moderate" : "strict",
-    ratePlanId: plan.ratePlan._id,
-    ratePlanName: plan.ratePlan.name,
+    accommodation: best.accommodation,
+    lengthOfStayAdjustment: best.lengthOfStayAdjustment,
+    cleaningFee: best.cleaningFee,
+    extraGuestFee: best.extraGuestFee,
+    otherFees: best.otherFees,
+    touristTax: best.touristTax,
+    total: best.total,
+    cancellationPolicy: best.nonRefundable ? "strict" : daysBefore <= 2 ? "flexible" : daysBefore <= 14 ? "moderate" : "strict",
+    ratePlanId: best.ratePlanId,
+    ratePlanName: best.name,
     expiresAt: raw.expiresAt,
+    options,
     mock,
   };
 }
@@ -154,7 +190,7 @@ export async function getQuote(req: QuoteRequest): Promise<QuoteResult> {
     // Guesty applies the minimum stay, blocked dates and its own pricing rules itself.
     try {
       const result = await fetchGuestyQuote(req.listingId, req.checkIn, req.checkOut, req.guests);
-      if (result.ok) return { ok: true, quote: fromGuestyQuote(result.quote, req, false) };
+      if (result.ok) return { ok: true, quote: fromGuestyQuote(result.quote, req, false, localDateToISO(new Date())) };
       return result.reason === "min-nights"
         ? { ok: false, reason: "min-nights", minNights: listing.terms.minNights }
         : { ok: false, reason: "unavailable" };
@@ -169,5 +205,5 @@ export async function getQuote(req: QuoteRequest): Promise<QuoteResult> {
   if (!(await isRangeAvailable(listing._id, req.checkIn, req.checkOut))) {
     return { ok: false, reason: "unavailable" };
   }
-  return { ok: true, quote: fromGuestyQuote(buildGuestyQuote(listing, req), req, true) };
+  return { ok: true, quote: fromGuestyQuote(buildGuestyQuote(listing, req), req, true, localDateToISO(new Date())) };
 }
