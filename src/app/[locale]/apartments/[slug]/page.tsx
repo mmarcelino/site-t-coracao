@@ -371,6 +371,7 @@ async function ApartmentContent({ params }: { params: Params }) {
             <BookingWidget
               listing={{
                 id: listing.id,
+                slug: listing.slug,
                 buildingId: listing.buildingId,
                 title: listing.title,
                 buildingName: building.name,
