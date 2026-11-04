@@ -148,6 +148,11 @@
     "reference": "Preview reference:",
     "backHome": "Back to the home page"
   },
+  "legal": {
+    "updated": "Last updated: {date}",
+    "draft": "Draft for Tripas-Coração to review before launch.",
+    "cookieSettings": "Cookie preferences"
+  },
   "reassurance": {
     "secure": "Secure, encrypted payment",
     "since": "Since {year}, hosting {guests}+ guests a year",

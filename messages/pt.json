@@ -148,6 +148,11 @@
     "reference": "Referência da pré-visualização:",
     "backHome": "Voltar à página inicial"
   },
+  "legal": {
+    "updated": "Última atualização: {date}",
+    "draft": "Rascunho para revisão da Tripas-Coração antes do lançamento.",
+    "cookieSettings": "Preferências de cookies"
+  },
   "reassurance": {
     "secure": "Pagamento seguro e encriptado",
     "since": "Desde {year}, com mais de {guests} hóspedes por ano",
