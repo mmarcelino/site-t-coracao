@@ -50,7 +50,7 @@ export function SelectedPriceBreakdown() {
   return <PriceBreakdown quote={{ ...quote, ...selected }} />;
 }
 
-/** One compact row per rate, as radio buttons; the chosen one is outlined in ink. */
+/** One compact row per rate, as radio buttons; the chosen one is outlined in ink on a light fill. */
 export function RateChooser() {
   const t = useTranslations("checkout");
   const format = useFormat();
@@ -66,7 +66,7 @@ export function RateChooser() {
             key={option.ratePlanId}
             className={clsx(
               "flex cursor-pointer items-center gap-3 rounded-[var(--radius-tile)] border px-4 py-3 text-small transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-azulejo",
-              checked ? "border-ink" : "border-ink/20 hover:border-ink/50",
+              checked ? "border-ink bg-sand font-medium" : "border-ink/20 hover:border-ink/50",
             )}
           >
             <input
