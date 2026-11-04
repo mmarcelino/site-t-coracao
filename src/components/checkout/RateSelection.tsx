@@ -39,7 +39,9 @@ export function useRateLabel(): (option: RateOption) => string {
   return (option) =>
     option.freeCancellationUntil
       ? t("rateFreeCancellation", {
-          date: format.dateTime(isoToLocalDate(option.freeCancellationUntil), { day: "numeric", month: "short", year: "numeric" }),
+          // "6 Nov 2026" / "6 nov. 2026" (dayMonth: Intl's pt-PT short month is numeric).
+          // Non-breaking spaces keep the date on one line.
+          date: `${format.dayMonth(isoToLocalDate(option.freeCancellationUntil))} ${option.freeCancellationUntil.slice(0, 4)}`.replace(/ /g, "\u00a0"),
         })
       : t("rateNonRefundable");
 }
@@ -48,6 +50,13 @@ export function useRateLabel(): (option: RateOption) => string {
 export function SelectedPriceBreakdown() {
   const { quote, selected } = useRateSelection();
   return <PriceBreakdown quote={{ ...quote, ...selected }} />;
+}
+
+/** The chosen rate's cancellation terms, under the summary's total. */
+export function SelectedRateNote() {
+  const { selected } = useRateSelection();
+  const label = useRateLabel();
+  return <p className="text-small mt-3 text-right text-granite">{label(selected)}</p>;
 }
 
 /** One compact row per rate, as radio buttons; the chosen one is outlined in ink on a light fill. */
