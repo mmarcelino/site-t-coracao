@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { Suspense, createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { analyticsEnabled, clarityProjectId, setAnalyticsConsent } from "@/lib/analytics";
 import { isCheckoutPath } from "@/lib/checkout";
@@ -53,7 +53,6 @@ function loadClarity(projectId: string) {
 export function ConsentProvider({ children }: { children: ReactNode }) {
   const [consent, setConsent] = useState<ConsentState>("unknown");
   const [bannerOpen, setBannerOpen] = useState(false);
-  const onCheckout = isCheckoutPath(usePathname());
 
   useEffect(() => {
     const stored = readCookie();
@@ -64,18 +63,14 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (onCheckout) {
-      // A loaded script can't be unloaded: a fresh page load is the only clean start.
-      if (window.clarity) window.location.reload();
-      return;
-    }
+    if (isCheckoutPath(window.location.pathname)) return;
     if (consent === "granted" && analyticsEnabled) {
       loadClarity(clarityProjectId);
       setAnalyticsConsent(true);
     } else if (consent === "denied") {
       setAnalyticsConsent(false);
     }
-  }, [consent, onCheckout]);
+  }, [consent]);
 
   const accept = useCallback(() => {
     writeCookie("granted");
@@ -96,7 +91,25 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     [consent, bannerOpen, accept, reject, openPreferences],
   );
 
-  return <ConsentContext.Provider value={value}>{children}</ConsentContext.Provider>;
+  return (
+    <ConsentContext.Provider value={value}>
+      {children}
+      {/* The URL is only known in the browser: under Suspense so pages still pre-render. */}
+      <Suspense fallback={null}>
+        <CheckoutGuard />
+      </Suspense>
+    </ConsentContext.Provider>
+  );
+}
+
+/** Arriving at checkout with Clarity already running (client navigation): reload without it. */
+function CheckoutGuard() {
+  const onCheckout = isCheckoutPath(usePathname());
+  useEffect(() => {
+    // A loaded script can't be unloaded: a fresh page load is the only clean start.
+    if (onCheckout && window.clarity) window.location.reload();
+  }, [onCheckout]);
+  return null;
 }
 
 export function useConsent(): ConsentContextValue {
