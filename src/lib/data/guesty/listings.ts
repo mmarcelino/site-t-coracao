@@ -2,6 +2,7 @@ import "server-only";
 import { cacheLife } from "next/cache";
 import type { GuestyListing } from "../types";
 import { guestyGet } from "./client";
+import { sharedData } from "./shared-data";
 
 /**
  * Listings from the Guesty Booking Engine API, normalized to `GuestyListing`.
@@ -124,6 +125,10 @@ function normalize(raw: BeListing): GuestyListing {
 export async function fetchGuestyListings(): Promise<GuestyListing[]> {
   "use cache";
   cacheLife("hours");
+  return sharedData("listings", 3600, loadListings);
+}
+
+async function loadListings(): Promise<GuestyListing[]> {
   const all: BeListing[] = [];
   let cursor: string | undefined;
   // Cursor pagination; 42 listings fit in one page, the cap only guards against a loop.

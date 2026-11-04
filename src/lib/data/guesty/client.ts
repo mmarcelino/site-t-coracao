@@ -43,6 +43,11 @@ function credentials(): { clientId: string; clientSecret: string } | null {
   return { clientId, clientSecret };
 }
 
+/** The configured client ID (server-only; used to namespace shared-store entries per key). */
+export function guestyClientId(): string | null {
+  return credentials()?.clientId ?? null;
+}
+
 /** True when real credentials are set; otherwise the data layer stays on mock data. */
 export function isGuestyConfigured(): boolean {
   return credentials() !== null;

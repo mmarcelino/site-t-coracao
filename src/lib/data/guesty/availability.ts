@@ -2,6 +2,7 @@ import "server-only";
 import { cacheLife } from "next/cache";
 import { addDays, localDateToISO } from "@/lib/dates";
 import { guestyGet } from "./client";
+import { sharedData } from "./shared-data";
 
 /**
  * Availability and nightly prices from the Guesty Booking Engine API.
@@ -65,20 +66,35 @@ const FROM_STAY_NIGHTS = 3;
 /**
  * "From" price per listing: the lowest nightly rate guests can actually book in the next
  * 120 days. Guesty has no "lowest price" endpoint, so this samples back-to-back 3-night stays
- * (40 searches, throttled, refreshed a few times a day). Listings with no bookable 3-night stay
- * in that window are missing from the result (the caller falls back to the base price).
+ * (40 searches, run in parallel within the rate limit, ≈10 s). Shared across instances and
+ * refreshed every 6 hours by one instance while the others serve the previous result; while the
+ * very first one is being computed elsewhere, base prices are shown. Listings with no bookable
+ * 3-night stay in that window are missing from the result (the caller falls back to the base price).
  */
 export async function fetchGuestyFromRates(): Promise<Record<string, number>> {
   "use cache";
+  const rates = await sharedData<Record<string, number> | null>("from-rates", 6 * 3600, computeFromRates, () => null);
+  if (rates === null) {
+    // Another instance is computing them: base prices for now, and ask again shortly.
+    cacheLife("seconds");
+    return {};
+  }
   cacheLife("hours");
+  return rates;
+}
+
+async function computeFromRates(): Promise<Record<string, number>> {
   const today = localDateToISO(new Date());
-  const lowest: Record<string, number> = {};
+  const stays: string[] = [];
   for (let offset = 1; offset + FROM_STAY_NIGHTS <= FROM_HORIZON_DAYS; offset += FROM_STAY_NIGHTS) {
-    const checkIn = addDays(today, offset);
-    for (const listing of await searchStay(checkIn, addDays(checkIn, FROM_STAY_NIGHTS))) {
-      for (const rate of Object.values(listing.nightlyRates ?? {})) {
-        if (rate > 0 && rate < (lowest[listing._id] ?? Infinity)) lowest[listing._id] = rate;
-      }
+    stays.push(addDays(today, offset));
+  }
+  // The client's throttle spaces the requests; running them together just removes the waiting.
+  const results = await Promise.all(stays.map((checkIn) => searchStay(checkIn, addDays(checkIn, FROM_STAY_NIGHTS))));
+  const lowest: Record<string, number> = {};
+  for (const listing of results.flat()) {
+    for (const rate of Object.values(listing.nightlyRates ?? {})) {
+      if (rate > 0 && rate < (lowest[listing._id] ?? Infinity)) lowest[listing._id] = rate;
     }
   }
   return lowest;
