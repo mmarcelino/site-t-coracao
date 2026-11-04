@@ -1,5 +1,15 @@
 import { addDays, eachNight } from "@/lib/dates";
+import { isGuestyConfigured } from "./guesty/client";
+import { fetchAvailableListingIds, fetchGuestyCalendar } from "./guesty/availability";
 import type { AvailabilityDay } from "./types";
+
+/**
+ * Availability: live from Guesty when keys are set, else the mock calendar below. If Guesty fails,
+ * nothing is shown as blocked or filtered out (the quote is the final check before booking).
+ */
+function logFailure(error: unknown): void {
+  console.error(`[guesty] ${error instanceof Error ? error.message : "availability failed"}; not filtering`);
+}
 
 /**
  * MOCK availability: a deterministic pseudo-random booking calendar per listing, so screenshots
@@ -46,6 +56,15 @@ function bookedNights(listingId: string): Set<string> {
 }
 
 export async function getAvailability(listingId: string, from: string, to: string): Promise<AvailabilityDay[]> {
+  if (isGuestyConfigured()) {
+    try {
+      const days = await fetchGuestyCalendar(listingId, from, to);
+      return days.map((d) => ({ date: d.date, available: d.status === "available" }));
+    } catch (error) {
+      logFailure(error);
+      return [];
+    }
+  }
   const booked = bookedNights(listingId);
   return eachNight(from, to).map((date) => ({ date, available: !booked.has(date) }));
 }
@@ -56,6 +75,14 @@ export async function getBlockedNights(listingId: string, from: string, to: stri
 }
 
 export async function isRangeAvailable(listingId: string, checkIn: string, checkOut: string): Promise<boolean> {
+  if (isGuestyConfigured()) {
+    try {
+      return (await fetchAvailableListingIds(checkIn, checkOut)).includes(listingId);
+    } catch (error) {
+      logFailure(error);
+      return true;
+    }
+  }
   const booked = bookedNights(listingId);
   return eachNight(checkIn, checkOut).every((night) => !booked.has(night));
 }

@@ -1,11 +1,14 @@
 import { eachNight, isISODate, nightsBetween, parseISODate } from "@/lib/dates";
 import { isRangeAvailable } from "./availability";
+import { isGuestyConfigured } from "./guesty/client";
+import { fetchGuestyQuote } from "./guesty/quotes";
 import { getRawListing } from "./listings";
 import type { GuestyListing, GuestyQuote, Quote, QuoteRequest, QuoteResult } from "./types";
 
 /**
- * MOCK quote engine. Produces a response shaped like Guesty's Booking Engine API quote
- * (`GuestyQuote`) and maps it to our `Quote`, exactly as the real integration will.
+ * Quotes: live from Guesty's Booking Engine API when keys are set (`guesty/quotes.ts`), else this
+ * MOCK engine, which builds a response shaped like Guesty's quote. Both go through
+ * `fromGuestyQuote`, so the widget sees one shape.
  *
  * Mock pricing rules (INVENTED, for realism only; Guesty's dynamic pricing will replace them):
  * - nightly rate = Guesty base price × seasonal factor × 1.12 on Friday/Saturday nights
@@ -62,10 +65,6 @@ function buildGuestyQuote(listing: GuestyListing, req: QuoteRequest): GuestyQuot
     _id: `mock-quote-${listing._id}-${req.checkIn}-${req.checkOut}-${req.guests}`,
     createdAt: "2026-10-26T00:00:00.000Z",
     expiresAt: "2026-10-27T00:00:00.000Z",
-    listingId: listing._id,
-    checkInDateLocalized: req.checkIn,
-    checkOutDateLocalized: req.checkOut,
-    guestsCount: req.guests,
     rates: {
       ratePlans: [
         {
@@ -91,32 +90,54 @@ function buildGuestyQuote(listing: GuestyListing, req: QuoteRequest): GuestyQuot
   };
 }
 
-/** Guesty BE quote → our Quote. This mapper survives the switch to the real API. */
-export function fromGuestyQuote(raw: GuestyQuote): Quote {
-  const plan = raw.rates.ratePlans[0];
+/** Guesty's cancellation policies, most lenient first (unknown ones count as strict). */
+const POLICY_ORDER = ["flexible", "semi_flexible", "moderate", "semi_moderate", "strict", "super_strict"];
+
+function leniency(policy: string): number {
+  const i = POLICY_ORDER.indexOf(policy);
+  return i === -1 ? POLICY_ORDER.indexOf("strict") : i;
+}
+
+/**
+ * Guesty BE quote → our Quote. A listing can have several rate plans (e.g. Daily, Early Book,
+ * Non-Refundable): we show the most lenient one, matching the "flexible cancellation" perk
+ * (TO CONFIRM with the client which plans the site should offer).
+ */
+export function fromGuestyQuote(raw: GuestyQuote, req: QuoteRequest, mock: boolean): Quote {
+  const plan = [...raw.rates.ratePlans].sort(
+    (a, b) => leniency(a.ratePlan.cancellationPolicy) - leniency(b.ratePlan.cancellationPolicy),
+  )[0];
   if (!plan) throw new Error("Quote has no rate plans");
   const { money } = plan.ratePlan;
-  const sum = (normalType: string) =>
-    money.invoiceItems.filter((i) => i.normalType === normalType).reduce((s, i) => s + i.amount, 0);
-  const policy = plan.ratePlan.cancellationPolicy;
+  const sum = (match: (item: (typeof money.invoiceItems)[number]) => boolean) =>
+    money.invoiceItems.filter(match).reduce((s, i) => s + i.amount, 0);
+  const lengthOfStayAdjustment = sum((i) => i.type === "DISCOUNT");
+  const extraGuestFee = sum((i) => i.normalType === "EGF");
+  const otherFees = money.totalFees - money.fareCleaning;
+  const rank = leniency(plan.ratePlan.cancellationPolicy);
 
   return {
     id: raw._id,
-    listingId: raw.listingId,
-    checkIn: raw.checkInDateLocalized,
-    checkOut: raw.checkOutDateLocalized,
-    guests: raw.guestsCount,
-    nights: plan.days.length,
+    listingId: req.listingId,
+    checkIn: req.checkIn,
+    checkOut: req.checkOut,
+    guests: req.guests,
+    nights: nightsBetween(req.checkIn, req.checkOut),
     currency: money.currency,
     nightly: plan.days.map((d) => ({ date: d.date, price: d.price })),
-    accommodation: sum("AF"),
-    lengthOfStayAdjustment: sum("LOS"),
+    // Whatever Guesty itemises, the lines must add up to its total: the stay is the remainder.
+    accommodation: money.subTotalPrice - money.fareCleaning - otherFees - extraGuestFee - lengthOfStayAdjustment,
+    lengthOfStayAdjustment,
     cleaningFee: money.fareCleaning,
-    extraGuestFee: sum("EGF"),
+    extraGuestFee,
+    otherFees,
     touristTax: money.totalTaxes,
     total: money.subTotalPrice + money.totalTaxes,
-    cancellationPolicy: policy === "strict" || policy === "moderate" ? policy : "flexible",
-    mock: true,
+    cancellationPolicy: rank <= 1 ? "flexible" : rank <= 3 ? "moderate" : "strict",
+    ratePlanId: plan.ratePlan._id,
+    ratePlanName: plan.ratePlan.name,
+    expiresAt: raw.expiresAt,
+    mock,
   };
 }
 
@@ -129,11 +150,24 @@ export async function getQuote(req: QuoteRequest): Promise<QuoteResult> {
   if (!Number.isInteger(req.guests) || req.guests < 1 || req.guests > listing.accommodates) {
     return { ok: false, reason: "max-guests" };
   }
+  if (isGuestyConfigured()) {
+    // Guesty applies the minimum stay, blocked dates and its own pricing rules itself.
+    try {
+      const result = await fetchGuestyQuote(req.listingId, req.checkIn, req.checkOut, req.guests);
+      if (result.ok) return { ok: true, quote: fromGuestyQuote(result.quote, req, false) };
+      return result.reason === "min-nights"
+        ? { ok: false, reason: "min-nights", minNights: listing.terms.minNights }
+        : { ok: false, reason: "unavailable" };
+    } catch (error) {
+      console.error(`[guesty] ${error instanceof Error ? error.message : "quote failed"}`);
+      return { ok: false, reason: "error" };
+    }
+  }
   if (nightsBetween(req.checkIn, req.checkOut) < listing.terms.minNights) {
     return { ok: false, reason: "min-nights", minNights: listing.terms.minNights };
   }
   if (!(await isRangeAvailable(listing._id, req.checkIn, req.checkOut))) {
     return { ok: false, reason: "unavailable" };
   }
-  return { ok: true, quote: fromGuestyQuote(buildGuestyQuote(listing, req)) };
+  return { ok: true, quote: fromGuestyQuote(buildGuestyQuote(listing, req), req, true) };
 }

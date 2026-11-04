@@ -77,7 +77,7 @@ export async function ListingCard({
         <p className="col-start-2 row-span-2 row-start-2 self-end text-right text-small text-granite">
           <span className="block">{t("common.from")}</span>
           <span className="block">
-            {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
+            {format.money(listing.price.from.amount, listing.price.from.currency)} {t("common.perNight")}
           </span>
         </p>
       </div>

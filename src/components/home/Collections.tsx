@@ -21,8 +21,8 @@ export async function Collections({ listings }: { listings: Listing[] }) {
   const items = collections.flatMap((c) => {
     const homes = listings.filter((l) => l.tags.includes(c.tag));
     if (!c.featured || homes.length === 0) return [];
-    const from = Math.min(...homes.map((l) => l.price.base.amount));
-    return [{ c, count: homes.length, from, currency: homes[0]?.price.base.currency ?? "EUR" }];
+    const from = Math.min(...homes.map((l) => l.price.from.amount));
+    return [{ c, count: homes.length, from, currency: homes[0]?.price.from.currency ?? "EUR" }];
   });
 
   return (

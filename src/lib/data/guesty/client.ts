@@ -107,11 +107,40 @@ async function getToken(): Promise<string> {
   return memoryToken.token;
 }
 
-/** GET a Booking Engine API path (e.g. `/listings?limit=100`), parsed as JSON. */
-export async function guestyGet<T>(pathAndQuery: string): Promise<T> {
+/**
+ * Guesty allows 5 requests per second per key: requests start at most every 250 ms (≈4/s), so a
+ * burst (e.g. sampling prices) queues instead of failing with 429.
+ */
+const MIN_GAP_MS = 250;
+let nextSlot = 0;
+
+async function throttle(): Promise<void> {
+  const now = Date.now();
+  const wait = Math.max(0, nextSlot - now);
+  nextSlot = Math.max(now, nextSlot) + MIN_GAP_MS;
+  if (wait) await new Promise((resolve) => setTimeout(resolve, wait));
+}
+
+export interface GuestyApiError {
+  code?: string;
+  message?: string;
+  data?: { moreDetails?: unknown };
+}
+
+export type GuestyResponse<T> = { ok: true; data: T } | { ok: false; status: number; error: GuestyApiError | null };
+
+/** A Booking Engine API request. Non-2xx answers come back as values (with Guesty's error body), not throws. */
+export async function guestyRequest<T>(method: "GET" | "POST", pathAndQuery: string, body?: unknown): Promise<GuestyResponse<T>> {
   const token = await getToken();
+  await throttle();
   const res = await fetch(`${API_BASE}${pathAndQuery}`, {
-    headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      ...(body ? { "Content-Type": "application/json" } : {}),
+    },
+    body: body ? JSON.stringify(body) : undefined,
     cache: "no-store",
   });
   if (res.status === 401) {
@@ -119,6 +148,16 @@ export async function guestyGet<T>(pathAndQuery: string): Promise<T> {
     memoryToken = null;
     if (process.env.NODE_ENV === "development") await rm(DEV_TOKEN_FILE, { force: true });
   }
+  if (!res.ok) {
+    const parsed = (await res.json().catch(() => null)) as { error?: GuestyApiError } | null;
+    return { ok: false, status: res.status, error: parsed?.error ?? null };
+  }
+  return { ok: true, data: (await res.json()) as T };
+}
+
+/** GET a Booking Engine API path (e.g. `/listings?limit=100`), parsed as JSON; throws on errors. */
+export async function guestyGet<T>(pathAndQuery: string): Promise<T> {
+  const res = await guestyRequest<T>("GET", pathAndQuery);
   if (!res.ok) throw new GuestyError(`Guesty GET ${pathAndQuery.split("?")[0]} failed (${res.status})`, res.status);
-  return (await res.json()) as T;
+  return res.data;
 }

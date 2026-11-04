@@ -1,7 +1,8 @@
-import { listingContent, type ListingContent, type RoomKey } from "@/content/listings";
+import { listingContent, listingFeatures, type ListingContent, type RoomKey } from "@/content/listings";
 import { buildings } from "@/content/buildings";
 import snapshot from "./mock/guesty-listings.snapshot.json";
 import { isGuestyConfigured } from "./guesty/client";
+import { fetchGuestyFromRates } from "./guesty/availability";
 import { fetchGuestyListing, fetchGuestyListings } from "./guesty/listings";
 import type { AmenityKey, GuestyListing, Listing, ListingCategory, ListingTag, Locale, Localized } from "./types";
 
@@ -31,6 +32,17 @@ async function loadGuestyListing(id: string): Promise<GuestyListing | null> {
   } catch (error) {
     console.error(`[guesty] ${errorMessage(error)}; using list data for ${id}`);
     return (await loadGuestyListings()).find((l) => l._id === id) ?? null;
+  }
+}
+
+/** Lowest bookable nightly rate per listing (live only; mock data uses the base price). */
+async function loadFromRates(): Promise<Record<string, number>> {
+  if (!isGuestyConfigured()) return {};
+  try {
+    return await fetchGuestyFromRates();
+  } catch (error) {
+    console.error(`[guesty] ${errorMessage(error)}; "from" prices fall back to base prices`);
+    return {};
   }
 }
 
@@ -171,7 +183,13 @@ function servablePictures(raw: GuestyListing): GuestyListing["pictures"] {
   }).filter((p): p is GuestyListing["pictures"][number] => p !== null);
 }
 
-function toListing(raw: GuestyListing, content: ListingContent | null, slug: string, locale: Locale): Listing {
+function toListing(
+  raw: GuestyListing,
+  content: ListingContent | null,
+  slug: string,
+  locale: Locale,
+  fromRate: number | undefined,
+): Listing {
   const buildingId = buildingIdFor(raw, content);
   const building = buildings.find((b) => b.id === buildingId);
   const title = guestyDisplayTitle(raw);
@@ -196,7 +214,7 @@ function toListing(raw: GuestyListing, content: ListingContent | null, slug: str
     guestyTitle: raw.title,
     nickname: raw.nickname,
     category: content?.category ?? deriveCategory(raw),
-    tags: deriveTags(raw, content?.features ?? [], amenities),
+    tags: deriveTags(raw, content?.features ?? listingFeatures[raw._id] ?? [], amenities),
     propertyType: raw.propertyType,
     accommodates: raw.accommodates,
     bedrooms: raw.bedrooms,
@@ -227,6 +245,7 @@ function toListing(raw: GuestyListing, content: ListingContent | null, slug: str
     highlights: [],
     amenities,
     price: {
+      from: { amount: fromRate ?? raw.prices.basePrice, currency },
       base: { amount: raw.prices.basePrice, currency },
       cleaningFee: { amount: raw.prices.cleaningFee ?? 0, currency },
       extraPersonFee: { amount: raw.prices.extraPersonFee ?? 0, currency },
@@ -275,12 +294,13 @@ async function entries(): Promise<Entry[]> {
 /** One home with Guesty's detail-only fields merged in. */
 async function resolveOne(entry: Entry | undefined, locale: Locale): Promise<Listing | null> {
   if (!entry) return null;
-  const raw = (await loadGuestyListing(entry.raw._id)) ?? entry.raw;
-  return toListing(raw, entry.content, entry.slug, locale);
+  const [raw, fromRates] = await Promise.all([loadGuestyListing(entry.raw._id), loadFromRates()]);
+  return toListing(raw ?? entry.raw, entry.content, entry.slug, locale, fromRates[entry.raw._id]);
 }
 
 async function resolveAll(locale: Locale): Promise<Listing[]> {
-  return (await entries()).map((e) => toListing(e.raw, e.content, e.slug, locale));
+  const [all, fromRates] = await Promise.all([entries(), loadFromRates()]);
+  return all.map((e) => toListing(e.raw, e.content, e.slug, locale, fromRates[e.raw._id]));
 }
 
 export async function getListings(

@@ -1,12 +1,16 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { analyticsEnabled, clarityProjectId, setAnalyticsConsent } from "@/lib/analytics";
+import { isCheckoutPath } from "@/lib/checkout";
 
 /**
  * Cookie consent (CLAUDE.md §11). The decision lives in a first-party cookie read on the client,
  * so pages stay static. Clarity is injected only after analytics consent AND when a project ID
- * is configured; withdrawing consent tells Clarity to erase its cookies.
+ * is configured; withdrawing consent tells Clarity to erase its cookies. It never runs on checkout
+ * pages: not loaded there, and if it is already running from an earlier page, the checkout page is
+ * reloaded so it starts without it.
  */
 export type ConsentState = "unknown" | "granted" | "denied";
 
@@ -49,6 +53,7 @@ function loadClarity(projectId: string) {
 export function ConsentProvider({ children }: { children: ReactNode }) {
   const [consent, setConsent] = useState<ConsentState>("unknown");
   const [bannerOpen, setBannerOpen] = useState(false);
+  const onCheckout = isCheckoutPath(usePathname());
 
   useEffect(() => {
     const stored = readCookie();
@@ -59,13 +64,18 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    if (onCheckout) {
+      // A loaded script can't be unloaded: a fresh page load is the only clean start.
+      if (window.clarity) window.location.reload();
+      return;
+    }
     if (consent === "granted" && analyticsEnabled) {
       loadClarity(clarityProjectId);
       setAnalyticsConsent(true);
     } else if (consent === "denied") {
       setAnalyticsConsent(false);
     }
-  }, [consent]);
+  }, [consent, onCheckout]);
 
   const accept = useCallback(() => {
     writeCookie("granted");

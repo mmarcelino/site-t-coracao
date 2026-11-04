@@ -74,21 +74,19 @@ export interface GuestyListing {
   areaSquareFeet?: number | null;
 }
 
-/** Shape of a Guesty Booking Engine API quote (subset we render). */
+/** Shape of a Guesty Booking Engine API quote (subset we use; checked against a live quote 2026-11-04). */
 export interface GuestyQuote {
   _id: string;
   createdAt: string;
   expiresAt: string;
-  listingId: string;
-  checkInDateLocalized: string;
-  checkOutDateLocalized: string;
-  guestsCount: number;
   rates: {
     ratePlans: Array<{
       ratePlan: {
         _id: string;
         name: string;
+        /** e.g. "flexible", "semi_moderate", "strict", "super_strict" (non-refundable). */
         cancellationPolicy: string;
+        priceAdjustment?: { type: string; direction: "increase" | "decrease"; amount: number };
         money: {
           currency: string;
           fareAccommodation: number;
@@ -101,11 +99,13 @@ export interface GuestyQuote {
             title: string;
             amount: number;
             currency: string;
-            type: "ACCOMMODATION_FARE" | "CLEANING_FEE" | "TAX" | "DISCOUNT";
+            /** ACCOMMODATION_FARE, CLEANING_FEE, TAX, DISCOUNT, ... */
+            type: string;
             normalType: string;
           }>;
         };
       };
+      /** Per-night rates before the booking-engine adjustments: they don't add up to the fare. */
       days: Array<{ date: string; price: number; currency: string; basePrice: number }>;
     }>;
   };
@@ -175,6 +175,8 @@ export interface Listing {
   highlights: string[];
   amenities: AmenityKey[];
   price: {
+    /** Lowest nightly rate bookable in the next 120 days (Guesty), else the base price. */
+    from: Money;
     base: Money;
     cleaningFee: Money;
     extraPersonFee: Money;
@@ -251,15 +253,22 @@ export interface Quote {
   lengthOfStayAdjustment: number;
   cleaningFee: number;
   extraGuestFee: number;
+  /** Fees other than cleaning (e.g. a pet fee), so the lines always add up to the total. */
+  otherFees: number;
   touristTax: number;
   total: number;
   cancellationPolicy: "flexible" | "moderate" | "strict";
-  mock: true;
+  /** The Guesty rate plan priced here (needed to book it later). */
+  ratePlanId: string;
+  ratePlanName: string;
+  /** Expiry of the Guesty quote (24 h). */
+  expiresAt: string;
+  mock: boolean;
 }
 
 export type QuoteResult =
   | { ok: true; quote: Quote }
-  | { ok: false; reason: "unavailable" | "min-nights" | "max-guests" | "invalid-dates"; minNights?: number };
+  | { ok: false; reason: "unavailable" | "min-nights" | "max-guests" | "invalid-dates" | "error"; minNights?: number };
 
 export interface AvailabilityDay {
   date: string;

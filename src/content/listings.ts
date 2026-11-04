@@ -168,3 +168,34 @@ export const listingContent: ListingContent[] = [
     ],
   },
 ];
+
+/**
+ * Collection features for homes without an entry above, read from their Guesty titles, descriptions
+ * and amenities (2026-11-04). TO CONFIRM with the client. "outdoor" only where the text promises a
+ * balcony, terrace, patio or rooftop you can sit out on: Guesty's "Patio or balcony" amenity also
+ * covers Juliet balconies (Almada II, Taipas 1º/3º, São Bento III/IV), which don't count. The
+ * Santa Catarina flats have that amenity but no text: left out until confirmed.
+ */
+export const listingFeatures: Record<string, ListingFeature[]> = {
+  "64de2984ec3b510037fc32ab": ["views"], // Mouzinho32 2D: views over Praça do Infante
+  "64de2984ec3b510037fc3295": ["views"], // Mouzinho32 1D
+  "64de2984ec3b510037fc328a": ["views"], // Mouzinho32 1E
+  "60f82c3fc8730e002dc86013": ["views"], // Clérigos: Clérigos Tower and Jardim das Oliveiras
+  "60f82c3bb82a7e002f865336": ["views", "outdoor"], // Cord Ground River: balcony over the Douro
+  "60f82c35c8730e002dc85624": ["views", "outdoor"], // Cord 3rd Back River
+  "60f82c307aba91002d2cc7cb": ["views", "outdoor"], // Cord 1st Back River
+  "60f82c3ac8730e002dc85a14": ["views"], // Cord 2nd F Garden: garden view
+  "60f82c3ac8730e002dc859cd": ["views"], // Cord 3rd F Garden
+  "60f82c0bb82a7e002f863ef6": ["views"], // São Bento I: station view
+  "60f82bffb82a7e002f8639e6": ["views"], // São Bento III
+  "60f828697aba91002d2bfc2f": ["views"], // São Bento IV
+  "61003aa1f6277f002d1e4070": ["views", "outdoor"], // Sta Catarina T2 - 3º: rooftop with city views
+  "60f82c0b7aba91002d2cbc62": ["views"], // Sá da Bandeira II: city view
+  "60f82c0ac8730e002dc84a34": ["views"], // Sá da Bandeira I: city view
+  "60f82c0c3b29f7002f900e5c": ["views", "outdoor"], // Sá da Bandeira Duplex: rooftop balcony
+  "60f82c29b82a7e002f864d16": ["outdoor"], // Sá da Bandeira I balc.
+  "60f82c0a3b29f7002f900ad4": ["outdoor"], // Sá da Bandeira II balc.
+  "60f82c15b82a7e002f8643ca": ["outdoor"], // Sá da Bandeira 3rd floor Pateo
+  "62a1cc5d812755003358f88d": ["outdoor"], // Almada I: terrace and garden
+  "60f827a8b82a7e002f8515dd": ["outdoor"], // Santa Teresa: terrace
+};

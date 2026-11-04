@@ -374,8 +374,8 @@ async function ApartmentContent({ params }: { params: Params }) {
                 buildingId: listing.buildingId,
                 title: listing.title,
                 buildingName: building.name,
-                basePrice: listing.price.base.amount,
-                currency: listing.price.base.currency,
+                fromPrice: listing.price.from.amount,
+                currency: listing.price.from.currency,
                 minNights: listing.minNights,
                 accommodates: listing.accommodates,
                 rating: listing.reviews

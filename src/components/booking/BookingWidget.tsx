@@ -22,7 +22,8 @@ export interface BookingListing {
   buildingId: string;
   title: string;
   buildingName: string;
-  basePrice: number;
+  /** Lowest bookable nightly rate (the card's "from" price). */
+  fromPrice: number;
   currency: string;
   minNights: number;
   accommodates: number;
@@ -33,7 +34,8 @@ export interface BookingListing {
 type QuoteState = { status: "idle" } | { status: "loading" } | { status: "done"; result: QuoteResult };
 
 /**
- * Booking widget (UI only, mock data — CLAUDE.md §2). Desktop: sticky card beside the content.
+ * Booking widget (live Guesty availability and quotes when keys are set; checkout is still a demo,
+ * CLAUDE.md §2). Desktop: sticky card beside the content.
  * Mobile: a compact bar pinned to the bottom that opens a full-screen sheet. One state for both.
  * Quotes and availability come through server actions, the seam for Guesty's Booking Engine API.
  */
@@ -153,6 +155,8 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         return t("booking.minNights", { count: result.minNights ?? listing.minNights });
       case "max-guests":
         return t("booking.tooManyGuests", { count: listing.accommodates });
+      case "error":
+        return t("booking.quoteError");
       default:
         return t("booking.invalid");
     }
@@ -290,7 +294,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   const price = (
     <p className="whitespace-nowrap">
       <span className="text-small text-granite">{t("common.from")} </span>
-      <span className="text-h3 font-semibold">{money(listing.basePrice)}</span>
+      <span className="text-h3 font-semibold">{money(listing.fromPrice)}</span>
       <span className="text-small text-granite"> {t("common.perNight")}</span>
     </p>
   );
