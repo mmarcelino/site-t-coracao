@@ -77,10 +77,9 @@ export function CheckoutForm({ listingId }: { listingId: string }) {
 
       {/* Reassurance sits here, at the payment step, where guests leaving Airbnb need it most. */}
       <Step number={3} title={t("paymentTitle")}>
-        <p className="text-small">{t("cardSecureNote")}</p>
         {/* Stand-in for the payment provider's secure card fields (GuestyPay or Stripe), which go
             exactly here in production. Read-only on purpose: a demo must never take a real card. */}
-        <div className="mt-4 overflow-hidden rounded-[var(--radius-tile)] border border-ink/20">
+        <div className="overflow-hidden rounded-[var(--radius-tile)] border border-ink/20">
           <CardField label={t("cardNumber")} placeholder="1234 1234 1234 1234" />
           <div className="grid grid-cols-2 border-t border-ink/20">
             <CardField label={t("cardExpiry")} placeholder={t("cardExpiryPlaceholder")} />

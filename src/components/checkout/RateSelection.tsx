@@ -50,14 +50,14 @@ export function SelectedPriceBreakdown() {
   return <PriceBreakdown quote={{ ...quote, ...selected }} />;
 }
 
-/** One card per rate, as radio buttons; the chosen one is outlined in ink. */
+/** One compact row per rate, as radio buttons; the chosen one is outlined in ink. */
 export function RateChooser() {
   const t = useTranslations("checkout");
   const format = useFormat();
   const label = useRateLabel();
   const { quote, selected, select } = useRateSelection();
   return (
-    <fieldset className="space-y-3">
+    <fieldset className="space-y-2">
       <legend className="sr-only">{t("rateTitle")}</legend>
       {quote.options.map((option) => {
         const checked = option.ratePlanId === selected.ratePlanId;
@@ -65,8 +65,8 @@ export function RateChooser() {
           <label
             key={option.ratePlanId}
             className={clsx(
-              "flex cursor-pointer items-start gap-4 rounded-[var(--radius-tile)] border px-4 py-4 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-azulejo",
-              checked ? "border-ink bg-sand" : "border-ink/20 hover:border-ink/50",
+              "flex cursor-pointer items-center gap-3 rounded-[var(--radius-tile)] border px-4 py-3 text-small transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-azulejo",
+              checked ? "border-ink" : "border-ink/20 hover:border-ink/50",
             )}
           >
             <input
@@ -75,15 +75,10 @@ export function RateChooser() {
               value={option.ratePlanId}
               checked={checked}
               onChange={() => select(option.ratePlanId)}
-              className="mt-1 size-4 shrink-0 accent-[var(--color-ink)] outline-none"
+              className="size-4 shrink-0 accent-[var(--color-ink)] outline-none"
             />
-            <span className="min-w-0 flex-1">
-              <span className="block font-semibold">{label(option)}</span>
-              <span className="text-small mt-1 block text-granite">
-                {option.freeCancellationUntil ? t("rateFreeNote") : t("rateNonRefundableNote")}
-              </span>
-            </span>
-            <span className="font-semibold whitespace-nowrap tabular-nums">{format.money(option.total, quote.currency)}</span>
+            <span className="min-w-0 flex-1">{label(option)}</span>
+            <span className="whitespace-nowrap tabular-nums">{format.money(option.total, quote.currency)}</span>
           </label>
         );
       })}
