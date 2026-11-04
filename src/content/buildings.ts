@@ -12,20 +12,25 @@ export interface BuildingContent {
   name: string;
   street: string;
   neighbourhoodSlug: string;
-  era: Localized; // INVENTED, to confirm
-  historyLine: Localized;
-  story: Localized;
-  heroImage: { src: string; alt: Localized };
+  /** The client's Guesty listing tag for this building; links Guesty listings to it. */
+  guestyTag: string;
+  // The fields below are optional: buildings we haven't written up yet show none of them.
+  era?: Localized; // INVENTED, to confirm
+  historyLine?: Localized;
+  story?: Localized;
+  /** Defaults to the cover of the building's first home. */
+  heroImage?: { src: string; alt: Localized };
   /** Detail shot for the story block on apartment pages (avoids repeating a listing's cover). */
-  storyImage: { src: string; alt: Localized };
-  listingIds: string[];
-  hasLift: boolean;
+  storyImage?: { src: string; alt: Localized };
+  /** null when unknown: nothing is said about lifts then. */
+  hasLift: boolean | null;
 }
 
 export const buildings: BuildingContent[] = [
   {
     id: "mouzinho-32",
     slug: "mouzinho-32",
+    guestyTag: "Mouzinho",
     name: "Mouzinho 32",
     street: "Rua de Mouzinho da Silveira 32",
     neighbourhoodSlug: "ribeira",
@@ -46,12 +51,12 @@ export const buildings: BuildingContent[] = [
       src: "/images/placeholder/mouzinho-3d-03.jpg",
       alt: { pt: "Escada em madeira clara e parede de betão no Mouzinho 32", en: "Pale-timber staircase and concrete wall at Mouzinho 32" },
     },
-    listingIds: ["64de2984ec3b510037fc32b6", "64de2984ec3b510037fc32c1", "64de2984ec3b510037fc32a0"],
     hasLift: false,
   },
   {
     id: "cordoaria",
     slug: "cordoaria",
+    guestyTag: "Cordoaria",
     name: "Cordoaria",
     street: "Campo dos Mártires da Pátria 27",
     neighbourhoodSlug: "cordoaria-cedofeita",
@@ -72,12 +77,12 @@ export const buildings: BuildingContent[] = [
       src: "/images/placeholder/cordoaria-mezzanine-05.jpg",
       alt: { pt: "Parede de granito original à vista na casa da Cordoaria", en: "Original granite wall left exposed in the Cordoaria house" },
     },
-    listingIds: ["60f82c3d7aba91002d2ccd0f", "60f82c3cb82a7e002f865672", "60f82cd97aba91002d2cfe72"],
     hasLift: false,
   },
   {
     id: "breiner-210",
     slug: "breiner-210",
+    guestyTag: "Breiner",
     name: "Breiner 210",
     street: "Rua do Breiner 210",
     neighbourhoodSlug: "cordoaria-cedofeita",
@@ -98,12 +103,12 @@ export const buildings: BuildingContent[] = [
       src: "/images/placeholder/breiner-heritage-08.jpg",
       alt: { pt: "Mesa de jantar junto à janela de sacada no Breiner 210", en: "Dining table by the French windows at Breiner 210" },
     },
-    listingIds: ["60f827e3b82a7e002f852152", "60f827e57aba91002d2bdc3c"],
     hasLift: false, // TO CONFIRM
   },
   {
     id: "sao-bento",
     slug: "sao-bento",
+    guestyTag: "São Bento",
     name: "São Bento",
     street: "Praça de Almeida Garrett 24",
     neighbourhoodSlug: "baixa",
@@ -124,12 +129,12 @@ export const buildings: BuildingContent[] = [
       src: "/images/placeholder/sao-bento-duplex-06.jpg",
       alt: { pt: "Pátio forrado a azulejo azul e branco no edifício de São Bento", en: "Patio lined with blue-and-white azulejo in the São Bento building" },
     },
-    listingIds: ["60f82c06c8730e002dc84744", "60f828533b29f7002f8ee8dc"],
     hasLift: false, // TO CONFIRM
   },
   {
     id: "casa-do-farol",
     slug: "casa-do-farol",
+    guestyTag: "Passeio Alegre",
     name: "Casa do Farol",
     street: "Rua do Passeio Alegre 516",
     neighbourhoodSlug: "foz",
@@ -150,7 +155,14 @@ export const buildings: BuildingContent[] = [
       src: "/images/placeholder/casa-do-farol-09.jpg",
       alt: { pt: "O elétrico histórico em frente à Casa do Farol", en: "The vintage tram passing Casa do Farol" },
     },
-    listingIds: ["683036ac17f8820013f84e69"],
     hasLift: false, // TO CONFIRM (three floors)
   },
+  // Buildings from Guesty's tags, not written up yet (no history copy, lift unknown).
+  // Neighbourhood assignments are ours, by street: TO CONFIRM with the client.
+  { id: "taipas-47", slug: "taipas-47", guestyTag: "Taipas", name: "Taipas 47", street: "Rua das Taipas 47", neighbourhoodSlug: "cordoaria-cedofeita", hasLift: null },
+  { id: "almada-505", slug: "almada-505", guestyTag: "Almada", name: "Almada 505", street: "Rua do Almada 505", neighbourhoodSlug: "baixa", hasLift: null },
+  { id: "santa-catarina", slug: "santa-catarina", guestyTag: "Santa Catarina", name: "Santa Catarina", street: "Rua da Firmeza 410", neighbourhoodSlug: "baixa", hasLift: null },
+  { id: "clerigos", slug: "clerigos", guestyTag: "Clérigos", name: "Clérigos", street: "Campo dos Mártires da Pátria 103", neighbourhoodSlug: "cordoaria-cedofeita", hasLift: null },
+  { id: "sa-da-bandeira-198", slug: "sa-da-bandeira-198", guestyTag: "Sá da Bandeira", name: "Sá da Bandeira 198", street: "Rua de Sá da Bandeira 198", neighbourhoodSlug: "baixa", hasLift: null },
+  { id: "santa-teresa-40", slug: "santa-teresa-40", guestyTag: "Santa Teresa", name: "Santa Teresa 40", street: "Rua de Santa Teresa 40", neighbourhoodSlug: "cordoaria-cedofeita", hasLift: null },
 ];

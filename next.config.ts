@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [70, 75],
+    // Listing photos from Guesty (Booking Engine API); older uploads live on its S3 bucket.
+    // Keep in sync with `imageHosts` in src/lib/data/listings.ts.
+    remotePatterns: [
+      { protocol: "https", hostname: "assets.guesty.com", pathname: "/image/upload/**" },
+      { protocol: "https", hostname: "guesty-listing-images.s3.amazonaws.com", pathname: "/production/**" },
+    ],
   },
   async redirects() {
     return redirects;

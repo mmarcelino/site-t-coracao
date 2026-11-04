@@ -2,8 +2,8 @@
  * Domain types used by pages and components (CLAUDE.md §6).
  *
  * Two layers:
- * - `Guesty*` types mirror the raw shapes returned by Guesty (Open API listings and the
- *   Booking Engine API quote). Verify field names against Guesty's docs when access arrives.
+ * - `Guesty*` types mirror the shapes returned by Guesty's Booking Engine API (listings are
+ *   normalized slightly in `guesty/listings.ts`, e.g. the licence object → string).
  * - Domain types (`Listing`, `Building`, `Quote`, ...) are what the UI consumes, already
  *   resolved for one locale. Mappers in `src/lib/data/*` turn raw data into domain types,
  *   so swapping mock → Guesty only touches the data layer.
@@ -69,6 +69,9 @@ export interface GuestyListing {
   license: string | null;
   /** Guesty's aggregate across channels, 0–10 scale. */
   reviews: { avg: number | null; total: number };
+  /** The client tags each listing with its building ("Taipas", "Sá da Bandeira"...). */
+  tags?: string[];
+  areaSquareFeet?: number | null;
 }
 
 /** Shape of a Guesty Booking Engine API quote (subset we render). */
@@ -110,7 +113,7 @@ export interface GuestyQuote {
 
 /* ------------------------------------------------------------------ Domain */
 
-export type ListingCategory = "studio" | "one-bed" | "two-bed" | "house";
+export type ListingCategory = "studio" | "one-bed" | "two-bed" | "three-bed" | "house";
 
 /** Tags behind collections and apartment filters. */
 export type ListingTag = "couples" | "families" | "sea" | "outdoor" | "views" | "remote-work";
@@ -140,7 +143,7 @@ export interface ReviewAggregate {
 export interface Listing {
   id: string;
   slug: string;
-  /** Guest-facing name, e.g. "Rooftop E". */
+  /** Guest-facing name: Guesty's title without the brand prefix, e.g. "Mouzinho32 Rooftop E". */
   title: string;
   /** Original Guesty title, kept for reference/search. */
   guestyTitle: string;
@@ -152,10 +155,12 @@ export interface Listing {
   bedrooms: number;
   bathrooms: number;
   beds: number | null;
-  /** INVENTED for the mock: Guesty does not expose this for these listings. */
-  areaSqm: number;
+  /** From Guesty's `areaSquareFeet` when plausible; null when unknown (never shown then). */
+  areaSqm: number | null;
+  /** Empty when unknown. */
   floor: string;
-  hasLift: boolean;
+  /** null when unknown: the UI then says nothing about lifts. */
+  hasLift: boolean | null;
   address: { street: string; zipcode: string; city: string; lat: number; lng: number };
   buildingId: string;
   neighbourhoodSlug: string;
@@ -190,14 +195,15 @@ export interface Building {
   name: string;
   street: string;
   neighbourhoodSlug: string;
-  /** e.g. "Late 19th century" — INVENTED until the client supplies history. */
+  /** e.g. "Late 19th century" — INVENTED until the client supplies history. Empty when unknown. */
   era: string;
+  /** Empty for buildings we haven't written up yet (the UI hides them). */
   historyLine: string;
   story: string;
   heroImage: Picture;
   storyImage: Picture;
   listingIds: string[];
-  hasLift: boolean;
+  hasLift: boolean | null;
 }
 
 export type GuideCategory = "eat" | "drink" | "see" | "practical";

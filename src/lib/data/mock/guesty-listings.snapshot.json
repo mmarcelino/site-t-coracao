@@ -1334,44 +1334,380 @@
     },
     "pictures": [
       {
-        "original": "/images/placeholder/casa-do-farol-01.jpg",
-        "caption": "The front of the house"
-      },
-      {
-        "original": "/images/placeholder/casa-do-farol-02.jpg",
-        "caption": "Balcony with river, sea and garden view"
-      },
-      {
-        "original": "/images/placeholder/casa-do-farol-03.jpg",
-        "caption": "Living room area"
+        "original": "https://assets.guesty.com/image/upload/v1749723441/production/60f6b27fde6465002d1eae2b/u0rgqbqlg1cjpobb3ntw.jpg",
+        "caption": "Master Suite balcony"
       },
       {
         "original": "/images/placeholder/casa-do-farol-04.jpg",
         "caption": "Dining area and Kitchen"
       },
       {
-        "original": "/images/placeholder/casa-do-farol-05.jpg",
-        "caption": "Master Suite (sea and river view and kind size bed)"
+        "original": "https://assets.guesty.com/image/upload/v1749723417/production/60f6b27fde6465002d1eae2b/fzxm9tzzxren0zwoayfm.jpg",
+        "caption": "Dining area"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723417/production/60f6b27fde6465002d1eae2b/qlagpjqgdxidpbdtkimd.jpg",
+        "caption": "Kitchen"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723417/production/60f6b27fde6465002d1eae2b/dgbyd2abiehqoeadk5un.jpg",
+        "caption": "Kitchen"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723428/production/60f6b27fde6465002d1eae2b/dfarmbmfxjsssxrp7gzm.jpg",
+        "caption": "Crockery, glasses, hoven and microwave"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723429/production/60f6b27fde6465002d1eae2b/jn7okdtimn1nts12dgaa.jpg",
+        "caption": "Stove and other kitchen appliances"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723430/production/60f6b27fde6465002d1eae2b/kj01vajza7bkxal73yyf.jpg",
+        "caption": "Nespresso machine and guest welcome pack"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-03.jpg",
+        "caption": "Living room area"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723434/production/60f6b27fde6465002d1eae2b/smntdnksoegswqmv2j2g.jpg",
+        "caption": "Dining area - wall art by David Pher"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723437/production/60f6b27fde6465002d1eae2b/mupyz3a6psd6b3owk7fe.jpg",
+        "caption": "Entertainement space"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723422/production/60f6b27fde6465002d1eae2b/adbnvswoqiqo7geuydxa.jpg",
+        "caption": "Seating area"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723423/production/60f6b27fde6465002d1eae2b/sth2optopciwcukz4arf.jpg",
+        "caption": "Living room area - wall art  by David Pher"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723423/production/60f6b27fde6465002d1eae2b/jlxr4n6qje8n7hvhld1v.jpg",
+        "caption": "Living room area - wall art by David Pher"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723428/production/60f6b27fde6465002d1eae2b/ru447df7yhogqehj7fen.jpg",
+        "caption": "Dining table and honesty wine bar"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723437/production/60f6b27fde6465002d1eae2b/t252wc7vzkpygoarfbdr.jpg",
+        "caption": "Living room"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723437/production/60f6b27fde6465002d1eae2b/lh0kjj27bhkdek6sb4jd.jpg",
+        "caption": "Seating area details"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723438/production/60f6b27fde6465002d1eae2b/mvncknbfeodtyi66ckgw.jpg",
+        "caption": "Staircase, coat nook and powder room"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723438/production/60f6b27fde6465002d1eae2b/y7musby4x9osavjkvcz6.jpg",
+        "caption": "Coat nook and powder room"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723417/production/60f6b27fde6465002d1eae2b/oxbnlkgbkbxjtaylystd.jpg",
+        "caption": "Powder room"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723417/production/60f6b27fde6465002d1eae2b/gajno0mrfbanmwcm9siy.jpg",
+        "caption": "Staircase details to the 1st floor"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723422/production/60f6b27fde6465002d1eae2b/hsid7aqqbqetipwlgfzo.jpg",
+        "caption": "First floor hallway - wall art by David Gonçalves"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723423/production/60f6b27fde6465002d1eae2b/mboe2tlxzbrfcb9pl4xv.jpg",
+        "caption": "First floor hallway ad staircase to the 2nd floor"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723425/production/60f6b27fde6465002d1eae2b/l61uff2h18lcfoc0avdr.jpg",
+        "caption": "Office"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723428/production/60f6b27fde6465002d1eae2b/lrje3b421wpeifchett3.jpg",
+        "caption": "Officce"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723442/production/60f6b27fde6465002d1eae2b/d8akjafoanibpfhy7aug.jpg",
+        "caption": "Office - wall art by Maria Souto de Moura"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723443/production/60f6b27fde6465002d1eae2b/d2xducrkdz5nlbvgog5k.jpg",
+        "caption": "Office"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723444/production/60f6b27fde6465002d1eae2b/wbf783y39cqaiej5rsv4.jpg",
+        "caption": "Office"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723444/production/60f6b27fde6465002d1eae2b/ucoze9gesmcf3bog3nq3.jpg",
+        "caption": "Bedroom"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723444/production/60f6b27fde6465002d1eae2b/qp8botsyqpgypyjoftqp.jpg",
+        "caption": "Bedroom - wall art by Maria Soto de Moura"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723447/production/60f6b27fde6465002d1eae2b/pxl1icsmrtv4ngoz8ebn.jpg",
+        "caption": "Bedroom and wardrobe"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723447/production/60f6b27fde6465002d1eae2b/vgrwtpvipktc5mtb1pcv.jpg",
+        "caption": "Bedroom"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723448/production/60f6b27fde6465002d1eae2b/hluvqudnvrqvzopifckf.jpg",
+        "caption": "Bedroom"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723448/production/60f6b27fde6465002d1eae2b/o5urbihvvcj42q57bty2.jpg",
+        "caption": "Bedroom details"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723448/production/60f6b27fde6465002d1eae2b/d4s95sov0nwzvoh5imrv.jpg",
+        "caption": "Bathroom (office and bedroom)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723449/production/60f6b27fde6465002d1eae2b/xbtvpzip3agbwti2jzhl.jpg",
+        "caption": "Bathroom (office and bedroom)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723451/production/60f6b27fde6465002d1eae2b/gkonh6ej43mq2kjxivjd.jpg",
+        "caption": "Shower details (bathroom office and bedroom)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723451/production/60f6b27fde6465002d1eae2b/h5t7tksrzngbtgsvdwaq.jpg",
+        "caption": "Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723452/production/60f6b27fde6465002d1eae2b/ka6uwuhouddleccuq40n.jpg",
+        "caption": "Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723452/production/60f6b27fde6465002d1eae2b/apwepwlph2ht4z4azo8n.jpg",
+        "caption": "Suite - wall art by Maria Souto de Moura"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723452/production/60f6b27fde6465002d1eae2b/nzmboth3o0dgal0cprwi.jpg",
+        "caption": "Suite - wall art by Maria Souto de Moura"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723453/production/60f6b27fde6465002d1eae2b/jbgrhgsni4fkq8pqqnxs.jpg",
+        "caption": "Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723455/production/60f6b27fde6465002d1eae2b/tkdpg669zqoxdxykjo2f.jpg",
+        "caption": "Suite - walk in closet"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723456/production/60f6b27fde6465002d1eae2b/ge9pales6mak638uyusf.jpg",
+        "caption": "Suite - walk in closet and bathroom"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723456/production/60f6b27fde6465002d1eae2b/brx8omlguz4p0ujqntzc.jpg",
+        "caption": "Bathroom (suite)"
       },
       {
         "original": "/images/placeholder/casa-do-farol-06.jpg",
         "caption": "Suite views"
       },
       {
-        "original": "/images/placeholder/casa-do-farol-07.jpg",
-        "caption": "Balcony with river and sea view"
+        "original": "https://assets.guesty.com/image/upload/v1749723457/production/60f6b27fde6465002d1eae2b/y4z20fhxsj8nay2xlovm.jpg",
+        "caption": "Suite views"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723458/production/60f6b27fde6465002d1eae2b/ung5ewbe6nhwxsbcqs86.jpg",
+        "caption": "Hallway 2nd floor and reading nook - wall art by David Gonçalves and Maria Souto de Moura"
       },
       {
         "original": "/images/placeholder/casa-do-farol-08.jpg",
         "caption": "Reading nook - wall art by Maria Souto de Moura"
       },
       {
+        "original": "https://assets.guesty.com/image/upload/v1749723462/production/60f6b27fde6465002d1eae2b/txjs6m5zq428ud8qv1ll.jpg",
+        "caption": "Hallway 2nd floor - wall art by David Gonçalves"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723462/production/60f6b27fde6465002d1eae2b/lysin4ecfwwkgl4m3iln.jpg",
+        "caption": "Entrance to the Master Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723462/production/60f6b27fde6465002d1eae2b/jt4sfr8tjhkrbzbpgkyz.jpg",
+        "caption": "Master Suite bathroom"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723462/production/60f6b27fde6465002d1eae2b/szf3um4d9mmuhurhvwlw.jpg",
+        "caption": "Master Suite bathroom"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723463/production/60f6b27fde6465002d1eae2b/o9lwccn9gcxpihhqm2br.jpg",
+        "caption": "Entrance to the Master Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723465/production/60f6b27fde6465002d1eae2b/gviroutoouo9q0npzqt3.jpg",
+        "caption": "Master Suite"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-05.jpg",
+        "caption": "Master Suite (sea and river view and kind size bed)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723467/production/60f6b27fde6465002d1eae2b/lf9sr2huuigsps0eqruc.jpg",
+        "caption": "Master Suite - king size bed"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723467/production/60f6b27fde6465002d1eae2b/v4ohwyapjsvcnicjwjy7.jpg",
+        "caption": "Master Suite - wardrobe and vanity"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723467/production/60f6b27fde6465002d1eae2b/fk7bhqa10wd6w239zvl6.jpg",
+        "caption": "Master Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723468/production/60f6b27fde6465002d1eae2b/sjph7a7bviifclkz4cp3.jpg",
+        "caption": "Master Suite - wall art by David Pher"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723469/production/60f6b27fde6465002d1eae2b/dqfwutunp7xv0s1llaif.jpg",
+        "caption": "Master Suite - wall art by David Pher"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723471/production/60f6b27fde6465002d1eae2b/lpzsde2yxcvksjfbtvjz.jpg",
+        "caption": "Master Suite - vanity and wall art by David Pher"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723471/production/60f6b27fde6465002d1eae2b/cbtrqxxeboi33wclghep.jpg",
+        "caption": "Master Suite - vanity"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723471/production/60f6b27fde6465002d1eae2b/spq4mxpiveqrv0bnsiwt.jpg",
+        "caption": "Master Suite - exercise equipment"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723472/production/60f6b27fde6465002d1eae2b/vcqjsrwcoi59pbmoai29.jpg",
+        "caption": "Exercise equipment"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723474/production/60f6b27fde6465002d1eae2b/qpr9trabfbbjdfqcia1q.jpg",
+        "caption": "Master Suite"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723474/production/60f6b27fde6465002d1eae2b/dgwiw7wzfdmkkwi9fmiw.jpg",
+        "caption": "Master Suite balcony"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-02.jpg",
+        "caption": "Balcony with river, sea and garden view"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723476/production/60f6b27fde6465002d1eae2b/ttuwraz4eodkzjlcdfo3.jpg",
+        "caption": "Balcony and the river view"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-07.jpg",
+        "caption": "Balcony with river and sea view"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723476/production/60f6b27fde6465002d1eae2b/yglejmhpozjxa1h62n8q.jpg",
+        "caption": "Balcony and the river view"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723478/production/60f6b27fde6465002d1eae2b/rxzysgqmgcjccgkaiooz.jpg",
+        "caption": "Balcony and the sea and garden view"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723478/production/60f6b27fde6465002d1eae2b/bvq5aavvrzsj9sqzpnnx.jpg",
+        "caption": "Balcony"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723479/production/60f6b27fde6465002d1eae2b/n4ogyxvnajgfic9ywnew.jpg",
+        "caption": "Balcony"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723480/production/60f6b27fde6465002d1eae2b/vustmh9g6bdtzuocj3iw.jpg",
+        "caption": "Master Suite and the balcony"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723480/production/60f6b27fde6465002d1eae2b/fpoo0yfcoffdenlsizg4.jpg",
+        "caption": "Master Suite details"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723482/production/60f6b27fde6465002d1eae2b/nvimibd1v0oa0xfju56o.jpg",
+        "caption": "Balcony view"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723483/production/60f6b27fde6465002d1eae2b/veb4cbiohkdku1931y1y.jpg",
+        "caption": "Laundry room (washer, dryer, iron board, iron and detergent)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723484/production/60f6b27fde6465002d1eae2b/s5qnljjqtuwcwytfjgv5.jpg",
+        "caption": "Laundry room - details"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723485/production/60f6b27fde6465002d1eae2b/q3sgssfd8kenjipzkssn.jpg",
+        "caption": "Laundry room (storage for your rental bikes)"
+      },
+      {
+        "original": "/images/placeholder/casa-do-farol-01.jpg",
+        "caption": "The front of the house"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723485/production/60f6b27fde6465002d1eae2b/y4cajm2vibpyf4w43bpq.jpg",
+        "caption": "Front of the house (details)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723486/production/60f6b27fde6465002d1eae2b/qfym3uvjpdh23jn7hymb.jpg",
+        "caption": "Front of the house (details)"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723488/production/60f6b27fde6465002d1eae2b/fhoxmgj3yrg20swijevv.jpg",
+        "caption": "The neighborhood villas"
+      },
+      {
         "original": "/images/placeholder/casa-do-farol-09.jpg",
         "caption": "The surrounding area and the local tram"
       },
       {
+        "original": "https://assets.guesty.com/image/upload/v1749723489/production/60f6b27fde6465002d1eae2b/to1mwu8clmpkuemjqxio.jpg",
+        "caption": "The surroundings"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723489/production/60f6b27fde6465002d1eae2b/jcdrs172l5z3tj6jowkj.jpg",
+        "caption": "The surroundings"
+      },
+      {
         "original": "/images/placeholder/casa-do-farol-10.jpg",
         "caption": "The surroundings - Passeio Alegre garden"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723490/production/60f6b27fde6465002d1eae2b/priuymrfzapex9jyuyip.jpg",
+        "caption": "The surroundings"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723492/production/60f6b27fde6465002d1eae2b/vzxtcsyxwcxkg584kkuo.jpg",
+        "caption": "The surroundings"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723492/production/60f6b27fde6465002d1eae2b/i8ck8cb5oxyezjlpvqrf.jpg",
+        "caption": "The surroundings"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723493/production/60f6b27fde6465002d1eae2b/xf77sjcuihm4lj04ofmn.jpg",
+        "caption": "The surroundings - Passeio Alegre Garden"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723495/production/60f6b27fde6465002d1eae2b/s52rc42th3nldkexwcvi.jpg",
+        "caption": "The surroundings - The local cafe at the Passeio Alegre Garden"
+      },
+      {
+        "original": "https://assets.guesty.com/image/upload/v1749723495/production/60f6b27fde6465002d1eae2b/lqguhzvaxh3dqn7qr11u.jpg",
+        "caption": "The surroundings - Passeio Alegre Garden and the mini-golf"
       }
     ],
     "publicDescription": {

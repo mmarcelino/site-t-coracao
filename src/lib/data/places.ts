@@ -1,24 +1,37 @@
 import { buildings } from "@/content/buildings";
 import { neighbourhoods } from "@/content/neighbourhoods";
+import { getListingBuildings } from "./listings";
 import type { Building, Locale, Neighbourhood } from "./types";
 
-/** Buildings and neighbourhoods are our own content (not Guesty), resolved per locale. */
+/**
+ * Buildings and neighbourhoods are our own content (not Guesty), resolved per locale. A building's
+ * homes come from the listings (Guesty tags), so new flats appear without editing content.
+ */
 
 export async function getBuildings(locale: Locale): Promise<Building[]> {
-  return buildings.map((b) => ({
-    id: b.id,
-    slug: b.slug,
-    name: b.name,
-    street: b.street,
-    neighbourhoodSlug: b.neighbourhoodSlug,
-    era: b.era[locale],
-    historyLine: b.historyLine[locale],
-    story: b.story[locale],
-    heroImage: { src: b.heroImage.src, alt: b.heroImage.alt[locale] },
-    storyImage: { src: b.storyImage.src, alt: b.storyImage.alt[locale] },
-    listingIds: b.listingIds,
-    hasLift: b.hasLift,
-  }));
+  const homes = await getListingBuildings();
+  return buildings.map((b) => {
+    const own = homes.filter((h) => h.buildingId === b.id);
+    const cover = own[0]?.raw.pictures[0];
+    return {
+      id: b.id,
+      slug: b.slug,
+      name: b.name,
+      street: b.street,
+      neighbourhoodSlug: b.neighbourhoodSlug,
+      era: b.era?.[locale] ?? "",
+      historyLine: b.historyLine?.[locale] ?? "",
+      story: b.story?.[locale] ?? "",
+      heroImage: b.heroImage
+        ? { src: b.heroImage.src, alt: b.heroImage.alt[locale] }
+        : { src: cover?.original ?? "", alt: b.name },
+      storyImage: b.storyImage
+        ? { src: b.storyImage.src, alt: b.storyImage.alt[locale] }
+        : { src: cover?.original ?? "", alt: b.name },
+      listingIds: own.map((h) => h.listingId),
+      hasLift: b.hasLift,
+    };
+  });
 }
 
 export async function getBuilding(locale: Locale, idOrSlug: string): Promise<Building | null> {

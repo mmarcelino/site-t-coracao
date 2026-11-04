@@ -1,15 +1,48 @@
 import { listingContent, type ListingContent, type RoomKey } from "@/content/listings";
 import { buildings } from "@/content/buildings";
 import snapshot from "./mock/guesty-listings.snapshot.json";
-import type { AmenityKey, GuestyListing, Listing, ListingTag, Locale, Localized } from "./types";
+import { isGuestyConfigured } from "./guesty/client";
+import { fetchGuestyListing, fetchGuestyListings } from "./guesty/listings";
+import type { AmenityKey, GuestyListing, Listing, ListingCategory, ListingTag, Locale, Localized } from "./types";
+
+const snapshotListings = snapshot as GuestyListing[];
 
 /**
- * MOCK SOURCE: a trimmed snapshot of the client's public Guesty listings (2026-10-26),
- * with photos re-hosted locally. Swap `loadGuestyListings()` for the Guesty Open API later;
- * everything below it stays.
+ * Listing source: the Guesty Booking Engine API when credentials are set (`.env.local`), else the
+ * mock snapshot of the public booking site (2026-10-26, photos re-hosted locally). If Guesty fails,
+ * pages fall back to the snapshot rather than break.
  */
 async function loadGuestyListings(): Promise<GuestyListing[]> {
-  return snapshot as GuestyListing[];
+  if (!isGuestyConfigured()) return snapshotListings;
+  try {
+    return (await fetchGuestyListings()).map(withSnapshotFloor);
+  } catch (error) {
+    console.error(`[guesty] ${errorMessage(error)}; showing mock listings`);
+    return snapshotListings;
+  }
+}
+
+/** One listing with the detail-only fields (terms, licence, check-in/out). */
+async function loadGuestyListing(id: string): Promise<GuestyListing | null> {
+  if (!isGuestyConfigured()) return snapshotListings.find((l) => l._id === id) ?? null;
+  try {
+    const listing = await fetchGuestyListing(id);
+    return listing ? withSnapshotFloor(listing) : null;
+  } catch (error) {
+    console.error(`[guesty] ${errorMessage(error)}; using list data for ${id}`);
+    return (await loadGuestyListings()).find((l) => l._id === id) ?? null;
+  }
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : "unknown error";
+}
+
+/** The API has no floor; the snapshot (from the public booking pages) has it for the curated homes. */
+function withSnapshotFloor(listing: GuestyListing): GuestyListing {
+  if (listing.address.floor) return listing;
+  const floor = snapshotListings.find((l) => l._id === listing._id)?.address.floor;
+  return floor ? { ...listing, address: { ...listing.address, floor } } : listing;
 }
 
 const roomLabels: Record<RoomKey, Localized> = {
@@ -77,43 +110,101 @@ function floorLabel(raw: string | null | undefined, locale: Locale): string {
 }
 
 /** Editorial features from the content overlay + tags derived from Guesty data. */
-function deriveTags(raw: GuestyListing, content: ListingContent, amenities: AmenityKey[]): ListingTag[] {
-  const tags = new Set<ListingTag>(content.features);
+function deriveTags(raw: GuestyListing, features: ListingTag[], amenities: AmenityKey[]): ListingTag[] {
+  const tags = new Set<ListingTag>(features);
   if (raw.accommodates <= 2) tags.add("couples");
   if (raw.bedrooms >= 2 || raw.accommodates >= 4) tags.add("families");
   if (amenities.includes("workspace")) tags.add("remote-work");
   return [...tags];
 }
 
-function toListing(raw: GuestyListing, content: ListingContent, locale: Locale): Listing {
-  const building = buildings.find((b) => b.id === content.buildingId);
-  const title = content.title[locale];
+function deriveCategory(raw: GuestyListing): ListingCategory {
+  if (/villa|house/i.test(raw.propertyType)) return "house";
+  if (raw.bedrooms === 0) return "studio";
+  if (raw.bedrooms === 1) return "one-bed";
+  return raw.bedrooms === 2 ? "two-bed" : "three-bed";
+}
+
+/** Guesty's area, unless it's missing or implausible (some listings say 40 sq ft). */
+function areaSqm(raw: GuestyListing): number | null {
+  if (!raw.areaSquareFeet) return null;
+  const sqm = Math.round(raw.areaSquareFeet * 0.092903);
+  return sqm >= 15 ? sqm : null;
+}
+
+/** Guest-facing title: Guesty's, minus the "Tripas-Coração:" prefix (the brand is in the header). */
+function guestyDisplayTitle(raw: GuestyListing): string {
+  return raw.title.replace(/^Tripas-Coração:\s*/i, "").trim();
+}
+
+function slugify(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** Our building for a listing: the editorial one, else the client's Guesty building tag. */
+export function buildingIdFor(raw: GuestyListing, content: ListingContent | null = null): string {
+  if (content) return content.buildingId;
+  const tags = (raw.tags ?? []).map((t) => t.normalize("NFC"));
+  const known = buildings.find((b) => tags.includes(b.guestyTag.normalize("NFC")));
+  // A tag we have no building for yet (a new building in Guesty): log it so it gets an entry.
+  if (!known) console.warn(`[guesty] no building for listing ${raw._id} (tags: ${tags.join(", ") || "none"})`);
+  return known?.id ?? slugify(tags[0] ?? raw.address.street);
+}
+
+/** Homes without editorial copy show this many Guesty photos, in Guesty's order. */
+const AUTO_PICTURES = 12;
+
+/** Image hosts allowed in next.config.ts (`images.remotePatterns`); local paths are always fine. */
+const imageHosts = /^(\/|https:\/\/assets\.guesty\.com\/image\/upload\/|https:\/\/guesty-listing-images\.s3\.amazonaws\.com\/production\/)/;
+
+/** Photos on a host next/image doesn't allow would crash the page: skip them, loudly. */
+function servablePictures(raw: GuestyListing): GuestyListing["pictures"] {
+  return raw.pictures.map((p) => {
+    if (imageHosts.test(p.original)) return p;
+    console.warn(`[guesty] photo on an unknown host skipped (listing ${raw._id}): ${new URL(p.original).hostname}`);
+    return null;
+  }).filter((p): p is GuestyListing["pictures"][number] => p !== null);
+}
+
+function toListing(raw: GuestyListing, content: ListingContent | null, slug: string, locale: Locale): Listing {
+  const buildingId = buildingIdFor(raw, content);
+  const building = buildings.find((b) => b.id === buildingId);
+  const title = guestyDisplayTitle(raw);
   const placeName = building ? `${title}, ${building.name}` : title;
-  const pictures = content.pictures
-    .map(({ n, room }) => {
-      const pic = raw.pictures[n - 1];
-      return pic ? { src: pic.original, alt: `${roomLabels[room][locale]} · ${placeName}` } : null;
-    })
-    .filter((p): p is Listing["pictures"][number] => p !== null);
+  const photos = servablePictures(raw);
+  const pictures = content
+    ? content.pictures
+        .map(({ n, room }) => {
+          const pic = photos.find((p) => p === raw.pictures[n - 1]);
+          return pic ? { src: pic.original, alt: `${roomLabels[room][locale]} · ${placeName}` } : null;
+        })
+        .filter((p): p is Listing["pictures"][number] => p !== null)
+    : // Guesty captions are English only.
+      photos.slice(0, AUTO_PICTURES).map((p) => ({ src: p.original, alt: p.caption ? `${p.caption} · ${placeName}` : placeName }));
   const currency = raw.prices.currency;
   const amenities = mapAmenities(raw.amenities);
 
   return {
     id: raw._id,
-    slug: content.slug,
+    slug,
     title,
     guestyTitle: raw.title,
     nickname: raw.nickname,
-    category: content.category,
-    tags: deriveTags(raw, content, amenities),
+    category: content?.category ?? deriveCategory(raw),
+    tags: deriveTags(raw, content?.features ?? [], amenities),
     propertyType: raw.propertyType,
     accommodates: raw.accommodates,
     bedrooms: raw.bedrooms,
     bathrooms: raw.bathrooms,
     beds: raw.beds,
-    areaSqm: content.areaSqm,
-    floor: content.floor?.[locale] ?? floorLabel(raw.address.floor, locale),
-    hasLift: building?.hasLift ?? false,
+    areaSqm: areaSqm(raw),
+    floor: content?.floor?.[locale] ?? floorLabel(raw.address.floor, locale),
+    hasLift: building?.hasLift ?? null,
     address: {
       street: raw.address.street,
       zipcode: raw.address.zipcode,
@@ -121,18 +212,19 @@ function toListing(raw: GuestyListing, content: ListingContent, locale: Locale):
       lat: raw.address.lat,
       lng: raw.address.lng,
     },
-    buildingId: content.buildingId,
+    buildingId,
     neighbourhoodSlug: building?.neighbourhoodSlug ?? "",
     pictures,
-    tagline: content.tagline[locale],
+    // Listing text is Guesty's own, as-is, in both locales (client decision 2026-11-04; Guesty
+    // holds English only). Neighbourhood copy comes from our neighbourhood pages instead.
+    tagline: "",
     description: {
-      summary: content.summary[locale],
-      space: content.space[locale],
-      // Guesty only holds English neighbourhood copy; the neighbourhood page content is used instead.
+      summary: raw.publicDescription.summary ?? "",
+      space: raw.publicDescription.space ?? "",
       neighbourhood: "",
       notes: "",
     },
-    highlights: content.highlights[locale],
+    highlights: [],
     amenities,
     price: {
       base: { amount: raw.prices.basePrice, currency },
@@ -153,14 +245,42 @@ function toListing(raw: GuestyListing, content: ListingContent, locale: Locale):
   };
 }
 
+interface Entry {
+  raw: GuestyListing;
+  content: ListingContent | null;
+  slug: string;
+}
+
+/** Curated homes first (in content order), then the rest in Guesty's order, each with a unique slug. */
+async function entries(): Promise<Entry[]> {
+  const raws = await loadGuestyListings();
+  const curated = listingContent.flatMap((content) => {
+    const raw = raws.find((l) => l._id === content.id);
+    return raw ? [{ raw, content, slug: content.slug }] : [];
+  });
+  const used = new Set(curated.map((e) => e.slug));
+  const rest = raws
+    .filter((raw) => !listingContent.some((c) => c.id === raw._id))
+    .map((raw) => {
+      // Slugs follow Guesty's title, so renaming a listing in Guesty changes its URL (add it to
+      // src/content/listings.ts to pin one).
+      let slug = slugify(guestyDisplayTitle(raw));
+      if (used.has(slug)) slug = `${slug}-${raw._id.slice(-4)}`;
+      used.add(slug);
+      return { raw, content: null, slug };
+    });
+  return [...curated, ...rest];
+}
+
+/** One home with Guesty's detail-only fields merged in. */
+async function resolveOne(entry: Entry | undefined, locale: Locale): Promise<Listing | null> {
+  if (!entry) return null;
+  const raw = (await loadGuestyListing(entry.raw._id)) ?? entry.raw;
+  return toListing(raw, entry.content, entry.slug, locale);
+}
+
 async function resolveAll(locale: Locale): Promise<Listing[]> {
-  const raw = await loadGuestyListings();
-  return listingContent
-    .map((content) => {
-      const r = raw.find((l) => l._id === content.id);
-      return r ? toListing(r, content, locale) : null;
-    })
-    .filter((l): l is Listing => l !== null);
+  return (await entries()).map((e) => toListing(e.raw, e.content, e.slug, locale));
 }
 
 export async function getListings(
@@ -178,18 +298,23 @@ export async function getListings(
 }
 
 export async function getListing(locale: Locale, id: string): Promise<Listing | null> {
-  return (await resolveAll(locale)).find((l) => l.id === id) ?? null;
+  return resolveOne((await entries()).find((e) => e.raw._id === id), locale);
 }
 
 export async function getListingBySlug(locale: Locale, slug: string): Promise<Listing | null> {
-  return (await resolveAll(locale)).find((l) => l.slug === slug) ?? null;
+  return resolveOne((await entries()).find((e) => e.slug === slug), locale);
 }
 
 export async function getListingSlugs(): Promise<string[]> {
-  return listingContent.map((c) => c.slug);
+  return (await entries()).map((e) => e.slug);
 }
 
 /** Internal: pricing inputs for the quote engine. */
 export async function getRawListing(id: string): Promise<GuestyListing | null> {
-  return (await loadGuestyListings()).find((l) => l._id === id) ?? null;
+  return loadGuestyListing(id);
+}
+
+/** Internal: every listing's building, for building pages and filters (see places.ts). */
+export async function getListingBuildings(): Promise<Array<{ listingId: string; buildingId: string; raw: GuestyListing }>> {
+  return (await entries()).map((e) => ({ listingId: e.raw._id, buildingId: buildingIdFor(e.raw, e.content), raw: e.raw }));
 }

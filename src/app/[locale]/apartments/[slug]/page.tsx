@@ -48,11 +48,11 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/apartmen
   const href = { pathname: "/apartments/[slug]" as const, params: { slug } };
   return {
     title,
-    description: `${listing.tagline} ${building.historyLine}`,
+    description: [listing.tagline || listing.description.summary, building.historyLine].filter(Boolean).join(" "),
     alternates: alternates(locale, href),
     openGraph: {
       title,
-      description: listing.tagline,
+      description: listing.tagline || listing.description.summary,
       type: "website",
       locale: ogLocale[locale],
       siteName: site.name,
@@ -89,7 +89,7 @@ function vacationRentalJsonLd(listing: Listing, buildingName: string, locale: Lo
       occupancy: { "@type": "QuantitativeValue", value: listing.accommodates },
       numberOfBedrooms: listing.bedrooms,
       numberOfBathroomsTotal: listing.bathrooms,
-      floorSize: { "@type": "QuantitativeValue", value: listing.areaSqm, unitCode: "MTK" },
+      ...(listing.areaSqm ? { floorSize: { "@type": "QuantitativeValue", value: listing.areaSqm, unitCode: "MTK" } } : {}),
       amenityFeature: listing.amenities.map((a) => ({ "@type": "LocationFeatureSpecification", name: a, value: true })),
     },
     ...(listing.reviews
@@ -148,16 +148,16 @@ async function ApartmentContent({ params }: { params: Params }) {
   const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
 
-  // Each fact reads on its own ("2 guests", "1 bathroom"), so no labels are needed.
+  // Each fact reads on its own ("2 guests", "1 bathroom"), so no labels are needed. Unknown
+  // area, floor or lift (homes not written up yet) are left out rather than guessed.
+  const liftText = listing.hasLift === null ? "" : listing.hasLift ? t("listing.lift") : t("listing.noLift");
+  const floorText = [listing.floor, listing.floor ? liftText.toLocaleLowerCase(locale) : liftText].filter(Boolean).join(", ");
   const facts: Array<{ icon: IconName; text: string }> = [
     { icon: "guests", text: t("common.guests", { count: listing.accommodates }) },
     { icon: "bed", text: t("common.bedrooms", { count: listing.bedrooms }) },
     { icon: "bath", text: t("common.bathrooms", { count: Math.max(1, Math.floor(listing.bathrooms)) }) },
-    { icon: "area", text: t("common.area", { count: listing.areaSqm }) },
-    {
-      icon: "stairs",
-      text: `${listing.floor}, ${(listing.hasLift ? t("listing.lift") : t("listing.noLift")).toLocaleLowerCase(locale)}`,
-    },
+    ...(listing.areaSqm ? [{ icon: "area" as const, text: t("common.area", { count: listing.areaSqm }) }] : []),
+    ...(floorText ? [{ icon: "stairs" as const, text: floorText }] : []),
   ];
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
@@ -209,7 +209,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                   <ShareButton title={`${listing.title}, ${building.name}`} />
                 </span>
               </div>
-              <p className="text-lead mt-4 font-medium">{listing.tagline}</p>
+              {listing.tagline ? <p className="text-lead mt-4 font-medium">{listing.tagline}</p> : null}
             </header>
 
             {/* At a glance: one row between hairlines, icon + plain text, the body size throughout. */}
@@ -233,35 +233,37 @@ async function ApartmentContent({ params }: { params: Params }) {
 
             {/* The building: one row in the details' rhythm, no colour block, so it supports the
                 apartment instead of competing with it. Its history line still comes before the specs. */}
-            <section aria-labelledby="building-title" className={detail}>
-              <div>
-                <h2 id="building-title" className="card-title">
-                  {t("listing.theBuilding")}
-                </h2>
-                <p className="label mt-2 text-granite">{building.era}</p>
-              </div>
-              <div>
-                <p className="font-semibold">{building.historyLine}</p>
-                <p className="mt-3">{building.story}</p>
-                {/* No lift is a fact about the building, so the heads-up lives here. */}
-                {!listing.hasLift ? (
-                  // Building-level only, like the rest of this row (the flat's floor is in the facts row).
-                  <p className="mt-5">
-                    {listing.category === "house"
-                      ? t("listing.stairsNoteHouse", { building: building.name })
-                      : t("listing.stairsNote", { building: building.name })}
-                  </p>
-                ) : null}
-                {others.length ? (
-                  <p className="mt-5">
-                    <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
-                      {t("listing.moreHomesLink", { count: others.length })}
-                      <Icon name="chevronDown" size={18} />
-                    </a>
-                  </p>
-                ) : null}
-              </div>
-            </section>
+            {building.historyLine || building.story || listing.hasLift === false || others.length ? (
+              <section aria-labelledby="building-title" className={detail}>
+                <div>
+                  <h2 id="building-title" className="card-title">
+                    {t("listing.theBuilding")}
+                  </h2>
+                  {building.era ? <p className="label mt-2 text-granite">{building.era}</p> : null}
+                </div>
+                <div>
+                  {building.historyLine ? <p className="font-semibold">{building.historyLine}</p> : null}
+                  {building.story ? <p className="mt-3">{building.story}</p> : null}
+                  {/* No lift is a fact about the building, so the heads-up lives here. */}
+                  {listing.hasLift === false ? (
+                    // Building-level only, like the rest of this row (the flat's floor is in the facts row).
+                    <p className="mt-5 first:mt-0">
+                      {listing.category === "house"
+                        ? t("listing.stairsNoteHouse", { building: building.name })
+                        : t("listing.stairsNote", { building: building.name })}
+                    </p>
+                  ) : null}
+                  {others.length ? (
+                    <p className="mt-5 first:mt-0">
+                      <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
+                        {t("listing.moreHomesLink", { count: others.length })}
+                        <Icon name="chevronDown" size={18} />
+                      </a>
+                    </p>
+                  ) : null}
+                </div>
+              </section>
+            ) : null}
 
             {/* The details, one rhythm (as "Before you book." on the home page): an ink rule, the
                 heading on the left, the content on the right. */}
