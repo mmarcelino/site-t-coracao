@@ -5,7 +5,6 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "rea
 import { Link } from "@/i18n/navigation";
 import { track } from "@/lib/analytics";
 import { buttonClasses } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
 import { Reassurance } from "@/components/booking/Reassurance";
 
 /**
@@ -53,10 +52,6 @@ export function CheckoutForm({ listingId, total }: { listingId: string; total: n
 
   return (
     <form onSubmit={onSubmit} data-clarity-mask="true" className="max-w-2xl space-y-12">
-      <p className="rounded-[var(--radius-tile)] bg-azulejo-tint px-4 py-3 text-small text-ink">
-        <DemoTag /> <span className="ml-1">{t("demoBanner")}</span>
-      </p>
-
       <Step number={1} title={t("detailsTitle")}>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label={t("firstName")} name="firstName" autoComplete="given-name" required />
@@ -74,12 +69,17 @@ export function CheckoutForm({ listingId, total }: { listingId: string; total: n
 
       {/* Reassurance sits here, at the payment step, where guests leaving Airbnb need it most. */}
       <Step number={2} title={t("paymentTitle")}>
-        <div className="rounded-[var(--radius-tile)] border border-dashed border-ink/30 px-5 py-6">
-          <p className="flex items-center gap-3 font-semibold">
-            <Icon name="lock" size={18} />
-            {t("paymentPlaceholderTitle")}
-          </p>
-          <p className="text-small mt-2">{t("paymentPlaceholderBody")}</p>
+        <p className="text-small">{t("cardSecureNote")}</p>
+        {/* Stand-in for the payment provider's secure card fields (GuestyPay or Stripe), which go
+            exactly here in production. Read-only on purpose: a demo must never take a real card. */}
+        <div className="mt-4 overflow-hidden rounded-[var(--radius-tile)] border border-ink/20">
+          <CardField label={t("cardNumber")} placeholder="1234 1234 1234 1234" />
+          <div className="grid grid-cols-2 border-t border-ink/20">
+            <CardField label={t("cardExpiry")} placeholder={t("cardExpiryPlaceholder")} />
+            <div className="border-l border-ink/20">
+              <CardField label={t("cardCvc")} placeholder="123" />
+            </div>
+          </div>
         </div>
         <div className="mt-5 text-[0.8125rem]">
           <Reassurance />
@@ -152,6 +152,22 @@ function Field({
         autoComplete={autoComplete}
         required={required}
         className="mt-1 block w-full bg-transparent outline-none"
+      />
+    </label>
+  );
+}
+
+/** Read-only card field: shows the production layout without accepting a card number. */
+function CardField({ label, placeholder }: { label: string; placeholder: string }) {
+  return (
+    <label className="block px-4 py-3">
+      <span className="block text-[0.75rem] leading-tight font-medium">{label}</span>
+      <input
+        readOnly
+        tabIndex={-1}
+        autoComplete="off"
+        placeholder={placeholder}
+        className="mt-1 block w-full cursor-default bg-transparent tabular-nums outline-none placeholder:text-granite"
       />
     </label>
   );
