@@ -5,8 +5,8 @@ import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Rating block (home and every apartment page): per-platform scores, then how many guests a year
- * (volume backs the scores), + real quotes from Guesty (CLAUDE.md §5 trust signals). A platform
+ * Rating block (home page): the headline with a quiet line on how many guests a year (volume backs
+ * the scores), per-platform scores, + real quotes from Guesty (CLAUDE.md §5 trust signals). A platform
  * without data (no Guesty keys) is left out; with no quotes, the scores stand alone.
  */
 export async function ReviewsBlock({
@@ -26,6 +26,7 @@ export async function ReviewsBlock({
   total?: number;
 }) {
   const t = await getTranslations("reviews");
+  const tr = await getTranslations("reassurance");
   const format = createFormatter(await getLocale());
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
@@ -37,6 +38,10 @@ export async function ReviewsBlock({
         <h2 id={headingId} className="text-h2">
           {heading}
         </h2>
+        {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
+        <p className="mt-4 text-granite">
+          {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
+        </p>
         <ul className="mt-8 grid grid-cols-3 gap-4">
           {Object.values(bySource).map((aggregate) => (
             <li key={aggregate.source}>
@@ -46,12 +51,6 @@ export async function ReviewsBlock({
             </li>
           ))}
         </ul>
-        {/* Same figure style as the scores; a hairline because it's volume, not a rating. */}
-        <div className="mt-8 border-t border-ink/15 pt-6">
-          <p className="label text-granite">{t("since", { year: String(site.foundedYear) })}</p>
-          <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{format.number(site.guestsPerYear)}+</p>
-          <p className="mt-1.5 text-small text-granite">{t("guestsPerYear")}</p>
-        </div>
       </div>
 
       {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
