@@ -64,7 +64,15 @@ export function ReviewList({
   };
 
   const grid = clsx("grid gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16");
-  const item = (review: Review) => (
+  // Home: the top row opens on the thick ink rule (as the headline beside it); later rows on a light
+  // hairline, so the rules mark rows without outshouting the quotes. On phones only the first is thick.
+  const rule = (index: number) =>
+    index === 0
+      ? "border-t-2 border-ink"
+      : index === 1
+        ? "border-t border-ink/15 sm:border-t-2 sm:border-ink"
+        : "border-t border-ink/15";
+  const item = (review: Review, index: number) => (
     <li
       key={review.id}
       tabIndex={-1}
@@ -74,7 +82,7 @@ export function ReviewList({
           el.focus();
         }
       }}
-      className={clsx("animate-fade-in-fast outline-none", !listingId && "border-t-2 border-ink pt-6")}
+      className={clsx("animate-fade-in-fast outline-none", !listingId && ["pt-6", rule(index)])}
     >
       <ReviewCard review={review} size={listingId ? "md" : "lg"} />
     </li>
@@ -86,11 +94,11 @@ export function ReviewList({
           spacing) so a parent can line things up with the first page alone. scroll-mt clears the
           booking bar that docks at the top of the home page. */}
       <ul ref={list} className={clsx(grid, "scroll-mt-32", placement?.first)}>
-        {loaded.slice(0, initial.length).map(item)}
+        {loaded.slice(0, initial.length).map((review, i) => item(review, i))}
       </ul>
       {shown > initial.length ? (
         <ul className={clsx(grid, listingId ? "mt-12" : "mt-16", placement?.rest)}>
-          {loaded.slice(initial.length, shown).map(item)}
+          {loaded.slice(initial.length, shown).map((review) => item(review, Infinity))}
         </ul>
       ) : null}
       {total !== undefined && total > initial.length ? (
