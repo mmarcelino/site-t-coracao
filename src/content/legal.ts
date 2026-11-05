@@ -9,8 +9,8 @@ import type { Localized } from "@/lib/data/types";
  * (tracked in CLAUDE.md §15, not shown on the pages).
  *
  * TO CONFIRM with the client (also in their questions doc):
- * - Cancellation: their published terms say 5 days (short stays) / 30 days (1 month+); the rest of
- *   the site says 14 days. These terms follow their published text until they decide.
+ * - Cancellation: their published terms say 5 days (short stays) / 30 days (1 month+), matching
+ *   Guesty's flexible ("Daily") rate; the whole site now follows them (2026-11-05).
  * - Tourist tax: their terms say it's paid at check-in; on this site Guesty includes it in the total.
  * - Registered company name ("Tripas-Coração, Lda." on their site) and NIF (not published).
  * - Payment provider (GuestyPay or Stripe) and data-retention periods.

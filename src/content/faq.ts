@@ -188,8 +188,8 @@ export const faq: FaqItem[] = [
       en: "What is the cancellation policy?",
     },
     answer: {
-      pt: "Nas reservas diretas, o cancelamento é gratuito até 14 dias antes da chegada. Depois disso, cobramos a primeira noite; se precisar de alterar datas, fale connosco e fazemos o possível para ajudar.",
-      en: "Direct bookings can be cancelled free of charge up to 14 days before arrival. After that, the first night is charged; if you need to move your dates, talk to us and we'll do our best to help.",
+      pt: "Depende da tarifa que escolher. Na tarifa flexível, o cancelamento é gratuito até 5 dias antes da chegada (30 dias nas estadias de um mês ou mais); depois disso, é cobrado o valor total. Temos também tarifas mais baratas com condições mais rígidas, como a não reembolsável. Cada tarifa mostra a data exata até à qual pode cancelar antes de pagar; se precisar de alterar datas, fale connosco e fazemos o possível para ajudar.",
+      en: "It depends on the rate you choose. On our flexible rate, cancellation is free up to 5 days before arrival (30 days for stays of a month or more); after that, the full amount is charged. We also offer lower rates with stricter terms, such as non-refundable. Each rate shows its exact cancellation deadline before you pay; if you need to move your dates, talk to us and we'll do our best to help.",
     },
   },
   {
