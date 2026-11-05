@@ -17,8 +17,13 @@ export function ReviewCard({ review }: { review: Review }) {
     <figure className="flex flex-1 flex-col">
       <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} />
       <figcaption className="label mt-auto pt-6 text-granite">
-        <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
-        {review.author ?? t("guest")} · {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+        {/* The platform mark sits on the text's baseline: its bottom lines up with the letters'. */}
+        <span className="flex items-baseline gap-2">
+          <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={review.source === "booking" ? 13 : 11} />
+          <span>
+            {review.author ?? t("guest")} · {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+          </span>
+        </span>
         {review.translatedFrom ? (
           <span className="mt-1.5 block">
             {t("translated", { language: languageName(review.translatedFrom, locale) })}
