@@ -3,9 +3,9 @@ import type { BrowserContext, Locator, Page } from "@playwright/test";
 /** Key pages per locale. Extend as milestones add pages. */
 export const pages = [
   { name: "home", pt: "/pt", en: "/en" },
-  { name: "apartment", pt: "/pt/apartamentos/mouzinho-32-rooftop-e", en: "/en/apartments/mouzinho-32-rooftop-e" },
+  { name: "apartment", pt: "/pt/apartamentos/mouzinho32-rooftop-e", en: "/en/apartments/mouzinho32-rooftop-e" },
   { name: "apartment-studio", pt: "/pt/apartamentos/cordoaria-river-view-studio", en: "/en/apartments/cordoaria-river-view-studio" },
-  { name: "apartment-house", pt: "/pt/apartamentos/casa-do-farol", en: "/en/apartments/casa-do-farol" },
+  { name: "apartment-house", pt: "/pt/apartamentos/oceanfront-villa-near-porto-historical-centre", en: "/en/apartments/oceanfront-villa-near-porto-historical-centre" },
   { name: "apartments", pt: "/pt/apartamentos", en: "/en/apartments" },
   { name: "apartments-filtered", pt: "/pt/apartamentos?tag=outdoor", en: "/en/apartments?tag=outdoor" },
 ] as const;

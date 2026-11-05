@@ -270,25 +270,27 @@ interface Entry {
   slug: string;
 }
 
-/** Curated homes first (in content order), then the rest in Guesty's order, each with a unique slug. */
+/**
+ * Curated homes first (in content order), then the rest in Guesty's order. Every slug follows the
+ * Guesty title, so renaming a listing in Guesty changes its URL; earlier URLs listed as
+ * `formerSlugs` in src/content/listings.ts redirect to the new one.
+ */
 async function entries(): Promise<Entry[]> {
   const raws = await loadGuestyListings();
-  const curated = listingContent.flatMap((content) => {
-    const raw = raws.find((l) => l._id === content.id);
-    return raw ? [{ raw, content, slug: content.slug }] : [];
+  const ordered = [
+    ...listingContent.flatMap((content) => {
+      const raw = raws.find((l) => l._id === content.id);
+      return raw ? [{ raw, content }] : [];
+    }),
+    ...raws.filter((raw) => !listingContent.some((c) => c.id === raw._id)).map((raw) => ({ raw, content: null })),
+  ];
+  const used = new Set<string>();
+  return ordered.map(({ raw, content }) => {
+    let slug = slugify(guestyDisplayTitle(raw));
+    if (used.has(slug)) slug = `${slug}-${raw._id.slice(-4)}`;
+    used.add(slug);
+    return { raw, content, slug };
   });
-  const used = new Set(curated.map((e) => e.slug));
-  const rest = raws
-    .filter((raw) => !listingContent.some((c) => c.id === raw._id))
-    .map((raw) => {
-      // Slugs follow Guesty's title, so renaming a listing in Guesty changes its URL (add it to
-      // src/content/listings.ts to pin one).
-      let slug = slugify(guestyDisplayTitle(raw));
-      if (used.has(slug)) slug = `${slug}-${raw._id.slice(-4)}`;
-      used.add(slug);
-      return { raw, content: null, slug };
-    });
-  return [...curated, ...rest];
 }
 
 /** One home with Guesty's detail-only fields merged in. */
@@ -323,6 +325,13 @@ export async function getListing(locale: Locale, id: string): Promise<Listing | 
 
 export async function getListingBySlug(locale: Locale, slug: string): Promise<Listing | null> {
   return resolveOne((await entries()).find((e) => e.slug === slug), locale);
+}
+
+/** The current slug of a home that used to live at `slug` (a renamed listing), or null. */
+export async function findMovedListing(slug: string): Promise<string | null> {
+  const all = await entries();
+  if (all.some((e) => e.slug === slug)) return null;
+  return all.find((e) => e.content?.formerSlugs?.includes(slug))?.slug ?? null;
 }
 
 export async function getListingSlugs(): Promise<string[]> {

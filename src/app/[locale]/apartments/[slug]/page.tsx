@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { locale as rootLocale } from "next/root-params";
 import { faqFor } from "@/content/faq";
 import { site, siteUrl } from "@/content/site";
-import { Link } from "@/i18n/navigation";
+import { getPathname, Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import {
+  findMovedListing,
   getBuilding,
   getListingBySlug,
   getListingSlugs,
@@ -36,7 +37,12 @@ export async function generateStaticParams() {
 async function load(slug: string) {
   const locale = (await rootLocale()) as Locale;
   const listing = await getListingBySlug(locale, slug);
-  if (!listing) notFound();
+  if (!listing) {
+    // A renamed listing: its old URL moves permanently to the new one (links and search keep working).
+    const moved = await findMovedListing(slug);
+    if (moved) permanentRedirect(getPathname({ locale, href: { pathname: "/apartments/[slug]", params: { slug: moved } } }));
+    notFound();
+  }
   const building = await getBuilding(locale, listing.buildingId);
   if (!building) notFound();
   return { locale, listing, building };

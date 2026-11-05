@@ -29,7 +29,11 @@ export type ListingFeature = "sea" | "outdoor" | "views";
 
 export interface ListingContent {
   id: string;
-  slug: string;
+  /**
+   * Earlier URLs of this home: they redirect (permanently) to its current one, which always follows
+   * the Guesty title. Add the old slug here whenever a listing is renamed in Guesty.
+   */
+  formerSlugs?: string[];
   buildingId: string;
   category: ListingCategory;
   features: ListingFeature[];
@@ -46,7 +50,7 @@ export interface ListingContent {
 export const listingContent: ListingContent[] = [
   {
     id: "64de2984ec3b510037fc32b6",
-    slug: "mouzinho-32-rooftop-e",
+    formerSlugs: ["mouzinho-32-rooftop-e"],
     buildingId: "mouzinho-32",
     category: "two-bed",
     features: ["views"],
@@ -57,7 +61,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "64de2984ec3b510037fc32c1",
-    slug: "mouzinho-32-apartment-3d",
+    formerSlugs: ["mouzinho-32-apartment-3d"],
     buildingId: "mouzinho-32",
     category: "two-bed",
     features: ["views"],
@@ -68,7 +72,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "64de2984ec3b510037fc32a0",
-    slug: "mouzinho-32-apartment-2e",
+    formerSlugs: ["mouzinho-32-apartment-2e"],
     buildingId: "mouzinho-32",
     category: "one-bed",
     features: ["views"],
@@ -79,7 +83,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f82c3d7aba91002d2ccd0f",
-    slug: "cordoaria-river-view-studio",
+    formerSlugs: ["cordoaria-river-view-studio"],
     buildingId: "cordoaria",
     category: "studio",
     features: ["outdoor", "views"],
@@ -90,7 +94,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f82c3cb82a7e002f865672",
-    slug: "cordoaria-garden-view-studio",
+    formerSlugs: ["cordoaria-garden-view-studio"],
     buildingId: "cordoaria",
     category: "studio",
     features: ["views"],
@@ -101,7 +105,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f82cd97aba91002d2cfe72",
-    slug: "cordoaria-mezzanine-studio",
+    formerSlugs: ["cordoaria-mezzanine-studio"],
     buildingId: "cordoaria",
     category: "studio",
     features: ["outdoor"],
@@ -112,7 +116,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f827e3b82a7e002f852152",
-    slug: "breiner-heritage-apartment",
+    formerSlugs: ["breiner-heritage-apartment"],
     buildingId: "breiner-210",
     category: "two-bed",
     features: [],
@@ -123,7 +127,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f827e57aba91002d2bdc3c",
-    slug: "breiner-skylight-apartment",
+    formerSlugs: ["breiner-skylight-apartment"],
     buildingId: "breiner-210",
     category: "two-bed",
     features: [],
@@ -134,7 +138,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f82c06c8730e002dc84744",
-    slug: "sao-bento-station-view-studio",
+    formerSlugs: ["sao-bento-station-view-studio"],
     buildingId: "sao-bento",
     category: "one-bed",
     features: ["views"],
@@ -145,7 +149,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "60f828533b29f7002f8ee8dc",
-    slug: "sao-bento-duplex",
+    formerSlugs: ["sao-bento-duplex"],
     buildingId: "sao-bento",
     category: "one-bed",
     features: ["outdoor"],
@@ -156,7 +160,7 @@ export const listingContent: ListingContent[] = [
   },
   {
     id: "683036ac17f8820013f84e69",
-    slug: "casa-do-farol",
+    formerSlugs: ["casa-do-farol"],
     buildingId: "casa-do-farol",
     category: "house",
     features: ["sea", "outdoor", "views"],

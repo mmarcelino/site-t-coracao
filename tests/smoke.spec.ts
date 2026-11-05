@@ -162,7 +162,7 @@ test("gallery lightbox opens, navigates with the keyboard and closes", async ({ 
 test("whatsapp link carries a page-aware message", async ({ page, context }) => {
   await dismissConsent(context);
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/en/apartments/mouzinho-32-rooftop-e");
+  await page.goto("/en/apartments/mouzinho32-rooftop-e");
   const href = await page.getByTestId("booking-widget").getByTestId("whatsapp-link").getAttribute("href");
   expect(href).toContain("wa.me/351962708740");
   expect(decodeURIComponent(href ?? "")).toContain("Rooftop E (Mouzinho 32)");

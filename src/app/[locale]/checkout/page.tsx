@@ -8,7 +8,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { isISODate, isoToLocalDate } from "@/lib/dates";
 import { createFormatter } from "@/lib/format";
-import { getBuilding, getListingBySlug, getQuote } from "@/lib/data";
+import { findMovedListing, getBuilding, getListingBySlug, getQuote } from "@/lib/data";
 import { alternates } from "@/lib/seo";
 import { buttonClasses } from "@/components/ui/Button";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
@@ -56,7 +56,9 @@ async function Checkout({ searchParams }: { searchParams: SearchParams }) {
   const checkOut = str(sp.checkOut);
   const guests = Number(sp.guests);
 
-  const listing = slug ? await getListingBySlug(locale, slug) : null;
+  // A link made before the listing was renamed still finds it.
+  const moved = slug ? await findMovedListing(slug) : null;
+  const listing = slug ? await getListingBySlug(locale, moved ?? slug) : null;
   const result =
     listing && isISODate(checkIn) && isISODate(checkOut) && Number.isInteger(guests)
       ? await getQuote({ listingId: listing.id, checkIn, checkOut, guests })
