@@ -127,7 +127,7 @@
     "backToHome": "Back to {title}",
     "seeApartments": "See the apartments",
     "rateTitle": "Your rate",
-    "rateFreeCancellation": "Free cancellation before {date}",
+    "rateFreeCancellation": "Free cancellation until {date}",
     "rateNonRefundable": "Non-refundable",
     "rateSaving": "{percent}% off",
     "detailsTitle": "Your details",

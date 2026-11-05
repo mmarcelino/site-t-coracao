@@ -32,7 +32,7 @@ export function useRateSelection(): RateSelection {
   return ctx;
 }
 
-/** "Free cancellation before 2 Dec 2026" / "Non-refundable". */
+/** "Free cancellation until 2 Dec 2026" / "Non-refundable" (the deadline is check-in minus the rate's days, as in the client's terms; exact cut-off hour TO CONFIRM). */
 export function useRateLabel(): (option: RateOption) => string {
   const t = useTranslations("checkout");
   const format = useFormat();

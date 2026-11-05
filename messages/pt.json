@@ -127,7 +127,7 @@
     "backToHome": "Voltar a {title}",
     "seeApartments": "Ver os alojamentos",
     "rateTitle": "A sua tarifa",
-    "rateFreeCancellation": "Cancelamento gratuito antes de {date}",
+    "rateFreeCancellation": "Cancelamento gratuito até {date}",
     "rateNonRefundable": "Não reembolsável",
     "rateSaving": "{percent}% de desconto",
     "detailsTitle": "Os seus dados",
