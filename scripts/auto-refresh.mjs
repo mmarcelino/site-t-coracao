@@ -10,6 +10,9 @@
  *                                                another language).
  *   node scripts/auto-refresh.mjs descriptions   (weekly) PT-PT translations of the descriptions the
  *                                                client added or changed in Guesty.
+ *   node scripts/auto-refresh.mjs credit         (after each run) Fails, so GitHub emails the owner,
+ *                                                once 80% of the DeepL credit is used: years ahead,
+ *                                                time to add a new key or switch translator.
  *   Add --dry-run to report what would change without translating or writing anything.
  *
  * Safety: it only adds (a flat's oldest reviews make way for newer ones; nothing else is removed),
@@ -19,7 +22,7 @@
  */
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { hasDeepL, translate } from "./deepl.mjs";
+import { hasDeepL, translate, usage } from "./deepl.mjs";
 import { ROOT, fetchListingTexts, readJson, token } from "./guesty-shared.mjs";
 import { REVIEWS, SCORES, collect, save, trim } from "./reviews-core.mjs";
 
@@ -95,7 +98,18 @@ async function descriptions() {
   console.log(`Translated ${changed.length} descriptions.`);
 }
 
+async function credit() {
+  const { used, limit } = await usage();
+  const share = limit ? used / limit : 0;
+  console.log(`DeepL: ${used} of ${limit} characters used (${Math.round(share * 100)}%).`);
+  if (share >= 0.8) {
+    console.error("DeepL credit is 80% used: create a new DeepL key (or switch translator) and update the DEEPL_API_KEY secret.");
+    process.exit(1);
+  }
+}
+
 const job = process.argv[2];
 if (job === "reviews") await reviews();
 else if (job === "descriptions") await descriptions();
-else console.log("Usage: node scripts/auto-refresh.mjs reviews | descriptions [--dry-run]");
+else if (job === "credit") await credit();
+else console.log("Usage: node scripts/auto-refresh.mjs reviews | descriptions | credit [--dry-run]");

@@ -65,3 +65,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Content refresh: ${{ steps.job.outputs.name }} (automatic)"
           git push
+
+      # Fails (and GitHub emails the owner) once 80% of the one-time DeepL credit is used.
+      - name: DeepL credit
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: node scripts/auto-refresh.mjs credit
