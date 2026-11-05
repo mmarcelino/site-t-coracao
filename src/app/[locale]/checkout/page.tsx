@@ -86,7 +86,7 @@ async function Checkout({ searchParams }: { searchParams: SearchParams }) {
   }
 
   const { quote } = result;
-  const building = await getBuilding(locale, listing.buildingId);
+  const building = await getBuilding(listing.buildingId);
   const cover = listing.pictures[0];
   // "Wed 11 Nov – Sat 14 Nov 2026" / "qua. 11 nov. – sáb. 14 nov. 2026" (built by hand: Intl's
   // pt-PT short month is numeric).

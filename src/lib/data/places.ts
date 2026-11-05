@@ -8,34 +8,25 @@ import type { Building, Locale, Neighbourhood } from "./types";
  * homes come from the listings (Guesty tags), so new flats appear without editing content.
  */
 
-export async function getBuildings(locale: Locale): Promise<Building[]> {
+export async function getBuildings(): Promise<Building[]> {
   const homes = await getListingBuildings();
   return buildings.map((b) => {
     const own = homes.filter((h) => h.buildingId === b.id);
-    const cover = own[0]?.raw.pictures[0];
     return {
       id: b.id,
       slug: b.slug,
       name: b.name,
       street: b.street,
       neighbourhoodSlug: b.neighbourhoodSlug,
-      era: b.era?.[locale] ?? "",
-      historyLine: b.historyLine?.[locale] ?? "",
-      story: b.story?.[locale] ?? "",
-      heroImage: b.heroImage
-        ? { src: b.heroImage.src, alt: b.heroImage.alt[locale] }
-        : { src: cover?.original ?? "", alt: b.name },
-      storyImage: b.storyImage
-        ? { src: b.storyImage.src, alt: b.storyImage.alt[locale] }
-        : { src: cover?.original ?? "", alt: b.name },
+      heroImage: { src: own[0]?.raw.pictures[0]?.original ?? "", alt: b.name },
       listingIds: own.map((h) => h.listingId),
       hasLift: b.hasLift,
     };
   });
 }
 
-export async function getBuilding(locale: Locale, idOrSlug: string): Promise<Building | null> {
-  return (await getBuildings(locale)).find((b) => b.id === idOrSlug || b.slug === idOrSlug) ?? null;
+export async function getBuilding(idOrSlug: string): Promise<Building | null> {
+  return (await getBuildings()).find((b) => b.id === idOrSlug || b.slug === idOrSlug) ?? null;
 }
 
 export async function getNeighbourhoods(locale: Locale): Promise<Neighbourhood[]> {

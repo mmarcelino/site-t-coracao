@@ -16,7 +16,7 @@ async function build(): Promise<string> {
   cacheLife("hours");
   const [listings, buildings, neighbourhoods] = await Promise.all([
     getListings("en"),
-    getBuildings("en"),
+    getBuildings(),
     getNeighbourhoods("en"),
   ]);
   const lines: string[] = [
@@ -36,7 +36,7 @@ async function build(): Promise<string> {
   for (const building of buildings) {
     const homes = listings.filter((l) => l.buildingId === building.id);
     if (!homes.length) continue;
-    lines.push(`### ${building.name}${building.historyLine ? ` — ${building.historyLine}` : ""}`, "");
+    lines.push(`### ${building.name}`, "");
     for (const l of homes) {
       const facts = [
         `sleeps ${l.accommodates}`,

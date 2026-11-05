@@ -43,7 +43,7 @@ async function load(slug: string) {
     if (moved) permanentRedirect(getPathname({ locale, href: { pathname: "/apartments/[slug]", params: { slug: moved } } }));
     notFound();
   }
-  const building = await getBuilding(locale, listing.buildingId);
+  const building = await getBuilding(listing.buildingId);
   if (!building) notFound();
   return { locale, listing, building };
 }
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/apartmen
   const href = { pathname: "/apartments/[slug]" as const, params: { slug } };
   return {
     title,
-    description: [listing.tagline || listing.description.summary, building.historyLine].filter(Boolean).join(" "),
+    description: listing.tagline || listing.description.summary,
     alternates: alternates(locale, href),
     openGraph: {
       title,
@@ -234,45 +234,22 @@ async function ApartmentContent({ params }: { params: Params }) {
               ))}
             </ul>
 
-            {/* The apartment's story: two paragraphs, body text only. */}
+            {/* The apartment's story in body text: Guesty's description, then one line about the
+                building from Guesty's own copy (when this flat's text lacks it), then the way to the
+                other homes in the building. */}
             <div className="mt-8 max-w-2xl space-y-5">
               <p>{listing.description.summary}</p>
               {listing.description.space ? <p>{listing.description.space}</p> : null}
+              {listing.description.building ? <p>{listing.description.building}</p> : null}
+              {others.length ? (
+                <p>
+                  <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
+                    {t("listing.moreHomesLink", { count: others.length })}
+                    <Icon name="chevronDown" size={18} />
+                  </a>
+                </p>
+              ) : null}
             </div>
-
-            {/* The building: one row in the details' rhythm, no colour block, so it supports the
-                apartment instead of competing with it. Its history line still comes before the specs. */}
-            {building.historyLine || building.story || listing.hasLift === false || others.length ? (
-              <section aria-labelledby="building-title" className={detail}>
-                <div>
-                  <h2 id="building-title" className="card-title">
-                    {t("listing.theBuilding")}
-                  </h2>
-                  {building.era ? <p className="label mt-2 text-granite">{building.era}</p> : null}
-                </div>
-                <div>
-                  {building.historyLine ? <p className="font-semibold">{building.historyLine}</p> : null}
-                  {building.story ? <p className="mt-3">{building.story}</p> : null}
-                  {/* No lift is a fact about the building, so the heads-up lives here. */}
-                  {listing.hasLift === false ? (
-                    // Building-level only, like the rest of this row (the flat's floor is in the facts row).
-                    <p className="mt-5 first:mt-0">
-                      {listing.category === "house"
-                        ? t("listing.stairsNoteHouse", { building: building.name })
-                        : t("listing.stairsNote", { building: building.name })}
-                    </p>
-                  ) : null}
-                  {others.length ? (
-                    <p className="mt-5 first:mt-0">
-                      <a href="#more-homes" className="inline-flex items-center gap-2 link-quiet">
-                        {t("listing.moreHomesLink", { count: others.length })}
-                        <Icon name="chevronDown" size={18} />
-                      </a>
-                    </p>
-                  ) : null}
-                </div>
-              </section>
-            ) : null}
 
             {/* The details, one rhythm (as "Before you book." on the home page): an ink rule, the
                 heading on the left, the content on the right. */}

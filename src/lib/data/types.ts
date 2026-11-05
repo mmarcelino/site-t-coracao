@@ -169,6 +169,8 @@ export interface Listing {
   description: {
     summary: string;
     space: string;
+    /** One factual line about the building from Guesty's own copy, when this flat's text lacks it. */
+    building: string;
     neighbourhood: string;
     notes: string;
   };
@@ -197,13 +199,8 @@ export interface Building {
   name: string;
   street: string;
   neighbourhoodSlug: string;
-  /** e.g. "Late 19th century" — INVENTED until the client supplies history. Empty when unknown. */
-  era: string;
-  /** Empty for buildings we haven't written up yet (the UI hides them). */
-  historyLine: string;
-  story: string;
+  /** The cover of the building's first home. */
   heroImage: Picture;
-  storyImage: Picture;
   listingIds: string[];
   hasLift: boolean | null;
 }

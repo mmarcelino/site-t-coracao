@@ -78,7 +78,7 @@ async function Results({ searchParams }: { searchParams: SearchParams }) {
   const t = await getTranslations();
   const format = createFormatter(locale);
   const parsed = parseSearch(await searchParams);
-  const [all, neighbourhoods, buildings] = await Promise.all([getListings(locale), getNeighbourhoods(locale), getBuildings(locale)]);
+  const [all, neighbourhoods, buildings] = await Promise.all([getListings(locale), getNeighbourhoods(locale), getBuildings()]);
   const building = buildings.find((b) => b.slug === parsed.building);
   const search: Search = { ...parsed, building: building?.slug };
   // Only what each card should carry to the apartment page: dates and guests.

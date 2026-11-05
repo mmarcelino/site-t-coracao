@@ -237,7 +237,7 @@ function toListing(
     // Listing text is Guesty's own (English); Portuguese pages use our PT-PT translation while it
     // still matches Guesty's text. Neighbourhood copy comes from our neighbourhood pages instead.
     tagline: "",
-    description: { ...describe(raw, locale), neighbourhood: "", notes: "" },
+    description: { ...describe(raw, locale), building: buildingLine(raw, building, locale), neighbourhood: "", notes: "" },
     highlights: [],
     amenities,
     price: {
@@ -274,6 +274,17 @@ function describe(raw: GuestyListing, locale: Locale): ListingText {
   if (locale === "en") return en;
   const t = listingTranslations[raw._id];
   return t && t.en.summary === en.summary && t.en.space === en.space ? t.pt : en;
+}
+
+/**
+ * The building's line from Guesty's own copy (`fromGuesty` in src/content/buildings.ts), unless this
+ * flat's English text already says it: shared facts reach every flat in the building, never twice.
+ */
+function buildingLine(raw: GuestyListing, building: (typeof buildings)[number] | undefined, locale: Locale): string {
+  const fact = building?.fromGuesty;
+  if (!fact) return "";
+  const own = `${raw.publicDescription.summary ?? ""} ${raw.publicDescription.space ?? ""}`;
+  return new RegExp(fact.marker, "i").test(own) ? "" : fact.text[locale];
 }
 
 interface Entry {
