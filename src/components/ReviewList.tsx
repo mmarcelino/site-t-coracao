@@ -64,14 +64,9 @@ export function ReviewList({
   };
 
   const grid = clsx("grid gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16");
-  // Home: the top row opens on the thick ink rule (as the headline beside it); later rows on a light
-  // hairline, so the rules mark rows without outshouting the quotes. On phones only the first is thick.
-  const rule = (index: number) =>
-    index === 0
-      ? "border-t-2 border-ink"
-      : index === 1
-        ? "border-t border-ink/15 sm:border-t-2 sm:border-ink"
-        : "border-t border-ink/15";
+  // Home: the top row opens on the thick ink rule (as the headline beside it); later rows have no
+  // rule, just space. On phones only the first quote has it.
+  const rule = (index: number) => (index === 0 ? "border-t-2 border-ink" : index === 1 ? "sm:border-t-2 sm:border-ink" : "");
   const item = (review: Review, index: number) => (
     <li
       key={review.id}

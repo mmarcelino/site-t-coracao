@@ -33,7 +33,7 @@ export async function ReviewsBlock({
   return (
     <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-16">
       {/* On desktop the side column follows the quotes' two rows: the headline on the thick ink rule
-          beside the first two quotes, the scores on the hairline beside the next two. */}
+          beside the first two quotes, the scores (on a hairline) beside the next two. */}
       <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1">
         {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
         <h2 id={headingId} className="text-h2">
