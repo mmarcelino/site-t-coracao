@@ -1,0 +1,67 @@
+# Keeps the site's Guesty-derived content current with nobody maintaining it (scripts/auto-refresh.mjs):
+# - 1st of each month: platform scores and each flat's 20 newest reviews (translated by DeepL).
+# - Every Monday: PT-PT translations of descriptions added or changed in Guesty.
+# Changes are committed to main, and Vercel publishes them like any other change. If Guesty's data
+# looks wrong the run stops without changing anything; a failed run shows as a red ✗ in the Actions
+# tab and GitHub emails the repository owner. Nothing needs installing: the scripts use Node only.
+#
+# Secrets (Settings → Secrets and variables → Actions):
+#   GUESTY_BOOKING_ENGINE_CLIENT_ID / GUESTY_BOOKING_ENGINE_CLIENT_SECRET  a Booking Engine key just
+#     for this job ("website-automation"), so it can be revoked without touching the website
+#   DEEPL_API_KEY  a DeepL API Free key
+# Scheduled runs only happen from the default branch (main). "Run workflow" in the Actions tab runs
+# either job on demand.
+name: Content refresh
+
+on:
+  schedule:
+    - cron: "0 5 1 * *" # reviews and scores
+    - cron: "0 5 * * 1" # descriptions
+  workflow_dispatch:
+    inputs:
+      job:
+        description: What to refresh
+        type: choice
+        options: [reviews, descriptions]
+        default: reviews
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Which job
+        id: job
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then echo "name=${{ inputs.job }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "0 5 1 * *" ]; then echo "name=reviews" >> "$GITHUB_OUTPUT"
+          else echo "name=descriptions" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Refresh
+        env:
+          GUESTY_BOOKING_ENGINE_CLIENT_ID: ${{ secrets.GUESTY_BOOKING_ENGINE_CLIENT_ID }}
+          GUESTY_BOOKING_ENGINE_CLIENT_SECRET: ${{ secrets.GUESTY_BOOKING_ENGINE_CLIENT_SECRET }}
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: node scripts/auto-refresh.mjs ${{ steps.job.outputs.name }}
+
+      - name: Commit the changes
+        run: |
+          git add src/content/apartment-reviews.json src/content/review-scores.json src/content/listing-translations.json
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Content refresh: ${{ steps.job.outputs.name }} (automatic)"
+          git push

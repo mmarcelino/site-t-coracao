@@ -1,8 +1,11 @@
 /**
- * Shared by the Guesty refresh scripts (reviews.mjs, listing-texts.mjs): small file helpers and the
- * Booking Engine token. The token is reused from the dev token file the app keeps (never printed);
- * a new one is requested only when it has run out, as Guesty allows 3 per key per day.
+ * Shared by the Guesty refresh scripts (reviews, listing texts, the automatic monthly run): small
+ * file helpers, the Booking Engine token and the listing descriptions. Credentials come from the
+ * environment (GitHub Actions secrets) or, locally, .env.local. Locally the token is reused from the
+ * dev token file the app keeps (never printed); a new one is requested only when it has run out, as
+ * Guesty allows 3 per key per day.
  */
+import { existsSync } from "node:fs";
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -30,7 +33,8 @@ export async function token() {
   const cached = await readJson(TOKEN_FILE, null);
   if (cached?.token && cached.expiresAt - 10 * 60 * 1000 > Date.now()) return cached.token;
   // Guesty allows 3 tokens per key per day: only ask when the app's cached one has run out.
-  process.loadEnvFile(path.join(ROOT, ".env.local"));
+  const envFile = path.join(ROOT, ".env.local");
+  if (!process.env.GUESTY_BOOKING_ENGINE_CLIENT_ID && existsSync(envFile)) process.loadEnvFile(envFile);
   const res = await fetch("https://booking.guesty.com/oauth2/token", {
     method: "POST",
     headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -47,3 +51,15 @@ export async function token() {
   return access_token;
 }
 
+
+/** Every listing's English summary and "space" text, as Guesty has them now. */
+export async function fetchListingTexts(auth) {
+  const res = await fetch(`${API}/listings?limit=100&fields=_id%20title%20publicDescription`, { headers: { authorization: `Bearer ${auth}` } });
+  if (!res.ok) throw new Error(`Guesty GET /listings failed (${res.status})`);
+  const { results } = await res.json();
+  return results.map((l) => ({
+    id: l._id,
+    title: l.title,
+    en: { summary: (l.publicDescription?.summary ?? "").trim(), space: (l.publicDescription?.space ?? "").trim() },
+  }));
+}

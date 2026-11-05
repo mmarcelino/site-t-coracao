@@ -14,22 +14,18 @@
  */
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { API, ROOT, readJson, token, writePrivate } from "./guesty-shared.mjs";
+import { ROOT, fetchListingTexts, readJson, token, writePrivate } from "./guesty-shared.mjs";
 
 const WORK = path.join(ROOT, ".next/cache/listings");
 const TRANSLATIONS = path.join(ROOT, "src/content/listing-translations.json");
 
 async function fetchPending() {
-  const auth = await token();
-  const res = await fetch(`${API}/listings?limit=100&fields=_id%20title%20publicDescription`, { headers: { authorization: `Bearer ${auth}` } });
-  if (!res.ok) throw new Error(`Guesty GET /listings failed (${res.status})`);
-  const { results } = await res.json();
+  const results = await fetchListingTexts(await token());
   const current = await readJson(TRANSLATIONS, {});
   const pending = {};
   for (const l of results) {
-    const en = { summary: (l.publicDescription?.summary ?? "").trim(), space: (l.publicDescription?.space ?? "").trim() };
-    const t = current[l._id];
-    if (!t || t.en.summary !== en.summary || t.en.space !== en.space) pending[l._id] = { title: l.title, en, previous: t?.en ?? null };
+    const t = current[l.id];
+    if (!t || t.en.summary !== l.en.summary || t.en.space !== l.en.space) pending[l.id] = { title: l.title, en: l.en, previous: t?.en ?? null };
   }
   await writePrivate(path.join(WORK, "pending.json"), pending);
   console.log(`${results.length} listings; ${Object.keys(pending).length} new or changed descriptions to translate.`);
