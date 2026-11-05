@@ -44,7 +44,8 @@ export function ReviewQuote({
       onClick={() => setOpen((o) => !o)}
       aria-expanded={open}
       className={clsx(
-        "text-small text-granite underline underline-offset-4 transition-colors hover:text-ink",
+        // Lighter than granite, still AA for small text on white (ink at 60% ≈ #767574, 4.6:1).
+        "text-small text-ink/60 underline underline-offset-4 transition-colors hover:text-ink",
         className,
       )}
     >
