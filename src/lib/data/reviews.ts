@@ -1,18 +1,24 @@
+import { apartmentReviews } from "@/content/apartment-reviews";
 import { curatedReviews, reviewScores } from "@/content/reviews";
 import type { Locale, Review, ReviewAggregate, ReviewSource } from "./types";
 
 /**
- * Reviews: a fixed, hand-picked selection of real guest reviews and a snapshot of the platform
- * scores (`src/content/reviews.ts`), refreshed by hand; no live feed. The quotes were written in
+ * Reviews: fixed, hand-picked selections of real guest reviews (the home page's in
+ * `src/content/reviews.ts`, each apartment's own in `src/content/apartment-reviews.ts`) and a
+ * snapshot of the platform scores, refreshed by hand; no live feed. The quotes were written in
  * English; other locales get our translation, flagged with `translatedFrom`.
  */
 
-/** One page of quotes plus how many there are, for "Show more reviews". Platforms take turns. */
+/**
+ * One page of quotes plus how many there are, for "Show more reviews". With `listingId`: that
+ * apartment's own reviews, newest first; otherwise the home selection, platforms taking turns.
+ */
 export async function getReviewPage(
   locale: Locale,
-  opts: { source?: ReviewSource; offset?: number; limit?: number } = {},
+  opts: { listingId?: string; source?: ReviewSource; offset?: number; limit?: number } = {},
 ): Promise<{ reviews: Review[]; total: number }> {
-  const pool: Review[] = curatedReviews
+  const selection = opts.listingId ? (apartmentReviews[opts.listingId] ?? []) : curatedReviews;
+  const pool: Review[] = selection
     .filter((r) => !opts.source || r.source === opts.source)
     .map((r) => ({
       ...r,
@@ -23,7 +29,9 @@ export async function getReviewPage(
     }));
   const bySource = [...Map.groupBy(pool, (r) => r.source).values()];
   const rounds = Math.max(0, ...bySource.map((l) => l.length));
-  const ordered = Array.from({ length: rounds }, (_, i) => bySource.flatMap((l) => l[i] ?? [])).flat();
+  const ordered = opts.listingId
+    ? pool
+    : Array.from({ length: rounds }, (_, i) => bySource.flatMap((l) => l[i] ?? [])).flat();
   const offset = opts.offset ?? 0;
   return { reviews: ordered.slice(offset, offset + (opts.limit ?? ordered.length)), total: ordered.length };
 }

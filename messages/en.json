@@ -175,6 +175,7 @@
     },
     "guest": "Guest",
     "translated": "Translated from English",
+    "listingTitle": "Reviews",
     "stayedAt": "{date}",
     "prev": "Previous reviews",
     "next": "More reviews",
