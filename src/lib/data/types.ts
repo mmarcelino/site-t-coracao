@@ -216,12 +216,17 @@ export interface GuideEntry {
   note: string;
 }
 
+/** A landmark near a building, with the walk to it (estimated from the building's address). */
+export interface NearbyPlace {
+  name: string;
+  minutes: number;
+}
+
 export interface Neighbourhood {
   slug: string;
   name: string;
   tagline: string;
   intro: string;
-  nearby: string[];
   guide: GuideEntry[];
   coordinates: { lat: number; lng: number };
   image: Picture;

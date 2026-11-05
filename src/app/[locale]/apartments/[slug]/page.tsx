@@ -12,6 +12,7 @@ import {
   getListingBySlug,
   getListingSlugs,
   getListings,
+  getNearby,
   getNeighbourhood,
   getReviewPage,
   type Listing,
@@ -146,6 +147,8 @@ async function ApartmentContent({ params }: { params: Params }) {
     getReviewPage(locale, { listingId: listing.id, limit: 3 }),
   ]);
   const format = createFormatter(locale);
+  // Walks from this building's address to the nearest landmarks (per building, not per neighbourhood).
+  const nearby = getNearby(locale, listing.address);
   const others = siblings.filter((l) => l.id !== listing.id);
 
   // Each fact reads on its own ("2 guests", "1 bathroom"), so no labels are needed. Unknown
@@ -320,18 +323,15 @@ async function ApartmentContent({ params }: { params: Params }) {
                     </a>
                   </p>
                   <p className="mt-5">{neighbourhood.intro}</p>
-                  <p className="label mt-6 text-granite">{t("listing.nearby")}</p>
+                  {nearby.length ? <p className="label mt-6 text-granite">{t("listing.nearby")}</p> : null}
                   {/* Compact: two columns, no lines; the walk in grey after each place. */}
                   <ul className="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
-                    {neighbourhood.nearby.map((place) => {
-                      const [name, time] = place.split(" · ");
-                      return (
-                        <li key={place}>
-                          {name}
-                          {time ? <span className="text-small text-granite"> · {time}</span> : null}
-                        </li>
-                      );
-                    })}
+                    {nearby.map((place) => (
+                      <li key={place.name}>
+                        {place.name}
+                        <span className="text-small text-granite"> · {t("listing.walkMinutes", { minutes: String(place.minutes) })}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </section>

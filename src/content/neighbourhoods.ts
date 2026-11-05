@@ -10,7 +10,6 @@ export interface NeighbourhoodContent {
   name: Localized;
   tagline: Localized;
   intro: Localized;
-  nearby: Localized<string[]>;
   guide: Array<{ category: GuideCategory; name: string; note: Localized }>;
   coordinates: { lat: number; lng: number };
   image: { src: string; alt: Localized };
@@ -27,10 +26,6 @@ export const neighbourhoods: NeighbourhoodContent[] = [
     intro: {
       pt: "A Ribeira é o Porto mais antigo: ruas estreitas que descem até ao Douro, fachadas de azulejo e o Palácio da Bolsa no topo da Praça do Infante. De manhã é dos moradores; ao fim da tarde, do rio.",
       en: "Ribeira is Porto at its oldest: narrow streets falling towards the Douro, tiled façades, and the Palácio da Bolsa at the top of Praça do Infante. Mornings belong to the neighbours; evenings belong to the river.",
-    },
-    nearby: {
-      pt: ["Palácio da Bolsa · 2 min", "Cais da Ribeira · 5 min", "Ponte Luís I · 8 min", "Rua das Flores · 3 min"],
-      en: ["Palácio da Bolsa · 2 min", "Ribeira quay · 5 min", "Luís I Bridge · 8 min", "Rua das Flores · 3 min"],
     },
     guide: [
       { category: "see", name: "Palácio da Bolsa", note: { pt: "Visita guiada ao Salão Árabe, o interior mais extravagante da cidade.", en: "Take the guided tour for the Arab Room, the city's most extravagant interior." } },
@@ -55,10 +50,6 @@ export const neighbourhoods: NeighbourhoodContent[] = [
       pt: "A Baixa é onde o Porto acontece todos os dias. A estação de São Bento, forrada a azulejo azul e branco, abre para a Avenida dos Aliados; daqui chega-se a pé a quase tudo, e os comboios para o Vale do Douro partem à porta.",
       en: "Baixa is where Porto goes about its day. São Bento station, lined in blue-and-white azulejo, opens onto Avenida dos Aliados; almost everything is walkable from here, and trains to the Douro Valley leave from the doorstep.",
     },
-    nearby: {
-      pt: ["Estação de São Bento · 1 min", "Sé do Porto · 5 min", "Mercado do Bolhão · 8 min", "Avenida dos Aliados · 3 min"],
-      en: ["São Bento station · 1 min", "Porto Cathedral · 5 min", "Bolhão Market · 8 min", "Avenida dos Aliados · 3 min"],
-    },
     guide: [
       { category: "see", name: "Estação de São Bento", note: { pt: "Cerca de 20\u00a0000 azulejos de Jorge Colaço contam a história do país no átrio.", en: "Around 20\u00a0000 tiles by Jorge Colaço tell Portugal's story across the main hall." } },
       { category: "eat", name: "Mercado do Bolhão", note: { pt: "Renovado, mas ainda de bancas: fruta, peixe, flores e petiscos ao balcão.", en: "Renovated but still a market of stalls: fruit, fish, flowers and snacks at the counter." } },
@@ -82,10 +73,6 @@ export const neighbourhoods: NeighbourhoodContent[] = [
       pt: "Entre o Jardim da Cordoaria e a Rua de Miguel Bombarda fica o Porto dos estudantes, dos ateliers e das livrarias. A Torre dos Clérigos marca as horas; ao fim do dia, o Passeio das Virtudes tem o melhor pôr do sol sobre o rio.",
       en: "Between the Cordoaria gardens and Rua de Miguel Bombarda lies the Porto of students, studios and bookshops. The Clérigos Tower keeps time; at dusk, Passeio das Virtudes has the best sunset over the river.",
     },
-    nearby: {
-      pt: ["Torre dos Clérigos · 3 min", "Livraria Lello · 4 min", "Jardim da Cordoaria · 1 min", "Rua de Miguel Bombarda · 10 min"],
-      en: ["Clérigos Tower · 3 min", "Livraria Lello · 4 min", "Cordoaria gardens · 1 min", "Rua de Miguel Bombarda · 10 min"],
-    },
     guide: [
       { category: "see", name: "Torre dos Clérigos", note: { pt: "Barroco de Nasoni; 240 degraus até à melhor vista do centro.", en: "Nasoni's baroque tower; 240 steps to the best view of the centre." } },
       { category: "see", name: "Centro Português de Fotografia", note: { pt: "Exposições gratuitas na antiga Cadeia da Relação.", en: "Free exhibitions inside the former Relação prison." } },
@@ -108,10 +95,6 @@ export const neighbourhoods: NeighbourhoodContent[] = [
     intro: {
       pt: "A Foz é o Porto à beira-mar: ruas tranquilas de moradias antigas, o Jardim do Passeio Alegre e o paredão até ao farol. O centro histórico fica a dez minutos pela marginal ou no elétrico 1, que segue o rio.",
       en: "Foz is Porto by the sea: quiet streets of old villas, the Passeio Alegre garden and the seawall out to the lighthouse. The historic centre is ten minutes away along the riverside road, or on tram 1, which follows the river.",
-    },
-    nearby: {
-      pt: ["Jardim do Passeio Alegre · 1 min", "Farol de Felgueiras · 8 min", "Praias da Foz · 10 min", "Elétrico 1 · à porta"],
-      en: ["Passeio Alegre garden · 1 min", "Felgueiras lighthouse · 8 min", "Foz beaches · 10 min", "Tram 1 · at the door"],
     },
     guide: [
       { category: "see", name: "Jardim do Passeio Alegre", note: { pt: "Palmeiras, coreto e um minigolfe de família, mesmo em frente.", en: "Palm trees, a bandstand and a family mini-golf, right opposite." } },

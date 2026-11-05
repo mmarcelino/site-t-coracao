@@ -255,6 +255,7 @@
     "location": "Location",
     "openMap": "Open in maps",
     "houseRules": "House rules",
+    "walkMinutes": "{minutes} min walk",
     "nearby": "Nearby",
     "ruleCheckIn": "Check-in",
     "ruleCheckOut": "Check-out",
