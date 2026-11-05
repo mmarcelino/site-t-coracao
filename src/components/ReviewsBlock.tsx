@@ -31,10 +31,10 @@ export async function ReviewsBlock({
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   return (
-    <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-      {/* Starts on an ink rule, level with the first quotes'. The quotes keep a grid of their own, so
-          their rows are evenly spaced whatever the headline's height. */}
-      <div className="reveal self-start border-t-2 border-ink pt-6 lg:col-span-4">
+    <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-16">
+      {/* On desktop the side column follows the quotes' two rows: the headline on the thick ink rule
+          beside the first two quotes, the scores level with the top of the next two. */}
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1">
         {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
         <h2 id={headingId} className="text-h2">
           {heading}
@@ -43,22 +43,28 @@ export async function ReviewsBlock({
         <p className="mt-4">
           {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
         </p>
-        <ul className="mt-12 grid grid-cols-3 gap-4">
-          {Object.values(bySource).map((aggregate) => (
-            <li key={aggregate.source}>
-              <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
-              <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{score(aggregate.score)}</p>
-              <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(aggregate.count) })}</p>
-            </li>
-          ))}
-        </ul>
       </div>
+      <ul className="reveal mt-10 mb-14 grid grid-cols-3 gap-4 lg:col-span-4 lg:row-start-2 lg:m-0 lg:pt-6">
+        {Object.values(bySource).map((aggregate) => (
+          <li key={aggregate.source}>
+            <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
+            <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{score(aggregate.score)}</p>
+            <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(aggregate.count) })}</p>
+          </li>
+        ))}
+      </ul>
 
-      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with an arrow. */}
+      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more".
+          On desktop they share the side column's two rows (subgrid), so the ink rules line up. */}
       {reviews.length ? (
-        <div className="min-w-0 self-start lg:col-span-8">
-          <ReviewList initial={reviews.slice(0, 4)} total={total} />
-        </div>
+        <ReviewList
+          initial={reviews.slice(0, 4)}
+          total={total}
+          placement={{
+            first: "min-w-0 lg:col-span-8 lg:col-start-5 lg:row-span-2 lg:row-start-1 lg:grid-rows-subgrid",
+            rest: "min-w-0 lg:col-span-8 lg:col-start-5 lg:mt-0",
+          }}
+        />
       ) : null}
     </div>
   );

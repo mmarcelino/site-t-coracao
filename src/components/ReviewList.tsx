@@ -22,10 +22,16 @@ export function ReviewList({
   initial,
   total,
   listingId,
+  placement,
 }: {
   initial: Review[];
   total?: number;
   listingId?: string;
+  /**
+   * Classes for the first page of quotes and for what follows (more quotes, the links). Returned as
+   * siblings, so a parent grid can place them apart, e.g. keep its side column level with the first page only.
+   */
+  placement?: { first?: string; rest?: string };
 }) {
   const t = useTranslations("reviews");
   const locale = useLocale();
@@ -80,19 +86,20 @@ export function ReviewList({
 
   return (
     <>
-      {/* The first page, then the ones loaded on request (same grid, same spacing). scroll-mt clears
-          the booking bar that docks at the top of the home page. */}
-      <ul ref={list} className={clsx(grid, "scroll-mt-32")}>
+      {/* The first page, then the ones loaded on request in a list of their own (same grid, same
+          spacing) so a parent can line things up with the first page alone. scroll-mt clears the
+          booking bar that docks at the top of the home page. */}
+      <ul ref={list} className={clsx(grid, "scroll-mt-32", placement?.first)}>
         {loaded.slice(0, initial.length).map((review, i) => item(review, i))}
       </ul>
       {shown > initial.length ? (
-        <ul className={clsx(grid, listingId ? "mt-12" : "mt-16")}>
+        <ul className={clsx(grid, listingId ? "mt-12" : "mt-16", placement?.rest)}>
           {loaded.slice(initial.length, shown).map((review) => item(review, Infinity))}
         </ul>
       ) : null}
       {total !== undefined && total > initial.length ? (
         // Same text-and-arrow link as "See all apartments"; the arrow nudges the way it goes.
-        <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4">
+        <div className={clsx("mt-12 flex flex-wrap items-center gap-x-10 gap-y-4", placement?.rest)}>
           {shown < total ? (
             <button type="button" onClick={more} disabled={pending} className={moreLink}>
               {t("showMore")}
