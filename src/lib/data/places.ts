@@ -39,15 +39,7 @@ export async function getBuilding(locale: Locale, idOrSlug: string): Promise<Bui
 }
 
 export async function getNeighbourhoods(locale: Locale): Promise<Neighbourhood[]> {
-  return neighbourhoods.map((n) => ({
-    slug: n.slug,
-    name: n.name[locale],
-    tagline: n.tagline[locale],
-    intro: n.intro[locale],
-    guide: n.guide.map((g) => ({ category: g.category, name: g.name, note: g.note[locale] })),
-    coordinates: n.coordinates,
-    image: { src: n.image.src, alt: n.image.alt[locale] },
-  }));
+  return neighbourhoods.map((n) => ({ slug: n.slug, name: n.name[locale], intro: n.intro[locale] }));
 }
 
 export async function getNeighbourhood(locale: Locale, slug: string): Promise<Neighbourhood | null> {

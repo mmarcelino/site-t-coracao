@@ -75,7 +75,7 @@ Single data-access layer in `src/lib/data/` with functions like `getListings()`,
 
 - **Listing** (mirrors Guesty listing fields; verify against Guesty's Open API docs when access arrives): id, title, nickname, propertyType, accommodates, bedrooms, bathrooms, areaSqm, address/neighbourhood, pictures (url, caption), description (summary, space, neighbourhood, notes), amenities, base price + currency, buildingId.
 - **Building** (our own content, not in Guesty): id, name, neighbourhood, short history line, longer story, year/era, hero image, list of listing IDs.
-- **Neighbourhood** (our own content): slug, name, intro, what's nearby, guide entries, map coordinates.
+- **Neighbourhood** (our own content): slug, name, intro (no pages, so no guide, images or coordinates; "nearby" is per building, from `src/content/landmarks.ts`).
 - **Quote** (mock): nights, nightly breakdown, cleaning fee, city tourist tax, total; shaped like Guesty's Booking Engine API quote so the UI is ready.
 - **Review** (mock now, Guesty/Google later): source (google | airbnb | booking), rating, author first name, date, language, text, listingId (optional). Plus an aggregate per source (score, count).
 
@@ -97,7 +97,7 @@ Later integration notes (not for now): Guesty Booking Engine API for quotes and 
 2. **Apartments**: listing grid with filters. Built: collection tags (`?tag=a,b`, multi-select: homes in any chosen collection), building (`?building=<slug>`, a dropdown next to list/map), guests and dates from the home search (capacity + availability); different filters combine with "and"; an empty result offers one-tap "Remove …" fixes with counts. Still to add: neighbourhood, type.
 3. **Apartment detail**: gallery, story line about the building, key facts, description, amenities, location/neighbourhood, house rules, sticky booking widget with mock price breakdown, related flats in the same building.
 4. **Buildings**: one page per building with history, photos, its flats.
-5. **Neighbourhoods**: index + one page per neighbourhood (local guide: eat, drink, see, practical tips). Important for SEO and premium feel.
+5. ~~**Neighbourhoods**~~: **no neighbourhood pages** (client decision 2026-11-05). Each apartment's "Location" section shows its area's name and a short introduction, plus walking times from its building.
 6. **Experiences / Tours**: partner experiences in and outside Porto (see §9), plus a "help me plan" request form (UI only for now) and the guest portal / digital guidebook explainer.
 7. **For owners** (`/pt/gestao-alojamento-local` / `/en/property-management`): management services for owners/investors (see §9), with a lead form (UI only).
 8. **About**

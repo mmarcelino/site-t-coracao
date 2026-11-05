@@ -208,14 +208,6 @@ export interface Building {
   hasLift: boolean | null;
 }
 
-export type GuideCategory = "eat" | "drink" | "see" | "practical";
-
-export interface GuideEntry {
-  category: GuideCategory;
-  name: string;
-  note: string;
-}
-
 /** A landmark near a building, with the walk to it (estimated from the building's address). */
 export interface NearbyPlace {
   name: string;
@@ -225,11 +217,7 @@ export interface NearbyPlace {
 export interface Neighbourhood {
   slug: string;
   name: string;
-  tagline: string;
   intro: string;
-  guide: GuideEntry[];
-  coordinates: { lat: number; lng: number };
-  image: Picture;
 }
 
 export interface QuoteRequest {
