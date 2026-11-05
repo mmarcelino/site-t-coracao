@@ -307,7 +307,7 @@ export interface Review {
   /** Language of `text` ("en", "pt"…). */
   language: string;
   text: string;
-  /** Set when `text` is our translation (e.g. "en" on the Portuguese site); captions say so. */
+  /** The guest's language when `text` is our translation (e.g. "en" on the Portuguese site); captions say so. */
   translatedFrom?: string;
   listingId?: string;
   mock: boolean;

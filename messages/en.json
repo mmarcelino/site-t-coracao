@@ -174,7 +174,7 @@
       "guesty": "All platforms"
     },
     "guest": "Guest",
-    "translated": "Translated from English",
+    "translated": "Translated from {language}",
     "listingTitle": "Reviews",
     "stayedAt": "{date}",
     "prev": "Previous reviews",

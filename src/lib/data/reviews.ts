@@ -20,13 +20,16 @@ export async function getReviewPage(
   const selection = opts.listingId ? (apartmentReviews[opts.listingId] ?? []) : curatedReviews;
   const pool: Review[] = selection
     .filter((r) => !opts.source || r.source === opts.source)
-    .map((r) => ({
-      ...r,
-      text: r.text[locale],
-      language: locale,
-      ...(locale === "en" ? {} : { translatedFrom: "en" }),
-      mock: false,
-    }));
+    .map((r) => {
+      const original = r.language ?? "en";
+      return {
+        ...r,
+        text: r.text[locale],
+        language: locale,
+        ...(original === locale ? {} : { translatedFrom: original }),
+        mock: false,
+      };
+    });
   const bySource = [...Map.groupBy(pool, (r) => r.source).values()];
   const rounds = Math.max(0, ...bySource.map((l) => l.length));
   const ordered = opts.listingId

@@ -11,15 +11,29 @@ import type { Review } from "@/lib/data";
  */
 export function ReviewCard({ review, size }: { review: Review; size?: "lg" | "md" }) {
   const t = useTranslations("reviews");
-  const format = createFormatter(useLocale());
+  const locale = useLocale();
+  const format = createFormatter(locale);
   return (
     <figure className="flex flex-1 flex-col">
       <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} size={size} />
       <figcaption className="label mt-auto pt-6 text-ink">
         <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
         {review.author ?? t("guest")} · {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
-        {review.translatedFrom ? <span className="mt-1.5 block text-granite">{t("translated")}</span> : null}
+        {review.translatedFrom ? (
+          <span className="mt-1.5 block text-granite">
+            {t("translated", { language: languageName(review.translatedFrom, locale) })}
+          </span>
+        ) : null}
       </figcaption>
     </figure>
   );
+}
+
+/** "German" / "alemão": the language a review was written in, named in the page's language. */
+function languageName(code: string, locale: string): string {
+  try {
+    return new Intl.DisplayNames([locale === "pt" ? "pt-PT" : "en-GB"], { type: "language" }).of(code) ?? code;
+  } catch {
+    return code;
+  }
 }

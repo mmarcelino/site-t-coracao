@@ -9,7 +9,11 @@ import type { Localized, Review, ReviewAggregate } from "@/lib/data/types";
  * team, the welcome). Never edit the English; to refresh, pick new ones from Guesty the same way.
  * TO CONFIRM with the client: permission to reuse platform reviews on the site.
  */
-export type CuratedReview = Omit<Review, "text" | "language" | "translatedFrom" | "mock"> & { text: Localized };
+/** `language`: what the guest wrote in ("en" when omitted); the other locale shows our translation. */
+export type CuratedReview = Omit<Review, "text" | "language" | "translatedFrom" | "mock"> & {
+  text: Localized;
+  language?: string;
+};
 
 export const curatedReviews: CuratedReview[] = [
   {
