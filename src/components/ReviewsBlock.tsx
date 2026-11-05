@@ -39,10 +39,10 @@ export async function ReviewsBlock({
           {heading}
         </h2>
         {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
-        <p className="mt-4 text-granite">
+        <p className="mt-4">
           {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
         </p>
-        <ul className="mt-8 grid grid-cols-3 gap-4">
+        <ul className="mt-12 grid grid-cols-3 gap-4">
           {Object.values(bySource).map((aggregate) => (
             <li key={aggregate.source}>
               <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
