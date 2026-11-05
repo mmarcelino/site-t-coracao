@@ -53,7 +53,7 @@ export async function ReviewsBlock({
         </ul>
       </div>
 
-      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with an arrow. */}
+      {/* Four quotes (no carousel), more on request; long ones are cut at four lines with an arrow. */}
       {reviews.length ? (
         <div className="min-w-0 self-start lg:col-span-8">
           <ReviewList initial={reviews.slice(0, 4)} total={total} />

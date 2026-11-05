@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 
 /**
- * A review quote that never breaks the grid: long ones are cut at five lines and open in place.
+ * A review quote that never breaks the grid: long ones are cut at four lines and open in place.
  * Short ones show whole, with no control. The control is a small grey arrow that never takes a line
  * of its own: ↓ over the end of the cut line, ↑ at the right end of the last line once open (the same
  * arrows as "Show more reviews"); its label ("Read more" / "Show less") is for screen readers.
@@ -51,7 +51,7 @@ export function ReviewQuote({
 
   return (
     <div className="relative text-body">
-      <blockquote ref={ref} lang={lang} className={clsx(!open && "line-clamp-5")}>
+      <blockquote ref={ref} lang={lang} className={clsx(!open && "line-clamp-4")}>
         “{text}”
         {/* Floats to the right end of the last line, or onto its own line only if there's no room. */}
         {open ? <span className="float-right ml-4">{arrow(lessLabel)}</span> : null}
