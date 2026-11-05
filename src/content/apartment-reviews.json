@@ -25,6 +25,30 @@
    }
   },
   {
+   "id": "6ad64ff181fcb5aeda3327f9",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-10-16",
+   "listingId": "64de2984ec3b510037fc3295",
+   "text": {
+    "en": "Great location for our almost 2 week stay. Washer-Dryer worked great. When we come back, we will want to stay here.",
+    "pt": "Excelente localização para a nossa estadia de quase duas semanas. A máquina de lavar e secar roupa funcionou muito bem. Quando voltarmos, vamos querer ficar aqui."
+   }
+  },
+  {
+   "id": "6aba52b9de2235ee94e2a6e0",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-27",
+   "listingId": "64de2984ec3b510037fc3295",
+   "text": {
+    "en": "We enjoyed our time here. The location was central to all we wanted to do. It was a great home base for the week. The apartment was clean and had what we needed. The hosts reached out before, during and at the end of our stay to make sure all was okay. We would stay here again.",
+    "pt": "Gostámos muito da nossa estadia aqui. A localização era central em relação a tudo o que queríamos fazer. Foi um excelente ponto de partida para a semana. O apartamento estava limpo e tinha tudo o que precisávamos. Os anfitriões entraram em contacto connosco antes, durante e no final da nossa estadia para se certificarem de que estava tudo bem. Voltaríamos a ficar aqui."
+   }
+  },
+  {
    "id": "6aafc249de2235ee94de5036",
    "source": "booking",
    "rating": 10,
@@ -215,30 +239,6 @@
     "en": "We had a wonderful stay in this apartment. The place is absolutely beautiful. It's spacious and well presented. It is also extremely well located with some lovely restaurants in close proximity and access to all the sites and activities. I highly recommend this place. Book it, you won’t regret it!",
     "pt": "Tivemos uma estadia maravilhosa neste apartamento. O sítio é absolutamente lindíssimo. É espaçoso e bem apresentado. Também está extremamente bem localizado, com restaurantes encantadores mesmo ao lado e acesso a todos os pontos de interesse e atividades. Recomendo vivamente. Reservem, não se vão arrepender!"
    }
-  },
-  {
-   "id": "66a2363b8cd05fd56e49b216",
-   "source": "booking",
-   "rating": 10,
-   "author": "Ali",
-   "date": "2024-07-25",
-   "listingId": "64de2984ec3b510037fc3295",
-   "text": {
-    "en": "Beautiful apartment (very spacious and luxurious) in the perfect position. Very quiet yet minutes from the Ribeira and historic area. Communication was excellent.",
-    "pt": "Um apartamento lindíssimo (muito espaçoso e luxuoso) na posição perfeita. Muito sossegado e, ainda assim, a minutos da Ribeira e da zona histórica. A comunicação foi excelente."
-   }
-  },
-  {
-   "id": "667309906b4d6b8b5ccc6842",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2024-06-19",
-   "listingId": "64de2984ec3b510037fc3295",
-   "text": {
-    "en": "Absolutely amazing apartment in a perfect location close to the river and all the restaurants. Lovely recommendations as well! Will definitely be back",
-    "pt": "Um apartamento absolutamente incrível, numa localização perfeita, perto do rio e de todos os restaurantes. Ótimas recomendações também! Vamos voltar, sem dúvida."
-   }
   }
  ],
  "60f82c29b82a7e002f864d16": [
@@ -252,6 +252,42 @@
    "text": {
     "en": "We really enjoyed our time in Porto and our stay was perfect. Clean, comfortable, bright and in a good location for everything we wanted to do. Communication with the hosts was excellent and they gave lots of helpful information and prompt replies to our questions.",
     "pt": "Gostámos muito do nosso tempo no Porto e a estadia foi perfeita. Limpo, confortável, luminoso e bem localizado para tudo o que queríamos fazer. A comunicação com os anfitriões foi excelente: deram-nos muita informação útil e responderam logo às nossas perguntas."
+   }
+  },
+  {
+   "id": "6ac3f6cc8e874c42edd02f80",
+   "source": "booking",
+   "rating": 9,
+   "author": "Maria",
+   "date": "2026-10-05",
+   "listingId": "60f82c29b82a7e002f864d16",
+   "text": {
+    "en": "Location is second to none. We were able to walk everywhere the market, main station the bridge and many main sights",
+    "pt": "A localização é inigualável. Conseguimos ir a pé a todo o lado: ao mercado, à estação central, à ponte e a muitos dos principais pontos turísticos."
+   }
+  },
+  {
+   "id": "6ab15d9cde2235ee94deec76",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-20",
+   "listingId": "60f82c29b82a7e002f864d16",
+   "text": {
+    "en": "Fantastic location that provides the right amount of seclusion while being in the middle of Porto! Excellent service and communication throughout the stay",
+    "pt": "Uma localização fantástica que proporciona o equilíbrio certo entre privacidade e a proximidade do centro do Porto! Excelente serviço e comunicação durante toda a estadia"
+   }
+  },
+  {
+   "id": "6aa94095de2235ee94dc86a5",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-14",
+   "listingId": "60f82c29b82a7e002f864d16",
+   "text": {
+    "en": "Very friendly and responsive hosts. Great location close to Sao Bento station, markets and buses",
+    "pt": "Anfitriões muito simpáticos e atenciosos. Excelente localização, perto da estação de São Bento, dos mercados e dos autocarros"
    }
   },
   {
@@ -445,42 +481,6 @@
     "en": "Wonderful and absolutely recommended!!! Comfortable bed, perfect location, great couch, perfectly appointed. Will have this saved for our next Porto trip!",
     "pt": "Maravilhoso e absolutamente recomendado!!! Cama confortável, localização perfeita, sofá ótimo, perfeitamente equipado. Fica guardado para a nossa próxima viagem ao Porto!"
    }
-  },
-  {
-   "id": "60f8566f30dde1b04a69e7c6",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2021-05-30",
-   "listingId": "60f82c29b82a7e002f864d16",
-   "text": {
-    "en": "Beautiful apartment within a short walk of all the sights of the city; well equipped, clean and spacious. Very friendly host who answers questions immediately. We had a perfect time in this apartment and recommend this place to everybody without a doubt. We will definitely come back one day.",
-    "pt": "Um apartamento lindíssimo, a uma curta caminhada de todos os pontos de interesse da cidade; bem equipado, limpo e espaçoso. Um anfitrião muito simpático, que responde às perguntas de imediato. Passámos uns dias perfeitos neste apartamento e recomendamos este sítio a toda a gente, sem dúvida. Vamos voltar um dia, com certeza."
-   }
-  },
-  {
-   "id": "60f8567130dde1b04a69e84e",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2020-08-05",
-   "listingId": "60f82c29b82a7e002f864d16",
-   "text": {
-    "en": "Beautiful apartment in an amazing location, in the heart of Porto. Highly recommend to anyone. Host was communicative and apartment was very clean with everything you need for your stay. Plenty of bars, shops, restaurants and supermarkets on your doorstep!",
-    "pt": "Um apartamento lindíssimo numa localização incrível, no coração do Porto. Recomendo vivamente a toda a gente. O anfitrião foi comunicativo e o apartamento estava muito limpo, com tudo o que é preciso para a estadia. Muitos bares, lojas, restaurantes e supermercados à porta!"
-   }
-  },
-  {
-   "id": "60f8567430dde1b04a69e987",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2019-04-02",
-   "listingId": "60f82c29b82a7e002f864d16",
-   "text": {
-    "en": "Super clean, cozy and beautiful home. The location was also perfect for us. We enjoyed Porto thanks to this sweet home :-). I highly recommend this home to everybody looking for the perfect stay in Porto.",
-    "pt": "Uma casa muito limpa, acolhedora e bonita. A localização também foi perfeita para nós. Aproveitámos o Porto graças a esta casa tão querida :-). Recomendo vivamente esta casa a quem procura a estadia perfeita no Porto."
-   }
   }
  ],
  "683036ac17f8820013f84e69": [
@@ -643,6 +643,30 @@
   }
  ],
  "60f82c3d7aba91002d2ccd0f": [
+  {
+   "id": "6ac7f52d8e874c42edd1fd92",
+   "source": "booking",
+   "rating": 10,
+   "author": "Andrew",
+   "date": "2026-10-08",
+   "listingId": "60f82c3d7aba91002d2ccd0f",
+   "text": {
+    "en": "The view was beautiful, the location was amazing, the apartment was clean, modern with good facilities.",
+    "pt": "A vista era linda, a localização era fantástica, o apartamento estava limpo, era moderno e tinha boas comodidades."
+   }
+  },
+  {
+   "id": "6ac4a14b8e874c42edd0764c",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-10-06",
+   "listingId": "60f82c3d7aba91002d2ccd0f",
+   "text": {
+    "en": "Great apartment, exactly as described. We enjoyed the balcony view of the river and everything was so close by. Bosco bar was great and only a few mins from the apartment.",
+    "pt": "Ótimo apartamento, exatamente como descrito. Adorámos a vista do rio a partir da varanda e tudo ficava muito perto. O bar Bosco era fantástico e ficava a apenas alguns minutos do apartamento."
+   }
+  },
   {
    "id": "6ab3f6d3de2235ee94e01e99",
    "source": "airbnb",
@@ -857,30 +881,6 @@
    "text": {
     "en": "This place was so perfect for my trip, I’m traveling solo and needed a quiet space. The apartment was absolutely beautiful, hosts were amazing they had a book full of information and the VIEW! If I am ever back I will be staying here again!",
     "pt": "Este sítio foi perfeito para a minha viagem: estou a viajar sozinha e precisava de um espaço sossegado. O apartamento era absolutamente lindo, os anfitriões foram incríveis, tinham um livro cheio de informação e a VISTA! Se algum dia voltar, fico aqui outra vez!"
-   }
-  },
-  {
-   "id": "62c6fd3eb230200339c5e9cd",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-07-07",
-   "listingId": "60f82c3d7aba91002d2ccd0f",
-   "text": {
-    "en": "Lovely stay! The location is excellent, surrounded by wonderful restaurants and shops. The recommendations the hosts provided were also so helpful and each one was lovely. We will absolutely stay again when we visit Porto next.",
-    "pt": "Uma estadia encantadora! A localização é excelente, rodeada de restaurantes e lojas maravilhosos. As recomendações dos anfitriões também foram muito úteis, e cada uma delas encantadora. Vamos voltar a ficar aqui, sem dúvida, na próxima visita ao Porto."
-   }
-  },
-  {
-   "id": "616426858f2533fdaaf3cd76",
-   "source": "booking",
-   "rating": 10,
-   "author": "Line",
-   "date": "2021-10-11",
-   "listingId": "60f82c3d7aba91002d2ccd0f",
-   "text": {
-    "en": "Both location and the apartment itself were perfect for our stay in Porto. The host was very helpful with restaurant tips and we loved the special detail with our welcome gift.",
-    "pt": "Tanto a localização como o apartamento foram perfeitos para a nossa estadia no Porto. A anfitriã foi muito prestável com dicas de restaurantes e adorámos o pormenor especial do presente de boas-vindas."
    }
   }
  ],
@@ -1128,6 +1128,18 @@
  ],
  "64de2984ec3b510037fc328a": [
   {
+   "id": "6ad64fd681fcb5aeda3327e8",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-10-17",
+   "listingId": "64de2984ec3b510037fc328a",
+   "text": {
+    "en": "Very clean and spacious place located in the city center 2 blocks from the river.",
+    "pt": "Um espaço muito limpo e espaçoso, situado no centro da cidade, a dois quarteirões do rio."
+   }
+  },
+  {
    "id": "6ad2452d81fcb5aeda317267",
    "source": "airbnb",
    "rating": 5,
@@ -1353,18 +1365,6 @@
    "text": {
     "en": "Fantastic location for all the Porto sights and buses, view of the square, gorgeous light and beautifully furnished and equipped. The restaurant next door was authentic and good value, supermarket 2 mins away. Loved the Bluetooth speaker, nice linen and towels! Easy check-in & the hosts sent many tips and links for getting around.",
     "pt": "Uma localização fantástica para todos os pontos de interesse do Porto e para os autocarros, vista para a praça, uma luz lindíssima e lindamente mobilado e equipado. O restaurante ao lado era autêntico e com boa relação qualidade-preço, e o supermercado fica a 2 minutos. Adorámos a coluna Bluetooth e a boa roupa de cama e toalhas! Check-in fácil, e os anfitriões enviaram muitas dicas e links para andar pela cidade."
-   }
-  },
-  {
-   "id": "65e778259cf30034144b2766",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2024-03-05",
-   "listingId": "64de2984ec3b510037fc328a",
-   "text": {
-    "en": "An extremely beautiful apartment, one of the nicest we've ever stayed in. Exceptionally clean, tidy and a very comfy bed. It had everything you need for a stay in Porto. We travelled with our 1 year old and it was the perfect space for her to run around safely, and Nuno and Inês provided a very clean and comfortable travel cot with a baby duvet, pillow and sweet baby toiletries. We would highly recommend and happily stay here again. Thanks for having us.",
-    "pt": "Um apartamento extremamente bonito, um dos mais bonitos onde já ficámos. Excecionalmente limpo, arrumado e com uma cama muito confortável. Tinha tudo o que é preciso para uma estadia no Porto. Viajámos com a nossa filha de 1 ano e era o espaço perfeito para ela correr em segurança, e o Nuno e a Inês deixaram um berço de viagem muito limpo e confortável, com edredão e almofada de bebé e uns produtos de higiene para bebé muito queridos. Recomendamos vivamente e voltaríamos a ficar aqui com todo o gosto. Obrigado por nos receberem."
    }
   }
  ],
@@ -1855,6 +1855,18 @@
  ],
  "60f82c35c8730e002dc85624": [
   {
+   "id": "6aac5dabde2235ee94dd8aef",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-17",
+   "listingId": "60f82c35c8730e002dc85624",
+   "text": {
+    "en": "Perfect spot to spend 3 days - lovely apartment in great location walkable to all sights and great sunsets to view from the balcony 😎",
+    "pt": "O local perfeito para passar 3 dias — um apartamento encantador numa localização fantástica, a uma curta distância a pé de todos os pontos turísticos e com umas vistas fantásticas do pôr-do-sol a partir da varanda 😎"
+   }
+  },
+  {
    "id": "6aa3ea07ebd4bf089dae117f",
    "source": "airbnb",
    "rating": 5,
@@ -1864,6 +1876,19 @@
    "text": {
     "en": "5 stars all around. The location and the balcony are incredible. The room is well appointed and large. The balcony overlooks the Douro River and the Gaia neighbourhood. The hosts were very responsive and had great recommendations for Porto and along the coast. I will definitely stay there again.",
     "pt": "5 estrelas em tudo. A localização e a varanda são incríveis. O quarto é grande e bem equipado. A varanda tem vista para o rio Douro e para Gaia. Os anfitriões foram muito rápidos a responder e deram ótimas recomendações para o Porto e ao longo da costa. Vou voltar a ficar aqui, sem dúvida."
+   }
+  },
+  {
+   "id": "6aa1b433ebd4bf089dad754d",
+   "source": "booking",
+   "rating": 10,
+   "author": "Olivia",
+   "date": "2026-09-09",
+   "listingId": "60f82c35c8730e002dc85624",
+   "language": "de",
+   "text": {
+    "en": "The location was perfect. There were lots of lovely little touches in the flat; for example, we were provided with coffee capsules, ground coffee and water, as well as a small bottle of port as a welcome gift. Handing over the keys was straightforward, and the hosts were very friendly and helpful. Our flat faced the courtyard at the back, so it was quiet. The neighbourhood is very lively.",
+    "pt": "A localização era perfeita. Havia muitos pequenos detalhes agradáveis no apartamento; por exemplo, foram-nos oferecidas cápsulas de café, café em pó e água, bem como uma pequena garrafa de vinho do Porto como presente de boas-vindas. A entrega das chaves foi simples, e os anfitriões são muito simpáticos e prestáveis. O nosso apartamento ficava virado para o pátio, por isso era tranquilo. A zona é muito animada."
    }
   },
   {
@@ -2069,33 +2094,33 @@
     "en": "A very cosy apartment with an amazing sunset view down to the river. As with all Tripas-Coração apartments I have stayed at, it is designed with attention to detail, all the way down to furniture, lighting and tableware. Communication and support from the team has been excellent, as always. Highly recommended for a stay in Porto.",
     "pt": "Um apartamento muito acolhedor, com uma vista incrível do pôr do sol até ao rio. Como em todos os apartamentos Tripas-Coração onde já fiquei, foi pensado ao pormenor, dos móveis à iluminação e à loiça. A comunicação e o apoio da equipa foram excelentes, como sempre. Muito recomendado para uma estadia no Porto."
    }
-  },
-  {
-   "id": "60f856c230dde1b04a6a08ee",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2020-09-03",
-   "listingId": "60f82c35c8730e002dc85624",
-   "text": {
-    "en": "We absolutely loved the apartment and we were both really sad when we had to leave. Everything was clean and perfect, the location was amazing and the view from the balcony absolutely stunning!",
-    "pt": "Adorámos o apartamento e ficámos os dois mesmo tristes quando tivemos de partir. Estava tudo limpo e perfeito, a localização era incrível e a vista da varanda absolutamente deslumbrante!"
-   }
-  },
-  {
-   "id": "60f856c230dde1b04a6a090c",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2020-07-26",
-   "listingId": "60f82c35c8730e002dc85624",
-   "text": {
-    "en": "We had a spectacular stay! The location is perfect, within walking distance of great cafés, restaurants, beautiful parks, galleries and tourist sights. The apartment is very clean and offers thoughtful touches to make guests feel welcome. The balcony is a treat, overlooking the picturesque river and perfect for watching the sunset. The owners are very helpful with tips and maps, and communication is very reliable. Highly, highly recommend!",
-    "pt": "Tivemos uma estadia espetacular! A localização é perfeita, a uma curta caminhada de ótimos cafés, restaurantes, jardins lindíssimos, galerias e pontos turísticos. O apartamento é muito limpo e tem toques atenciosos para que os hóspedes se sintam bem-vindos. A varanda é um mimo, com vista para o rio pitoresco e perfeita para ver o pôr do sol. Os proprietários são muito prestáveis com dicas e mapas, e a comunicação é muito fiável. Recomendo muito, muito!"
-   }
   }
  ],
  "60f82c307aba91002d2cc7cb": [
+  {
+   "id": "6ad64cf381fcb5aeda3325d4",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-10-19",
+   "listingId": "60f82c307aba91002d2cc7cb",
+   "text": {
+    "en": "This was a wonderful place to stay, well located with a balcony to enjoy the sun when we got back from a day’s exploring. We enjoyed each of our four days in Porto 😊",
+    "pt": "Foi um local maravilhoso para ficar, bem localizado e com uma varanda para aproveitar o sol quando regressávamos de um dia de passeios. Aproveitámos cada um dos nossos quatro dias no Porto 😊"
+   }
+  },
+  {
+   "id": "6ac4c3368e874c42edd08852",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-10-05",
+   "listingId": "60f82c307aba91002d2cc7cb",
+   "text": {
+    "en": "Easy to access touristic places and plenty of great restaurants and bars by walk. Also the view from the terrace was amazing.",
+    "pt": "É fácil chegar a pé a locais turísticos e há imensos restaurantes e bares excelentes nas proximidades. Além disso, a vista do terraço era espetacular."
+   }
+  },
   {
    "id": "6abe27acde2235ee94e49fc9",
    "source": "airbnb",
@@ -2106,6 +2131,18 @@
    "text": {
     "en": "We had an excellent stay! The place was extremely clean, comfortable, and had everything we needed. One of the highlights was definitely the balcony — the view was fantastic and such a nice spot to sit and enjoy Porto. The location was also great and made it easy to explore the city. We really enjoyed our stay and would absolutely recommend it!",
     "pt": "Tivemos uma estadia excelente! O apartamento era extremamente limpo, confortável e tinha tudo o que precisávamos. Um dos pontos altos foi sem dúvida a varanda: a vista era fantástica, um sítio ótimo para nos sentarmos a aproveitar o Porto. A localização também era ótima e facilitou muito explorar a cidade. Gostámos muito e recomendamos sem dúvida!"
+   }
+  },
+  {
+   "id": "6ab15d6fde2235ee94deec5e",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-21",
+   "listingId": "60f82c307aba91002d2cc7cb",
+   "text": {
+    "en": "We loved our stay here! The apartment is modern, beautifully finished and really comfortable. The large balcony was a huge bonus, and the apartment had everything we needed. Communication was great, check-in was easy, and the information guide was really helpful. The location was also perfect, with bus stops and plenty of restaurants nearby. We’d happily stay here again!",
+    "pt": "Adorámos a nossa estadia aqui! O apartamento é moderno, tem acabamentos lindos e é muito confortável. A varanda ampla foi uma grande vantagem, e o apartamento tinha tudo o que precisávamos. A comunicação foi excelente, o check-in foi fácil e o guia informativo foi muito útil. A localização também foi perfeita, com paragens de autocarro e muitos restaurantes nas proximidades. Ficaríamos aqui novamente com todo o gosto!"
    }
   },
   {
@@ -2298,42 +2335,6 @@
    "text": {
     "en": "The perfect flat for two! My boyfriend and I had the best time staying here. The location is so convenient for exploring and the balcony was incredible for morning coffees and afternoon drinks. The space was very comfortable and well equipped. We would absolutely stay here again and 10/10 would recommend! Thanks so much for a lovely couple of days!",
     "pt": "O apartamento perfeito para dois! Eu e o meu namorado passámos uns dias ótimos aqui. A localização é tão prática para explorar e a varanda era incrível para os cafés da manhã e as bebidas ao fim da tarde. O espaço era muito confortável e bem equipado. Voltaríamos a ficar aqui, sem dúvida, e recomendamos 10/10! Muito obrigado por uns dias encantadores!"
-   }
-  },
-  {
-   "id": "6262f39e5420324cdd3c8b6d",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-04-22",
-   "listingId": "60f82c307aba91002d2cc7cb",
-   "text": {
-    "en": "We really enjoyed the beautiful flat in Porto, with amazing views. Everything was so well-appointed and loved the minimal design of space, just beautiful. A very good location to explore all Porto has to offer. We would definitely highly recommend this to anyone traveling to Porto.",
-    "pt": "Gostámos muito deste apartamento lindíssimo no Porto, com vistas incríveis. Estava tudo tão bem equipado e adorámos o design minimalista do espaço, simplesmente lindíssimo. Uma localização muito boa para explorar tudo o que o Porto tem para oferecer. Recomendaríamos vivamente a quem viajar para o Porto."
-   }
-  },
-  {
-   "id": "620bf5da8b908351a1edbc06",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-02-15",
-   "listingId": "60f82c307aba91002d2cc7cb",
-   "text": {
-    "en": "5* stay - had a wonderful long weekend staying in the apartment. Fantastic location being walking distance to all the main spots. Hosts communication was excellent and very attentive. The apartment was clean and felt very homely with beautiful interior and design. Would recommend this apartment to anyone looking to stay in Porto.",
-    "pt": "Uma estadia de 5 estrelas: passámos um fim de semana prolongado maravilhoso no apartamento. Uma localização fantástica, a uma curta caminhada de todos os sítios principais. A comunicação dos anfitriões foi excelente e muito atenciosa. O apartamento estava limpo e era muito acolhedor, com um interior e um design lindíssimos. Recomendaria este apartamento a quem quiser ficar no Porto."
-   }
-  },
-  {
-   "id": "611cf2b74863a25dece3646d",
-   "source": "booking",
-   "rating": 10,
-   "author": "Kelly",
-   "date": "2020-10-24",
-   "listingId": "60f82c307aba91002d2cc7cb",
-   "text": {
-    "en": "Lovely, really interestingly designed apartment in a great area of Porto. The apartment was super comfortable and had a great view of the river. It also had a fully equipped kitchen, even down to things like a grater and colander. I really liked the location - close to lots of the main attractions in Porto. Sara and her team were very helpful.",
-    "pt": "Um apartamento encantador, com um design muito interessante, numa ótima zona do Porto. O apartamento era muito confortável e tinha uma ótima vista para o rio. A cozinha estava totalmente equipada, até com coisas como ralador e escorredor. Gostei muito da localização, perto de muitas das principais atrações do Porto. A Sara e a equipa foram muito prestáveis."
    }
   }
  ],
@@ -2629,6 +2630,18 @@
    }
   },
   {
+   "id": "6aa2da67ebd4bf089dadd4b1",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-09",
+   "listingId": "64de2984ec3b510037fc32b6",
+   "text": {
+    "en": "Hands down the loveliest place we’ve stayed in our Portugal travels this far. Bi-level, generous accommodations, modern and centrally located. Would stay here again!",
+    "pt": "Sem dúvida, o local mais encantador onde ficámos nas nossas viagens por Portugal até agora. Acomodações espaçosas, distribuídas por dois andares, modernas e com uma localização central. Voltaríamos a ficar aqui!"
+   }
+  },
+  {
    "id": "6a9093ceb0fc75228290e0b5",
    "source": "booking",
    "rating": 9,
@@ -2810,6 +2823,18 @@
   }
  ],
  "60f82c3fc8730e002dc86013": [
+  {
+   "id": "6ad9e6a881fcb5aeda34ebac",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-10-17",
+   "listingId": "60f82c3fc8730e002dc86013",
+   "text": {
+    "en": "Such a beautiful place in the perfect location. Loved every part of my stay. I highly recommend staying here!",
+    "pt": "Um sítio tão bonito, numa localização perfeita. Adorei cada momento da minha estadia. Recomendo vivamente ficar aqui!"
+   }
+  },
   {
    "id": "6ac7f6178e874c42edd1fddd",
    "source": "airbnb",
@@ -3037,18 +3062,6 @@
     "en": "Superb location with extra clean room. Warm hospitality with Porto wine and detailed recommendation of tour spot and restaurants from the local point of view. Great experience and willing to revisit if I have a chance to be in Porto again. Two thumbs up!",
     "pt": "Uma localização excelente e um quarto impecável. Uma hospitalidade calorosa, com vinho do Porto e recomendações detalhadas de passeios e restaurantes do ponto de vista de quem é de cá. Uma ótima experiência; volto com todo o gosto se tiver oportunidade de regressar ao Porto. Muito bom!"
    }
-  },
-  {
-   "id": "60f856b230dde1b04a6a025d",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2016-08-10",
-   "listingId": "60f82c3fc8730e002dc86013",
-   "text": {
-    "en": "Filipe made us feel very welcome! The apartment was in a perfect location for exploring Porto, and was within walking distance of so many sites, restaurants, and bars. The space was clean, bright, and comfortable. We'd recommend this place to friends and family. Thanks again, Filipe!",
-    "pt": "O Filipe fez-nos sentir muito bem-vindos! O apartamento estava numa localização perfeita para explorar o Porto, a uma curta caminhada de imensos pontos de interesse, restaurantes e bares. O espaço era limpo, luminoso e confortável. Recomendaríamos este sítio a amigos e família. Obrigado mais uma vez, Filipe!"
-   }
   }
  ],
  "610038abf6277f002d1dde13": [
@@ -3074,6 +3087,18 @@
    "text": {
     "en": "Great location, clean and well presented apartment - beautiful modern interiors in a historic building. The staff were wonderful - very helpful and responsive.",
     "pt": "Ótima localização, um apartamento limpo e bem apresentado, com interiores modernos lindíssimos num edifício histórico. A equipa foi maravilhosa: muito prestável e rápida a responder."
+   }
+  },
+  {
+   "id": "6aa94049de2235ee94dc8691",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-12",
+   "listingId": "610038abf6277f002d1dde13",
+   "text": {
+    "en": "Very comfortable stay, everything was clean and as expected from the pictures. The neighborhood is very walkable with shopping and restaurants close by. The host are incredibly friendly and quick to respond to any questions or concerns. Would recommend this stay!",
+    "pt": "Foi uma estadia muito confortável, tudo estava limpo e tal como se esperava pelas fotografias. O bairro é muito agradável para passear a pé, com lojas e restaurantes nas proximidades. Os anfitriões são incrivelmente simpáticos e respondem rapidamente a quaisquer perguntas ou dúvidas. Recomendo vivamente esta estadia!"
    }
   },
   {
@@ -3279,18 +3304,6 @@
     "en": "The apartment was spacious, lots of natural light and well stocked with everything we needed for a comfortable stay. The hosts were lovely and responsive to communication. Highly recommend and I hope we can come back one day.",
     "pt": "O apartamento era espaçoso, com muita luz natural e bem abastecido com tudo o que precisávamos para uma estadia confortável. Os anfitriões foram encantadores e rápidos a responder. Recomendo vivamente e espero que possamos voltar um dia."
    }
-  },
-  {
-   "id": "61a96d9eab615303cd74b1da",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2021-12-02",
-   "listingId": "610038abf6277f002d1dde13",
-   "text": {
-    "en": "We had a lovely month stay at Tripas-Coração's home in Porto! The apartment is beautifully decorated, comfortable, amazing view and very central! The hosts were quick to respond to any questions that came up and very thoughtful in welcoming us as guests. For anyone working remote this apartment is a wonderful option with VERY fast internet and quiet when needed. I would highly recommend this perfect home in Porto.",
-    "pt": "Passámos um mês encantador na casa do Tripas-Coração no Porto! O apartamento está lindamente decorado, é confortável, tem uma vista incrível e é muito central! Os anfitriões responderam depressa a todas as perguntas e foram muito atenciosos a receber-nos. Para quem trabalha à distância, este apartamento é uma opção maravilhosa, com internet MUITO rápida e sossego quando é preciso. Recomendo vivamente esta casa perfeita no Porto."
-   }
   }
  ],
  "6100281af805cc002ed68c17": [
@@ -3304,6 +3317,32 @@
    "text": {
     "en": "This host has thought of everything! Beautiful building and flat. The kitchen is well equipped for cooking including a blender! A yoga mat and weights were an added bonus.",
     "pt": "Esta anfitriã pensou em tudo! Um edifício e um apartamento lindíssimos. A cozinha está bem equipada para cozinhar, incluindo uma liquidificadora! Um tapete de ioga e uns pesos foram um bónus."
+   }
+  },
+  {
+   "id": "6ac233e1de2235ee94e628ac",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-29",
+   "listingId": "6100281af805cc002ed68c17",
+   "language": "de",
+   "text": {
+    "en": "The flat was absolutely lovely, in a great location – everything was of a very high standard and spotlessly clean. We had a brilliant time there.",
+    "pt": "O apartamento era lindíssimo, com uma localização fantástica — tudo de excelente qualidade e muito limpo. Passámos momentos fantásticos lá."
+   }
+  },
+  {
+   "id": "6ab1115bde2235ee94deb1ce",
+   "source": "booking",
+   "rating": 10,
+   "author": "Natasha",
+   "date": "2026-09-21",
+   "listingId": "6100281af805cc002ed68c17",
+   "language": "fr",
+   "text": {
+    "en": "The location was brilliant, close to everything! Well soundproofed, very dedicated staff, and lots of lovely touches to make our stay perfect!",
+    "pt": "A localização era excelente, perto de tudo! Bem insonorizado, pessoal muito atencioso, cheio de pequenos detalhes para tornar a estadia perfeita!"
    }
   },
   {
@@ -3509,33 +3548,21 @@
     "en": "The location was so central which made it a great hub during our stay; we were able to drop off any new purchases, change clothes etc very easily. The apartment is stunning! Very clean and spacious with great interior design, so much so that it feels like you are staying at a 5* hotel. It comes with a fully equipped kitchen and even a yoga mat and some weights which helped us keep to our usual morning routines. Host was unbelievably helpful too — would 100% recommend!",
     "pt": "A localização era tão central que foi uma ótima base durante a estadia: conseguíamos passar por casa para deixar compras, mudar de roupa, etc., com muita facilidade. O apartamento é deslumbrante! Muito limpo e espaçoso, com um design de interiores ótimo, a ponto de parecer um hotel de 5 estrelas. Tem uma cozinha totalmente equipada e até um tapete de ioga e uns pesos, que nos ajudaram a manter as rotinas da manhã. A anfitriã foi incrivelmente prestável. Recomendamos a 100%!"
    }
-  },
-  {
-   "id": "61ae40abab615303cdcfb599",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2021-12-06",
-   "listingId": "6100281af805cc002ed68c17",
-   "text": {
-    "en": "A great sunny apartment in a very central location. The highlight is the floor-to-ceiling windows along the whole length of the apartment that let the light and sun in. The aesthetic is minimal and very tastefully done, and the hosts were very helpful to ensure all needs were met. I will be going back!",
-    "pt": "Um ótimo apartamento soalheiro numa localização muito central. O destaque são as janelas do chão ao teto ao longo de todo o apartamento, que deixam entrar a luz e o sol. A estética é minimalista e de muito bom gosto, e os anfitriões foram muito prestáveis para garantir que tínhamos tudo. Vou voltar!"
-   }
-  },
-  {
-   "id": "617feb6e8f2533fdaaef5b85",
-   "source": "booking",
-   "rating": 10,
-   "author": "Gabriel",
-   "date": "2021-11-01",
-   "listingId": "6100281af805cc002ed68c17",
-   "text": {
-    "en": "The location was amazing, in the central area of the city, with everything from laundry to grocery shopping close by. The view was also breathtaking. As I was the first guest to stay, the staff were super helpful and gave me great recommendations for Porto. The apartment had everything I needed for my stay. I will definitely book again when I go back to Porto!",
-    "pt": "A localização era incrível, na zona central da cidade, com tudo perto, da lavandaria às compras de supermercado. A vista também era de cortar a respiração. Como fui a primeira hóspede, a equipa foi muito prestável e deu-me ótimas recomendações para o Porto. O apartamento tinha tudo o que precisava para a estadia. Vou voltar a reservar, sem dúvida, quando regressar ao Porto!"
-   }
   }
  ],
  "61002b505921c8002fbe57c9": [
+  {
+   "id": "6ae08bca7fd8542e4f0264cd",
+   "source": "booking",
+   "rating": 10,
+   "author": "Sam",
+   "date": "2026-10-26",
+   "listingId": "61002b505921c8002fbe57c9",
+   "text": {
+    "en": "The space, the finishing, the attention to details, the light and high ceilings and most of all the location",
+    "pt": "O espaço, os acabamentos, a atenção aos detalhes, a luz e os tetos altos e, acima de tudo, a localização"
+   }
+  },
   {
    "id": "6ac3927d8e874c42edcff3f5",
    "source": "airbnb",
@@ -3546,6 +3573,18 @@
    "text": {
     "en": "Unbelievably great hosts and incredible space! It was a joy to return to this spacious apartment after a long day in Porto. Would absolutely stay again.",
     "pt": "Anfitriões incrivelmente bons e um espaço incrível! Era um prazer voltar a este apartamento espaçoso depois de um longo dia no Porto. Voltaria a ficar aqui, sem dúvida."
+   }
+  },
+  {
+   "id": "6ab3b35cde2235ee94dfee95",
+   "source": "booking",
+   "rating": 10,
+   "author": "Jennifer",
+   "date": "2026-09-23",
+   "listingId": "61002b505921c8002fbe57c9",
+   "text": {
+    "en": "The apartment was fantastic and the communication and recommendations from the hosts were great.",
+    "pt": "O apartamento era fantástico e a comunicação e as recomendações dos anfitriões foram excelentes."
    }
   },
   {
@@ -3750,30 +3789,6 @@
    "text": {
     "en": "Perfect location! Can’t rave enough about this place. Great space, amazing decor, clean, well stocked, comfortable bed, high power water pressure, etc etc etc. The view from the balcony is outstanding. Would return and stay here without hesitation.",
     "pt": "Localização perfeita! Não há elogios que cheguem para este sítio. Um ótimo espaço, decoração incrível, limpo, bem abastecido, cama confortável, ótima pressão de água, etc., etc. A vista da varanda é excecional. Voltaria a ficar aqui sem hesitar."
-   }
-  },
-  {
-   "id": "62d026bab23020033977ce13",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-07-14",
-   "listingId": "61002b505921c8002fbe57c9",
-   "text": {
-    "en": "This was a beautiful, very spacious home in the heart of a great district of Porto. Stunning architecture, and great minimalist and clean design and aesthetics. Also a super fast internet connection if you plan / need to do some remote work from this wonderful place. I plan to stay here again when I return to Portugal.",
-    "pt": "Foi uma casa lindíssima e muito espaçosa, no coração de uma ótima zona do Porto. Uma arquitetura deslumbrante e um design e uma estética minimalistas e limpos. Tem também uma ligação à internet muito rápida, para quem quiser ou precisar de trabalhar à distância a partir deste sítio maravilhoso. Conto voltar a ficar aqui quando regressar a Portugal."
-   }
-  },
-  {
-   "id": "629f43460c0b059e8798cd8d",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-06-07",
-   "listingId": "61002b505921c8002fbe57c9",
-   "text": {
-    "en": "Absolutely perfect place to stay in Porto! Beautiful design, equipped with everything we needed, walking distance to most of the key sights, excellent communication with our host (who met us on arrival and oriented us to the apartment, with all the detail we needed), lovely recommendations for things to do in the surrounding area, super clean, unique, and comfortable for our group of 4. Would absolutely stay again!",
-    "pt": "O sítio absolutamente perfeito para ficar no Porto! Design lindíssimo, equipado com tudo o que precisávamos, a uma curta caminhada da maioria dos pontos de interesse, comunicação excelente com a anfitriã (que nos recebeu à chegada e nos mostrou o apartamento, com todos os pormenores de que precisávamos), recomendações encantadoras de coisas para fazer na zona, muito limpo, único e confortável para o nosso grupo de 4. Voltaríamos a ficar aqui, sem dúvida!"
    }
   }
  ],
@@ -4517,6 +4532,19 @@
    }
   },
   {
+   "id": "6abb9f2fde2235ee94e36899",
+   "source": "booking",
+   "rating": 9,
+   "author": "Ali",
+   "date": "2026-09-29",
+   "listingId": "61003aa1f6277f002d1e4070",
+   "language": "es",
+   "text": {
+    "en": "The location is excellent and central, the views are incredible, and it’s spotlessly clean – I’d definitely stay there again",
+    "pt": "A localização é muito boa e cêntrica, as vistas são incríveis, a limpeza é excelente; sem dúvida que voltaria"
+   }
+  },
+  {
    "id": "6a906c46b0fc75228290d4b0",
    "source": "airbnb",
    "rating": 5,
@@ -4730,18 +4758,6 @@
    "text": {
     "en": "One of the best places I've stayed in Porto after many years of visiting. The apartment is stunning: bright, with an amazing terrace, well designed and clean. I would stay there and nowhere else. The hosts are great and very friendly. 5 stars. Bravi!!",
     "pt": "Um dos melhores sítios onde fiquei no Porto, depois de muitos anos a visitar a cidade. O apartamento é deslumbrante: luminoso, com um terraço incrível, bem pensado e limpo. Ficaria ali e em mais lado nenhum. Os anfitriões são ótimos e muito simpáticos. 5 estrelas. Bravi!!"
-   }
-  },
-  {
-   "id": "618563498f2533fdaa583806",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2021-11-05",
-   "listingId": "61003aa1f6277f002d1e4070",
-   "text": {
-    "en": "An amazing place to stay. Started with a friendly welcome which set the feel to our stay. A beautiful apartment with a fab balcony to watch the stunning sunsets. Very spacious with powerful showers and well equipped kitchen. Easy to get everywhere if you can tear yourself away from this peaceful apartment. Communication with hosts was so easy and cannot wait to return.",
-    "pt": "Um sítio incrível para ficar. Começou com uma receção simpática, que deu o tom à estadia. Um apartamento lindíssimo, com uma varanda fantástica para ver os pores do sol deslumbrantes. Muito espaçoso, com duches potentes e uma cozinha bem equipada. É fácil ir a todo o lado, se conseguirem sair deste apartamento tão tranquilo. A comunicação com os anfitriões foi muito fácil e mal posso esperar por voltar."
    }
   }
  ],
@@ -5255,6 +5271,31 @@
    }
   },
   {
+   "id": "6ac0e41ade2235ee94e5be1c",
+   "source": "booking",
+   "rating": 9,
+   "author": "Seongsuk",
+   "date": "2026-10-03",
+   "listingId": "64de2984ec3b510037fc32ab",
+   "text": {
+    "en": "The apartment was beautiful and very spacious. We enjoyed the stay. Location was great!",
+    "pt": "O apartamento era lindo e muito espaçoso. Gostámos muito da estadia. A localização era excelente!"
+   }
+  },
+  {
+   "id": "6aa322f7ebd4bf089dade5b4",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-10",
+   "listingId": "64de2984ec3b510037fc32ab",
+   "language": "pt",
+   "text": {
+    "en": "The flat is fantastic, in a brilliant location, clean and tidy… we highly recommend it!!",
+    "pt": "O apartamento é fantástico, extremamente bem localizado, limpo, organizado.. recomendamos demais!!"
+   }
+  },
+  {
    "id": "6a678173350f52a3a4cbe71b",
    "source": "airbnb",
    "rating": 5,
@@ -5445,30 +5486,6 @@
     "en": "We loved the apartment and the location was great. The rooms were really lovely, light and spacious. The apartment was very well equipped, including generous supplies of port and coffee! We would be very happy to come back or recommend this apartment to friends and family.",
     "pt": "Adorámos o apartamento e a localização era ótima. Os quartos eram mesmo encantadores, luminosos e espaçosos. O apartamento estava muito bem equipado, incluindo vinho do Porto e café com fartura! Teríamos muito gosto em voltar ou em recomendar este apartamento a amigos e família."
    }
-  },
-  {
-   "id": "66099cecbd75fdcb93cccae9",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2024-03-31",
-   "listingId": "64de2984ec3b510037fc32ab",
-   "text": {
-    "en": "We loved this apartment! The location is excellent and central, and the apartment itself was extremely clean and well-furnished. We were in Porto for three days, and it was a perfect space both as a base for exploring and as a home for relaxing for those few days. Communication was extremely quick and helpful.",
-    "pt": "Adorámos este apartamento! A localização é excelente e central, e o apartamento em si estava extremamente limpo e bem mobilado. Estivemos três dias no Porto e foi o espaço perfeito, tanto como base para explorar como casa para descansar nesses dias. A comunicação foi extremamente rápida e útil."
-   }
-  },
-  {
-   "id": "660497a7bd75fdcb9330e0a0",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2024-03-27",
-   "listingId": "64de2984ec3b510037fc32ab",
-   "text": {
-    "en": "We had a wonderful stay at Nuno’s apartment. It was a great location, situated close to restaurants, cafes and the river which had lots of live music and bars. The apartment was extremely clean and the hosts were very responsive to any question. We would love to stay here again and would recommend to friends. Thanks for making our stay in Porto so special.",
-    "pt": "Tivemos uma estadia maravilhosa no apartamento do Nuno. A localização era ótima, perto de restaurantes, cafés e do rio, com muita música ao vivo e bares. O apartamento estava extremamente limpo e os anfitriões responderam sempre depressa a todas as perguntas. Adorávamos voltar a ficar aqui e recomendaríamos a amigos. Obrigado por tornarem a nossa estadia no Porto tão especial."
-   }
   }
  ],
  "6111080eb74c73002ef2af07": [
@@ -5482,6 +5499,18 @@
    "text": {
     "en": "Incredible apartment in Porto right in the centre of town. Smooth and efficient check in as well as communication from the excellent host. Clean apartment with a beautiful view overlooking the city. I would certainly stay again!",
     "pt": "Um apartamento incrível no Porto, mesmo no centro da cidade. Check-in e comunicação simples e eficientes, por parte de um anfitrião excelente. Um apartamento limpo, com uma vista lindíssima sobre a cidade. Voltaria a ficar aqui, com certeza!"
+   }
+  },
+  {
+   "id": "6aaaf4a8de2235ee94dd31ea",
+   "source": "booking",
+   "rating": 9,
+   "author": "Fiona",
+   "date": "2026-09-16",
+   "listingId": "6111080eb74c73002ef2af07",
+   "text": {
+    "en": "Very beautifully restored building and well appointed apartment in a great location",
+    "pt": "Um edifício restaurado com muito bom gosto e um apartamento bem equipado, numa excelente localização"
    }
   },
   {
@@ -5699,21 +5728,35 @@
     "en": "Perfect location if you enjoy beautiful architecture, vibrant social scene and access to the best parts of Porto. The apartment was immaculately clean, very comfortable and the hosts could not have been more responsive or kind. We’ll be back!",
     "pt": "A localização perfeita para quem gosta de arquitetura bonita, de uma vida social animada e de ter acesso às melhores partes do Porto. O apartamento estava imaculadamente limpo, era muito confortável e os anfitriões não podiam ter sido mais rápidos a responder nem mais simpáticos. Vamos voltar!"
    }
-  },
-  {
-   "id": "623c5565a59ec8fc0c1fdaa6",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-03-24",
-   "listingId": "6111080eb74c73002ef2af07",
-   "text": {
-    "en": "This apartment is wonderful. It was exactly as described, clean, modern and perfectly located to explore Porto. The communication from the hosts was great, very attentive throughout our stay. Would certainly recommend!",
-    "pt": "Este apartamento é maravilhoso. Era exatamente como descrito, limpo, moderno e perfeitamente localizado para explorar o Porto. A comunicação dos anfitriões foi ótima, muito atenciosa durante toda a estadia. Recomendaria com certeza!"
-   }
   }
  ],
  "60f82c3bb82a7e002f865336": [
+  {
+   "id": "6aca21618e874c42edd2c894",
+   "source": "booking",
+   "rating": 10,
+   "author": "Michael",
+   "date": "2026-10-09",
+   "listingId": "60f82c3bb82a7e002f865336",
+   "language": "de",
+   "text": {
+    "en": "Great layout, excellent communication, brilliant location, and even a fresh, still-wrapped washing-up sponge. There were washing machine tablets provided. Everything you could possibly need was there.",
+    "pt": "Excelente disposição do espaço, ótima comunicação, localização fantástica e até uma esponja de lavar louça nova, ainda na embalagem. Havia pastilhas para a máquina de lavar roupa. Tinha tudo o que era preciso."
+   }
+  },
+  {
+   "id": "6aa1b709ebd4bf089dad7798",
+   "source": "airbnb",
+   "rating": 5,
+   "author": null,
+   "date": "2026-09-09",
+   "listingId": "60f82c3bb82a7e002f865336",
+   "language": "de",
+   "text": {
+    "en": "It was a lovely short break in Porto; we felt very much at home! The view of the water is magnificent and the décor is cosy and classic! We’d love to come back! Best wishes from Würzburg!",
+    "pt": "Foi uma fantástica escapadela ao Porto; sentimo-nos muito bem! A vista para o rio é maravilhosa e a decoração é acolhedora e clássica! Voltaremos com todo o gosto! Cumprimentos de Würzburg!"
+   }
+  },
   {
    "id": "6a9c04120d7cd74832fea60d",
    "source": "booking",
@@ -5929,33 +5972,22 @@
     "en": "We had an amazing stay in Porto and the apartment was the perfect location! Very cute and cozy and having the balcony to sit out for coffee or wine was absolutely the best! Hosts provided great tips and recommendations which were very helpful!! Will definitely plan a return visit!!",
     "pt": "Tivemos uma estadia incrível no Porto e o apartamento estava na localização perfeita! Muito giro e acolhedor, e ter a varanda para tomar um café ou um vinho lá fora foi mesmo o melhor! Os anfitriões deram ótimas dicas e recomendações, que foram muito úteis!! Vamos planear voltar, sem dúvida!!"
    }
-  },
-  {
-   "id": "628392434c02c4c14ab9587d",
-   "source": "booking",
-   "rating": 10,
-   "author": "Sarah",
-   "date": "2022-05-16",
-   "listingId": "60f82c3bb82a7e002f865336",
-   "text": {
-    "en": "A wonderful place to stay. Everything was sparkling clean, the room is very quiet, amazingly well located and near lots of restaurants. The hosts provide lots of useful information and tips and were available to answer questions. I highly recommend it!",
-    "pt": "Um sítio maravilhoso para ficar. Estava tudo impecável, o quarto é muito sossegado, incrivelmente bem localizado e perto de muitos restaurantes. Os anfitriões dão muita informação útil e dicas e estiveram disponíveis para responder a perguntas. Recomendo vivamente!"
-   }
-  },
-  {
-   "id": "6213f9d28b908351a184e65b",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2022-02-21",
-   "listingId": "60f82c3bb82a7e002f865336",
-   "text": {
-    "en": "Beautifully designed and clean apartment. The location is perfect for exploring Porto. We loved the cute balcony from where we could see Douro River. All communication was very useful and we had a quick response to any question. Wonderful stay!",
-    "pt": "Um apartamento lindamente desenhado e limpo. A localização é perfeita para explorar o Porto. Adorámos a varandinha de onde se via o rio Douro. Toda a comunicação foi muito útil e tivemos resposta rápida a todas as perguntas. Uma estadia maravilhosa!"
-   }
   }
  ],
  "60f82c0c3b29f7002f900e5c": [
+  {
+   "id": "6ab90213de2235ee94e1f490",
+   "source": "booking",
+   "rating": 10,
+   "author": "Holger",
+   "date": "2026-09-26",
+   "listingId": "60f82c0c3b29f7002f900e5c",
+   "language": "de",
+   "text": {
+    "en": "Great location, very friendly and helpful hosts. Brilliantly furnished, spotlessly clean.",
+    "pt": "Excelente localização, anfitriões muito simpáticos e prestáveis. Muito bem decorado, extremamente limpo."
+   }
+  },
   {
    "id": "6a3bfa6db85d997e1f0bc110",
    "source": "airbnb",
@@ -6183,18 +6215,6 @@
     "en": "We had a wonderful stay at this apartment! It looked exactly like the pictures and was spotlessly clean. It was also in perfect location to explore the city. I would highly recommend it to anyone looking for somewhere to stay in Porto!",
     "pt": "Tivemos uma estadia maravilhosa neste apartamento! Era exatamente igual às fotografias e estava impecavelmente limpo. Também estava na localização perfeita para explorar a cidade. Recomendo vivamente a quem procura onde ficar no Porto!"
    }
-  },
-  {
-   "id": "611cf2ba4863a25dece3660f",
-   "source": "booking",
-   "rating": 10,
-   "author": "Jurgita",
-   "date": "2019-03-05",
-   "listingId": "60f82c0c3b29f7002f900e5c",
-   "text": {
-    "en": "Amazing stay! The apartment is brand new, large, modern and clean. João was so helpful and did everything to make our stay the best. The kitchen had everything that was needed, including local port wine. The bedrooms were comfortable, with separate bathrooms. An amazing place to stay!",
-    "pt": "Uma estadia incrível! O apartamento é novo, grande, moderno e limpo. O João foi muito prestável e fez tudo para tornar a nossa estadia a melhor possível. A cozinha tinha tudo o que era preciso, incluindo vinho do Porto. Os quartos eram confortáveis, cada um com a sua casa de banho. Um sítio incrível para ficar!"
-   }
   }
  ],
  "60f82c3cb82a7e002f865672": [
@@ -6208,6 +6228,19 @@
    "text": {
     "en": "The hosts were very quick to respond to any of our questions. The apartment was gorgeous. Loved the layout and the beautiful view from the patio. The location was within walking distance of so many great places to eat, hang out, and sightsee.",
     "pt": "Os anfitriões foram muito rápidos a responder a todas as nossas perguntas. O apartamento era lindíssimo. Adorámos a disposição e a vista lindíssima do pátio. A localização ficava a uma curta caminhada de imensos sítios ótimos para comer, passear e visitar."
+   }
+  },
+  {
+   "id": "6aabce9ade2235ee94dd6623",
+   "source": "booking",
+   "rating": 9,
+   "author": "Julia",
+   "date": "2026-09-16",
+   "listingId": "60f82c3cb82a7e002f865672",
+   "language": "de",
+   "text": {
+    "en": "The accommodation was very clean and centrally located. Everything we needed was provided.",
+    "pt": "O alojamento estava muito limpo e tinha uma localização central. Estavam disponíveis todos os itens essenciais."
    }
   },
   {
@@ -6424,18 +6457,6 @@
    "text": {
     "en": "A wonderful apartment that was clean, thoughtfully designed, and in an amazing location, with a great responsive host. Couldn’t have asked for more! Highly recommend!",
     "pt": "Um apartamento maravilhoso, limpo, bem pensado e numa localização incrível, com um ótimo anfitrião, sempre rápido a responder. Não podíamos ter pedido mais! Recomendo vivamente!"
-   }
-  },
-  {
-   "id": "60f8569730dde1b04a69f559",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2020-09-05",
-   "listingId": "60f82c3cb82a7e002f865672",
-   "text": {
-    "en": "We spent one month in this beautifully arranged, stylish and cosy studio. Everything went perfectly from our arrival to our departure. The team did everything to make our stay great, including a bottle of port as a welcome gift :) The apartment's location is ideally suited to exploring the centre of Porto and enjoying its nightlife. The view directly onto the trees of the park makes it even more special. We highly recommend it!",
-    "pt": "Passámos um mês neste estúdio lindamente arranjado, elegante e acolhedor. Correu tudo na perfeição, da chegada à partida. A equipa fez tudo para tornar a nossa estadia ótima, incluindo uma garrafa de vinho do Porto como presente de boas-vindas :) A localização do apartamento é ideal para explorar o centro do Porto e aproveitar a vida noturna. A vista direta para as árvores do jardim torna-o ainda mais especial. Recomendamos vivamente!"
    }
   }
  ],
@@ -6683,6 +6704,31 @@
  ],
  "60f827e3b82a7e002f852152": [
   {
+   "id": "6ad27b6981fcb5aeda3184c1",
+   "source": "booking",
+   "rating": 10,
+   "author": "Andrew",
+   "date": "2026-10-16",
+   "listingId": "60f827e3b82a7e002f852152",
+   "text": {
+    "en": "Location. Suited for 3 individuals to share. Clean and tidy. Good communication with staff",
+    "pt": "Localização. Adequado para 3 pessoas partilharem. Limpo e arrumado. Boa comunicação com o pessoal"
+   }
+  },
+  {
+   "id": "6ab262fade2235ee94df5022",
+   "source": "booking",
+   "rating": 9,
+   "author": "Amin",
+   "date": "2026-09-22",
+   "listingId": "60f827e3b82a7e002f852152",
+   "language": "de",
+   "text": {
+    "en": "A very lovely and well-laid-out flat with a view to the rear overlooking a small, green garden. The two bathrooms were very practical. The information on how to get to and from the flat was clearly set out.",
+    "pt": "Um apartamento muito bonito e bem distribuído, com vista para as traseiras, para um pequeno jardim verdejante. As duas casas de banho eram muito práticas. As informações sobre o acesso e a saída do apartamento estavam bem organizadas."
+   }
+  },
+  {
    "id": "67fdaee86663d9489f197b23",
    "source": "airbnb",
    "rating": 5,
@@ -6896,30 +6942,6 @@
    "text": {
     "en": "The apartment was perfect for our group of 3 staying in Porto for the weekend. It was spacious, clean and with everything we needed. It is located in a great neighbourhood from which we walked everywhere, into the old town and down to the water. Filipe was easy to communicate with and provided some great local tips. We would have no hesitation staying again!",
     "pt": "O apartamento foi perfeito para o nosso grupo de 3 num fim de semana no Porto. Era espaçoso, limpo e tinha tudo o que precisávamos. Fica num ótimo bairro, de onde fomos a pé a todo o lado, à zona histórica e até ao rio. Foi fácil comunicar com o Filipe, que nos deu ótimas dicas locais. Não hesitaríamos em voltar!"
-   }
-  },
-  {
-   "id": "60f8569d30dde1b04a69f880",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2017-10-30",
-   "listingId": "60f827e3b82a7e002f852152",
-   "text": {
-    "en": "The apartment is cozy, spacious and convenient. And very clean. We travelled with a baby and it was perfect for that. The location is right in the centre; everything you need is within walking distance. And the best of all was Filipe, who is an excellent host and gave us some great tips on what to do and see in Porto, including where to find nice restaurants and bars. We definitely recommend this place!",
-    "pt": "O apartamento é acolhedor, espaçoso e prático. E muito limpo. Viajámos com um bebé e era perfeito para isso. A localização é mesmo no centro; tudo o que é preciso fica a pé. E o melhor de tudo foi o Filipe, um anfitrião excelente, que nos deu ótimas dicas sobre o que fazer e ver no Porto, incluindo onde encontrar bons restaurantes e bares. Recomendamos sem dúvida este sítio!"
-   }
-  },
-  {
-   "id": "60f8569d30dde1b04a69f8ba",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2017-10-05",
-   "listingId": "60f827e3b82a7e002f852152",
-   "text": {
-    "en": "The apartment is just beautiful, nicely decorated, with a very good atmosphere, totally clean and tidy, with plenty of space and in a good location in Porto. The hosts are extremely friendly and helpful, patient and share lots of holiday tips. It was very nice meeting Sara in person and Filipe via email. Thanks a lot for a great time and for being perfect hosts!",
-    "pt": "O apartamento é simplesmente lindíssimo, bem decorado, com um ótimo ambiente, totalmente limpo e arrumado, com muito espaço e numa boa localização no Porto. Os anfitriões são extremamente simpáticos e prestáveis, pacientes, e partilham muitas dicas para as férias. Foi muito bom conhecer a Sara pessoalmente e o Filipe por email. Muito obrigado por uns dias ótimos e por serem anfitriões perfeitos!"
    }
   }
  ],
@@ -9743,6 +9765,19 @@
  ],
  "60f82c15b82a7e002f8643ca": [
   {
+   "id": "6ae089577fd8542e4f0262d4",
+   "source": "booking",
+   "rating": 9,
+   "author": "Susanne",
+   "date": "2026-10-27",
+   "listingId": "60f82c15b82a7e002f8643ca",
+   "language": "de",
+   "text": {
+    "en": "Perfect location, a very lovely flat, which is well-equipped. We had the flat on the 3rd floor facing the street, with a lovely terrace. The bottle of port as a welcome gift was also very nice – thank you again. It’s worth mentioning that the flat is on the third floor with no lift, though that didn’t really bother us.",
+    "pt": "Localização perfeita, apartamento muito bonito e bem equipado. Ficámos no apartamento do 3.º andar, virado para a rua, com um terraço muito bonito. Também foi muito simpático o presente de boas-vindas, uma garrafa de vinho do Porto; mais uma vez, muito obrigado. É importante referir que o apartamento fica no 3.º andar sem elevador, o que, no entanto, não nos incomodou muito."
+   }
+  },
+  {
    "id": "6a14360e2419815b5be76d31",
    "source": "booking",
    "rating": 10,
@@ -9971,18 +10006,6 @@
    "text": {
     "en": "Location fantastic, close to all the fantastic restaurants, which is all that mattered when staying in Porto. Internet speed great to work remotely which is what I did. Sara and Anita were great hosts, and will definitely recommend this to friends!😍 lovely apartment.",
     "pt": "A localização é fantástica, perto de todos os restaurantes fantásticos, que é o que mais importa quando se fica no Porto. Internet rápida para trabalhar à distância, que foi o que fiz. A Sara e a Anita foram ótimas anfitriãs, e vou recomendar este sítio aos meus amigos, sem dúvida! 😍 Um apartamento encantador."
-   }
-  },
-  {
-   "id": "60f856ba30dde1b04a6a05b1",
-   "source": "airbnb",
-   "rating": 5,
-   "author": null,
-   "date": "2020-09-05",
-   "listingId": "60f82c15b82a7e002f8643ca",
-   "text": {
-    "en": "The apartment is in a great location, right next to Bolhao Market. The apartment itself is spotless, with great little touches, a wonderful private balcony and beautiful furniture. Would highly recommend this to anyone looking to stay in Porto.",
-    "pt": "O apartamento tem uma ótima localização, mesmo ao lado do Mercado do Bolhão. O apartamento em si está impecável, com pequenos toques ótimos, uma varanda privada maravilhosa e móveis lindíssimos. Recomendo vivamente a quem procura onde ficar no Porto."
    }
   }
  ]
