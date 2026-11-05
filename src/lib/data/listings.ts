@@ -1,5 +1,6 @@
 import { listingContent, listingFeatures, type ListingContent, type RoomKey } from "@/content/listings";
 import { buildings } from "@/content/buildings";
+import translations from "@/content/listing-translations.json";
 import snapshot from "./mock/guesty-listings.snapshot.json";
 import { isGuestyConfigured } from "./guesty/client";
 import { fetchGuestyFromRates } from "./guesty/availability";
@@ -233,15 +234,10 @@ function toListing(
     buildingId,
     neighbourhoodSlug: building?.neighbourhoodSlug ?? "",
     pictures,
-    // Listing text is Guesty's own, as-is, in both locales (client decision 2026-11-04; Guesty
-    // holds English only). Neighbourhood copy comes from our neighbourhood pages instead.
+    // Listing text is Guesty's own (English); Portuguese pages use our PT-PT translation while it
+    // still matches Guesty's text. Neighbourhood copy comes from our neighbourhood pages instead.
     tagline: "",
-    description: {
-      summary: raw.publicDescription.summary ?? "",
-      space: raw.publicDescription.space ?? "",
-      neighbourhood: "",
-      notes: "",
-    },
+    description: { ...describe(raw, locale), neighbourhood: "", notes: "" },
     highlights: [],
     amenities,
     price: {
@@ -262,6 +258,22 @@ function toListing(
         ? { source: "guesty", outOf: 10, score: raw.reviews.avg, count: raw.reviews.total, mock: false }
         : null,
   };
+}
+
+type ListingText = { summary: string; space: string };
+const listingTranslations = translations as Record<string, { en: ListingText; pt: ListingText }>;
+
+/**
+ * Guesty's summary and "space" text, in Portuguese on PT pages when our translation
+ * (`src/content/listing-translations.json`) was made from the text Guesty has now. If the client
+ * edits a description in Guesty, that home shows Guesty's new English until it's translated again,
+ * so a translation never contradicts the listing.
+ */
+function describe(raw: GuestyListing, locale: Locale): ListingText {
+  const en = { summary: (raw.publicDescription.summary ?? "").trim(), space: (raw.publicDescription.space ?? "").trim() };
+  if (locale === "en") return en;
+  const t = listingTranslations[raw._id];
+  return t && t.en.summary === en.summary && t.en.space === en.space ? t.pt : en;
 }
 
 interface Entry {

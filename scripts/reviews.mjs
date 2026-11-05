@@ -14,16 +14,14 @@
  * Working files hold guests' names and stay under .next/cache (git-ignored, owner-only). The access
  * token is reused from the dev token file the app keeps, and never printed.
  */
-import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import path from "node:path";
+import { API, ROOT, decode, readJson, sleep, token, writePrivate } from "./guesty-shared.mjs";
 
-const ROOT = process.cwd();
 const WORK = path.join(ROOT, ".next/cache/reviews");
-const TOKEN_FILE = path.join(ROOT, ".next/cache/guesty/token.json");
 const REVIEWS = path.join(ROOT, "src/content/apartment-reviews.json");
 const SCORES = path.join(ROOT, "src/content/review-scores.json");
 const REJECTED = path.join(ROOT, "scripts/reviews-rejected.json");
-const API = "https://booking.guesty.com/api";
 const PER_FLAT = 20;
 /** Reviews this many days older than the last refresh still count as new (late arrivals). */
 const OVERLAP_DAYS = 60;
@@ -48,22 +46,6 @@ const BAD = {
   nl: /\b(maar|helaas|lawaai|vies|probleem|trappen?|lift|airbnb)\b/i,
 };
 
-const readJson = async (file, fallback) => {
-  try {
-    return JSON.parse(await readFile(file, "utf8"));
-  } catch {
-    return fallback;
-  }
-};
-const writePrivate = async (file, data) => {
-  await mkdir(path.dirname(file), { recursive: true, mode: 0o700 });
-  await writeFile(file, JSON.stringify(data, null, 1) + "\n", { mode: 0o600 });
-  await chmod(file, 0o600);
-};
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const decode = (t) =>
-  t.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
-
 function languageOf(text) {
   const words = text.toLowerCase().match(/[\p{L}']+/gu) ?? [];
   let best = null;
@@ -73,27 +55,6 @@ function languageOf(text) {
     if (score > bestScore) [best, bestScore] = [lang, score];
   }
   return best;
-}
-
-async function token() {
-  const cached = await readJson(TOKEN_FILE, null);
-  if (cached?.token && cached.expiresAt - 10 * 60 * 1000 > Date.now()) return cached.token;
-  // Guesty allows 3 tokens per key per day: only ask when the app's cached one has run out.
-  process.loadEnvFile(path.join(ROOT, ".env.local"));
-  const res = await fetch("https://booking.guesty.com/oauth2/token", {
-    method: "POST",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      grant_type: "client_credentials",
-      scope: "booking_engine:api",
-      client_id: process.env.GUESTY_BOOKING_ENGINE_CLIENT_ID ?? "",
-      client_secret: process.env.GUESTY_BOOKING_ENGINE_CLIENT_SECRET ?? "",
-    }),
-  });
-  if (!res.ok) throw new Error(`Guesty token request failed (${res.status})`);
-  const { access_token, expires_in } = await res.json();
-  await writePrivate(TOKEN_FILE, { token: access_token, expiresAt: Date.now() + expires_in * 1000 });
-  return access_token;
 }
 
 async function channel(auth, channelId) {
