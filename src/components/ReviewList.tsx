@@ -63,11 +63,11 @@ export function ReviewList({
     list.current?.scrollIntoView({ block: "start" });
   };
 
-  const grid = clsx("grid gap-x-8 gap-y-12 sm:grid-cols-2", listingId && "lg:grid-cols-3");
+  const grid = clsx("grid gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16");
   // Home: the top row opens on the thick ink rule (as the headline beside it); later rows have no
   // rule, just space. On phones only the first quote has it.
   const rule = (index: number) =>
-    index === 0 ? "border-t-2 border-ink pt-6" : index === 1 ? "sm:border-t-2 sm:border-ink sm:pt-6" : "";
+    index === 0 ? "border-t-2 border-ink" : index === 1 ? "sm:border-t-2 sm:border-ink" : "";
   const item = (review: Review, index: number) => (
     <li
       key={review.id}
@@ -78,7 +78,7 @@ export function ReviewList({
           el.focus();
         }
       }}
-      className={clsx("animate-fade-in-fast outline-none", !listingId && rule(index))}
+      className={clsx("animate-fade-in-fast outline-none", !listingId && ["pt-6", rule(index)])}
     >
       <ReviewCard review={review} size={listingId ? "md" : "lg"} />
     </li>
@@ -93,7 +93,7 @@ export function ReviewList({
         {loaded.slice(0, initial.length).map((review, i) => item(review, i))}
       </ul>
       {shown > initial.length ? (
-        <ul className={clsx(grid, "mt-12", placement?.rest)}>
+        <ul className={clsx(grid, listingId ? "mt-12" : "mt-16", placement?.rest)}>
           {loaded.slice(initial.length, shown).map((review) => item(review, Infinity))}
         </ul>
       ) : null}

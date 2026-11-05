@@ -31,7 +31,7 @@ export async function ReviewsBlock({
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   return (
-    <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-12">
+    <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-16">
       {/* On desktop the side column follows the quotes' two rows: the headline on the thick ink rule
           beside the first two quotes, the scores level with the top of the next two. */}
       <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1">
@@ -44,7 +44,7 @@ export async function ReviewsBlock({
           {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
         </p>
       </div>
-      <ul className="reveal mt-10 mb-14 grid grid-cols-3 gap-4 lg:col-span-4 lg:row-start-2 lg:m-0">
+      <ul className="reveal mt-10 mb-14 grid grid-cols-3 gap-4 lg:col-span-4 lg:row-start-2 lg:m-0 lg:pt-6">
         {Object.values(bySource).map((aggregate) => (
           <li key={aggregate.source}>
             <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
