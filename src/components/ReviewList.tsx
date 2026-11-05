@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { ReviewCard } from "@/components/ReviewCard";
+import { Icon } from "@/components/ui/Icon";
 import { requestReviews } from "@/lib/actions/reviews";
 import type { Review } from "@/lib/data";
 
@@ -14,6 +15,9 @@ import type { Review } from "@/lib/data";
  * "Show fewer" folds back to the first page and returns to the top of the list; reviews already
  * loaded are kept, so opening again doesn't refetch.
  */
+const moreLink = "group inline-flex items-center gap-4 font-semibold disabled:opacity-50";
+const arrowMotion = "transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)]";
+
 export function ReviewList({ initial, total, listingId }: { initial: Review[]; total?: number; listingId?: string }) {
   const t = useTranslations("reviews");
   const locale = useLocale();
@@ -69,20 +73,18 @@ export function ReviewList({ initial, total, listingId }: { initial: Review[]; t
         ))}
       </ul>
       {total !== undefined && total > initial.length ? (
-        <div className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-4">
+        // Same text-and-arrow link as "See all apartments"; the arrow nudges the way it goes.
+        <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4">
           {shown < total ? (
-            <button
-              type="button"
-              onClick={more}
-              disabled={pending}
-              className="inline-flex h-12 items-center rounded-full border border-ink px-6 font-semibold transition-colors hover:bg-ink hover:text-paper disabled:opacity-50"
-            >
+            <button type="button" onClick={more} disabled={pending} className={moreLink}>
               {t("showMore")}
+              <Icon name="arrowDown" size={24} strokeWidth={1.75} className={`${arrowMotion} group-hover:translate-y-1`} />
             </button>
           ) : null}
           {shown > initial.length ? (
-            <button type="button" onClick={fewer} className="link-quiet h-12 font-semibold">
+            <button type="button" onClick={fewer} className={moreLink}>
               {t("showFewer")}
+              <Icon name="arrowUp" size={24} strokeWidth={1.75} className={`${arrowMotion} group-hover:-translate-y-1`} />
             </button>
           ) : null}
         </div>

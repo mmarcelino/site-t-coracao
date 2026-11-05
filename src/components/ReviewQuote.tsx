@@ -5,7 +5,9 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * A review quote that never breaks the grid: long ones are cut at five lines with a "Read more"
- * that opens the rest in place. Short ones show whole, with no button.
+ * that opens the rest in place. Short ones show whole, with no button. The toggle never takes a
+ * line of its own: small and grey at the right end of the last line (over the cut line's end
+ * while closed, floated after the closing quote once open).
  */
 export function ReviewQuote({
   text,
@@ -35,25 +37,35 @@ export function ReviewQuote({
     return () => ro.disconnect();
   }, []);
 
+  const type = size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body";
+  const toggle = (label: string, className?: string) => (
+    <button
+      type="button"
+      onClick={() => setOpen((o) => !o)}
+      aria-expanded={open}
+      className={clsx(
+        "text-small text-granite underline underline-offset-4 transition-colors hover:text-ink",
+        className,
+      )}
+    >
+      {label}
+    </button>
+  );
+
   return (
-    <>
-      <blockquote
-        ref={ref}
-        lang={lang}
-        className={clsx(size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body", !open && "line-clamp-5")}
-      >
+    <div className={clsx("relative", type)}>
+      <blockquote ref={ref} lang={lang} className={clsx(!open && "line-clamp-5")}>
         “{text}”
+        {/* Floats to the right end of the last line, or onto its own line only if there's no room;
+            the wrapper keeps the quote's line height so the small text shares its baseline. */}
+        {open ? <span className="float-right ml-4">{toggle(lessLabel)}</span> : null}
       </blockquote>
-      {clamped || open ? (
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-expanded={open}
-          className="mt-2 text-small underline underline-offset-4 hover:no-underline"
-        >
-          {open ? lessLabel : moreLabel}
-        </button>
+      {!open && clamped ? (
+        // Sits on the last visible line, its gradient fading out the cut words underneath.
+        <span className="absolute right-0 bottom-0 bg-[linear-gradient(to_right,transparent,var(--color-paper)_2.5rem)] pl-12">
+          {toggle(moreLabel)}
+        </span>
       ) : null}
-    </>
+    </div>
   );
 }
