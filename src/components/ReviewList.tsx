@@ -18,7 +18,21 @@ import type { Review } from "@/lib/data";
 const moreLink = "group inline-flex items-center gap-4 font-semibold disabled:opacity-50";
 const arrowMotion = "transition-transform duration-[var(--duration-base)] ease-[var(--ease-soft)]";
 
-export function ReviewList({ initial, total, listingId }: { initial: Review[]; total?: number; listingId?: string }) {
+export function ReviewList({
+  initial,
+  total,
+  listingId,
+  placement,
+}: {
+  initial: Review[];
+  total?: number;
+  listingId?: string;
+  /**
+   * Classes for the first page of quotes and for what follows (more quotes, the links). Returned as
+   * siblings, so a parent grid can place them apart, e.g. keep its side column level with the first page only.
+   */
+  placement?: { first?: string; rest?: string };
+}) {
   const t = useTranslations("reviews");
   const locale = useLocale();
   const [loaded, setLoaded] = useState(initial);
@@ -49,32 +63,39 @@ export function ReviewList({ initial, total, listingId }: { initial: Review[]; t
     list.current?.scrollIntoView({ block: "start" });
   };
 
+  const grid = clsx("grid gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16");
+  const item = (review: Review) => (
+    <li
+      key={review.id}
+      tabIndex={-1}
+      ref={(el) => {
+        if (el && focusId.current === review.id) {
+          focusId.current = null;
+          el.focus();
+        }
+      }}
+      className={clsx("animate-fade-in-fast outline-none", !listingId && "border-t-2 border-ink pt-6")}
+    >
+      <ReviewCard review={review} size={listingId ? "md" : "lg"} />
+    </li>
+  );
+
   return (
     <>
-      {/* scroll-mt clears the booking bar that docks at the top of the home page. */}
-      <ul
-        ref={list}
-        className={clsx("grid scroll-mt-32 gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16")}
-      >
-        {loaded.slice(0, shown).map((review) => (
-          <li
-            key={review.id}
-            tabIndex={-1}
-            ref={(el) => {
-              if (el && focusId.current === review.id) {
-                focusId.current = null;
-                el.focus();
-              }
-            }}
-            className={clsx("animate-fade-in-fast outline-none", !listingId && "border-t-2 border-ink pt-6")}
-          >
-            <ReviewCard review={review} size={listingId ? "md" : "lg"} />
-          </li>
-        ))}
+      {/* The first page, then the ones loaded on request in a list of their own (same grid, same
+          spacing) so a parent can line things up with the first page alone. scroll-mt clears the
+          booking bar that docks at the top of the home page. */}
+      <ul ref={list} className={clsx(grid, "scroll-mt-32", placement?.first)}>
+        {loaded.slice(0, initial.length).map(item)}
       </ul>
+      {shown > initial.length ? (
+        <ul className={clsx(grid, listingId ? "mt-12" : "mt-16", placement?.rest)}>
+          {loaded.slice(initial.length, shown).map(item)}
+        </ul>
+      ) : null}
       {total !== undefined && total > initial.length ? (
         // Same text-and-arrow link as "See all apartments"; the arrow nudges the way it goes.
-        <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4">
+        <div className={clsx("mt-12 flex flex-wrap items-center gap-x-10 gap-y-4", placement?.rest)}>
           {shown < total ? (
             <button type="button" onClick={more} disabled={pending} className={moreLink}>
               {t("showMore")}

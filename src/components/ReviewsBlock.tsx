@@ -31,18 +31,21 @@ export async function ReviewsBlock({
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   return (
-    <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-      {/* Starts on an ink rule, level with the first quote's. */}
-      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4">
-        {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
-        <h2 id={headingId} className="text-h2">
-          {heading}
-        </h2>
-        {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
-        <p className="mt-4">
-          {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
-        </p>
-        <ul className="mt-12 grid grid-cols-3 gap-4">
+    <div className="grid lg:grid-cols-12 lg:gap-x-10">
+      {/* Starts on an ink rule, level with the first quote's; on desktop the scores sit at the
+          bottom, level with the end of the first page of quotes (not with what "Show more" adds). */}
+      <div className="reveal mb-14 flex flex-col justify-between gap-12 border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1 lg:mb-0">
+        <div>
+          {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
+          <h2 id={headingId} className="text-h2">
+            {heading}
+          </h2>
+          {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
+          <p className="mt-4">
+            {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
+          </p>
+        </div>
+        <ul className="grid grid-cols-3 gap-4">
           {Object.values(bySource).map((aggregate) => (
             <li key={aggregate.source}>
               <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
@@ -55,9 +58,11 @@ export async function ReviewsBlock({
 
       {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
       {reviews.length ? (
-        <div className="min-w-0 self-start lg:col-span-8">
-          <ReviewList initial={reviews.slice(0, 4)} total={total} />
-        </div>
+        <ReviewList
+          initial={reviews.slice(0, 4)}
+          total={total}
+          placement={{ first: "min-w-0 lg:col-span-8 lg:row-start-1", rest: "min-w-0 lg:col-span-8 lg:col-start-5" }}
+        />
       ) : null}
     </div>
   );
