@@ -33,7 +33,7 @@ export const buildings: BuildingContent[] = [
     guestyTag: "Mouzinho",
     name: "Mouzinho 32",
     street: "Rua de Mouzinho da Silveira 32",
-    neighbourhoodSlug: "ribeira",
+    neighbourhoodSlug: "sao-bento-ribeira",
     era: { pt: "Final do século XIX", en: "Late 19th century" },
     historyLine: {
       pt: "Uma fachada de pedra original, guardada por inteiro, a olhar para o Palácio da Bolsa.",
@@ -59,7 +59,7 @@ export const buildings: BuildingContent[] = [
     guestyTag: "Cordoaria",
     name: "Cordoaria",
     street: "Campo dos Mártires da Pátria 27",
-    neighbourhoodSlug: "cordoaria-cedofeita",
+    neighbourhoodSlug: "clerigos-cordoaria",
     era: { pt: "Século XIX", en: "19th century" },
     historyLine: {
       pt: "Restaurado por um romântico moderno, com o jardim de um lado e o Douro do outro.",
@@ -85,7 +85,7 @@ export const buildings: BuildingContent[] = [
     guestyTag: "Breiner",
     name: "Breiner 210",
     street: "Rua do Breiner 210",
-    neighbourhoodSlug: "cordoaria-cedofeita",
+    neighbourhoodSlug: "cedofeita-galerias",
     era: { pt: "Século XIX", en: "19th century" },
     historyLine: {
       pt: "Na mesma família desde o século XIX — e mesmo ao lado do nosso escritório.",
@@ -111,7 +111,7 @@ export const buildings: BuildingContent[] = [
     guestyTag: "São Bento",
     name: "São Bento",
     street: "Praça de Almeida Garrett 24",
-    neighbourhoodSlug: "baixa",
+    neighbourhoodSlug: "sao-bento-ribeira",
     era: { pt: "Século XIX", en: "19th century" },
     historyLine: {
       pt: "Em frente à estação mais bonita do país, com os azulejos à vista da cama.",
@@ -159,10 +159,10 @@ export const buildings: BuildingContent[] = [
   },
   // Buildings from Guesty's tags, not written up yet (no history copy, lift unknown).
   // Neighbourhood assignments are ours, by street: TO CONFIRM with the client.
-  { id: "taipas-47", slug: "taipas-47", guestyTag: "Taipas", name: "Taipas 47", street: "Rua das Taipas 47", neighbourhoodSlug: "cordoaria-cedofeita", hasLift: null },
-  { id: "almada-505", slug: "almada-505", guestyTag: "Almada", name: "Almada 505", street: "Rua do Almada 505", neighbourhoodSlug: "baixa", hasLift: null },
-  { id: "santa-catarina", slug: "santa-catarina", guestyTag: "Santa Catarina", name: "Santa Catarina", street: "Rua da Firmeza 410", neighbourhoodSlug: "baixa", hasLift: null },
-  { id: "clerigos", slug: "clerigos", guestyTag: "Clérigos", name: "Clérigos", street: "Campo dos Mártires da Pátria 103", neighbourhoodSlug: "cordoaria-cedofeita", hasLift: null },
-  { id: "sa-da-bandeira-198", slug: "sa-da-bandeira-198", guestyTag: "Sá da Bandeira", name: "Sá da Bandeira 198", street: "Rua de Sá da Bandeira 198", neighbourhoodSlug: "baixa", hasLift: null },
-  { id: "santa-teresa-40", slug: "santa-teresa-40", guestyTag: "Santa Teresa", name: "Santa Teresa 40", street: "Rua de Santa Teresa 40", neighbourhoodSlug: "cordoaria-cedofeita", hasLift: null },
+  { id: "taipas-47", slug: "taipas-47", guestyTag: "Taipas", name: "Taipas 47", street: "Rua das Taipas 47", neighbourhoodSlug: "clerigos-cordoaria", hasLift: null },
+  { id: "almada-505", slug: "almada-505", guestyTag: "Almada", name: "Almada 505", street: "Rua do Almada 505", neighbourhoodSlug: "aliados-bolhao", hasLift: null },
+  { id: "santa-catarina", slug: "santa-catarina", guestyTag: "Santa Catarina", name: "Santa Catarina", street: "Rua da Firmeza 410", neighbourhoodSlug: "aliados-bolhao", hasLift: null },
+  { id: "clerigos", slug: "clerigos", guestyTag: "Clérigos", name: "Clérigos", street: "Campo dos Mártires da Pátria 103", neighbourhoodSlug: "clerigos-cordoaria", hasLift: null },
+  { id: "sa-da-bandeira-198", slug: "sa-da-bandeira-198", guestyTag: "Sá da Bandeira", name: "Sá da Bandeira 198", street: "Rua de Sá da Bandeira 198", neighbourhoodSlug: "aliados-bolhao", hasLift: null },
+  { id: "santa-teresa-40", slug: "santa-teresa-40", guestyTag: "Santa Teresa", name: "Santa Teresa 40", street: "Rua de Santa Teresa 40", neighbourhoodSlug: "cedofeita-galerias", hasLift: null },
 ];

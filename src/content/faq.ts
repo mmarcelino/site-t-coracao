@@ -52,8 +52,8 @@ export const faq: FaqItem[] = [
       en: "Where in Porto are the apartments?",
     },
     answer: {
-      pt: "No centro histórico do Porto, a pé dos principais pontos da cidade: Ribeira, Baixa e São Bento, Cordoaria e Clérigos, Aliados e Santa Catarina. A Casa do Farol, a moradia de três quartos, fica na Foz do Douro, em frente ao mar.",
-      en: "In Porto's historic centre, within walking distance of the city's main sights: Ribeira, Baixa and São Bento, Cordoaria and Clérigos, Aliados and Santa Catarina. Casa do Farol, the three-bedroom house, is in Foz do Douro, facing the sea.",
+      pt: "No centro histórico do Porto, a pé dos principais pontos da cidade, em quatro zonas: São Bento e Ribeira, Clérigos e Cordoaria, Cedofeita e Galerias, e Aliados e Bolhão. A Casa do Farol, a moradia de três quartos, fica na Foz do Douro, em frente ao mar.",
+      en: "In Porto's historic centre, within walking distance of the city's main sights, in four areas: São Bento & Ribeira, Clérigos & Cordoaria, Cedofeita & Galerias, and Aliados & Bolhão. Casa do Farol, the three-bedroom house, is in Foz do Douro, facing the sea.",
     },
   },
   {
@@ -65,8 +65,8 @@ export const faq: FaqItem[] = [
       en: "What is the best area to stay in Porto?",
     },
     answer: {
-      pt: "Para uma primeira visita, a Ribeira e a Baixa: tudo se faz a pé, do rio às caves do vinho do Porto em Gaia. A Cordoaria e Cedofeita são mais calmas e locais, com galerias, livrarias e cafés. A Foz do Douro é para quem quer mar e passeios à beira-rio, a cerca de 20 minutos do centro de elétrico ou autocarro.",
-      en: "For a first visit, Ribeira and Baixa: everything is walkable, from the river to the port wine cellars in Gaia. Cordoaria and Cedofeita are calmer and more local, with galleries, bookshops and cafés. Foz do Douro is for the sea and riverside walks, about 20 minutes from the centre by tram or bus.",
+      pt: "Para uma primeira visita, São Bento e Ribeira: tudo se faz a pé, da estação ao rio e às caves do vinho do Porto em Gaia. Clérigos e Cordoaria juntam monumentos, jardins e o melhor pôr do sol sobre o Douro. Cedofeita e Galerias é o bairro das galerias de arte e da noite; Aliados e Bolhão, o do mercado, das compras e do metro direto para o aeroporto. A Foz do Douro é para quem quer mar e passeios à beira-rio, a cerca de 20 minutos do centro de elétrico ou autocarro.",
+      en: "For a first visit, São Bento & Ribeira: everything is walkable, from the station to the river and the port wine cellars in Gaia. Clérigos & Cordoaria combine landmarks, gardens and the best sunset over the Douro. Cedofeita & Galerias is the quarter of art galleries and nightlife; Aliados & Bolhão, of the market, shopping and the direct metro to the airport. Foz do Douro is for the sea and riverside walks, about 20 minutes from the centre by tram or bus.",
     },
   },
   {

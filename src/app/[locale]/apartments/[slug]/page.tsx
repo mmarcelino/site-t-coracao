@@ -335,7 +335,7 @@ async function ApartmentContent({ params }: { params: Params }) {
                     {nearby.map((place) => (
                       <li key={place.name}>
                         {place.name}
-                        <span className="text-small text-granite"> · {t("listing.walkMinutes", { minutes: String(place.minutes) })}</span>
+                        <span className="text-small whitespace-nowrap text-granite"> · {t("listing.walkMinutes", { minutes: String(place.minutes) })}</span>
                       </li>
                     ))}
                   </ul>
