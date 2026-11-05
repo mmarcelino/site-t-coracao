@@ -301,10 +301,14 @@ export interface Review {
   source: ReviewSource;
   /** Native scale of the source: Google/Airbnb 1–5, Booking 1–10. */
   rating: number;
-  author: string;
+  /** First name; null when the source doesn't share it (Airbnb). */
+  author: string | null;
   date: string;
-  language: Locale | "fr" | "es" | "de";
+  /** Language of `text` ("en", "pt"…). */
+  language: string;
   text: string;
+  /** Set when `text` is our translation (e.g. "en" on the Portuguese site); captions say so. */
+  translatedFrom?: string;
   listingId?: string;
   mock: boolean;
 }

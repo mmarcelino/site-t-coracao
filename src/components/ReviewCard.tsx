@@ -5,7 +5,8 @@ import { createFormatter } from "@/lib/format";
 import type { Review } from "@/lib/data";
 
 /**
- * One quote: the text (cut at five lines), then source, name and month. Renders on server or client.
+ * One quote: the text (cut at five lines), then source, first name ("Guest" when the source
+ * doesn't share it) and month. Renders on server or client.
  * In a flex column (cards in a strip) the caption sits at the bottom, so captions line up.
  */
 export function ReviewCard({ review, size }: { review: Review; size?: "lg" | "md" }) {
@@ -16,7 +17,8 @@ export function ReviewCard({ review, size }: { review: Review; size?: "lg" | "md
       <ReviewQuote text={review.text} lang={review.language} moreLabel={t("readMore")} lessLabel={t("readLess")} size={size} />
       <figcaption className="label mt-auto pt-6 text-ink">
         <SourceIcon source={review.source} label={t(`source.${review.source}`)} size={14} className="mr-2 align-[-2px]" />
-        {review.author} · {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+        {review.author ?? t("guest")} · {format.dateTime(new Date(`${review.date}T12:00:00Z`), { month: "long", year: "numeric" })}
+        {review.translatedFrom ? <span className="mt-1.5 block text-granite">{t("translated")}</span> : null}
       </figcaption>
     </figure>
   );

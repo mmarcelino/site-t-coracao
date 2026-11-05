@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 import { ReviewCard } from "@/components/ReviewCard";
@@ -8,13 +7,12 @@ import { requestReviews } from "@/lib/actions/reviews";
 import type { Review } from "@/lib/data";
 
 /**
- * Quotes in two columns, each under an ink rule (home). With `listingId` (apartment pages): one
- * apartment's reviews, three columns, no rules, body-size quotes, three at a time. With a `total`,
+ * Quotes in two columns, each under an ink rule (home and apartment pages). With a `total`,
  * "Show more reviews" loads the next page in place and moves focus to the first new one, so keyboard and screen-reader users land on it.
  * "Show fewer" folds back to the first page and returns to the top of the list; reviews already
  * loaded are kept, so opening again doesn't refetch.
  */
-export function ReviewList({ initial, total, listingId }: { initial: Review[]; total?: number; listingId?: string }) {
+export function ReviewList({ initial, total }: { initial: Review[]; total?: number }) {
   const t = useTranslations("reviews");
   const locale = useLocale();
   const [loaded, setLoaded] = useState(initial);
@@ -24,14 +22,14 @@ export function ReviewList({ initial, total, listingId }: { initial: Review[]; t
   const list = useRef<HTMLUListElement>(null);
 
   const more = () => {
-    const next = shown + (listingId ? 3 : 4);
+    const next = shown + 4;
     if (loaded.length >= next || loaded.length === total) {
       focusId.current = loaded[shown]?.id ?? null;
       setShown(Math.min(next, loaded.length));
       return;
     }
     startTransition(async () => {
-      const page = await requestReviews(locale, loaded.length, listingId);
+      const page = await requestReviews(locale, loaded.length);
       focusId.current = page[0]?.id ?? null;
       setLoaded((r) => [...r, ...page]);
       setShown(loaded.length + page.length);
@@ -48,10 +46,7 @@ export function ReviewList({ initial, total, listingId }: { initial: Review[]; t
   return (
     <>
       {/* scroll-mt clears the booking bar that docks at the top of the home page. */}
-      <ul
-        ref={list}
-        className={clsx("grid scroll-mt-32 gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16")}
-      >
+      <ul ref={list} className="grid scroll-mt-32 gap-x-8 gap-y-16 sm:grid-cols-2">
         {loaded.slice(0, shown).map((review) => (
           <li
             key={review.id}
@@ -62,9 +57,9 @@ export function ReviewList({ initial, total, listingId }: { initial: Review[]; t
                 el.focus();
               }
             }}
-            className={clsx("animate-fade-in-fast outline-none", !listingId && "border-t-2 border-ink pt-6")}
+            className="animate-fade-in-fast border-t-2 border-ink pt-6 outline-none"
           >
-            <ReviewCard review={review} size={listingId ? "md" : "lg"} />
+            <ReviewCard review={review} size="lg" />
           </li>
         ))}
       </ul>

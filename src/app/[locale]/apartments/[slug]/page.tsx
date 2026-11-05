@@ -14,6 +14,7 @@ import {
   getListings,
   getNeighbourhood,
   getReviewPage,
+  getReviewSummary,
   type Listing,
 } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
@@ -25,7 +26,7 @@ import { Gallery } from "@/components/listing/Gallery";
 import { ListingCard } from "@/components/listing/ListingCard";
 import { TrackListingView } from "@/components/listing/TrackListingView";
 import { ShareButton } from "@/components/listing/ShareButton";
-import { ReviewList } from "@/components/ReviewList";
+import { ReviewsBlock } from "@/components/ReviewsBlock";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 export async function generateStaticParams() {
@@ -140,10 +141,11 @@ async function ApartmentContent({ params }: { params: Params }) {
   const { slug } = await params;
   const { locale, listing, building } = await load(slug);
   const t = await getTranslations();
-  const [neighbourhood, siblings, reviews] = await Promise.all([
+  const [neighbourhood, siblings, summary, reviews] = await Promise.all([
     getNeighbourhood(locale, listing.neighbourhoodSlug),
     getListings(locale, { buildingId: listing.buildingId }),
-    getReviewPage(locale, { listingId: listing.id, limit: 3 }),
+    getReviewSummary(),
+    getReviewPage(locale, { limit: 4 }),
   ]);
   const format = createFormatter(locale);
   const others = siblings.filter((l) => l.id !== listing.id);
@@ -162,7 +164,6 @@ async function ApartmentContent({ params }: { params: Params }) {
   const primaryAmenities = listing.amenities.slice(0, 8);
   const restAmenities = listing.amenities.slice(8);
   const detail = "mt-14 grid gap-x-8 gap-y-5 border-t-2 border-ink pt-5 md:grid-cols-[11rem_minmax(0,1fr)]";
-  const hasReviews = Boolean(listing.reviews && reviews.reviews.length);
   // Portuguese law requires the AL registration number wherever the home is advertised: one quiet
   // line closing this home's own content (after its reviews), before the sections shared with other pages.
   const licenceLine = listing.licence ? (
@@ -391,36 +392,18 @@ async function ApartmentContent({ params }: { params: Params }) {
         </div>
       </div>
 
-      {/* Reviews straight after the details: the score once, then three quotes; "Show more reviews"
-          loads three more at a time in place (as on the home page). */}
-      {hasReviews && listing.reviews ? (
-        <section id="reviews" aria-labelledby="reviews-title" className="section-y-tight scroll-mt-24">
-          <div className="container-page">
-            <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-4 border-t-2 border-ink pt-6">
-              <h2 id="reviews-title" className="text-h2">
-                {t("reviews.listingTitle")}
-              </h2>
-              <p className="flex items-baseline gap-3">
-                <span className="inline-flex items-center gap-2 text-[1.75rem] leading-none font-semibold tabular-nums">
-                  <Icon name="star" size={18} fill="currentColor" strokeWidth={0} />
-                  {format.number(listing.reviews.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
-                </span>
-                <span className="text-small text-granite">
-                  {t("reviews.basedOn", { count: format.number(listing.reviews.count) })} ·{" "}
-                  {t(`reviews.source.${listing.reviews.source}`)}
-                </span>
-              </p>
-            </div>
-          </div>
-          <div className="container-page mt-10">
-            <ReviewList initial={reviews.reviews} total={reviews.total} listingId={listing.id} />
-          </div>
-          {licenceLine ? <div className="container-page mt-16 md:mt-20">{licenceLine}</div> : null}
-        </section>
-      ) : null}
-
-      {/* Without reviews, the licence line closes the details on its own. */}
-      {licenceLine && !hasReviews ? <div className="container-page pb-10">{licenceLine}</div> : null}
+      {/* Reviews straight after the details: the same block as the home page (all our homes;
+          reviews per apartment are not shown). The booking card's score links here. */}
+      <section id="reviews" aria-labelledby="reviews-title" className="container-page section-y-tight scroll-mt-24">
+        <ReviewsBlock
+          bySource={summary.bySource}
+          reviews={reviews.reviews}
+          total={reviews.total}
+          heading={t("reviews.title")}
+          headingId="reviews-title"
+        />
+        {licenceLine ? <div className="mt-16 md:mt-20">{licenceLine}</div> : null}
+      </section>
 
       {/* The other homes in this building: a band of its own after the reviews, so it reads as
           the next step rather than an afterthought. */}

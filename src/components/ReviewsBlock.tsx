@@ -5,9 +5,9 @@ import { createFormatter } from "@/lib/format";
 import type { Review, ReviewAggregate, ReviewSource } from "@/lib/data";
 
 /**
- * Home rating block: per-platform scores, then how many guests a year (volume backs the scores),
- * + excerpts (CLAUDE.md §5 trust signals). Placeholders
- * stay flagged `mock: true` in the data (no visible note, at the client's request).
+ * Rating block (home and every apartment page): per-platform scores, then how many guests a year
+ * (volume backs the scores), + real quotes from Guesty (CLAUDE.md §5 trust signals). A platform
+ * without data (no Guesty keys) is left out; with no quotes, the scores stand alone.
  */
 export async function ReviewsBlock({
   bySource,
@@ -17,7 +17,7 @@ export async function ReviewsBlock({
   headingId,
   total,
 }: {
-  bySource: Record<ReviewSource, ReviewAggregate>;
+  bySource: Partial<Record<ReviewSource, ReviewAggregate>>;
   reviews: Review[];
   heading: string;
   eyebrow?: string;
@@ -38,13 +38,11 @@ export async function ReviewsBlock({
           {heading}
         </h2>
         <ul className="mt-8 grid grid-cols-3 gap-4">
-          {(Object.keys(bySource) as ReviewSource[]).map((source) => (
-            <li key={source}>
-              <p className="label text-granite">{t(`source.${source}`)}</p>
-              <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">
-                {score(bySource[source].score)}
-              </p>
-              <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(bySource[source].count) })}</p>
+          {Object.values(bySource).map((aggregate) => (
+            <li key={aggregate.source}>
+              <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
+              <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{score(aggregate.score)}</p>
+              <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(aggregate.count) })}</p>
             </li>
           ))}
         </ul>
@@ -57,9 +55,11 @@ export async function ReviewsBlock({
       </div>
 
       {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
-      <div className="min-w-0 self-start lg:col-span-8">
-        <ReviewList initial={reviews.slice(0, 4)} total={total} />
-      </div>
+      {reviews.length ? (
+        <div className="min-w-0 self-start lg:col-span-8">
+          <ReviewList initial={reviews.slice(0, 4)} total={total} />
+        </div>
+      ) : null}
     </div>
   );
 }
