@@ -2,12 +2,13 @@
 
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 
 /**
- * A review quote that never breaks the grid: long ones are cut at five lines with a "Read more"
- * that opens the rest in place. Short ones show whole, with no button. The toggle never takes a
- * line of its own: small and grey at the right end of the last line (over the cut line's end
- * while closed, floated after the closing quote once open).
+ * A review quote that never breaks the grid: long ones are cut at five lines and open in place.
+ * Short ones show whole, with no control. The control is a small grey arrow that never takes a line
+ * of its own: ↓ over the end of the cut line, ↑ at the right end of the last line once open (the same
+ * arrows as "Show more reviews"); its label ("Read more" / "Show less") is for screen readers.
  */
 export function ReviewQuote({
   text,
@@ -37,34 +38,31 @@ export function ReviewQuote({
     return () => ro.disconnect();
   }, []);
 
-  const type = size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body";
-  const toggle = (label: string, className?: string) => (
+  const arrow = (label: string) => (
     <button
       type="button"
       onClick={() => setOpen((o) => !o)}
       aria-expanded={open}
-      className={clsx(
-        // Lighter than granite, still AA for small text on white (ink at 60% ≈ #767574, 4.6:1).
-        "text-small text-ink/60 underline underline-offset-4 transition-colors hover:text-ink",
-        className,
-      )}
+      aria-label={label}
+      title={label}
+      // Lighter than granite, still AA on white (ink at 60% ≈ #767574, 4.6:1).
+      className="align-[-0.15em] text-ink/60 transition-colors hover:text-ink"
     >
-      {label}
+      <Icon name={open ? "arrowUp" : "arrowDown"} size={18} strokeWidth={1.75} />
     </button>
   );
 
   return (
-    <div className={clsx("relative", type)}>
+    <div className={clsx("relative", size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body")}>
       <blockquote ref={ref} lang={lang} className={clsx(!open && "line-clamp-5")}>
         “{text}”
-        {/* Floats to the right end of the last line, or onto its own line only if there's no room;
-            the wrapper keeps the quote's line height so the small text shares its baseline. */}
-        {open ? <span className="float-right ml-4">{toggle(lessLabel)}</span> : null}
+        {/* Floats to the right end of the last line, or onto its own line only if there's no room. */}
+        {open ? <span className="float-right ml-4">{arrow(lessLabel)}</span> : null}
       </blockquote>
       {!open && clamped ? (
         // Sits on the last visible line, its gradient fading out the cut words underneath.
         <span className="absolute right-0 bottom-0 bg-[linear-gradient(to_right,transparent,var(--color-paper)_2.5rem)] pl-12">
-          {toggle(moreLabel)}
+          {arrow(moreLabel)}
         </span>
       ) : null}
     </div>
