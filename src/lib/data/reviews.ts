@@ -22,12 +22,18 @@ function strength(r: CuratedReview): number {
   return Math.min(words, 6) + (length >= 180 && length <= 420 ? 3 : length >= 120 ? 1 : 0);
 }
 
+/** A quote that can lead the home page: full and specific, not a list of facts ("Wine bar (paid), coffee…"). */
+const isFeatured = (r: CuratedReview) => strength(r) >= 5 && r.text.en.length >= 150 && !r.text.en.includes("(");
+/** Too thin for the home page at all (still shown on the flat's own page). */
+const isFlat = (r: CuratedReview) => strength(r) < 3 || r.text.en.length < 100 || /\(paid\)/i.test(r.text.en);
+
 /**
- * The strongest recent reviews across all homes, one per home so they cover different flats, shown
- * newest first: recent dates are what reassure, but the home page leads with the best of them.
+ * The strongest recent reviews across all homes, one per home so they cover different flats. The
+ * full, specific ones lead (newest first), then the plainer ones (newest first): visitors read the
+ * first page, so it gets the best of the recent quotes; recent dates are what reassure.
  */
 function homeSelection(): CuratedReview[] {
-  const all = Object.values(apartmentReviews).flat();
+  const all = Object.values(apartmentReviews).flat().filter((r) => !isFlat(r));
   const newest = all.reduce((max, r) => (r.date > max ? r.date : max), "");
   const since = new Date(Date.parse(newest) - HOME_WINDOW_DAYS * 864e5).toISOString().slice(0, 10);
   const byDate = (a: CuratedReview, b: CuratedReview) => b.date.localeCompare(a.date);
@@ -37,10 +43,8 @@ function homeSelection(): CuratedReview[] {
     ...all.filter((r) => r.date < since).sort(byDate),
   ];
   const seen = new Set<string | undefined>();
-  return ranked
-    .filter((r) => !seen.has(r.listingId) && seen.add(r.listingId))
-    .slice(0, HOME_COUNT)
-    .sort(byDate);
+  const picked = ranked.filter((r) => !seen.has(r.listingId) && seen.add(r.listingId)).slice(0, HOME_COUNT);
+  return [...picked.filter(isFeatured).sort(byDate), ...picked.filter((r) => !isFeatured(r)).sort(byDate)];
 }
 
 /**

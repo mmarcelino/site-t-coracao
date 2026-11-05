@@ -31,37 +31,39 @@ export async function ReviewsBlock({
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   return (
-    <div className="grid lg:grid-cols-12 lg:gap-x-10">
-      {/* Starts on an ink rule, level with the first quote's; on desktop the scores sit at the
-          bottom, level with the end of the first page of quotes (not with what "Show more" adds). */}
-      <div className="reveal mb-14 flex flex-col justify-between gap-12 border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1 lg:mb-0">
-        <div>
-          {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
-          <h2 id={headingId} className="text-h2">
-            {heading}
-          </h2>
-          {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
-          <p className="mt-4">
-            {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
-          </p>
-        </div>
-        <ul className="grid grid-cols-3 gap-4">
-          {Object.values(bySource).map((aggregate) => (
-            <li key={aggregate.source}>
-              <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
-              <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{score(aggregate.score)}</p>
-              <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(aggregate.count) })}</p>
-            </li>
-          ))}
-        </ul>
+    <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-16">
+      {/* On desktop the side column follows the quotes' two rows, each starting on an ink rule:
+          the headline beside the first two quotes, the scores beside the next two. */}
+      <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1">
+        {eyebrow ? <p className="label mb-5 text-granite">{eyebrow}</p> : null}
+        <h2 id={headingId} className="text-h2">
+          {heading}
+        </h2>
+        {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
+        <p className="mt-4">
+          {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
+        </p>
       </div>
+      <ul className="reveal mt-10 mb-14 grid grid-cols-3 gap-4 lg:col-span-4 lg:row-start-2 lg:m-0 lg:border-t-2 lg:border-ink lg:pt-6">
+        {Object.values(bySource).map((aggregate) => (
+          <li key={aggregate.source}>
+            <p className="label text-granite">{t(`source.${aggregate.source}`)}</p>
+            <p className="mt-1.5 text-[1.75rem] leading-none font-semibold tabular-nums">{score(aggregate.score)}</p>
+            <p className="mt-1.5 text-small text-granite">{t("basedOn", { count: format.number(aggregate.count) })}</p>
+          </li>
+        ))}
+      </ul>
 
-      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more". */}
+      {/* Four quotes (no carousel), more on request; long ones are cut at five lines with "Read more".
+          On desktop they share the side column's two rows (subgrid), so the ink rules line up. */}
       {reviews.length ? (
         <ReviewList
           initial={reviews.slice(0, 4)}
           total={total}
-          placement={{ first: "min-w-0 lg:col-span-8 lg:row-start-1", rest: "min-w-0 lg:col-span-8 lg:col-start-5" }}
+          placement={{
+            first: "min-w-0 lg:col-span-8 lg:col-start-5 lg:row-span-2 lg:row-start-1 lg:grid-rows-subgrid",
+            rest: "min-w-0 lg:col-span-8 lg:col-start-5 lg:mt-0",
+          }}
         />
       ) : null}
     </div>
