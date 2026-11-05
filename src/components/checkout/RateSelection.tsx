@@ -59,18 +59,15 @@ export function SelectedRateNote() {
   return <p className="text-small mt-3 text-right text-granite">{label(selected)}</p>;
 }
 
-/** One compact row per rate (name, saving, cancellation terms, total), as radio buttons; the chosen one is a light grey fill (a touch deeper than `sand`, which faded on some screens) with no outline. */
+/** One compact row per rate (cancellation terms, saving, total), as radio buttons; the chosen one is a light grey fill (a touch deeper than `sand`, which faded on some screens) with no outline. */
 export function RateChooser() {
   const t = useTranslations("checkout");
   const format = useFormat();
   const label = useRateLabel();
   const { quote, selected, select } = useRateSelection();
-  // What the guest is choosing between, in their words (Guesty's plan names, e.g. "Daily", are
-  // internal): the flexible rate, early booking, or non-refundable, with the saving against the
-  // flexible rate worked out from Guesty's prices. The discount is on the nights (cleaning and
-  // tourist tax don't change), so it's measured there: Guesty's "-10%" reads as 10%, not 9%.
-  const name = (option: RateOption) =>
-    option.nonRefundable ? t("rateNonRefundable") : /early/i.test(option.name) ? t("rateEarly") : t("rateFlexible");
+  // Each row says what the guest is choosing: until when they can cancel ("Non-refundable" when
+  // they can't), and the saving against the flexible rate, from Guesty's prices. The discount is on
+  // the nights (cleaning and tourist tax don't change), so it's measured there: "-10%" reads as 10%.
   const highest = Math.max(...quote.options.map((o) => o.accommodation));
   const saving = (option: RateOption) => Math.round((1 - option.accommodation / highest) * 100);
   return (
@@ -95,9 +92,8 @@ export function RateChooser() {
               className="size-4 shrink-0 accent-[var(--color-ink)] outline-none"
             />
             <span className="min-w-0 flex-1">
-              {name(option)}
+              {label(option)}
               {saving(option) ? ` · ${t("rateSaving", { percent: String(saving(option)) })}` : ""}
-              <span className="font-normal"> · {option.freeCancellationUntil ? label(option) : t("rateNoRefund")}</span>
             </span>
             <span className="whitespace-nowrap tabular-nums">{format.money(option.total, quote.currency)}</span>
           </label>
