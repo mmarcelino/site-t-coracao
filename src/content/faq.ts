@@ -436,7 +436,7 @@ export const faq: FaqItem[] = [
   {
     id: "airport",
     topic: "practical",
-    surfaces: [],
+    surfaces: ["experiences"],
     toConfirm: true,
     question: {
       pt: "Podem organizar transfer do aeroporto?",

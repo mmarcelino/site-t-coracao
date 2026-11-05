@@ -342,5 +342,72 @@
     "outdoor": "Exterior",
     "views": "Com vista",
     "remote-work": "Teletrabalho"
+  },
+  "forms": {
+    "optional": "opcional",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefone",
+    "message": "Mensagem",
+    "sent": "Obrigado, falamos em breve (pré-visualização)",
+    "sentBody": "No formulário real, a mensagem seguiria diretamente para a nossa equipa no Porto. Nesta pré-visualização, nada foi enviado.",
+    "previewNote": "Pré-visualização: ainda nada é enviado.",
+    "again": "Enviar outro"
+  },
+  "aboutPage": {
+    "figuresLabel": "A Tripas-Coração em números",
+    "founded": "o ano em que começámos",
+    "guests": "hóspedes por ano",
+    "homes": "casas no Porto",
+    "buildings": "edifícios",
+    "teamLabel": "A equipa",
+    "ctaTitle": "Venha ficar connosco.",
+    "ctaApartments": "Ver os apartamentos"
+  },
+  "experiencesPage": {
+    "pathsLabel": "Por onde começar",
+    "from": "desde {price}",
+    "perPerson": "por pessoa",
+    "perGroup": "privado, por grupo",
+    "priceOnRequest": "Preço sob consulta",
+    "priceVaries": "O preço depende do bilhete",
+    "with": "Com {partner}",
+    "ask": "Saber mais",
+    "askMessage": "Olá! Gostava de saber mais sobre: {experience}.",
+    "messagePlan": "Olá! Gostava de ajuda para planear experiências durante a minha estadia no Porto.",
+    "nameOnBooking": "Nome na reserva",
+    "guests": "Número de hóspedes",
+    "arrival": "Chegada",
+    "departure": "Partida",
+    "interests": "O que lhe interessa",
+    "format": "Privado ou partilhado?",
+    "private": "Privado",
+    "shared": "Partilhado",
+    "notSure": "Ainda não sei",
+    "message": "Mais alguma coisa? Datas flexíveis, celebrações, restrições alimentares…",
+    "submit": "Enviar pedido"
+  },
+  "ownersPage": {
+    "proof": "Desde {year} · mais de {guests} hóspedes por ano · {homes} casas no Porto",
+    "messageOwners": "Olá! Tenho um imóvel no Porto e gostava de saber mais sobre o vosso serviço de gestão.",
+    "location": "Onde fica o imóvel?",
+    "locationPlaceholder": "Rua ou zona, Porto",
+    "type": "Tipo de imóvel",
+    "typePlaceholder": "por exemplo, T2",
+    "status": "Em que ponto está?",
+    "operating": "Já funciona como alojamento local",
+    "starting": "Ainda não: estou a pensar começar",
+    "message": "Há algo que devamos saber?",
+    "submit": "Enviar"
+  },
+  "faqPage": {
+    "metaTitle": "Perguntas frequentes",
+    "metaDescription": "Reservar direto, check-in, cancelamento, taxa turística, elevadores, estadias longas e mais: respostas diretas da nossa equipa no Porto.",
+    "eyebrow": "Perguntas frequentes",
+    "title": "Respostas diretas.",
+    "lead": "Tudo o que os hóspedes costumam perguntar-nos antes e durante uma estadia no Porto. Se a sua pergunta não estiver aqui, fale com a equipa: respondemos das 10h às 22h.",
+    "topicsLabel": "Temas",
+    "moreTitle": "Ainda tem dúvidas?",
+    "moreBody": "A nossa equipa está no Porto e responde por WhatsApp das 10h às 22h, ou por email para {email}."
   }
 }

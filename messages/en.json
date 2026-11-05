@@ -342,5 +342,72 @@
     "outdoor": "Outdoor space",
     "views": "Views",
     "remote-work": "Remote work"
+  },
+  "forms": {
+    "optional": "optional",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "sent": "Thank you, we'll be in touch soon (preview)",
+    "sentBody": "In the real form, your message would go straight to our team in Porto. In this preview, nothing was sent.",
+    "previewNote": "Preview only: nothing is sent yet.",
+    "again": "Send another"
+  },
+  "aboutPage": {
+    "figuresLabel": "Tripas-Coração in numbers",
+    "founded": "the year we began",
+    "guests": "guests a year",
+    "homes": "homes in Porto",
+    "buildings": "buildings",
+    "teamLabel": "The team",
+    "ctaTitle": "Come and stay with us.",
+    "ctaApartments": "See the apartments"
+  },
+  "experiencesPage": {
+    "pathsLabel": "Where to start",
+    "from": "from {price}",
+    "perPerson": "per person",
+    "perGroup": "private, per group",
+    "priceOnRequest": "Price on request",
+    "priceVaries": "Price depends on the ticket",
+    "with": "With {partner}",
+    "ask": "Ask about it",
+    "askMessage": "Hello! I'd like to know more about: {experience}.",
+    "messagePlan": "Hello! I'd like some help planning experiences for my stay in Porto.",
+    "nameOnBooking": "Name on the booking",
+    "guests": "Number of guests",
+    "arrival": "Arrival",
+    "departure": "Departure",
+    "interests": "What interests you",
+    "format": "Private or shared?",
+    "private": "Private",
+    "shared": "Shared",
+    "notSure": "Not sure yet",
+    "message": "Anything else? Dates you're flexible on, celebrations, dietary needs…",
+    "submit": "Send request"
+  },
+  "ownersPage": {
+    "proof": "Since {year} · {guests}+ guests a year · {homes} homes in Porto",
+    "messageOwners": "Hello! I have a property in Porto and would like to know more about your management service.",
+    "location": "Where is the property?",
+    "locationPlaceholder": "Street or area, Porto",
+    "type": "Property type",
+    "typePlaceholder": "e.g. 2-bedroom apartment",
+    "status": "Where do things stand?",
+    "operating": "Already operating as short-term rental",
+    "starting": "Not yet: thinking of starting",
+    "message": "Anything we should know?",
+    "submit": "Send"
+  },
+  "faqPage": {
+    "metaTitle": "Frequently asked questions",
+    "metaDescription": "Booking direct, check-in, cancellation, tourist tax, lifts, long stays and more: straight answers from our team in Porto.",
+    "eyebrow": "FAQ",
+    "title": "Straight answers.",
+    "lead": "Everything guests usually ask us before and during a stay in Porto. If yours isn't here, ask the team: we reply from 10 am to 10 pm.",
+    "topicsLabel": "Topics",
+    "moreTitle": "Still have a question?",
+    "moreBody": "Our team is in Porto and replies on WhatsApp from 10 am to 10 pm, or by email at {email}."
   }
 }

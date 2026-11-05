@@ -4,7 +4,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { locales, type StaticPathname } from "@/i18n/routing";
 
 /** Every public page in both locales, with hreflang alternates (CLAUDE.md §10). */
-const PAGES: StaticPathname[] = ["/", "/apartments", "/terms", "/privacy", "/cookies"];
+const PAGES: StaticPathname[] = ["/", "/apartments", "/experiences", "/property-management", "/about", "/faq", "/terms", "/privacy", "/cookies"];
 
 type Href = Parameters<typeof absoluteUrl>[1];
 
