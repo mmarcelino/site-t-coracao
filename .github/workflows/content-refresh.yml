@@ -1,0 +1,20 @@
+# Placeholder until launch: lets the content refresh (scripts/auto-refresh.mjs) be run by hand with
+# "Run workflow" against a branch that has the scripts (e.g. api-version-0), to test it before
+# launch. No schedule here on purpose: main doesn't have the scripts yet. The full workflow, with
+# the monthly and weekly schedules, replaces this file when api-version-0 is merged.
+name: Content refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: What to refresh
+        type: choice
+        options: [reviews, descriptions]
+        default: reviews
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Run this workflow on a branch that has scripts/auto-refresh.mjs (e.g. api-version-0)."
