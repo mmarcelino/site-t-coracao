@@ -182,7 +182,8 @@
     "readMore": "Read more",
     "readLess": "Show less",
     "showMore": "Show more reviews",
-    "showFewer": "Show fewer"
+    "showFewer": "Show fewer",
+    "guestsSince": "More than {guests} guests a year since {year}"
   },
   "home": {
     "metaTitle": "Tripas-Coração · Apartments in historic Porto buildings",

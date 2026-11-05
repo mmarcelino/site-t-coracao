@@ -26,12 +26,11 @@ export async function ReviewsBlock({
   total?: number;
 }) {
   const t = await getTranslations("reviews");
-  const tr = await getTranslations("reassurance");
   const format = createFormatter(await getLocale());
   const score = (n: number) => format.number(n, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   return (
-    <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-16">
+    <div className="grid lg:grid-cols-12 lg:gap-x-10 lg:gap-y-10">
       {/* On desktop the side column follows the quotes' two rows: the headline on the thick ink rule
           beside the first two quotes, the scores level with the top of the next two. */}
       <div className="reveal border-t-2 border-ink pt-6 lg:col-span-4 lg:row-start-1">
@@ -41,7 +40,7 @@ export async function ReviewsBlock({
         </h2>
         {/* Volume backs the scores: one quiet line under the headline, not a fourth big figure. */}
         <p className="mt-4">
-          {tr("since", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
+          {t("guestsSince", { year: String(site.foundedYear), guests: format.number(site.guestsPerYear) })}
         </p>
       </div>
       <ul className="reveal mt-10 mb-14 grid grid-cols-3 gap-4 lg:col-span-4 lg:row-start-2 lg:m-0 lg:pt-6">

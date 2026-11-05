@@ -63,7 +63,7 @@ export function ReviewList({
     list.current?.scrollIntoView({ block: "start" });
   };
 
-  const grid = clsx("grid gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-16");
+  const grid = clsx("grid gap-x-8 sm:grid-cols-2", listingId ? "gap-y-12 lg:grid-cols-3" : "gap-y-10");
   // Home: the top row opens on the thick ink rule (as the headline beside it); later rows have no
   // rule, just space. On phones only the first quote has it.
   const rule = (index: number) =>
@@ -93,7 +93,7 @@ export function ReviewList({
         {loaded.slice(0, initial.length).map((review, i) => item(review, i))}
       </ul>
       {shown > initial.length ? (
-        <ul className={clsx(grid, listingId ? "mt-12" : "mt-16", placement?.rest)}>
+        <ul className={clsx(grid, listingId ? "mt-12" : "mt-10", placement?.rest)}>
           {loaded.slice(initial.length, shown).map((review) => item(review, Infinity))}
         </ul>
       ) : null}
