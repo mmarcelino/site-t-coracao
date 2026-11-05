@@ -10,7 +10,7 @@ import type { Locale, Review, ReviewAggregate, ReviewSource } from "./types";
  */
 
 /** Home quotes: drawn from the apartments' own, so each refresh updates the home page too. */
-const HOME_COUNT = 12;
+const HOME_COUNT = 30;
 /** Only reviews from the last three months (counted back from the newest) go on the home page. */
 const HOME_WINDOW_DAYS = 90;
 /** What makes a quote worth leading with: about the place and the people, not just "great stay". */
