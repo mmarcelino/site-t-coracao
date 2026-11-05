@@ -191,7 +191,7 @@ Set up Playwright (dev dependency) early and use it to check your own visual wor
 - [ ] Exact number of apartments and buildings, and the building/flat mapping (site says 41–42; brief says 50+). *Research 2026-10-26: the public Guesty booking site lists 42 listings across ~10 street addresses (see §16); client to confirm.*
 - [ ] Payment method: GuestyPay or Stripe through Guesty? (Architecture decided 2026-11-04, see §16; only the provider is open.)
 - [ ] Rate plans (live quotes show Daily "semi_moderate" = free cancellation until 5 days before, Early Book −10% "strict" = 60 days, Non-Refundable −10%): checkout now lets guests choose between them (since 2026-11-04), most flexible preselected; options a more flexible one beats on price are hidden. Confirm the preselection (most flexible vs cheapest). Guesty's Daily plan (5 days) confirms the client's terms; the site's "14 days" copy is wrong.
-- [ ] Exact free-cancellation cut-off: the site says "Free cancellation until <check-in − N days>" (2026-11-05). Is it until the check-in hour (15:00) on that day, or midnight? If the check-in hour, show "until 25 Nov, 15:00".
+- [ ] Exact free-cancellation cut-off: the site says "Free cancellation before <check-in − N days>" (conservative on purpose, 2026-11-05). Is it until the check-in hour (15:00) on that day, or midnight? Once confirmed, show the exact "until 25 Nov, 15:00".
 - [ ] Booking-engine price markup: a live quote charged 188 €/night where Guesty's own daily rate was 150 € (~25% more). Intended (set on the BE API instance), or to remove?
 - [x] Instant booking or inquiry-first? **Both** (2026-11-04): guests can book instantly or request to book. BE API keys are set to "both".
 - [ ] Book-direct perks the client is happy to commit to
