@@ -15,14 +15,11 @@ export function ReviewQuote({
   lang,
   moreLabel,
   lessLabel,
-  size = "lg",
 }: {
   text: string;
   lang: string;
   moreLabel: string;
   lessLabel: string;
-  /** lg: the home page's big quotes; md: body size (apartment pages). */
-  size?: "lg" | "md";
 }) {
   const ref = useRef<HTMLQuoteElement>(null);
   const [open, setOpen] = useState(false);
@@ -53,7 +50,7 @@ export function ReviewQuote({
   );
 
   return (
-    <div className={clsx("relative", size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body")}>
+    <div className="relative text-body">
       <blockquote ref={ref} lang={lang} className={clsx(!open && "line-clamp-5")}>
         “{text}”
         {/* Floats to the right end of the last line, or onto its own line only if there's no room. */}
