@@ -1,4 +1,5 @@
 import type { Localized, Review, ReviewAggregate } from "@/lib/data/types";
+import scores from "./review-scores.json";
 
 /**
  * Guest reviews shown on the site: a fixed, hand-picked selection (not a live feed). Each is a real
@@ -164,12 +165,12 @@ export const curatedReviews: CuratedReview[] = [
 
 /**
  * Scores, each on its platform's own scale. Airbnb and Booking.com: averages of every guest review
- * in Guesty on 2026-11-05 (not the platforms' own displayed figures, which can weigh recent reviews
- * differently). Google: read by hand from "Tripas-Coração (Office)" on 2026-10-30. Refresh by hand
- * every few months. TO CONFIRM before launch.
+ * in Guesty on the date in `review-scores.json` (not the platforms' own displayed figures, which can
+ * weigh recent reviews differently), updated by `pnpm reviews:apply`. Google: read by hand from
+ * "Tripas-Coração (Office)" on 2026-10-30. TO CONFIRM before launch.
  */
 export const reviewScores: ReviewAggregate[] = [
   { source: "google", score: 4.9, outOf: 5, count: 516, mock: false },
-  { source: "airbnb", score: 4.9, outOf: 5, count: 4714, mock: false },
-  { source: "booking", score: 9.1, outOf: 10, count: 4301, mock: false },
+  { source: "airbnb", score: scores.airbnb.score, outOf: 5, count: scores.airbnb.count, mock: false },
+  { source: "booking", score: scores.booking.score, outOf: 10, count: scores.booking.count, mock: false },
 ];

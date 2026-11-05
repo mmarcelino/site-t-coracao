@@ -10,7 +10,9 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "playwright test --project=smoke --project=a11y",
     "screenshots": "playwright test --project=screenshots",
-    "check:deploy": "node scripts/check-deploy.mjs"
+    "check:deploy": "node scripts/check-deploy.mjs",
+    "reviews:fetch": "node scripts/reviews.mjs fetch",
+    "reviews:apply": "node scripts/reviews.mjs apply"
   },
   "dependencies": {
     "clsx": "^2.1.1",
