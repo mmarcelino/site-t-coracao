@@ -4,7 +4,8 @@ import type { ReviewSource } from "@/lib/data";
 /**
  * Review source marks in their brand colours: Google's four-colour "G", Airbnb's Rausch mark (path
  * from Simple Icons, CC0; the marks remain their owners' trademarks). Booking.com has no free mark
- * (removed from Simple Icons at its request), so it's set as type, "B." in its two blues. TO CONFIRM
+ * (removed from Simple Icons at its request), so it's set as type, "B." in its two blues (its brighter interface blue for the "B", so it never reads
+ * as a guest's black initial). TO CONFIRM
  * against each brand's guidelines before launch.
  */
 const airbnb =
@@ -15,7 +16,7 @@ export function SourceIcon({ source, label, size = 16, className }: { source: Re
     <span className={clsx("inline-flex shrink-0 items-center", className)} title={label}>
       {source === "booking" ? (
         <span aria-hidden className="font-bold leading-none tracking-[-0.04em]" style={{ fontSize: size * 1.05 }}>
-          <span className="text-[#003580]">B</span>
+          <span className="text-[#006ce4]">B</span>
           <span className="text-[#009fe3]">.</span>
         </span>
       ) : source === "airbnb" ? (
