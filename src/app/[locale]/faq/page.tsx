@@ -31,7 +31,7 @@ export default async function FaqPage() {
 
   return (
     <>
-      <PageIntro eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")}>
+      <PageIntro title={t("title")} lead={t("lead")}>
         <nav aria-label={t("topicsLabel")} className="mt-8">
           <ul className="flex flex-wrap gap-2">
             {topics.map(({ topic }) => (

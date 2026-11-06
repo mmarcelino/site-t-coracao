@@ -360,7 +360,6 @@
     "guests": "guests a year",
     "homes": "homes in Porto",
     "buildings": "buildings",
-    "teamLabel": "The team",
     "ctaTitle": "Come and stay with us.",
     "ctaApartments": "See the apartments"
   },
@@ -403,7 +402,6 @@
   "faqPage": {
     "metaTitle": "Frequently asked questions",
     "metaDescription": "Booking direct, check-in, cancellation, tourist tax, lifts, long stays and more: straight answers from our team in Porto.",
-    "eyebrow": "FAQ",
     "title": "Straight answers.",
     "lead": "Everything guests usually ask us before and during a stay in Porto. If yours isn't here, ask the team: we reply from 10 am to 10 pm.",
     "topicsLabel": "Topics",

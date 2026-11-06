@@ -35,7 +35,6 @@ export default async function OwnersPage() {
   return (
     <>
       <PageIntro
-        eyebrow={copy.eyebrow[locale]}
         title={copy.title[locale]}
         lead={copy.lead[locale]}
         image={{ src: copy.image.src, alt: copy.image.alt[locale] }}
@@ -59,9 +58,8 @@ export default async function OwnersPage() {
         </h2>
         <div className="mt-12 grid gap-12 md:grid-cols-2 md:gap-8 lg:mt-16">
           {copy.audiences.items.map((a) => (
-            <article key={a.label.en} className="reveal border-t-2 border-ink pt-5">
-              <p className="label text-granite">{a.label[locale]}</p>
-              <h3 className="text-h3 mt-6 max-w-md">{a.title[locale]}</h3>
+            <article key={a.title.en} className="reveal border-t-2 border-ink pt-5">
+              <h3 className="text-h3 max-w-md">{a.title[locale]}</h3>
               <p className="mt-4 max-w-lg">{a.body[locale]}</p>
             </article>
           ))}

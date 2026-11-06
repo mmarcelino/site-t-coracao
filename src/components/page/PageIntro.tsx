@@ -2,17 +2,15 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 
 /**
- * Opening of the editorial pages (about, experiences, owners, FAQ): eyebrow, a large light
- * headline, the lead set to the right on wide screens, then (optionally) one wide photo, the LCP.
+ * Opening of the editorial pages (about, experiences, owners, FAQ): a large light headline, the
+ * lead set to the right on wide screens, then (optionally) one wide photo, the LCP.
  */
 export function PageIntro({
-  eyebrow,
   title,
   lead,
   children,
   image,
 }: {
-  eyebrow: string;
   title: string;
   lead: string;
   /** Under the lead: a proof line, buttons… */
@@ -22,8 +20,7 @@ export function PageIntro({
   return (
     <>
       <header className="container-page pt-[clamp(3rem,7vw,6rem)]">
-        <p className="label text-granite">{eyebrow}</p>
-        <h1 className="text-h1 mt-5 max-w-5xl text-balance">{title}</h1>
+        <h1 className="text-h1 max-w-5xl text-balance">{title}</h1>
         <div className="mt-8 grid lg:mt-12 lg:grid-cols-12">
           <div className="lg:col-span-6 lg:col-start-7">
             <p className="text-lead">{lead}</p>

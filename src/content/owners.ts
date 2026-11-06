@@ -105,7 +105,6 @@ export const ownersPage = {
       en: "Full short-term rental management in Porto since 2015: feasibility, licensing, set-up, operations, revenue and reporting. A limited number of properties.",
     },
   },
-  eyebrow: { pt: "Para proprietários", en: "For owners" },
   title: { pt: "Não gerimos imóveis. Gerimos ativos.", en: "We don't manage properties. We manage assets." },
   lead: {
     pt: "Gestão de alojamento local no Porto, de ponta a ponta, para proprietários que querem resultados consistentes e saber sempre onde estão.",
@@ -122,7 +121,6 @@ export const ownersPage = {
     title: { pt: "Para dois tipos de proprietário", en: "For two kinds of owner" },
     items: [
       {
-        label: { pt: "Já em funcionamento", en: "Already operating" },
         title: { pt: "Bons meses, maus meses, e pouca certeza.", en: "Good months, bad months, and little certainty." },
         body: {
           pt: "Muitos imóveis funcionam, mas sem a estrutura para render de forma consistente: ocupação irregular, avaliações a oscilar, demasiado tempo gasto em imprevistos. É aí que entramos.",
@@ -130,14 +128,13 @@ export const ownersPage = {
         },
       },
       {
-        label: { pt: "A pensar começar", en: "Thinking of starting" },
         title: { pt: "Começar certo, desde o primeiro dia.", en: "Start right, from day one." },
         body: {
           pt: "Se está a ponderar o alojamento local pela primeira vez, ajudamos a perceber se faz sentido e, se fizer, a montá-lo com estratégia desde o início: licença, casa, anúncios e preço.",
           en: "If you're considering short-term rental for the first time, we help you see whether it makes sense and, if it does, set it up with a strategy from the start: licence, home, listings and pricing.",
         },
       },
-    ] satisfies Array<{ label: Localized; title: Localized; body: Localized }>,
+    ] satisfies Array<{ title: Localized; body: Localized }>,
   },
   approach: {
     title: { pt: "O que nos distingue", en: "What sets us apart" },

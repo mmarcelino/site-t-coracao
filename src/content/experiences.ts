@@ -173,7 +173,6 @@ export const experiencesPage = {
       en: "Tours, tastings and days out with the local partners we know and recommend, plus a digital guide for every stay.",
     },
   },
-  eyebrow: { pt: "Experiências", en: "Experiences" },
   title: { pt: "O Porto que mostramos aos amigos.", en: "The Porto we show our friends." },
   lead: {
     pt: "Gostamos de partilhar a cidade para lá dos postais: as tascas onde comemos, o rio visto de dentro, os dias fora que valem o caminho. Juntámos as pessoas que conhecemos e em quem confiamos.",
@@ -227,7 +226,6 @@ export const experiencesPage = {
     },
   },
   portal: {
-    eyebrow: { pt: "Incluído em cada estadia", en: "Included with every stay" },
     title: { pt: "O seu guia digital do Porto", en: "Your digital guide to Porto" },
     body: {
       pt: "Antes de chegar, recebe o acesso ao nosso guia: tudo o que precisa para a estadia, no telemóvel, ao seu ritmo.",

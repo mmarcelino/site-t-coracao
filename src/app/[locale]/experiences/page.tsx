@@ -135,7 +135,6 @@ export default async function ExperiencesPage() {
   return (
     <>
       <PageIntro
-        eyebrow={copy.eyebrow[locale]}
         title={copy.title[locale]}
         lead={copy.lead[locale]}
         image={{ src: copy.image.src, alt: copy.image.alt[locale] }}
@@ -163,8 +162,7 @@ export default async function ExperiencesPage() {
       <section aria-labelledby="portal-title" className="mt-[clamp(3rem,6vw,5rem)] bg-sand">
         <div className="container-page section-y-tight grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="label text-granite">{copy.portal.eyebrow[locale]}</p>
-            <h2 id="portal-title" className="text-h2 reveal mt-5">
+            <h2 id="portal-title" className="text-h2 reveal">
               {copy.portal.title[locale]}
             </h2>
             <p className="text-lead mt-6">{copy.portal.body[locale]}</p>

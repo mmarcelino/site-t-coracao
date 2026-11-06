@@ -13,7 +13,6 @@ export const about = {
       en: "Since 2015, a Porto team bringing together the art of hosting and the restoration of the city's heritage.",
     },
   },
-  eyebrow: { pt: "No Porto desde 2015", en: "In Porto since 2015" },
   title: { pt: "Fazer das tripas coração.", en: "Fazer das tripas coração." },
   titleNote: {
     pt: "Dar tudo o que se tem, e mais um pouco. É assim que trabalhamos, e foi o nome que escolhemos.",

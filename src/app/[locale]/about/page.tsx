@@ -42,7 +42,6 @@ export default async function AboutPage() {
   return (
     <>
       <PageIntro
-        eyebrow={about.eyebrow[locale]}
         title={about.title[locale]}
         lead={about.titleNote[locale]}
         image={{ src: about.image.src, alt: about.image.alt[locale] }}
@@ -76,8 +75,7 @@ export default async function AboutPage() {
 
       <section aria-labelledby="team-title" className="container-page section-y grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <p className="label text-granite">{t("teamLabel")}</p>
-          <h2 id="team-title" className="text-h2 reveal mt-5">
+          <h2 id="team-title" className="text-h2 reveal">
             {about.team.title[locale]}
           </h2>
           <div className="mt-8 space-y-5">
