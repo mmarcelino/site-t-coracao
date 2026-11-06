@@ -43,21 +43,17 @@ export default async function AboutPage() {
     <>
       <PageIntro
         title={about.title[locale]}
-        lead={about.titleNote[locale]}
+        lead={[about.titleNote[locale], about.lead[locale]]}
         image={{ src: about.image.src, alt: about.image.alt[locale] }}
-      >
-        <p className="mt-6">{about.lead[locale]}</p>
-      </PageIntro>
+      />
 
       <section aria-labelledby="story-title" className="container-page section-y grid gap-10 lg:grid-cols-12">
         <h2 id="story-title" className="text-h2 reveal lg:col-span-5">
           {about.story.title[locale]}
         </h2>
-        <div className="space-y-6 lg:col-span-6 lg:col-start-7">
+        <div className="space-y-5 text-[1.25rem] leading-[1.5] lg:col-span-6 lg:col-start-7">
           {about.story.body[locale].map((p, i) => (
-            <p key={i} className={i === 0 ? "text-lead" : undefined}>
-              {p}
-            </p>
+            <p key={i}>{p}</p>
           ))}
         </div>
       </section>
