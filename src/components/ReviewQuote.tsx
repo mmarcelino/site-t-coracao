@@ -2,24 +2,24 @@
 
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 
 /**
- * A review quote that never breaks the grid: long ones are cut at five lines with a "Read more"
- * that opens the rest in place. Short ones show whole, with no button.
+ * A review quote that never breaks the grid: long ones are cut at four lines and open in place.
+ * Short ones show whole, with no control. The control is a small grey arrow that never takes a line
+ * of its own: ↓ over the end of the cut line, ↑ at the right end of the last line once open (the same
+ * arrows as "Show more reviews"); its label ("Read more" / "Show less") is for screen readers.
  */
 export function ReviewQuote({
   text,
   lang,
   moreLabel,
   lessLabel,
-  size = "lg",
 }: {
   text: string;
   lang: string;
   moreLabel: string;
   lessLabel: string;
-  /** lg: the home page's big quotes; md: body size (apartment pages). */
-  size?: "lg" | "md";
 }) {
   const ref = useRef<HTMLQuoteElement>(null);
   const [open, setOpen] = useState(false);
@@ -35,25 +35,33 @@ export function ReviewQuote({
     return () => ro.disconnect();
   }, []);
 
+  const arrow = (label: string) => (
+    <button
+      type="button"
+      onClick={() => setOpen((o) => !o)}
+      aria-expanded={open}
+      aria-label={label}
+      title={label}
+      // Lighter than granite, still AA on white (ink at 60% ≈ #767574, 4.6:1).
+      className="align-[-0.15em] text-ink/60 transition-colors hover:text-ink"
+    >
+      <Icon name={open ? "arrowUp" : "arrowDown"} size={18} strokeWidth={1.75} />
+    </button>
+  );
+
   return (
-    <>
-      <blockquote
-        ref={ref}
-        lang={lang}
-        className={clsx(size === "lg" ? "text-[1.25rem] leading-[1.5]" : "text-body", !open && "line-clamp-5")}
-      >
+    <div className="relative text-body">
+      <blockquote ref={ref} lang={lang} className={clsx(!open && "line-clamp-4")}>
         “{text}”
+        {/* Floats to the right end of the last line, or onto its own line only if there's no room. */}
+        {open ? <span className="float-right ml-4">{arrow(lessLabel)}</span> : null}
       </blockquote>
-      {clamped || open ? (
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-expanded={open}
-          className="mt-2 text-small underline underline-offset-4 hover:no-underline"
-        >
-          {open ? lessLabel : moreLabel}
-        </button>
+      {!open && clamped ? (
+        // Sits on the last visible line, its gradient fading out the cut words underneath.
+        <span className="absolute right-0 bottom-0 bg-[linear-gradient(to_right,transparent,var(--color-paper)_2.5rem)] pl-12">
+          {arrow(moreLabel)}
+        </span>
       ) : null}
-    </>
+    </div>
   );
 }

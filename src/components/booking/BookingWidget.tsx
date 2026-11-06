@@ -1,9 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DateRange } from "react-day-picker";
+import { getPathname } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 import { requestBlockedNights, requestQuote } from "@/lib/actions/booking";
 import { track } from "@/lib/analytics";
 import { site } from "@/content/site";
@@ -16,13 +18,16 @@ import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { DateRangeCalendar } from "./DateRangeCalendar";
 import { PriceBreakdown } from "./PriceBreakdown";
 import { Reassurance } from "./Reassurance";
+import { useRateLabel } from "@/components/checkout/RateSelection";
 
 export interface BookingListing {
   id: string;
+  slug: string;
   buildingId: string;
   title: string;
   buildingName: string;
-  basePrice: number;
+  /** Lowest bookable nightly rate (the card's "from" price). */
+  fromPrice: number;
   currency: string;
   minNights: number;
   accommodates: number;
@@ -33,12 +38,14 @@ export interface BookingListing {
 type QuoteState = { status: "idle" } | { status: "loading" } | { status: "done"; result: QuoteResult };
 
 /**
- * Booking widget (UI only, mock data — CLAUDE.md §2). Desktop: sticky card beside the content.
+ * Booking widget (live Guesty availability and quotes when keys are set; "Reserve" opens the
+ * checkout, still a demo, CLAUDE.md §2). Desktop: sticky card beside the content.
  * Mobile: a compact bar pinned to the bottom that opens a full-screen sheet. One state for both.
  * Quotes and availability come through server actions, the seam for Guesty's Booking Engine API.
  */
 export function BookingWidget({ listing }: { listing: BookingListing }) {
   const t = useTranslations();
+  const locale = useLocale() as Locale;
   const format = useFormat();
   const [range, setRange] = useState<DateRange | undefined>();
   const [guests, setGuests] = useState(Math.min(2, listing.accommodates));
@@ -48,7 +55,6 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   const [sheetCalendar, setSheetCalendar] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [quote, setQuote] = useState<QuoteState>({ status: "idle" });
-  const [demoNotice, setDemoNotice] = useState(false);
   const opened = useRef(false);
   const sheetClose = useRef<HTMLButtonElement>(null);
   const sheetTrigger = useRef<HTMLButtonElement>(null);
@@ -89,7 +95,6 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
     }
     let cancelled = false;
     setQuote({ status: "loading" });
-    setDemoNotice(false);
     const nights = nightsBetween(checkIn, checkOut);
     track("dates_selected", { listingId: listing.id, checkIn, checkOut, nights });
     requestQuote({ listingId: listing.id, checkIn, checkOut, guests }).then(
@@ -123,6 +128,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   }, [sheetOpen]);
 
   const okQuote = quote.status === "done" && quote.result.ok ? quote.result.quote : null;
+  const rateLabel = useRateLabel();
 
   function onReserve() {
     if (!okQuote) return;
@@ -132,7 +138,16 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
       guests: okQuote.guests,
       total: okQuote.total,
     });
-    setDemoNotice(true);
+    // A full page load, not a client navigation: checkout must start without any third-party
+    // script that may be running on this page (CLAUDE.md §16, payments).
+    const query = new URLSearchParams({
+      listing: listing.slug,
+      checkIn: okQuote.checkIn,
+      checkOut: okQuote.checkOut,
+      guests: String(okQuote.guests),
+    });
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- full load on purpose (above)
+    window.location.assign(`${getPathname({ locale, href: "/checkout" })}?${query}`);
   }
 
   const whatsappMessage =
@@ -153,6 +168,8 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         return t("booking.minNights", { count: result.minNights ?? listing.minNights });
       case "max-guests":
         return t("booking.tooManyGuests", { count: listing.accommodates });
+      case "error":
+        return t("booking.quoteError");
       default:
         return t("booking.invalid");
     }
@@ -272,16 +289,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         >
           {t("booking.reserve")}
         </button>
-        <p className="text-small mt-3 text-center text-granite">
-          {demoNotice ? (
-            <span role="status" className="text-ink">
-              <span className="label mr-2 bg-azulejo-tint px-1.5 py-0.5 text-azulejo">{t("common.demo")}</span>
-              {t("booking.demoNote")}
-            </span>
-          ) : (
-            t("booking.noChargeYet")
-          )}
-        </p>
+        <p className="text-small mt-3 text-center text-granite">{t("booking.noChargeYet")}</p>
       </div>
     </div>
   );
@@ -290,7 +298,7 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
   const price = (
     <p className="whitespace-nowrap">
       <span className="text-small text-granite">{t("common.from")} </span>
-      <span className="text-h3 font-semibold">{money(listing.basePrice)}</span>
+      <span className="text-h3 font-semibold">{money(listing.fromPrice)}</span>
       <span className="text-small text-granite"> {t("common.perNight")}</span>
     </p>
   );
@@ -314,7 +322,8 @@ export function BookingWidget({ listing }: { listing: BookingListing }) {
         <Icon name="whatsapp" size={16} className="mt-0.5 shrink-0" />
         <span className="link-quiet">{t("whatsapp.cta")}</span>
       </WhatsAppLink>
-      <Reassurance />
+      {/* With a price on screen, the real cancellation terms of that rate replace the generic line. */}
+      <Reassurance cancellation={okQuote?.options[0] ? rateLabel(okQuote.options[0]) : undefined} />
     </div>
   );
 

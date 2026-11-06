@@ -23,8 +23,8 @@ export const perks: Perk[] = [
     id: "flexible",
     title: { pt: "Cancelamento flexível", en: "Flexible cancellation" },
     body: {
-      pt: "Planos mudam. Cancelamento gratuito até 14 dias antes da chegada.",
-      en: "Plans change. Free cancellation up to 14 days before arrival.",
+      pt: "Planos mudam. Na tarifa flexível, cancela sem custos até 5 dias antes da chegada.",
+      en: "Plans change. On our flexible rate, cancel free of charge up to 5 days before arrival.",
     },
   },
   {

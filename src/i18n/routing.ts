@@ -23,8 +23,6 @@ export const routing = defineRouting({
     "/apartments/[slug]": { pt: "/apartamentos/[slug]", en: "/apartments/[slug]" },
     "/buildings": { pt: "/edificios", en: "/buildings" },
     "/buildings/[slug]": { pt: "/edificios/[slug]", en: "/buildings/[slug]" },
-    "/neighbourhoods": { pt: "/bairros", en: "/neighbourhoods" },
-    "/neighbourhoods/[slug]": { pt: "/bairros/[slug]", en: "/neighbourhoods/[slug]" },
     "/experiences": { pt: "/experiencias", en: "/experiences" },
     "/property-management": { pt: "/gestao-alojamento-local", en: "/property-management" },
     "/about": { pt: "/sobre-nos", en: "/about" },

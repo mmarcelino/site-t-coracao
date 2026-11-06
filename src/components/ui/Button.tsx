@@ -24,7 +24,8 @@ export function buttonClasses(
       fluid: "min-h-14 px-8 text-[1.0625rem]",
     }[size],
     {
-      primary: "bg-ink text-paper hover:bg-azulejo",
+      // A quiet hover: the same ink, a touch lighter (no colour change).
+      primary: "bg-ink text-paper hover:bg-ink/85",
       secondary: "border-[1.5px] border-ink text-ink hover:bg-ink hover:text-paper",
       ghost: "px-0 h-auto text-ink link-quiet",
       light: "bg-paper text-ink hover:bg-white",

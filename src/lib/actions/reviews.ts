@@ -5,8 +5,8 @@ import { getReviewPage, type Review } from "@/lib/data";
 
 /**
  * "Show more reviews" on the home page (four at a time) and on apartment pages (`listingId`, three
- * at a time). The seam for the real sources: later this pages through
- * Guesty/Google instead of the mocks. Inputs are validated because server actions are public endpoints.
+ * at a time), from the hand-picked reviews in `src/content/`. Inputs are validated because server
+ * actions are public endpoints.
  */
 export async function requestReviews(locale: string, offset: number, listingId?: string): Promise<Review[]> {
   if (!isLocale(locale) || !Number.isInteger(offset) || offset < 0) return [];

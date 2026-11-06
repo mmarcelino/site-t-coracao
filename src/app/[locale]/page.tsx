@@ -46,22 +46,22 @@ export default async function HomePage() {
   const tr = await getTranslations("reviews");
   const [listings, summary, reviews] = await Promise.all([
     getListings(locale),
-    getReviewSummary(locale),
+    getReviewSummary(),
     getReviewPage(locale, { limit: 4 }),
   ]);
   const maxGuests = Math.max(...listings.map((l) => l.accommodates));
   const format = createFormatter(locale);
   const slides = heroSlides.map(({ key, image, alt }) => ({ key, image: { src: image, alt: alt[locale] } }));
-  // Hero: the Google rating, as shown on Google (whole business, checkable by guests).
-  // Hero: the real Google score, plus every guest review across platforms (counts add up honestly,
-  // scores on different scales don't), rounded down to the thousand. TO CONFIRM: the Airbnb and
-  // Booking.com totals are placeholders until Guesty is connected.
-  const google = summary.bySource.google;
+  // Hero: the Google score (whole business, checkable by guests), plus every guest review across
+  // platforms (counts add up honestly, scores on different scales don't), rounded down to the
+  // thousand (to the hundred below 1 000, i.e. Google alone without Guesty).
   const sources = Object.values(summary.bySource);
   const totalReviews = sources.reduce((sum, s) => sum + s.count, 0);
+  const step = totalReviews >= 1000 ? 1000 : 100;
+  const google = summary.bySource.google;
   const rating = {
     score: format.number(google.score, { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
-    count: format.number(Math.floor(totalReviews / 1000) * 1000),
+    count: format.number(Math.floor(totalReviews / step) * step),
     mock: sources.some((s) => s.mock),
   };
 
@@ -74,7 +74,7 @@ export default async function HomePage() {
       <BookDirect />
 
       <section aria-labelledby="reviews-title" className="container-page section-y lg:py-[clamp(8rem,11vw,12rem)]">
-        {/* Google now; Airbnb and Booking.com aggregates join when Guesty is connected. */}
+        {/* Google (by hand for now) beside Airbnb and Booking.com from Guesty. */}
         <ReviewsBlock
           bySource={summary.bySource}
           reviews={reviews.reviews}

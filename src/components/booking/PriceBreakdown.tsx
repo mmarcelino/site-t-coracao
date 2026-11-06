@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import type { Quote } from "@/lib/data/types";
 import { useFormat } from "@/lib/format";
 
-/** Itemised mock quote. Every line Guesty will return is shown, so the layout is final. */
+/** Itemised quote (Guesty's, or the mock). The lines always add up to the total. */
 export function PriceBreakdown({ quote }: { quote: Quote }) {
   const t = useTranslations();
   const format = useFormat();
@@ -20,6 +20,7 @@ export function PriceBreakdown({ quote }: { quote: Quote }) {
       : []),
     ...(quote.extraGuestFee ? [{ label: t("booking.extraGuests"), amount: quote.extraGuestFee }] : []),
     { label: t("booking.cleaning"), amount: quote.cleaningFee },
+    ...(quote.otherFees ? [{ label: t("booking.otherFees"), amount: quote.otherFees }] : []),
     { label: t("booking.touristTax"), amount: quote.touristTax, muted: true },
   ];
 

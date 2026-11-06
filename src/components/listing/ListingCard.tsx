@@ -61,8 +61,8 @@ export async function ListingCard({
           </Link>
         </h3>
         <p className="col-start-1 row-start-2 mt-1 text-small">
-          {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })} ·{" "}
-          {t("common.area", { count: listing.areaSqm })}
+          {t(`categories.${listing.category}`)} · {t("common.guests", { count: listing.accommodates })}
+          {listing.areaSqm ? ` · ${t("common.area", { count: listing.areaSqm })}` : null}
         </p>
         <p className="col-start-1 row-start-3 mt-1.5 flex items-center gap-1.5 text-small text-granite">
           <Icon name="pin" size={14} strokeWidth={1.75} className="shrink-0" />
@@ -77,7 +77,7 @@ export async function ListingCard({
         <p className="col-start-2 row-span-2 row-start-2 self-end text-right text-small text-granite">
           <span className="block">{t("common.from")}</span>
           <span className="block">
-            {format.money(listing.price.base.amount, listing.price.base.currency)} {t("common.perNight")}
+            {format.money(listing.price.from.amount, listing.price.from.currency)} {t("common.perNight")}
           </span>
         </p>
       </div>

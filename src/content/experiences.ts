@@ -159,3 +159,109 @@ export const experiences: Experience[] = [
     },
   },
 ];
+
+/**
+ * Experiences page copy (tripas-coracao.pt/pt/experiences-your-guest-portal, rewritten): the three
+ * ways in (short stay, longer stay, getting around), the guest portal, and the team's own map and
+ * Viator picks. Links are the client's own, as published there.
+ */
+export const experiencesPage = {
+  meta: {
+    title: { pt: "Experiências no Porto e no Norte", en: "Experiences in Porto and the North" },
+    description: {
+      pt: "Passeios, provas e dias fora com os parceiros locais que conhecemos e recomendamos, mais um guia digital para cada estadia.",
+      en: "Tours, tastings and days out with the local partners we know and recommend, plus a digital guide for every stay.",
+    },
+  },
+  title: { pt: "O Porto que mostramos aos amigos.", en: "The Porto we show our friends." },
+  lead: {
+    pt: "Gostamos de partilhar a cidade para lá dos postais: as tascas onde comemos, o rio visto de dentro, os dias fora que valem o caminho. Juntámos as pessoas que conhecemos e em quem confiamos.",
+    en: "We like to share the city beyond the postcards: the taverns where we eat, the river seen from the water, the days out worth the drive. These are the people we know and trust.",
+  },
+  image: {
+    src: "/images/placeholder/site-experiences.jpg",
+    alt: {
+      pt: "Hóspede a abrir um mapa do Porto junto a uma janela, com uma garrafa de vinho do Porto na mesa",
+      en: "A guest unfolding a map of Porto by a window, a bottle of port on the table",
+    },
+  },
+  paths: [
+    {
+      id: "porto",
+      title: { pt: "Uns dias na cidade", en: "A few days in the city" },
+      body: {
+        pt: "Comida, rio e ruas antigas, tudo a pé ou a poucos minutos do apartamento.",
+        en: "Food, the river and old streets, all on foot or a few minutes from your door.",
+      },
+    },
+    {
+      id: "beyond",
+      title: { pt: "Uma estadia mais longa", en: "A longer stay" },
+      body: {
+        pt: "O Douro, Braga, Guimarães, Aveiro e Coimbra: o Norte cabe num dia de cada vez.",
+        en: "The Douro, Braga, Guimarães, Aveiro and Coimbra: the North, one day at a time.",
+      },
+    },
+    {
+      id: "plan",
+      title: { pt: "Chegar e circular", en: "Getting here and around" },
+      body: {
+        pt: "Transfers do aeroporto, transportes e reservas: diga-nos o que precisa e tratamos do resto.",
+        en: "Airport transfers, getting around and bookings: tell us what you need and we'll handle the rest.",
+      },
+    },
+  ] satisfies Array<{ id: "porto" | "beyond" | "plan"; title: Localized; body: Localized }>,
+  porto: {
+    title: { pt: "No Porto", en: "In Porto" },
+    intro: {
+      pt: "Meio dia ou uma noite: o melhor da cidade, com quem a conhece por dentro.",
+      en: "Half a day or an evening: the best of the city, with people who know it from the inside.",
+    },
+  },
+  beyond: {
+    title: { pt: "Para lá do Porto", en: "Beyond Porto" },
+    intro: {
+      pt: "Dias inteiros pelo Norte, com recolha no centro e regresso ao fim do dia.",
+      en: "Full days across the North, with pick-up in the centre and back by evening.",
+    },
+  },
+  portal: {
+    title: { pt: "O seu guia digital do Porto", en: "Your digital guide to Porto" },
+    body: {
+      pt: "Antes de chegar, recebe o acesso ao nosso guia: tudo o que precisa para a estadia, no telemóvel, ao seu ritmo.",
+      en: "Before you arrive, you get access to our guide: everything you need for your stay, on your phone, at your own pace.",
+    },
+    points: [
+      { pt: "Check-in e informação prática da casa", en: "Check-in and practical details for your home" },
+      { pt: "Os restaurantes, cafés e bares de que gostamos", en: "The restaurants, cafés and bars we like" },
+      { pt: "Experiências e serviços extra, reservados em minutos", en: "Experiences and extra services, booked in minutes" },
+      { pt: "Ideias para explorar a cidade por conta própria", en: "Ideas for exploring the city on your own" },
+    ] satisfies Localized[],
+    note: {
+      pt: "Nem tudo cabe num guia. Para o resto, a equipa está a uma mensagem de distância.",
+      en: "Not everything fits in a guide. For the rest, the team is one message away.",
+    },
+  },
+  links: {
+    title: { pt: "Mais ideias nossas", en: "More of our picks" },
+    items: [
+      {
+        href: "https://www.google.com/maps/d/u/0/viewer?mid=1Mg0-zy9K3FjABk3WDnLd534Rej0mb4vj",
+        title: { pt: "O nosso mapa do Porto", en: "Our map of Porto" },
+        body: { pt: "Os lugares de que gostamos, no Google Maps.", en: "The places we love, on Google Maps." },
+      },
+      {
+        href: "https://www.viator.com/agent-trip-suggestions/W-ef3a3986-c7c6-458e-b799-c812ce861719?currency=EUR",
+        title: { pt: "As nossas escolhas no Viator", en: "Our picks on Viator" },
+        body: { pt: "Mais passeios que recomendamos, para reservar online.", en: "More tours we recommend, to book online." },
+      },
+    ] satisfies Array<{ href: string; title: Localized; body: Localized }>,
+  },
+  form: {
+    title: { pt: "Ajudamos a planear", en: "Let us help you plan" },
+    body: {
+      pt: "Diga-nos quando vem e o que lhe apetece. Respondemos com uma proposta e tratamos das reservas, privadas ou em grupo.",
+      en: "Tell us when you're coming and what you're in the mood for. We'll reply with a suggestion and handle the bookings, private or shared.",
+    },
+  },
+};

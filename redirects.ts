@@ -15,6 +15,10 @@ export const redirects: Redirect[] = [
   { source: "/pt/experiences-your-guest-portal", destination: "/pt/experiencias", permanent: true },
   { source: "/experiences-your-guest-portal", destination: "/en/experiences", permanent: true },
   { source: "/en/experiences-your-guest-portal", destination: "/en/experiences", permanent: true },
+  // About
+  { source: "/pt/spa", destination: "/pt/sobre-nos", permanent: true },
+  { source: "/spa", destination: "/en/about", permanent: true },
+  { source: "/en/spa", destination: "/en/about", permanent: true },
   // FAQ
   { source: "/pt/faqs", destination: "/pt/perguntas-frequentes", permanent: true },
   { source: "/faqs", destination: "/en/faq", permanent: true },

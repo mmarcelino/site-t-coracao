@@ -124,6 +124,13 @@
     text-wrap: pretty;
   }
 
+  /* Tailwind 4 dropped the pointer cursor on buttons; anything clickable shows the hand. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary {
+    cursor: pointer;
+  }
+
   ::selection {
     background: var(--color-azulejo);
     color: var(--color-paper);

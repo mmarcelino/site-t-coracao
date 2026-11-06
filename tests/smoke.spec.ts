@@ -112,7 +112,7 @@ test("booking widget opens and shows a mock quote", async ({ page, context }) =>
 test("mobile booking bar opens the sheet", async ({ page, context }) => {
   await dismissConsent(context);
   await page.setViewportSize({ width: 375, height: 812 });
-  await page.goto("/pt/apartamentos/cordoaria-garden-view-studio");
+  await page.goto("/pt/apartamentos/cordoaria-garden-view-studio-1st-floor");
   await page.getByTestId("booking-bar").getByRole("button").click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await expect(page.locator(".tc-calendar")).toBeVisible();
@@ -148,7 +148,7 @@ test("consent banner: accept hides it and can be reopened from the footer", asyn
 test("gallery lightbox opens, navigates with the keyboard and closes", async ({ page, context }) => {
   await dismissConsent(context);
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/pt/apartamentos/sao-bento-station-view-studio");
+  await page.goto("/pt/apartamentos/sao-bento-ii-sao-bento-railway-station-view");
   await page.getByTestId("gallery-all").click();
   const lightbox = page.getByTestId("lightbox");
   await expect(lightbox).toContainText("1 de 8");
@@ -162,7 +162,7 @@ test("gallery lightbox opens, navigates with the keyboard and closes", async ({ 
 test("whatsapp link carries a page-aware message", async ({ page, context }) => {
   await dismissConsent(context);
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/en/apartments/mouzinho-32-rooftop-e");
+  await page.goto("/en/apartments/mouzinho32-rooftop-e");
   const href = await page.getByTestId("booking-widget").getByTestId("whatsapp-link").getAttribute("href");
   expect(href).toContain("wa.me/351962708740");
   expect(decodeURIComponent(href ?? "")).toContain("Rooftop E (Mouzinho 32)");

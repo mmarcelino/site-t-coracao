@@ -1,53 +1,83 @@
-import { getListings } from "./listings";
-import { mockReviews, mockSourceAggregates } from "./mock/reviews";
+import { apartmentReviews } from "@/content/apartment-reviews";
+import { reviewScores, type CuratedReview } from "@/content/reviews";
 import type { Locale, Review, ReviewAggregate, ReviewSource } from "./types";
 
 /**
- * Reviews. Excerpts and per-platform aggregates are MOCK (see ./mock/reviews.ts).
- * The overall figure is computed from real Guesty per-listing aggregates, but only over the
- * 10 listings in the mock set, so it is flagged mock too until it covers the whole portfolio.
+ * Reviews: each apartment's hand-picked real guest reviews (`src/content/apartment-reviews.ts`,
+ * refreshed every few months with `pnpm reviews:fetch` / `reviews:apply`) and a snapshot of the
+ * platform scores; no live feed. Quotes in another language than the page's are our translation,
+ * flagged with `translatedFrom`.
  */
-export async function getReviews(
-  locale: Locale,
-  opts: { listingId?: string; limit?: number } = {},
-): Promise<Review[]> {
-  return (await getReviewPage(locale, opts)).reviews;
+
+/** Home quotes: drawn from the apartments' own, so each refresh updates the home page too. */
+const HOME_COUNT = 30;
+/** Only reviews from the last three months (counted back from the newest) go on the home page. */
+const HOME_WINDOW_DAYS = 90;
+/** What makes a quote worth leading with: about the place and the people, not just "great stay". */
+const STRONG = /beautiful|stunning|gorgeous|view|design|histor|charm|light|detail|thoughtful|welcome|recommend|river|douro|tiles?|building|host|team|special|home/gi;
+
+function strength(r: CuratedReview): number {
+  const words = new Set((r.text.en.match(STRONG) ?? []).map((w) => w.toLowerCase())).size;
+  const length = r.text.en.length;
+  return Math.min(words, 6) + (length >= 180 && length <= 420 ? 3 : length >= 120 ? 1 : 0);
+}
+
+/** A quote that can lead the home page: full and specific, not a list of facts ("Wine bar (paid), coffee…"). */
+const isFeatured = (r: CuratedReview) => strength(r) >= 5 && r.text.en.length >= 150 && !r.text.en.includes("(");
+/** Too thin for the home page at all (still shown on the flat's own page). */
+const isFlat = (r: CuratedReview) => strength(r) < 3 || r.text.en.length < 100 || /\(paid\)/i.test(r.text.en);
+
+/**
+ * The strongest recent reviews across all homes, one per home so they cover different flats. The
+ * full, specific ones lead (newest first), then the plainer ones (newest first): visitors read the
+ * first page, so it gets the best of the recent quotes; recent dates are what reassure.
+ */
+function homeSelection(): CuratedReview[] {
+  const all = Object.values(apartmentReviews).flat().filter((r) => !isFlat(r));
+  const newest = all.reduce((max, r) => (r.date > max ? r.date : max), "");
+  const since = new Date(Date.parse(newest) - HOME_WINDOW_DAYS * 864e5).toISOString().slice(0, 10);
+  const byDate = (a: CuratedReview, b: CuratedReview) => b.date.localeCompare(a.date);
+  // Recent ones by strength, then (if a quiet season leaves too few) the rest by date.
+  const ranked = [
+    ...all.filter((r) => r.date >= since).sort((a, b) => strength(b) - strength(a) || byDate(a, b)),
+    ...all.filter((r) => r.date < since).sort(byDate),
+  ];
+  const seen = new Set<string | undefined>();
+  const picked = ranked.filter((r) => !seen.has(r.listingId) && seen.add(r.listingId)).slice(0, HOME_COUNT);
+  return [...picked.filter(isFeatured).sort(byDate), ...picked.filter((r) => !isFeatured(r)).sort(byDate)];
 }
 
 /**
- * One page of reviews plus the total that matches, for "Show more" on the home page. Shaped for the real sources,
- * which page by offset (Guesty) or return a handful per place (Google).
+ * One page of quotes plus how many there are, for "Show more reviews", newest first. With
+ * `listingId`: that apartment's own reviews; otherwise the home selection.
  */
 export async function getReviewPage(
   locale: Locale,
   opts: { listingId?: string; source?: ReviewSource; offset?: number; limit?: number } = {},
 ): Promise<{ reviews: Review[]; total: number }> {
-  const pool = mockReviews.filter(
-    (r) => (!opts.listingId || r.listingId === opts.listingId) && (!opts.source || r.source === opts.source),
-  );
-  // Prefer reviews in the visitor's language, then the rest; keep the newest first within each.
-  const sorted = [...pool].sort((a, b) => {
-    const lang = Number(b.language === locale) - Number(a.language === locale);
-    return lang !== 0 ? lang : b.date.localeCompare(a.date);
-  });
-  // Unless one platform is asked for, take turns across platforms so no single one fills a page.
-  const bySource = [...Map.groupBy(sorted, (r) => r.source).values()];
-  const rounds = Math.max(0, ...bySource.map((l) => l.length));
-  const ordered = opts.source ? sorted : Array.from({ length: rounds }, (_, i) => bySource.flatMap((l) => l[i] ?? [])).flat();
+  const selection = opts.listingId ? (apartmentReviews[opts.listingId] ?? []) : homeSelection();
+  const pool: Review[] = selection
+    .filter((r) => !opts.source || r.source === opts.source)
+    .map((r) => {
+      const original = r.language ?? "en";
+      return {
+        ...r,
+        text: r.text[locale],
+        language: locale,
+        ...(original === locale ? {} : { translatedFrom: original }),
+        mock: false,
+      };
+    });
   const offset = opts.offset ?? 0;
-  return { reviews: ordered.slice(offset, offset + (opts.limit ?? ordered.length)), total: ordered.length };
+  return { reviews: pool.slice(offset, offset + (opts.limit ?? pool.length)), total: pool.length };
 }
 
-export async function getReviewSummary(locale: Locale): Promise<{
-  overall: ReviewAggregate;
-  bySource: Record<ReviewSource, ReviewAggregate>;
+/** Per-platform scores, each on its own scale (guests can check them at the source). */
+export async function getReviewSummary(): Promise<{
+  bySource: { google: ReviewAggregate } & Partial<Record<ReviewSource, ReviewAggregate>>;
 }> {
-  const listings = await getListings(locale);
-  const rated = listings.filter((l) => l.reviews);
-  const count = rated.reduce((s, l) => s + (l.reviews?.count ?? 0), 0);
-  const weighted = rated.reduce((s, l) => s + (l.reviews?.score ?? 0) * (l.reviews?.count ?? 0), 0);
-  return {
-    overall: { source: "guesty", outOf: 10, score: count ? Math.round((weighted / count) * 10) / 10 : 0, count, mock: true },
-    bySource: mockSourceAggregates,
-  };
+  const bySource = Object.fromEntries(reviewScores.map((s) => [s.source, s]));
+  const google = reviewScores.find((s) => s.source === "google");
+  if (!google) throw new Error("reviewScores needs the Google score");
+  return { bySource: { ...bySource, google } };
 }

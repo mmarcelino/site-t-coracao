@@ -52,8 +52,8 @@ export const faq: FaqItem[] = [
       en: "Where in Porto are the apartments?",
     },
     answer: {
-      pt: "No centro histórico do Porto, a pé dos principais pontos da cidade: Ribeira, Baixa e São Bento, Cordoaria e Clérigos, Aliados e Santa Catarina. A Casa do Farol, a moradia de três quartos, fica na Foz do Douro, em frente ao mar.",
-      en: "In Porto's historic centre, within walking distance of the city's main sights: Ribeira, Baixa and São Bento, Cordoaria and Clérigos, Aliados and Santa Catarina. Casa do Farol, the three-bedroom house, is in Foz do Douro, facing the sea.",
+      pt: "No centro histórico do Porto, a pé dos principais pontos da cidade, em quatro zonas: São Bento e Ribeira, Clérigos e Cordoaria, Cedofeita e Galerias, e Aliados e Bolhão. A Casa do Farol, a moradia de três quartos, fica na Foz do Douro, em frente ao mar.",
+      en: "In Porto's historic centre, within walking distance of the city's main sights, in four areas: São Bento & Ribeira, Clérigos & Cordoaria, Cedofeita & Galerias, and Aliados & Bolhão. Casa do Farol, the three-bedroom house, is in Foz do Douro, facing the sea.",
     },
   },
   {
@@ -65,8 +65,8 @@ export const faq: FaqItem[] = [
       en: "What is the best area to stay in Porto?",
     },
     answer: {
-      pt: "Para uma primeira visita, a Ribeira e a Baixa: tudo se faz a pé, do rio às caves do vinho do Porto em Gaia. A Cordoaria e Cedofeita são mais calmas e locais, com galerias, livrarias e cafés. A Foz do Douro é para quem quer mar e passeios à beira-rio, a cerca de 20 minutos do centro de elétrico ou autocarro.",
-      en: "For a first visit, Ribeira and Baixa: everything is walkable, from the river to the port wine cellars in Gaia. Cordoaria and Cedofeita are calmer and more local, with galleries, bookshops and cafés. Foz do Douro is for the sea and riverside walks, about 20 minutes from the centre by tram or bus.",
+      pt: "Para uma primeira visita, São Bento e Ribeira: tudo se faz a pé, da estação ao rio e às caves do vinho do Porto em Gaia. Clérigos e Cordoaria juntam monumentos, jardins e o melhor pôr do sol sobre o Douro. Cedofeita e Galerias é o bairro das galerias de arte e da noite; Aliados e Bolhão, o do mercado, das compras e do metro direto para o aeroporto. A Foz do Douro é para quem quer mar e passeios à beira-rio, a cerca de 20 minutos do centro de elétrico ou autocarro.",
+      en: "For a first visit, São Bento & Ribeira: everything is walkable, from the station to the river and the port wine cellars in Gaia. Clérigos & Cordoaria combine landmarks, gardens and the best sunset over the Douro. Cedofeita & Galerias is the quarter of art galleries and nightlife; Aliados & Bolhão, of the market, shopping and the direct metro to the airport. Foz do Douro is for the sea and riverside walks, about 20 minutes from the centre by tram or bus.",
     },
   },
   {
@@ -188,8 +188,8 @@ export const faq: FaqItem[] = [
       en: "What is the cancellation policy?",
     },
     answer: {
-      pt: "Nas reservas diretas, o cancelamento é gratuito até 14 dias antes da chegada. Depois disso, cobramos a primeira noite; se precisar de alterar datas, fale connosco e fazemos o possível para ajudar.",
-      en: "Direct bookings can be cancelled free of charge up to 14 days before arrival. After that, the first night is charged; if you need to move your dates, talk to us and we'll do our best to help.",
+      pt: "Depende da tarifa que escolher. Na tarifa flexível, o cancelamento é gratuito até 5 dias antes da chegada (30 dias nas estadias de um mês ou mais); depois disso, é cobrado o valor total. Temos também tarifas mais baratas com condições mais rígidas, como a não reembolsável. Cada tarifa mostra a data exata até à qual pode cancelar antes de pagar; se precisar de alterar datas, fale connosco e fazemos o possível para ajudar.",
+      en: "It depends on the rate you choose. On our flexible rate, cancellation is free up to 5 days before arrival (30 days for stays of a month or more); after that, the full amount is charged. We also offer lower rates with stricter terms, such as non-refundable. Each rate shows its exact cancellation deadline before you pay; if you need to move your dates, talk to us and we'll do our best to help.",
     },
   },
   {
@@ -436,7 +436,7 @@ export const faq: FaqItem[] = [
   {
     id: "airport",
     topic: "practical",
-    surfaces: [],
+    surfaces: ["experiences"],
     toConfirm: true,
     question: {
       pt: "Podem organizar transfer do aeroporto?",

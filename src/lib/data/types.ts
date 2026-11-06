@@ -2,8 +2,8 @@
  * Domain types used by pages and components (CLAUDE.md §6).
  *
  * Two layers:
- * - `Guesty*` types mirror the raw shapes returned by Guesty (Open API listings and the
- *   Booking Engine API quote). Verify field names against Guesty's docs when access arrives.
+ * - `Guesty*` types mirror the shapes returned by Guesty's Booking Engine API (listings are
+ *   normalized slightly in `guesty/listings.ts`, e.g. the licence object → string).
  * - Domain types (`Listing`, `Building`, `Quote`, ...) are what the UI consumes, already
  *   resolved for one locale. Mappers in `src/lib/data/*` turn raw data into domain types,
  *   so swapping mock → Guesty only touches the data layer.
@@ -69,23 +69,24 @@ export interface GuestyListing {
   license: string | null;
   /** Guesty's aggregate across channels, 0–10 scale. */
   reviews: { avg: number | null; total: number };
+  /** The client tags each listing with its building ("Taipas", "Sá da Bandeira"...). */
+  tags?: string[];
+  areaSquareFeet?: number | null;
 }
 
-/** Shape of a Guesty Booking Engine API quote (subset we render). */
+/** Shape of a Guesty Booking Engine API quote (subset we use; checked against a live quote 2026-11-04). */
 export interface GuestyQuote {
   _id: string;
   createdAt: string;
   expiresAt: string;
-  listingId: string;
-  checkInDateLocalized: string;
-  checkOutDateLocalized: string;
-  guestsCount: number;
   rates: {
     ratePlans: Array<{
       ratePlan: {
         _id: string;
         name: string;
+        /** e.g. "flexible", "semi_moderate", "strict", "super_strict" (non-refundable). */
         cancellationPolicy: string;
+        priceAdjustment?: { type: string; direction: "increase" | "decrease"; amount: number };
         money: {
           currency: string;
           fareAccommodation: number;
@@ -98,11 +99,13 @@ export interface GuestyQuote {
             title: string;
             amount: number;
             currency: string;
-            type: "ACCOMMODATION_FARE" | "CLEANING_FEE" | "TAX" | "DISCOUNT";
+            /** ACCOMMODATION_FARE, CLEANING_FEE, TAX, DISCOUNT, ... */
+            type: string;
             normalType: string;
           }>;
         };
       };
+      /** Per-night rates before the booking-engine adjustments: they don't add up to the fare. */
       days: Array<{ date: string; price: number; currency: string; basePrice: number }>;
     }>;
   };
@@ -110,7 +113,7 @@ export interface GuestyQuote {
 
 /* ------------------------------------------------------------------ Domain */
 
-export type ListingCategory = "studio" | "one-bed" | "two-bed" | "house";
+export type ListingCategory = "studio" | "one-bed" | "two-bed" | "three-bed" | "house";
 
 /** Tags behind collections and apartment filters. */
 export type ListingTag = "couples" | "families" | "sea" | "outdoor" | "views" | "remote-work";
@@ -140,7 +143,7 @@ export interface ReviewAggregate {
 export interface Listing {
   id: string;
   slug: string;
-  /** Guest-facing name, e.g. "Rooftop E". */
+  /** Guest-facing name: Guesty's title without the brand prefix, e.g. "Mouzinho32 Rooftop E". */
   title: string;
   /** Original Guesty title, kept for reference/search. */
   guestyTitle: string;
@@ -152,10 +155,12 @@ export interface Listing {
   bedrooms: number;
   bathrooms: number;
   beds: number | null;
-  /** INVENTED for the mock: Guesty does not expose this for these listings. */
-  areaSqm: number;
+  /** From Guesty's `areaSquareFeet` when plausible; null when unknown (never shown then). */
+  areaSqm: number | null;
+  /** Empty when unknown. */
   floor: string;
-  hasLift: boolean;
+  /** null when unknown: the UI then says nothing about lifts. */
+  hasLift: boolean | null;
   address: { street: string; zipcode: string; city: string; lat: number; lng: number };
   buildingId: string;
   neighbourhoodSlug: string;
@@ -164,12 +169,16 @@ export interface Listing {
   description: {
     summary: string;
     space: string;
+    /** One factual line about the building from Guesty's own copy, when this flat's text lacks it. */
+    building: string;
     neighbourhood: string;
     notes: string;
   };
   highlights: string[];
   amenities: AmenityKey[];
   price: {
+    /** Lowest nightly rate bookable in the next 120 days (Guesty), else the base price. */
+    from: Money;
     base: Money;
     cleaningFee: Money;
     extraPersonFee: Money;
@@ -190,33 +199,22 @@ export interface Building {
   name: string;
   street: string;
   neighbourhoodSlug: string;
-  /** e.g. "Late 19th century" — INVENTED until the client supplies history. */
-  era: string;
-  historyLine: string;
-  story: string;
+  /** The cover of the building's first home. */
   heroImage: Picture;
-  storyImage: Picture;
   listingIds: string[];
-  hasLift: boolean;
+  hasLift: boolean | null;
 }
 
-export type GuideCategory = "eat" | "drink" | "see" | "practical";
-
-export interface GuideEntry {
-  category: GuideCategory;
+/** A landmark near a building, with the walk to it (estimated from the building's address). */
+export interface NearbyPlace {
   name: string;
-  note: string;
+  minutes: number;
 }
 
 export interface Neighbourhood {
   slug: string;
   name: string;
-  tagline: string;
   intro: string;
-  nearby: string[];
-  guide: GuideEntry[];
-  coordinates: { lat: number; lng: number };
-  image: Picture;
 }
 
 export interface QuoteRequest {
@@ -229,6 +227,23 @@ export interface QuoteRequest {
 export interface QuoteNight {
   date: string;
   price: number;
+}
+
+/** One bookable rate for a stay (a Guesty rate plan), with its own price and cancellation terms. */
+export interface RateOption {
+  ratePlanId: string;
+  /** Guesty's internal plan name (e.g. "Daily custom"); not shown to guests. */
+  name: string;
+  nonRefundable: boolean;
+  /** Last day (YYYY-MM-DD, exclusive) to cancel for free; null when non-refundable. */
+  freeCancellationUntil: string | null;
+  accommodation: number;
+  lengthOfStayAdjustment: number;
+  extraGuestFee: number;
+  otherFees: number;
+  cleaningFee: number;
+  touristTax: number;
+  total: number;
 }
 
 export interface Quote {
@@ -245,15 +260,24 @@ export interface Quote {
   lengthOfStayAdjustment: number;
   cleaningFee: number;
   extraGuestFee: number;
+  /** Fees other than cleaning (e.g. a pet fee), so the lines always add up to the total. */
+  otherFees: number;
   touristTax: number;
   total: number;
   cancellationPolicy: "flexible" | "moderate" | "strict";
-  mock: true;
+  /** The Guesty rate plan priced here (needed to book it later). */
+  ratePlanId: string;
+  ratePlanName: string;
+  /** Expiry of the Guesty quote (24 h). */
+  expiresAt: string;
+  /** Every rate the guest can choose, most flexible first (the fields above = the first one). */
+  options: RateOption[];
+  mock: boolean;
 }
 
 export type QuoteResult =
   | { ok: true; quote: Quote }
-  | { ok: false; reason: "unavailable" | "min-nights" | "max-guests" | "invalid-dates"; minNights?: number };
+  | { ok: false; reason: "unavailable" | "min-nights" | "max-guests" | "invalid-dates" | "error"; minNights?: number };
 
 export interface AvailabilityDay {
   date: string;
@@ -267,10 +291,14 @@ export interface Review {
   source: ReviewSource;
   /** Native scale of the source: Google/Airbnb 1–5, Booking 1–10. */
   rating: number;
-  author: string;
+  /** First name; null when the source doesn't share it (Airbnb). */
+  author: string | null;
   date: string;
-  language: Locale | "fr" | "es" | "de";
+  /** Language of `text` ("en", "pt"…). */
+  language: string;
   text: string;
+  /** The guest's language when `text` is our translation (e.g. "en" on the Portuguese site); captions say so. */
+  translatedFrom?: string;
   listingId?: string;
   mock: boolean;
 }
