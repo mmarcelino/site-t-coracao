@@ -47,7 +47,9 @@ async function searchStay(checkIn: string, checkOut: string, guests?: number): P
     const res = await guestyGet<SearchPage>(`/listings?${query}`);
     all.push(...res.results);
     cursor = res.pagination?.cursor?.next ?? undefined;
-    if (!cursor || !res.results.length) break;
+    // Guesty gives a next cursor even when this page has everything (the next page is empty):
+    // following it would double the requests, so stop once we hold the total.
+    if (!cursor || !res.results.length || all.length >= (res.pagination?.total ?? Infinity)) break;
   }
   return all;
 }
