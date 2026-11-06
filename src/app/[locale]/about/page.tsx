@@ -6,7 +6,7 @@ import { about } from "@/content/about";
 import { site } from "@/content/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getBuildings, getListings } from "@/lib/data";
+import { getListings } from "@/lib/data";
 import { createFormatter } from "@/lib/format";
 import { alternates } from "@/lib/seo";
 import { PageIntro } from "@/components/page/PageIntro";
@@ -27,16 +27,16 @@ export default async function AboutPage() {
   const t = await getTranslations("aboutPage");
   const tw = await getTranslations("whatsapp");
   const format = createFormatter(locale);
-  // One after the other: both read the same cached Guesty listings, and awaiting that cache from two
-  // calls at once trips Next's "use cache" deadlock check in dev.
+  // Buildings are counted from the listings rather than `getBuildings()`: both read the same cached
+  // Guesty data, and a second read here trips Next's "use cache" check for shared promises.
   const listings = await getListings(locale);
-  const buildings = await getBuildings();
+  const buildings = new Set(listings.map((l) => l.buildingId).filter(Boolean)).size;
 
   const figures = [
     { value: String(site.foundedYear), label: t("founded") },
     { value: `${format.number(site.guestsPerYear)}+`, label: t("guests") },
     { value: format.number(listings.length), label: t("homes") },
-    { value: format.number(buildings.filter((b) => b.listingIds.length > 0).length), label: t("buildings") },
+    { value: format.number(buildings), label: t("buildings") },
   ];
 
   return (
