@@ -2,7 +2,7 @@ import { listingContent, listingFeatures, type ListingContent, type RoomKey } fr
 import { buildings } from "@/content/buildings";
 import translations from "@/content/listing-translations.json";
 import snapshot from "./mock/guesty-listings.snapshot.json";
-import { isGuestyConfigured } from "./guesty/client";
+import { isGuestyConfigured, mockDataAllowed } from "./guesty/client";
 import { fetchGuestyFromRates } from "./guesty/availability";
 import { fetchGuestyListing, fetchGuestyListings } from "./guesty/listings";
 import type { AmenityKey, GuestyListing, Listing, ListingCategory, ListingTag, Locale, Localized } from "./types";
@@ -11,14 +11,16 @@ const snapshotListings = snapshot as GuestyListing[];
 
 /**
  * Listing source: the Guesty Booking Engine API when credentials are set (`.env.local`), else the
- * mock snapshot of the public booking site (2026-10-26, photos re-hosted locally). If Guesty fails,
- * pages fall back to the snapshot rather than break.
+ * mock snapshot of the public booking site (2026-10-26, photos re-hosted locally). If Guesty fails
+ * locally, pages fall back to the snapshot rather than break; on Vercel the error stands (a failed
+ * build, or the last good page kept), never mock homes (`mockDataAllowed`).
  */
 async function loadGuestyListings(): Promise<GuestyListing[]> {
   if (!isGuestyConfigured()) return snapshotListings;
   try {
     return (await fetchGuestyListings()).map(withSnapshotFloor);
   } catch (error) {
+    if (!mockDataAllowed()) throw error;
     console.error(`[guesty] ${errorMessage(error)}; showing mock listings`);
     return snapshotListings;
   }
@@ -31,6 +33,7 @@ async function loadGuestyListing(id: string): Promise<GuestyListing | null> {
     const listing = await fetchGuestyListing(id);
     return listing ? withSnapshotFloor(listing) : null;
   } catch (error) {
+    if (!mockDataAllowed()) throw error;
     console.error(`[guesty] ${errorMessage(error)}; using list data for ${id}`);
     return (await loadGuestyListings()).find((l) => l._id === id) ?? null;
   }
@@ -42,6 +45,7 @@ async function loadFromRates(): Promise<Record<string, number>> {
   try {
     return await fetchGuestyFromRates();
   } catch (error) {
+    if (!mockDataAllowed()) throw error;
     console.error(`[guesty] ${errorMessage(error)}; "from" prices fall back to base prices`);
     return {};
   }

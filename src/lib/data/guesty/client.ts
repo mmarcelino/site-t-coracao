@@ -48,9 +48,34 @@ export function guestyClientId(): string | null {
   return credentials()?.clientId ?? null;
 }
 
-/** True when real credentials are set; otherwise the data layer stays on mock data. */
+/**
+ * Mock data is for local work only. On a Vercel deployment (preview or production) the site must
+ * show the client's real homes, prices and calendars, so it never quietly falls back to the
+ * snapshot: missing settings or a Guesty failure stop the build instead, and at runtime the last
+ * good page keeps being served. (Production once went out on mock data unnoticed, 2026-11-06.)
+ */
+export function mockDataAllowed(): boolean {
+  return process.env.VERCEL !== "1";
+}
+
+/** True when real credentials are set; otherwise the data layer stays on mock data (locally only). */
 export function isGuestyConfigured(): boolean {
-  return credentials() !== null;
+  if (credentials() !== null) {
+    if (!mockDataAllowed() && !isTokenStoreConfigured()) {
+      throw new Error(
+        `[guesty] KV_REST_API_URL / KV_REST_API_TOKEN are not set for this Vercel environment (${process.env.VERCEL_ENV}); ` +
+          "without the shared token store each instance spends one of Guesty's 3 daily tokens.",
+      );
+    }
+    return true;
+  }
+  if (!mockDataAllowed()) {
+    throw new Error(
+      `[guesty] GUESTY_BOOKING_ENGINE_CLIENT_ID / _SECRET are not set for this Vercel environment (${process.env.VERCEL_ENV}). ` +
+        "Refusing to publish mock homes and prices: add the keys in Vercel → Settings → Environment Variables.",
+    );
+  }
+  return false;
 }
 
 function isFresh(t: CachedToken | null): t is CachedToken {
